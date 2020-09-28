@@ -47,7 +47,7 @@ jobs:
         run: Rscript -e 'bookdown::render_book("index.Rmd", quiet = TRUE)'
 
       - name: Commit results
-        if: github.repository == 'saferactive/RoadSafetyManual'
+        if: github.repository == 'saferactive/rrsrr'
         run: |
           cd _book
           git init
