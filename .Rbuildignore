@@ -1,1 +1,6 @@
 ^\.github$
+^.*\.Rproj$
+^\.Rproj\.user$
+^_book$
+^index\.Rmd$
+^01-intro\.Rmd$
