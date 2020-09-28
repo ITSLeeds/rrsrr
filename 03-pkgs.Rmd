@@ -71,12 +71,12 @@ g1 = ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age))
 g2 = ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age)) +
   ggthemes::theme_economist()
 g3 = cowplot::plot_grid(g1, g2)
-ggsave(filename = "inst/ggtheme-plot.png", width = 8, height = 2, dpi = 80)
+ggsave(filename = "figures/ggtheme-plot.png", width = 8, height = 2, dpi = 80)
 ```
 
 ```{r gg2, echo=FALSE, out.width="80%", fig.align="center"}
 library(ggplot2)
-knitr::include_graphics("https://raw.githubusercontent.com/ropensci/stats19/b4c40ad4c134853007493a9eac116b00acd4ec5a/inst/ggtheme-plot.png")
+knitr::include_graphics("figures/ggtheme-plot.png")
 ```
 
 ## dplyr and pipes

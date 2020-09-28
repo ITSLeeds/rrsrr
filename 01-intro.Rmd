@@ -188,12 +188,16 @@ z_charcter
 **Bonus: reproduce the following plot**
 
 ```{r smile, out.width="30%", fig.align="center"}
-eyes = c(2.3, 4, 3.7, 4)
-eyes = matrix(eyes, ncol = 2, byrow = T)
-mouth = c(2, 2, 2.5, 1.3, 3, 1, 3.5, 1.3, 4, 2)
-mouth = matrix(mouth, ncol = 2, byrow = T)
-plot(eyes, type = "p", main = "RRR!", cex = 2, xlim = c(1, 5), ylim = c(0, 5))
-lines(mouth, type = "l", col = "red")
+# eyes = c(2.3, 4, 3.7, 4)
+# eyes = matrix(eyes, ncol = 2, byrow = T)
+# mouth = c(2, 2, 2.5, 1.3, 3, 1, 3.5, 1.3, 4, 2)
+# mouth = matrix(mouth, ncol = 2, byrow = T)
+# # pdf("figures/smile.pdf")
+# # png("figures/smile.png")
+# plot(eyes, type = "p", main = "RRR!", cex = 2, xlim = c(1, 5), ylim = c(0, 5))
+# lines(mouth, type = "l", col = "red")
+# dev.off()
+knitr::include_graphics("figures/smile.png")
 ```
 
 \newpage

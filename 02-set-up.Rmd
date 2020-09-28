@@ -12,7 +12,8 @@ The first exercise is to open up RStudio and take a look around and identify the
 Try changing the Global Settings (in the Tools menu) and see RStudio's short cuts by pressing `Alt-Shift-K` (or `Option+Shift+K` on Mac).
 
 ```{r rstudioui, echo=FALSE, out.width="70%"}
-knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/rstudio-ui.png")
+# download.file("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/rstudio-ui.png", "figures/rstudio-ui.png")
+knitr::include_graphics("figures/rstudio-ui.png")
 ```
 
 ## Projects and scripts
@@ -128,14 +129,18 @@ tibble::tibble(
 RStudio can help you write code by autocompleting it. RStudio will look for similar objects and functions after typing the first three letters of a name.
 
 ```{r autocomp, echo=FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/autocomplete.jpg")
+# knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/autocomplete.jpg")
+# download.file("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/autocomplete.jpg", "figures/autocomplete.jpg")
+knitr::include_graphics("figures/autocomplete.jpg")
 ```
 
 When there is more than one option you can select from the list using the mouse or arrow keys.
 Within a function, you can get a list of arguments by pressing Tab.
 
 ```{r help, echo=FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/fucntionhelp.jpg")
+# knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/fucntionhelp.jpg")
+# download.file("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/fucntionhelp.jpg", "figures/functionhelp.jpg")
+knitr::include_graphics("figures/functionhelp.jpg")
 ```
 
 ## Getting help
@@ -183,7 +188,9 @@ All the code shown so far is reproducible.
 To test RStudio's debugging features, let's write some code that fails, as illustrated in the figure below.
 
 ```{r debug, echo=FALSE, out.width="60%"}
-knitr::include_graphics("https://raw.githubusercontent.com/ropensci/stats19/master/inst/rstudio-autocomplete.png")
+# knitr::include_graphics("https://raw.githubusercontent.com/ropensci/stats19/master/inst/rstudio-autocomplete.png")
+# download.file("https://raw.githubusercontent.com/ropensci/stats19/master/inst/rstudio-autocomplete.png", "figures/rstudio-autocomplete.png")
+knitr::include_graphics("figures/rstudio-autocomplete.png")
 ```
 
 1. What is the problem with the code shown in the figure?
