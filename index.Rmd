@@ -1,6 +1,7 @@
 ---
-title: "A Book"
-author: "Frida Gomam"
+title: "Reproducible road safety research with R"
+subtitle: "A practical introduction"
+author: "Robin Lovelace"
 site: bookdown::bookdown_site
 documentclass: book
 output:
@@ -8,10 +9,8 @@ output:
   #bookdown::pdf_book: default
 ---
 
-# Hello World
+# Preface {-}
 
-Hi.
-
-Bye.
+Someone to write preface?
 
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->

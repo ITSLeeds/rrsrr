@@ -14,6 +14,10 @@ pdf:
 md:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE)'
 
+word:
+	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::word_document2", clean = FALSE)'
+	Rscript -e 'browseURL("_book/_main.docx")'
+
 install:
 	Rscript -e 'remotes::install_github("Robinlovelace/geocompr")'
 

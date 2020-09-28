@@ -1,2 +1,2 @@
 # RoadSafetyManual
-Reproducible road safety research with R: a practical user manual
+Reproducible road safety research with R: a practical introduction
