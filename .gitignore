@@ -42,3 +42,5 @@ _bookdown_files/
 *.Rds
 *.html
 _main.Rmd
+*.log
+*.tex
