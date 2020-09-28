@@ -8,4 +8,14 @@ Run the command `help.start()` to see a resources introducing base R, and [Chapt
 ] or `data.table` [@R-data.table] approaches in R or even in other languages such as [Python](https://www.python.org/) or [Julia](https://julialang.org/).
 If you just want to get going with processing data we suggest learning how to manipulate data in R first.
 
+## Filtering rows and selecting columns
+
+## Ordering and subsetting
+
+## Long and wide data
+
+
+## Summary table
+
+
 

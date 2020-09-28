@@ -1,4 +1,4 @@
-# R Packages
+# The stats19 R package
 
 ## What are packages?
 

@@ -16,9 +16,79 @@ bibliography:
 citr::tidy_bib_file(rmd_file = "_main.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
 ```
 
+<!-- Structure outline -->
+
+<!-- Preface -->
+
+<!-- 1 Introduction -->
+<!-- 2 R basics -->
+<!-- 3 Using RStudio -->
+<!-- 4 R Packages -->
+<!-- 5 Manipulating data -->
+<!-- 6 Temporal data -->
+<!-- 7 Spatial data -->
+<!-- 8 Joining road crash tables -->
+<!-- 9 Next steps for reproducible road safety research -->
+
+<!-- Structure full -->
+
+<!-- Preface -->
+
+<!-- 1 Introduction -->
+<!-- 1.1 Why R for road safety research? . . . . . . . . . . . . . . . . . . -->
+<!-- 1.2 Prerequisites . . . . . . . . . . . . . . . . . . . . . . . . . . . . . -->
+
+<!-- 2 R basics -->
+<!-- 2.1 Subsetting by index or name . -->
+<!-- 2.2 Subsetting by values . . . . . . -->
+<!-- 2.3 Dealing with NAs and recoding -->
+<!-- 2.4 Changing class . . . . . . . . . -->
+<!-- 2.5 Recoding values . . . . . . . . . -->
+<!-- 2.6 Now you are ready to use R . . -->
+
+<!-- 3 Using RStudio -->
+<!-- 3.1 Projects and scripts . . . -->
+<!-- 3.2 Writing and running code -->
+<!-- 3.3 Viewing Objects . . . . . -->
+<!-- 3.4 Autocompletion . . . . . . -->
+<!-- 3.5 Getting help . . . . . . . . -->
+<!-- 3.6 Commenting Code . . . . -->
+<!-- 3.7 The global environment . -->
+<!-- 3.8 Debugging Code . . . . . -->
+<!-- 3.9 Saving R objects . . . . . -->
+
+<!-- 4 R Packages -->
+<!-- 4.1 What are packages? . . . . . . . . . . . . . . . . . . . . . . . . . 19 -->
+<!-- 4.2 ggplot2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20 -->
+<!-- 4.3 dplyr and pipes . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21 -->
+
+<!-- 5 Manipulating data -->
+
+<!-- 6 Temporal data -->
+
+<!-- 7 Spatial data -->
+<!-- 7.1 sf objects . . . . . . . . . . . . . . . . -->
+<!-- 7.2 Reading and writing spatial data . . . -->
+<!-- 7.3 sf polygons . . . . . . . . . . . . . . . -->
+<!-- 7.4 Spatial subsetting and sf plotting . . . -->
+<!-- 7.5 Geographic joins . . . . . . . . . . . . -->
+<!-- 7.6 CRSs . . . . . . . . . . . . . . . . . . . -->
+<!-- 7.7 Buffers . . . . . . . . . . . . . . . . . . -->
+<!-- 7.8 Attribute operations on sf objects . . . -->
+<!-- 7.9 Matching roads to crashes . . . . . . . -->
+<!-- 7.10 Mapping road crash data . . . . . . . -->
+<!-- 7.11 Analysing point data . . . . . . . . . . -->
+<!-- 7.12 Analysing crash data on road networks -->
+
+<!-- 8 Joining road crash tables -->
+
+<!-- 9 Next steps for reproducible road safety research -->
+
 
 # Preface {-}
 
-Someone to write preface?
+Someone to write preface? Who...
+
+<!-- Comments/questions: should the stats19 package be introduced in a paper of its own right? -->
 
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
