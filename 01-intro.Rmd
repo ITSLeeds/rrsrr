@@ -1,18 +1,3 @@
----
-title: "Introduction to R for road safety: an introduction to R and practical exercises"
-subtitle: "Practical exercises based on UK data from the stats19 package, developed by the Institute for Transport Studies, University of Leeds"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{stats19-training}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
-author: Robin Lovelace, Malcolm Morgan & Andrea Gilardi
-bibliography:
-  - references.bib
-  - packages.bib
----
-
-
 # Introduction
 
 This document provides information, code and, vitally, exercises to test and improve your R skills.
