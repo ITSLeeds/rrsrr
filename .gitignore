@@ -38,3 +38,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 _book
+_bookdown_files/
+*.Rds
+*.html
