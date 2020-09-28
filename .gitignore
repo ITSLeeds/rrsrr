@@ -41,3 +41,4 @@ _book
 _bookdown_files/
 *.Rds
 *.html
+_main.Rmd

@@ -7,7 +7,15 @@ documentclass: book
 output:
   bookdown::gitbook: default
   #bookdown::pdf_book: default
+bibliography:
+  - packages.bib
+  - references.bib
 ---
+
+```{r, include=FALSE, eval=FALSE}
+citr::tidy_bib_file(rmd_file = "_main.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
+```
+
 
 # Preface {-}
 
