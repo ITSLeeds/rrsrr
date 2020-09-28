@@ -1,0 +1,120 @@
+# R Packages
+
+## What are packages?
+
+R has over 15,000 packages (effectively plugins for base R), extending it in almost every direction of statistics and computing.
+Packages provide additional functions, data and documentation. They are very often written by subject-matter experts and therefore tend to fit well with the workflow of the analyst in that particular specialism.
+There are two main stages to using a package: installing it and loading it.
+A third stage is updating it, this is also important.
+
+<!-- installing it... -->
+Install new packages from [The Comprehensive R Archive Network](https://cran.r-project.org/) with the command `install.packages()` (or `remotes::install_github()` to install from GitHub).
+Update packages with the command `update.package()` or in Tools > Check for Package Updates in RStudio.
+You only need to install a package once.
+<!-- **Note: avoid `install.packages()` within a script** -->
+<!-- Packages only need to be installed once. -->
+<!-- You can use `remotes::install_cran()` or `remotes::install_github()` to only install a package if it is not yet installed and up-to-date (note: you only need to use one of these): -->
+
+```{r, eval=FALSE}
+install.packages("sf")
+# remotes::install_github("r-spatial/sf")
+```
+
+<!-- now talk about loading packages -->
+Installed packages are loaded with the command `library()`.
+Usually, the package will load silently.
+In some cases the package will provide a message, as illustrated below.
+
+```{r}
+library(sf)
+```
+
+To use a function in a package without first loading the package, use double colons, as shown below (this calls the `tibble()` function from the `tibble` package).
+
+```{r tibble2, eval=FALSE}
+crashes_tibble = tibble::tibble(
+  vehicle_type,
+  casualty_type,
+  casualty_age,
+  dark
+)
+```
+
+1. Take a look in the Packages tab in the Files pane in RStudio (bottom right by default).
+1. What version of the `stats19` package is installed on your computer?
+1. Run the command `update.packages()`. What happens? Why?
+
+## ggplot2
+
+Let's take a look at a particular package.
+`ggplot2` is a generic plotting package that is part of the ['tidyverse'](https://www.tidyverse.org/) meta-package, which is an "opinionated collection of R packages designed for data science". 
+All packages in the tidyverse "share an underlying design philosophy, grammar, and data structures". 
+`ggplot2` is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
+To plot non-spatial data, it works as follows (see figure below, left for result):
+
+```{r, message=FALSE, out.width="40%", eval=FALSE}
+library(ggplot2)
+ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age))
+```
+
+Note that the `+` operator adds layers onto one another.
+
+1. Install a package that build on `ggplot2` that begins with with `gg`. Hint: enter `install.packages(gg)` and hit Tab when your cursor is between the `g` and the `)`.
+1. Open a help page in the newly installed package with the `?package_name::function()` syntax.
+1. Attach the package.
+1. **Bonus:** try using functionality from the new 'gg' package building on the example above to create plots like those shown below (hint: the right plot below uses the economist theme from the `ggthemes` package, try other themes).
+
+```{r gg-extend, echo=FALSE, message=FALSE, eval=FALSE}
+library(ggplot2)
+# install.packages("ggthemes")
+g1 = ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age)) 
+g2 = ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age)) +
+  ggthemes::theme_economist()
+g3 = cowplot::plot_grid(g1, g2)
+ggsave(filename = "inst/ggtheme-plot.png", width = 8, height = 2, dpi = 80)
+```
+
+```{r gg2, echo=FALSE, out.width="80%", fig.align="center"}
+library(ggplot2)
+knitr::include_graphics("https://raw.githubusercontent.com/ropensci/stats19/b4c40ad4c134853007493a9eac116b00acd4ec5a/inst/ggtheme-plot.png")
+```
+
+## dplyr and pipes
+
+Another useful package in the tidyverse is `dplyr`.
+It provides functions for manipulating data frames and using the pipe operator ` %>% `. 
+The pipe puts the output of one command into the first argument of the next, as shown below (note the results are the same):
+
+```{r}
+library(dplyr)
+class(crashes)       
+crashes %>% class()
+```
+
+Useful `dplyr` functions are demonstrated below.
+
+```{r, eval=FALSE}
+crashes %>%
+  filter(casualty_age > 50) # filter rows
+crashes %>%
+  select(casualty_type) # select just one column
+crashes %>%
+  group_by(dark) %>% 
+  summarise(mean_age = mean(casualty_age))
+```
+
+1. Use `dplyr` to filter row in which `casualty_age` is less than 18, and then 28.
+1. Use the `arrange` function to sort the `crashes` object in descending order of age (hint: see the `?arrange` help page).
+1. Read the help page of `dplyr::mutate()`. What does the function do?
+1. Use the mutate function to create a new variable, `birth_year`, in the `crashes` data.frame which is defined as the current year minus their age.
+1. **Bonus:** Use the ` %>% ` operator to filter the output from the previous exercise so that only observations with `birth_year` after 1969 are returned.
+
+```{r dplyr, eval=FALSE, echo=FALSE}
+# answers
+crashes %>% 
+  arrange(desc(casualty_age))
+crashes %>% filter(casualty_age > 21)
+crashes %>% 
+  mutate(birth_year = 2019 - casualty_age) %>% 
+  filter(birth_year > 1969)
+```
