@@ -1,7 +1,7 @@
 ---
 title: "Reproducible road safety research with R"
 subtitle: "A practical introduction"
-author: "Robin Lovelace"
+# author: "Robin Lovelace"
 site: bookdown::bookdown_site
 documentclass: book
 output:
