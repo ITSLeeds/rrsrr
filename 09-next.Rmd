@@ -13,3 +13,14 @@
 
 
 Slack group RSGB Analyst Network.
+
+## Use cases
+
+Hannah Bougdah
+
+Will
+
+Other
+
+Do you have a use case of reprocible research? Please get in touch on the issue tracker.
+
