@@ -1,0 +1,174 @@
+# Temporal data
+
+For the analysis and manipulation of temporal data we will first load the R package `lubridate`:
+
+```{r, message=FALSE}
+library(lubridate)
+```
+
+The simplest example of a Date object that we can analyze is just the current date, i.e.
+
+```{r}
+today()
+```
+
+We can manipulate this object using several `lubridate` functions to extract the current day, month, year, weekday and so on...
+
+```{r, eval=FALSE}
+x = today()
+day(x)
+month(x)
+year(x)
+weekdays(x)
+```
+
+Exercises: 
+
+1. Look at the help page of the function `month` to see how it is possible to extract the current month as character vector 
+1. Look at other functions in lubridate to extract the current weekday as a number, the week of year and the day of the year
+
+Date variables are often stored simply as a character vectors.
+This is a problem, since R is not always smart enough to distinguish between character vectors representing Dates.
+`lubridate` provides functions that can translate a wide range of date encodings such as `ymd()`, which extracts the Year Month and Day from a character string, as demonstrated below.
+
+```{r, eval=FALSE}
+as.Date("2019-10-17") # works
+as.Date("2019 10 17") # fails
+ymd("2019 10 17") # works
+dmy("17/10/2019") # works
+```
+
+Import function such as `read_csv` try to recognize the Date variables.
+Sometimes this fails.
+You can manually create Date objects, as shown below.
+
+```{r}
+x = c("2009-01-01", "2009-02-02", "2009-03-03")
+x_date = ymd(x)
+x_date
+```
+
+Exercises: 
+
+1. Extract the day, the year-day, the month and the weekday (as a non-abbreviated character vector) of each element of `x_date`. 
+1. Convert `"09/09/93"` into a date object and extract its weekday. 
+1. **Bonus:** Read the help page of `as.Date` and `strptime` for further details on base R functions for dates. 
+1. **Bonus:** Read the Chapter 16 of [R for Data Science book](https://r4ds.had.co.nz/dates-and-times.html) for further details on `lubridate` package. 
+
+```{r, echo=FALSE, eval=FALSE}
+# 1. Extract the day, the year-day, the month and the weekday (as a non-abbreviated character vector) of each element of `x_date`. 
+day(x_date)
+yday(x_date)
+month(x_date)
+weekdays(x_date, abbreviate = FALSE)
+# 1. Modify the previous example to parse the following character string: `"09/09/1993"` and extract its weekday. 
+weekdays(dmy("09/09/93"))
+wday(dmy("09/09/93"))
+```
+
+We can use Dates also for subsetting events in a dataframe. For example, if we define `x_date` as before and add it to the `crash` dataset, i.e.
+
+```{r}
+crashes$casualty_day = x_date
+```
+
+then we can subset events using Dates. For example
+
+```{r}
+filter(crashes, day(casualty_day) < 7) # the events that ocurred in the first week of the month
+filter(crashes, weekdays(casualty_day) == "Monday") # the events occurred on monday
+```
+
+Exercises: 
+
+1. Select only the events (rows in `crashes`) that occurred in January
+1. Select only the events that ocurred in an odd year-day 
+1. Select only the events that ocurred in a leap-year (HINT: check the function `leap_year`)
+1. Select only the events that ocurred during the weekend or in June
+1. Select only the events that ocurred during the weekend and in June
+1. Count how many events ocurred during each day of the week. 
+
+Now we'll take a look at the time components of a Date. Using the function `hms` (acronym for Hour Minutes Seconds) and its subfunctions such as `hm` or `ms`, we can parse a character vector representing several times as an Hour object (which is tecnically called a Period object). 
+
+```{r}
+x = c("18:23:35", "00:00:01", "12:34:56")
+x_hour = hms(x)
+x_hour
+```
+
+We can manipulate these objects using several `lubridate` functions to extract the hour component, the minutes and so on:
+
+```{r}
+hour(x_hour)
+minute(x_hour)
+second(x_hour)
+```
+
+If the Hour data do not specify the seconds, then we just have to use a subfunction of `hms`, namely `hm`, and everything works as before. 
+
+```{r}
+x = c("18:23", "00:00", "12:34")
+(x_hour = hm(x))
+```
+
+We can use Hour data also for subsetting events, like we did for Dates. Let's add a new column to crashes data, 
+
+```{r}
+crashes$casualty_hms = hms(c("18:23:35", "00:00:01", "12:34:56"))
+crashes$casualty_hour = hour(crashes$casualty_hms)
+```
+
+Exercises: 
+
+1. Filter only the events that ocurred after midday (i.e. the PM events). Hint: your answer may include `>= 12`.
+1. Filter only the events that ocurred between 15:00 and 19:00
+<!-- 1. Round all hours to the next hour. Hint: Look at the help page of the `round_date` function.  -->
+1. **Bonus (difficult):** run the following code, which downloades data for car crashes occurred during 2017.
+
+```{r, eval=FALSE}
+library(stats19)
+crashes_2017 = stats19::get_stats19(year = 2017, type = "ac")
+crashes_2017
+```
+
+Extract the weekday from the variable called `date`.
+How many crashes happened on Monday?
+
+**Advanced challenge:** calculate how many crashes occurred for each day of the week. Then plot it with ggplot2. Repeat the same exercises extracting the hour of the car accident from the variable called time. How would you combine the two informations in a single plot? 
+
+```{r, eval=FALSE, echo=FALSE}
+# solutions
+crashes %>% filter(casualty_hour >= 12)
+crashes %>% filter(casualty_hour > 15 & casualty_hour < 19)
+
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date)) %>%
+  filter(my_weekdays == "Monday") %>% 
+  nrow()
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date)) %>%
+  filter(my_weekdays == "Friday") %>% 
+  nrow()
+
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date)) %>% 
+  group_by(my_weekdays) %>% 
+  summarize(n = n()) %>% 
+  ggplot() + 
+  geom_col(aes(x = my_weekdays, y = n))
+
+crashes_2017 %>% 
+  mutate(my_hours = hour(hm(time))) %>% 
+  group_by(my_hours) %>% 
+  summarize(n = n()) %>% 
+  ggplot() + 
+  geom_col(aes(x = my_hours, y = n))
+
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date), my_hours = hour(hm(time))) %>% 
+  group_by(my_weekdays, my_hours) %>% 
+  summarise(n = n()) %>% 
+  ggplot() + 
+  geom_line(aes(x = my_hours, y = n, col = my_weekdays), size = 1.05)
+# the legend needs some reordering
+```
