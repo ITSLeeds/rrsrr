@@ -1,4 +1,4 @@
-# Manipulating data
+# Manipulating data {#data}
 
 This chapter provides an introduction to manipulating datasets using the **dplyr** package.
 **dplyr** is part of the **tidyverse**, which aims to provide a user friendly framework for data science.

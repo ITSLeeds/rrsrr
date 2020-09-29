@@ -40,7 +40,8 @@ pi^z / exp(z)
 
 The previous code chunk created three objects called `x`, `y` and `z`.
 You can call R objects anything you like, provided they do not start with numbers or contain reserved symbols such as `+` and `-`.
-You can use various stylistic conventions when naming your R objects, including `camelCase` and `dot.case` [@baath_state_2012].
+You can use various stylistic conventions when naming your R objects, including `camelCase` and `dot.case`
+[@baath_state_2012].
 We advocate using `snake_case` a style that avoids upper case characters to ease typing and uses the underscore symbol (`_`) to clearly demarcate spaces between words.
 Create objects that more closely approximate road casualty data as follows:
 
