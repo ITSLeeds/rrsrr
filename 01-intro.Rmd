@@ -198,9 +198,9 @@ The rest of the book is structured as follows.
 
 - Chapter \@ref(basics) introduces the basics of the R language. While not essential reading for people who already have experience with R or who just want to get stuck-in reading in datasets, as per Chapter \@ref(data), it is recommended reading even if you already use R. The chapter will introduce key aspects of the R language that may not be needed for basic data analysis tasks but which will be vital when debugging your code. This chapter provides strong foundations for subsequent chapters.
 - Chapter \@ref(rstudio) provides a brief introduction to productive research workflows using RStudio, an advanced integrated development environment for not only writing R code but for project management and boosting your productivity with a suite of features that puts Excel to shame.
-- Chapter \@ref(pkgs)
-- Chapter \@ref(data)
-- Chapter \@ref(time)
-- Chapter \@ref(space)
-- Chapter \@ref(join)
-- Chapter \@ref(next)
+- Chapter \@ref(pkgs) introduces the `stats19` package and other R packages we will be using in subsequent chapters.
+- Chapter \@ref(data) demonstrates key data processing techniques using the `tidyverse`.
+- Chapter \@ref(time) teaches key functions for working with time stamps.
+- Chapter \@ref(space) shows how you can create maps and do geographic data analysis with road crash data in R.
+- Chapter \@ref(join) provides an introduction to joining road crash data, with a focus on casualty and accident tables in STATS19 data (introduced in Chapter \@ref(pkgs)).
+- Chapter \@ref(next) suggests next steps for road safety researchers looking to take their skills to the next levels and provide the strong evidence needed to safe lives.
