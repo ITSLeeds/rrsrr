@@ -64,7 +64,7 @@ Installing additional packages is covered in Section \@ref(install-pkgs).
 R is widely acknowledged to outperform other open languages for data science such as Julia, Python and Scala in terms of data visualisation and deployment of web applications for presenting data via the R package `shiny` [@wickham_mastering_2020].^[
 If you are interested in the relative strengths and weaknesses of R in comparison with other languages for data science, I recommend a YouTube video titled ['R or Python: Which Should You Learn in 2020'](https://www.youtube.com/watch?v=ZGeLAqGkObw) and other recent videos by an experienced data scientist who goes by the name of 'RichardOnData'.
 ]
-Furthermore, recently developed `tidyverse` and `sf` packages provide a unified and user friendly system working with attribute-rich and geographic datasets [@grolemund_data_2016; @lovelace_geocomputation_2019].
+Furthermore, recently developed `tidyverse` and `sf` packages provide a unified and user friendly system for working with attribute-rich and geographic datasets [@grolemund_data_2016; @lovelace_geocomputation_2019].
 Because road crash data is commonly attribute-rich and geographic, we will be using these packages in subsequent chapters.
 
 ## Why R for road safety research?
