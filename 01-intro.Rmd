@@ -1,19 +1,26 @@
 # Introduction
 
 This book teaches reproducible road safety analysis with R.
-It was initially developed for a 2 day [Introduction to R for Road Safety](https://www.racfoundation.org/introduction-to-r-for-road-safety) course funded by the [RAC Foundation](https://www.racfoundation.org/), a charity that supports road safety research, which funded the development of this free and open resource.
-
-The content is based on open access road crash data from the UK, which is provided by the R package **stats19** [@lovelace_stats19_2019], although the content should help anyone working with road crash data that has (at a minimum):
+It was initially developed for a 2 day [Introduction to R for Road Safety](https://www.racfoundation.org/introduction-to-r-for-road-safety).
+Since then, interest in the topic has grown.
+The [RAC Foundation](https://www.racfoundation.org/) charity in the UK funded the development of this book as a free and open resource to support their objective of making the roads safer for everyone.
+The content is based on open access road crash data from the UK, which is provided by the R package **stats19** [@lovelace_stats19_2019].
+However, the content is designed to be general and should be of use to **anyone working with road crash data worldwide** that has (at a minimum):
 
 - A timestamp
 - A location (or address that can be geocoded)
 - Attribute data, such as severity of crash, and type of vehicles involved
 
+The book is based on open source software, which knows no borders: R works equally well in China, India, the USA and the UK.
 The book is practical, meaning that you should reproduce the examples that are provided throughout.
 As with many practical skills you learn data science by *doing* data science.
 
-Before getting stuck in with the practical content, which begins in Chapter \@ref(r-basics), the rest of this chapter introduces the concept reproducibility and its importance for evidence-based policies, explains why R is an excellent tool for reproducible data science, and outlines how to install R on your computer or access it through remote servers in the 'cloud'.
-Finally, Section \@ref(overview) explains the structure of the book and providers pointers on the contents of the chapters and how they should be used for maximum benefit, depending on your level of experience and aims.
+Before getting stuck in with the practical content, which begins in Chapter \@ref(r-basics), the rest of this chapter:
+
+- introduces the concept reproducibility and its importance for evidence-based policies
+- explains the choice of R as a 'tool of the trade' for road safety research
+- outlines how to install R on your computer or access it through remote servers in the 'cloud', and
+- explains the structure of the book, outlines chapter contents and how they should be used for maximum benefit depending on your level of experience and aims (Section \@ref(overview))
 
 ## Reproducibility
 
@@ -23,27 +30,36 @@ By contrast, findings that cannot be repeated are **not reproducible**.
 Reproducibility is not a binary concept but a continuum.
 On one hand, there is work that does not report the data source, methods or software.
 On the other hand are findings that can be reproduced in their entirety, including the production of figures and, as is the case with this book, the manuscript/medium in which results are presented.
-Four central components of reproducibility reported in [@peng_reproducible_2006] are presented in Table \@ref(tab:reproducibility).
+Reproducibility can be built into every stage of quantitative research, as shown in Table \@ref(tab:reproducibility).^[
+See @peng_reproducible_2006 for a detailed account of how to ensure reproducibility.
+]
 
 ```{r reproducibility, message=FALSE, echo=FALSE}
 re = readr::read_csv("reproducibility.csv")
-knitr::kable(re, caption = "Four elements of reproducibility adapted from Peng et al. (2006).")
+knitr::kable(re, caption = "Four elements of reproducibility adapted from Peng, Dominici, and Zeger (2006).")
 ```
 
 The importance of reproducibility in scientific research should be obvious: if findings cannot be repeated, this casts doubt on the validity, truth, of the conclusions drawn from them.
 Reproducibility is vital for *falsifiability*, a cornerstone of science [@popper_logic_1959].
+
 In applied, policy-relevant research areas such as road safety research, reproducibility is equally important:
 policy makers and the public want to have confidence that the evidence underlying key decisions is reliable.
 Policies based on results that nobody can reproduce are based are harder to defend than policies that based on clear evidence base that others, including members of the public and educators, can repeat.
-Policies based on open and reproducible methods are more transparent, democratically accountable.
-Because of increased public trust and the reduced likelihood chance of mistakes in policies based on solid science, reproducible research leads to more effective policies.
+In transport planning, open and reproducible methods support more transparent and democratically accountable interventions [@lovelace_open_2020].
+Reproducibility lead to solid science which is conducive to effective policies.
+In the context of road safety research, this means that **reproducibility can save lives**.
 
 ## Why R for road safety research?
 
 R is an outstanding language for reproducible research.
 It is an accessible piece of software and contains many packages explicitly designed to enable more reproducible research, including `markdown` and the `reprex` package.
-Furthermore, R excels at the processing, analysis, modelling and visualisation of large spatio-temporal and attribute-rich datasets of the type key to road safety research.
-R is a mature and growing tool for data science popular in industry, academia and government, so creates multiple opportunities for interregional and international collaboration.
+
+From a road safety perspective, R is well suited to handling data structures used in road safety research.
+R excels at the processing, analysis, modelling and visualisation of large spatio-temporal and attribute-rich datasets of the type key to road safety research.
+R is a mature and growing tool for data science popular in industry, academia and government, so creates multiple opportunities for collaboration, within and between organisations and internationally.
+
+It is important to have an up-to-date version of R installed before proceeding to the practical sections.
+This and other prerequisites are covered in the next section.
 
 ## Prerequisites
 
