@@ -92,7 +92,7 @@ citr::tidy_bib_file(rmd_file = "_main.Rmd", messy_bibliography = "~/uaf/allrefs.
 # Preface {-}
 
 Many areas of research have real world implications, but few have the ability to *save lives* in the way that road safety research does.
-Road safety research is a data driven field of research, underpinned by attribute rich spatio-temporal event-based datasets representing the grim reality of people who are tragically hurt or killed on the roads.
+Road safety research is a data driven field of research, underpinned by attribute-rich spatio-temporal event-based datasets representing the grim reality of people who are tragically hurt or killed on the roads.
 Because of the incessant nature of road casualties there is a danger that it becomes normalised, an implicitly accepted cost associated with the benefits of personal mobility.
 
 Data analysis in general and 'data science' in particular has great potential to support more evidence-based road safety policies.

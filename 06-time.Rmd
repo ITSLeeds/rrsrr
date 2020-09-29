@@ -1,4 +1,4 @@
-# Temporal data
+# Temporal data {#time}
 
 For the analysis and manipulation of temporal data we will first load the R package `lubridate`:
 

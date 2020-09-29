@@ -1,4 +1,4 @@
-# Using RStudio
+# Using RStudio {#rstudio}
 
 The previous chapter taught the basic's of the R language.
 This chapter takes a step back and considers how R code fits into the wider context of scripts, projects, and getting help in RStudio.
@@ -196,28 +196,29 @@ knitr::include_graphics("figures/rstudio-autocomplete.png")
 
 **Always address debugging prompts to ensure your code is reproducible**
 
-## Saving R objects
+## Productivity boosting features
 
-We have already seen that you can save R scripts.
-You can also save individual R objects in the RDS format.
+This final section describes functionality in RStudio that goes beyond the features described above.
+RStudio is an advanced and powerful IDE and is highly customisable in myriad ways, especially since the launch of the RStudio Addins add-on system in [2016](https://cran.r-project.org/web/packages/addinslist/readme/README.html).
+Rather than try to be comprehensive (an impossible task), this section provides a list of additional RStudio features, starting simple and ending advanced, that have been tried, tested and proven to work, with links to the relevant documentation rather than extended descriptions.
 
-```{r}
-saveRDS(crashes, "crashes.Rds")
-```
+- Zoom levels and appearance settings: it is important for code and other text to be the right size. Too small and it's hard to see, too big and you end up frequently scrolling up and down. The appropriate text size varies: if you're doing a screen share big text is appropriate; if you're writing copious amounts of text (as I was when writing this prose in RStudio) smaller text will be handy. On Windows and Linux you can zoom with the shortcuts `Ctl+Shift++` and `Ctl+-` for zooming in and out respectively. See Tools > Global Options menu (which can be launched with the shortcut `Alt+T` and then `G`) for more advanced Appearance settings.
 
-We can also read back in our data.
+- Global search (and replace): in addition to search and replace functionality for single files (accessed in the standard way, by pressing `Ctl+F`), RStudio has a powerful global search feature inbuilt. Launch this feature by pressing `Ctl+Shift+F` and you can search any file types (e.g. only files ending in `.R`) for any string within an entire project. This feature is very handy when working with large, multi-file projects.
 
-```{r}
-crashes2 = readRDS("crashes.Rds")
-identical(crashes, crashes2)
-```
+- Shortcuts: there are many, many shortcuts built into RStudio. In fact, there is even a shortcut to show the list of shortcuts. Try pressing `Alt+Shift+K` to get the complete list. Nobody I know can remember, let alone use, all of these. However, over time I expect that you will learn to love some of them. My top 5 RStudio-specific (there are many generic shortcuts such as `Ctl+A` to select all text) shortcuts are:^[
+See online articles such as "[23 RStudio Tips, Tricks and Shortcuts](https://www.dataquest.io/blog/rstudio-tips-tricks-shortcuts/)" for more comprehensive lists of useful RStudio shortcuts.
+]
+  - `Ctl+Enter` to send a line of code from the code editor (called the Source Editor in RStudio) to be executed or 'run' in the console. Amazingly, some other prominent IDEs such as Microsoft's VSCode editor, lack this important feature by default.
+  - `Ctl+1` and `Ctl+2` to switch between the console (for writing test code and 'run once' commands) and the code editor (for writing code to keep).
+  - `Alt+Up/Down` and `Alt+Shift+Up/Down` to move and copy lines of code up and down, handy when you want to re-order your code or make small changes to a copy of a line of code.
+  - [`Ctl+Shift+M`](https://nhsrcommunity.com/blog/r-studio-shortcuts/) will create the pipe operator (` %>% `, this pipe was created using the shortcut!), saving time when creating `dplyr` pipelines, as discussed in Chapter \@ref(data).
+  `Ctl+Shift+F10` when you want to restart R, leaving you with a 'blank slate' in which packages are not loaded and objects are removed from the global environment
+<!-- - Any other key ones? Todo: think about this... -->
 
-R also supports many other formats, including CSV files, which can be created and imported with the functions `readr::read_csv()` and `readr::write_csv()` (see also the [readr](https://readr.tidyverse.org/) package).
+- Git integration for collaboration: RStudio provides two mechanisms for sharing your code with others via sites such as GitHub and GitLab, with the 'Git' panel in the top right pane and via the Terminal panel described in the next section. 
 
-```{r readr-write, eval=FALSE}
-readr::write_csv(crashes, "crashes.csv")
-crashes3 = readr::read_csv("crashes.csv")
-identical(crashes3, crashes) 
-```
+- Support for Python, C++ and other languages: a joke on Twitter said "What's the best Python editor? RStudio." Although most Python programmers would probably disagree, the joke is true in the sense that R has good support for some other languages, Python and C++ in particular. If you open a Python script in RStudio on a computer that has Python and the `reticulate` R package installed, the R console will magically convert into a Python console when you press `Ctl+Enter` to execute a line of Python code, as described in the article "[Reticulated Python](https://blog.rstudio.com/2018/10/09/rstudio-1-2-preview-reticulated-python/)" on the RStudio website.
 
-Notice that `crashes3` and `crashes` are not identical, what has changed? Hint: read the help page associated with `?readr::write_csv`.
+Like R package, an active community of developers is developing a range of extensions and RStudio itself is gradually evolving to meet the evolving needs of 21^st^ Century data scientists.
+If there are any features that you would like to see, you can always ask others for pointers, e.g. on the [RStudio Community forum](https://community.rstudio.com/).

@@ -1,4 +1,4 @@
-# R basics
+# R basics {#basics}
 
 Like learning any language, it helps to have an understanding of the structure, syntax and grammar of the R language before diving into using it for applications such as road safety research.
 This chapter may seem tedious for people who just want to crack on and load-in data.
@@ -116,6 +116,31 @@ z_charcter
 
 1. Recode `z` to Slight, Serious and Fatal for 1:3 respectively.
 1. Bonus: read the help file at `?dplyr::case_when` and try to recode the values using this function.
+
+## Saving R objects
+
+You can also save individual R objects in the RDS format.
+
+```{r}
+saveRDS(crashes, "crashes.Rds")
+```
+
+We can also read back in our data.
+
+```{r}
+crashes2 = readRDS("crashes.Rds")
+identical(crashes, crashes2)
+```
+
+R also supports many other formats, including CSV files, which can be created and imported with the functions `readr::read_csv()` and `readr::write_csv()` (see also the [readr](https://readr.tidyverse.org/) package).
+
+```{r readr-write, eval=FALSE}
+readr::write_csv(crashes, "crashes.csv")
+crashes3 = readr::read_csv("crashes.csv")
+identical(crashes3, crashes) 
+```
+
+Notice that `crashes3` and `crashes` are not identical, what has changed? Hint: read the help page associated with `?readr::write_csv`.
 
 ## Now you are ready to use R
 

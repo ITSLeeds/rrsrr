@@ -67,6 +67,7 @@ If you are interested in the relative strengths and weaknesses of R in compariso
 Furthermore, recently developed `tidyverse` and `sf` packages provide a unified and user friendly system for working with attribute-rich and geographic datasets [@grolemund_data_2016; @lovelace_geocomputation_2019].
 Because road crash data is commonly attribute-rich and geographic, we will be using these packages in subsequent chapters.
 
+
 ## Why R for road safety research?
 
 R is an outstanding language for reproducible research [@lovelace_geocomputation_2019; @peng_reproducible_2006].
@@ -193,4 +194,13 @@ remotes::install_cran(pkgs)
 
 ## Overview
 
-Todo: add brief introduction to the rest of the book.
+The rest of the book is structured as follows.
+
+- Chapter \@ref(basics) introduces the basics of the R language. While not essential reading for people who already have experience with R or who just want to get stuck-in reading in datasets, as per Chapter \@ref(data), it is recommended reading even if you already use R. The chapter will introduce key aspects of the R language that may not be needed for basic data analysis tasks but which will be vital when debugging your code. This chapter provides strong foundations for subsequent chapters.
+- Chapter \@ref(rstudio) provides a brief introduction to productive research workflows using RStudio, an advanced integrated development environment for not only writing R code but for project management and boosting your productivity with a suite of features that puts Excel to shame.
+- Chapter \@ref(pkgs)
+- Chapter \@ref(data)
+- Chapter \@ref(time)
+- Chapter \@ref(space)
+- Chapter \@ref(join)
+- Chapter \@ref(next)

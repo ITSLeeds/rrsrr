@@ -1,4 +1,4 @@
-# Spatial data
+# Spatial data {#space}
 
 ## sf objects
 
