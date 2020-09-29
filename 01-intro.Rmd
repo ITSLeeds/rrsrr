@@ -67,21 +67,83 @@ This and other prerequisites are covered in the next section.
 
 ## Prerequisites
 
-If you are not experienced with R, it is strongly advised that you read-up on and more importantly **test out** R and RStudio before attempting analyse road crash data with R.
-See the `stats19-training-setup` vignette at https://docs.ropensci.org/stats19/articles/stats19-training-setup.html for guidance on getting started with R, RStudio and installing R packages.
+You do not need to be a professional programmer, data scientist or computer wizard to use R for road safety research.
+If you have primarily used graphical user interfaces (GUIs) such as Microsoft Excel for your work, the code-based approach may take some getting used to.
+But the command-line interface (CLI) of R is no 'harder' than the incessant pointing and clicking demanded by tools such as Excel and web-based GUIs for road safety research.
+It takes time to adapt to new ways of working and R has a steep learning curve at the outset.
+However, persevering can be very rewarding: proficiency with R's CLI is a future-proof and transferable skill that can yield huge productivity gains.
+Perhaps the most important prerequisite, therefore, is time and a willingness to try new ways of working.
 
-The completing the course requires that the following packages, which can be installed with `install.packages()`, can be loaded as follows:
+The good news is that it has never been easier to install and learn R, as highlighted in the [`stats19-training-setup`](https://docs.ropensci.org/stats19/articles/stats19-training-setup.html) that can be found on the **stats19** package website at [docs.ropensci.org/stats19](https://docs.ropensci.org/stats19/).
+
+
+Note that like any actively developed software, R is evolving, so it is worth updating or re-installing R/RStudio every year or so and updating your R packages every month or so, to ensure you have the latest software.
+
+
+## Installing R and RStudio
+
+If you plan to use R **on your own computer or your organisation's computer** (recommended for most people), the installation steps are as follows:
+
+- Install R from [cran.r-project.org](https://cran.r-project.org/)
+- Install RStudio from [rstudio.com](https://rstudio.com/products/rstudio/download/#download)
+- Install R packages, by opening RStudio and typing `install.packages("stats19")` in the console to install the `stats19` package, for example (see Section \@ref(install-pkgs) for details)
+
+We recommend using at least the latest stable release of R (4.0.0 at the time of writing in 2020).
+We recommend running R on a decent computer, with at least 4 GB RAM and ideally 8 or more GB and a modern processor.
+R is computationally efficient and therefore fast language for data science but, because of the size of some road safety datasets, we recommend using it on a high spec laptop or desktop. 
+
+## R in the cloud
+
+If you do not have access to a suitable computer on which you can install R or just want to get up-and-running quickly, you can run R in the cloud.^[
+The two main reasons why people cannot install recent versions of R/RStudio are lack of access to hardware or lack of admin rights on your computer.
+R is supported by most organisations and if you are having issues installing an up-to-date version of R/RStudio, we recommend politely asking your system administrator for support.
+]
+
+Various organisations manage RStudio Server instances but by far the most well-known cloud provider at [https://cloud.rstudio.com/](cloud.rstudio.com).
+To run R in the cloud, sign-up to cloud.rstudio.com (or cloud instance of your choice) and acess RStudio from the browser.
+
+## Installing and loading R packages for road safety research {#install-pkgs}
+
+Of the thousands of available packages that are available for road safety research, we will use a handful that are mature, well-tested and well-suited to statistical analysis and visualisation of road casualty data.
+This first practical section relies on **starting RStudio**, e.g. by tapping the Start button and searching for RStudio if you are on Windows. You should see an 'R console' like that displayed in Figure \@ref(fig:console).
+
+```{r console, echo=FALSE, fig.cap='The R console in RStudio. You should see something like this when you first open RStudio. Tapping Enter at this point will trigger the autocompletion of the command `install.packages("stats19").'}
+knitr::include_graphics("figures/console.png")
+```
+
+If you saw something like that shown in Figure \@ref(fig:console) congratulations!
+When I pressed enter with the console position shown, RStudio automatically 'autocompleted' the command.
+Pressing enter again will **run the command** in the console and install the package.
+
+If the installation of `stats19` package worked, you have a working R installation and you are ready to proceed with the tutorial.
+The first **practical challenge** is to install the other packages we will use for the course using commands similar to the one we we used to install `stats19`.
+To recap, to do this, we ran the following command in the console:
+
+```{r, eval=FALSE}
+install.packages("stats19")
+```
+
+Replacing `stats19` with other package names such as `tidyverse` will install them.
+Check the installation of `stat19` worked as follows, which 'loads' the package and makes its functions available to you in the 'global environment' [@wickham_advanced_2014]:
+
+```{r}
+library(stats19)
+```
+
+**Install and load the packages for we will use for the course** (you may need to install the packages before package loading commands below run successfull):
+
+<!-- The completing the course requires that the following packages, which can be installed with `install.packages()`, can be loaded as follows: -->
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 library(pct)      # access travel data from DfT-funded PCT project 
 library(sf)       # spatial vector data classes
-library(stats19)  # get stats19 data
+library(stats19)  # get stats19 data, already loaded
 library(stplanr)  # transport planning tools
 library(tidyverse)# packages for 'data science'
 library(tmap)     # interactive maps
 ```
 
-You should type, run and ensure you understand each line of code in this document.
+<!-- You should type, run and ensure you understand each line of code in this document. -->
 
 
 ```{r, include = FALSE}
@@ -111,10 +173,6 @@ remotes::install_cran(pkgs)
 # remotes::install_github("ITSLeeds/pct")
 ```
 
-## Installing R and RStudio
-
-
-## R in the cloud
 
 ## Overview
 
