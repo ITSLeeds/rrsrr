@@ -1,1 +1,3 @@
 delete_merged_file: false
+view: https://github.com/saferactive/rrsrr/blob/master/%s
+edit: https://github.com/saferactive/rrsrr/edit/master/%s

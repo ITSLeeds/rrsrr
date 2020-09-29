@@ -1,12 +1,14 @@
 ---
-title: "Reproducible road safety research with R"
-subtitle: "A practical introduction"
+title: "Reproducible road safety research with R: A practical introduction"
 author: "Robin Lovelace"
 site: bookdown::bookdown_site
 documentclass: book
 output:
   bookdown::gitbook: default
   #bookdown::pdf_book: default
+description: "A reproducible and open source approach to aapplied road safety research"
+url: 'https\://saferactive.github.io/rrsrr/'
+github-repo: "saferactive/rrsrr"
 bibliography:
   - packages.bib
   - references.bib
