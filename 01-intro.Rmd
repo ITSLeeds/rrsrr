@@ -49,10 +49,14 @@ In transport planning, open and reproducible methods support more transparent an
 Reproducibility lead to solid science which is conducive to effective policies.
 In the context of road safety research, this means that **reproducibility can save lives**.
 
+
 ## Why R for road safety research?
 
-R is an outstanding language for reproducible research.
-It is an accessible piece of software and contains many packages explicitly designed to enable more reproducible research, including `markdown` and the `reprex` package.
+R is an outstanding language for reproducible research [@lovelace_geocomputation_2019; @peng_reproducible_2006].
+It is accessible, with no licensing restrictions and easy installation procedures on a wide range of computers including on most versions of Windows, Mac and Linux operating systems [@R-base].
+Furthermore, R is highly extensible.
+With 15,000+ packages available, many of which are developed by professional statisticians and domain experts, R provides access to a wide array of statistical, computational and visualisation techniques.
+Many packages, such as `markdown` and `reprex`, were designed to support more reproducible research [@xie_markdown_2018; @R-reprex].
 
 From a road safety perspective, R is well suited to handling data structures used in road safety research.
 R excels at the processing, analysis, modelling and visualisation of large spatio-temporal and attribute-rich datasets of the type key to road safety research.
