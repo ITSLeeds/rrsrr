@@ -1,8 +1,62 @@
 # R basics {#basics}
 
-Like learning any language, it helps to have an understanding of the structure, syntax and grammar of the R language before diving into using it for applications such as road safety research.
+Learning a programming language is similar to learning a human language such as French.
+Although you could just dive in and start gesticulating to people in central Paris, it's worth taking time to understand of the structure and key words of the language first.
+The same applies to data science: it will help to understand a little about syntax and grammar of the R language before diving into using it for applications such as road safety research.
 This chapter may seem tedious for people who just want to crack on and load-in data.
 However, working through the examples below is recommended for most people unless you're already an experienced R user, and even experienced R users may learn something about the language's unique syntax in the following sections.
+
+## Creating and removing R objects
+
+R can be understood as a giant calculator.
+If you feed the console arithmetic tasks, it will solve them precisely and instantly.
+Try typing the following for examples (note that `pi` is an inbuilt object) into the R console in RStudio and pressing `Enter` to make R run the code:
+
+```{r}
+2 + 19
+pi^(19 + 2) / exp(2 + 19) 
+```
+
+Use the same approach to find the square route of 361 (answer not shown):
+
+```{r, eval=FALSE}
+sqrt(361)
+```
+
+This is all well and good, providing a chance to see how R works with numbers and get practice with typing commands into the console.
+However, a key benefit of R is that it is *object oriented*, meaning it stores values and complex objects such as data frames representing road casualties and processes them *in memory* (meaning that R is both fast and memory hungry when working with large datasets).
+
+The two most common ways of creating objects are with the the `<-` 'arrow' or `=` 'equals' assignment operators.^[
+We use equals assignment for speed of typing and to avoid ambiguity in commands such as `x<-1` vs `x< -1`, although `<-` has historically been (and still is) more commonly used in many fields.
+]
+Let's reproduce the calculations above but using objects to make the final command more concise:
+
+```{r}
+x = 2
+y = 19
+z = x + y
+pi^z / exp(z)
+```
+
+The previous code chunk created three objects called `x`, `y` and `z`.
+You can call R objects anything you like, provided they do not start with numbers or contain reserved symbols such as `+` and `-`.
+You can use various stylistic conventions when naming your R objects, including `camelCase` and `dot.case` [@baath_state_2012].
+We advocate using `snake_case` a style that avoids upper case characters to ease typing and uses the underscore symbol (`_`) to clearly demarcate spaces between words.
+Create objects that more closely approximate road casualty data as follows:
+
+```{r}
+vehicle_type = c("car", "bus", "tank")
+casualty_type = c("pedestrian", "cyclist", "cat")
+casualty_age = seq(from = 20, to = 60, by = 20)
+```
+
+## Classes and object length
+
+```{r}
+crashes = data.frame(vehicle_type, casualty_type, casualty_age)
+```
+
+
 
 ## Subsetting by index or name
 

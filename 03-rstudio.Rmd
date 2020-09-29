@@ -65,7 +65,7 @@ Try running the code you saved in the previous section using each of these metho
 
 ## Viewing Objects
 
-Create new objects by typing and running the following code chunk in a new script, e.g. called `objects.R`.
+Re-create the objects we created in Chapter \@ref(basics) by typing and running the following code chunk in a new script, e.g. called `objects.R`.
 
 ```{r}
 vehicle_type = c("car", "bus", "tank")
