@@ -1,3 +1,144 @@
 # Joining road crash tables {#join}
 
 Content on joining road crash tables.
+
+So far we've been working primarily with 'accident' level data but there is much useful data in other tables.
+Let's read in data from 2019 to take a look:
+
+```{r, message=FALSE}
+library(stats19)
+ac = get_stats19(year = 2019, type = "ac", output_format = "sf")
+ca = get_stats19(year = 2019, type = "ca")
+ve = get_stats19(year = 2019, type = "ve")
+```
+
+Each table represents the same phenomena: road casualties in Great Britain in 2019.
+Therefore you may expect they would have the same number of rows, but that is not the case:
+
+```{r}
+nrow(ac)
+nrow(ca)
+nrow(ve)
+```
+
+The reason for this is that there are, on average, more than one casualty per crash (e.g. when a car hits two people) and more than one vehicle, including bicycles, per crash^[
+STATS19 data contains information on when a single crashes without involvement of any other vehicles, but not when a lone cyclist crashes without any other vehicle involved.
+]
+
+We can find the average number of casualties and vehicles per crash as follows:
+
+```{r}
+nrow(ca) / nrow(ac)
+nrow(ve) / nrow(ac)
+```
+
+The output of the commands above show that there are around 1.3 casualties and 1.8 vehicles involved in each crash record in the STATS19 dataset for 2019.
+Each table each contains a different number of columns, reporting the characteristics of each casualty and each driver/vehicle for the `ca` and `ve` datasets respectively.
+
+```{r}
+ncol(ac)
+ncol(ca)
+ncol(ve)
+```
+
+The output of the previous code chunk shows that we have more variables in the 'accidents' table than the others but the other tables are data rich with 16 columns on the casualties and 23 on the vehicles.
+
+```{r, eval=FALSE, echo=FALSE}
+skimr::skim(ac)
+```
+
+
+The three main tables we have just read-in can be joined by shared key variables.
+This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
+
+```{r table-join, message = FALSE}
+library(tidyr)
+library(dplyr)
+# table(ac$police_force)
+lnd_police = c("City of London", "Metropolitan Police")
+ac_lnd = ac %>% 
+  filter(police_force %in% lnd_police)
+ca_lnd = ca %>% 
+  filter(accident_index %in% ac_lnd$accident_index)
+cas_types = ca_lnd %>% 
+  select(accident_index, casualty_type) %>% 
+  group_by(accident_index) %>% 
+  summarise(
+    Total = n(),
+    walking = sum(casualty_type == "Pedestrian"),
+    cycling = sum(casualty_type == "Cyclist"),
+    passenger = sum(casualty_type == "Car occupant")
+    ) 
+cj = left_join(ac_lnd, cas_types)
+```
+
+What just happened? We found the subset of casualties that took place in London with reference to the `accident_index` variable.
+Then we used the **dplyr** function `summarise()`, to find the number of people who were in a car, cycling, and walking when they were injured.
+This new casualty dataset is joined onto the `crashes_lnd` dataset.
+The result is a spatial (`sf`) data frame of ac in London, with columns counting how many road users of different types were hurt.
+The joined data has additional variables:
+
+```{r table-join-examples}
+base::setdiff(names(cj), names(ac_lnd))
+```
+
+As a simple spatial plot, we can map all the crashes that have happened in London in 2017, with the colour related to the total number of people hurt in each crash.
+Placing this plot next to a map of London provides context:
+
+```{r, out.width="90%", fig.show='hold'}
+plot(
+  cj[cj$cycling > 0, "speed_limit", ],
+  cex = cj$Total[cj$cycling > 0] / 3,
+  main = "Speed limit (cycling)"
+  )
+plot(
+  cj[cj$passenger > 0, "speed_limit", ],
+  cex = cj$Total[cj$passenger > 0] / 3,
+  main = "Speed limit (passenger)"
+  )
+```
+
+The spatial distribution of crashes in London clearly relates to the region's geography.
+Car crashes tend to happen on fast roads, including busy Motorway roads, displayed in yellow above.
+Cycling is as an urban activity, and the most bike crashes can be found in near Leeds city centre, which has a comparatively high level of cycling (compared with the low baseline of 3%).
+This can be seen by comparing the previous map with an overview of the area, from an academic paper on the social, spatial and temporal distribution of bike crashes [@lovelace_who_2016]:
+
+```{r, echo=FALSE}
+# knitr::include_graphics("lnd-overview.jpg")
+```
+
+In addition to the `Total` number of people hurt/killed, `cj` contains a column for each type of casualty (cyclist, car occupant, etc.), and a number corresponding to the number of each type hurt in each crash.
+It also contains the `geometry` column from `ac_sf`.
+In other words, joins allow the casualties and vehicles tables to be geo-referenced.
+We can then explore the spatial distribution of different casualty types.
+The following figure, for example, shows the spatial distribution of pedestrians and car passengers hurt in car crashes across London in 2017:
+
+```{r sfplot, fig.show='hold', out.width="100%", fig.cap="Spatial distribution of serious and fatal crashes in London, for cycling, walking, being a car passenger and other modes of travel. Colour is related to the speed limit where the crash happened (red is faster) and size is proportional to the total number of people hurt in each crash (legend not shown).", fig.width=9, fig.height=7}
+library(ggplot2)
+ac_types = cj %>% 
+  filter(accident_severity != "Slight") %>% 
+  mutate(type = case_when(
+    walking > 0 ~ "Walking",
+    cycling > 0 ~ "Cycling",
+    passenger > 0 ~ "Passenger",
+    TRUE ~ "Other"
+  ))
+ggplot(ac_types, aes(size = Total, colour = speed_limit)) +
+  geom_sf(show.legend = "point", alpha = 0.3) +
+  facet_grid(vars(type), vars(accident_severity)) +
+  scale_size(
+    breaks = c(1:3, 12),
+    labels = c(1:2, "3+", 12)
+    ) +
+  scale_color_gradientn(colours = c("blue", "yellow", "red")) +
+  theme(axis.text = element_blank(), axis.ticks = element_blank())
+```
+
+
+
+```{r}
+ac_names = names(ac)
+ac_names[grepl(pattern = "cas", x = ac_names)]
+```
+
+
