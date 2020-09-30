@@ -45,6 +45,40 @@ The output of the previous code chunk shows that we have more variables in the '
 
 ```{r, eval=FALSE, echo=FALSE}
 skimr::skim(ac)
+
+# experiment: simple joins
+ac_ve = inner_join(ac, ve)
+nrow(ac_ve) == nrow(ve)
+nrow(ac_ve) < nrow(ve)
+nrow(ve) / nrow(ac_ve)  
+# [1] 1.00025 ??? 2.5 per 10k - no big deal
+
+ac_ca = inner_join(ac, ca)
+nrow(ac_ca) == nrow(ca)
+nrow(ac_ca) < nrow(ca)
+nrow(ca) / nrow(ac_ca)  
+# [1] 1.000274 ??? why
+
+ac_ca_ve = inner_join(ac_ca, ac_ve %>% sf::st_drop_geometry(), by = c("accident_index", "vehicle_reference"))
+nrow(ve) / nrow(ac_ca_ve)
+library(trafficalmr)
+ac_tc_join = trafficalmr::tc_join_stats19(crashes = ac %>% sf::st_drop_geometry(), casualties = ca, vehicles = ve)
+nrow(ac) / nrow(ac_tc_join) # 1 +++
+
+table(ac_tc_join$accident_severity)
+
+# what else could people want from joining ac, ca, ve tables?
+# 1: improve default output: not number of casualties, no counts (just true/false)
+# Should tc_join_stats19 be called tc_join_upset: probably!
+
+# 2: option to return data at casualty level, e.g.:
+# ac_tc_cas = trafficalmr::tc_join_casualties(ac, ca, ve)
+# nrow(ac_tc_cas) == nrow(ca)
+
+# 3: option to return data at casualty level, e.g.:
+# ac_tc_ve = trafficalmr::tc_join_vehicles(ac, ca, ve)
+# nrow(ac_tc_ve) == nrow(ve)
+
 ```
 
 
