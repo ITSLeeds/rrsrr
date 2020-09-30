@@ -38,40 +38,127 @@ z = x + y
 pi^z / exp(z)
 ```
 
-The previous code chunk created three objects called `x`, `y` and `z`.
+The previous code chunk created three objects called `x`, `y` and `z` and showed how these objects can themselves be used to create additional objects.
+Why `x`, `y` and `z`?
+Lack of imagination!
 You can call R objects anything you like, provided they do not start with numbers or contain reserved symbols such as `+` and `-`.
 You can use various stylistic conventions when naming your R objects, including `camelCase` and `dot.case`
 [@baath_state_2012].
 We advocate using `snake_case` a style that avoids upper case characters to ease typing and uses the underscore symbol (`_`) to clearly demarcate spaces between words.
-Create objects that more closely approximate road casualty data as follows:
+
+These objects have now served their purpose.
+
+Based on wise saying that tidying up is the most important job, we will now remove these objects:
 
 ```{r}
-vehicle_type = c("car", "bus", "tank")
+rm(x, y, z)
+```
+
+What just happened?
+We have removed the objects using the R function `rm()`, which stands for 'remove'.
+Technically speaking, we *passed the objects to arguments in the `rm()` function call*.
+In plain English, things that go inside the curved brackets that follow a function name are arguments.
+The `rm()` function removes the objects that it is passed (most functions modify objects).
+A 'nuclear option' for cleaning your workspace is to run the following command, the meaning of which you will learn in the next section (can you guess?):
+
+```{r}
+rm(list = ls())
+```
+
+Next exercise: create objects that more closely approximate road casualty data by typing and running the following lines of code in the console:
+
+```{r}
 casualty_type = c("pedestrian", "cyclist", "cat")
 casualty_age = seq(from = 20, to = 60, by = 20)
 ```
 
 ## Classes and object length
 
+We now have two objects with sensible names 'in R'.
+Specifically, the objects are attached to the global environment, which means they can be listed with the `ls()` command:
+
 ```{r}
-crashes = data.frame(vehicle_type, casualty_type, casualty_age)
+ls()
 ```
 
+It should be clear from this that the above command `rm(list = ls())` removes all objects in your global environment and should be **used with caution**.
+This also makes the wider point that functions can accept arguments (in this case the `list` argument of the `rm()` function) that are themselves function calls.
+Two key functions for getting the measure of R objects are `class()` and `length()`.
 
+```{r}
+class(casualty_type)
+class(casualty_age)
+```
+
+The class of the `casualty_type` and `casualty_type` objects are `character` (meaning text) and `numeric` (meaning numbers), respectively.
+Next challenge: guess their length and check your guess was correct by running the following commands (results not shown):
+
+```{r, eval=FALSE}
+length(casualty_type)
+length(casualty_age)
+```
+
+The next function we will use is `data.frame()`
+
+```{r}
+crashes = data.frame(casualty_type, casualty_age)
+```
+
+Can you guess what that did?
+Find out by entering the following line of code, which will print the contents of the object (results not shown - you need to run the command on your own computer to see the result):
+
+```{r, eval=FALSE}
+crashes
+```
+
+Without looking at its contents, we can get a handle of what is in the `chrashes` object as follows:
+
+```{r}
+class(crashes)
+nrow(crashes)
+ncol(crashes)
+```
+
+The results of the previous commands tell us that the dataset has 3 rows and 2 columns.
+We will use larger datasets, with thousands of rows and tens of columns, in later chapters but for now it's good to 'start small' to understand the basics of R.
 
 ## Subsetting by index or name
 
 Subsetting returns part of an R object. 
 It can be done by providing numbers representing the positions of the elements we want (e.g. the 2^nd^ element) or with a logical vector, with values associated with `TRUE` returned. 
 Two dimension object such as matrices and data frames can be subset by rows and columns.
-Subsetting in base R is done with square brackets `[]` after the name of an object. **Run the following commands to practice subsetting.**
+Subsetting in base R is done with square brackets `[]` after the name of an object.
+**Run the following commands to practice subsetting and verify that you get the same results that are shown below.**
 
 ```{r, eval=FALSE}
 casualty_age[2:3] # second and third casualty_age
 crashes[c(1, 2), ] # first and second row of crashes
-crashes$vehicle_type # returns just one column
-crashes[, c("casualty_type", "casualty_age")] # first and third columns
+crashes[c(1, 2), 1] # first and second row of crashes, first column
+crashes$casualty_type # returns just one column
 ```
+
+The final command used the dollar symbol (`$`) to subset a column.
+We can use the same symbol to create a new column as follows:
+
+```{r}
+vehicle_type = c("car", "bus", "tank")
+crashes$vehicle_type = vehicle_type
+ncol(crashes)
+```
+
+Notice that the dataset now has three columns after we added one to the right of the previous one.
+Note also that this would involve copying and pasting cells in Excel, but in R it is instant and happens as fast as you can type the command.
+To confirm what we think has happened has actually happened, let's print out the object again to see its contents:
+
+```{r}
+crashes
+```
+
+In Chapter \@ref(data) we will use `filter()` and `select()` functions to subset rows and columns.
+Before we get there, it is worth practicing subsetting using the square brackets to consolidate your understanding of how base R works with vector objects such as `vehicle_type` and data frames such as `crashes`.
+If you can answer the following questions, congratualations,  you are ready to move on.
+If not, it's worth doing some extra reading and practice on the topic of subsetting in base R.
+
 
 ```{r, eval=FALSE, echo=FALSE}
 crashes[, c(1, 3)] # first and third column of crashes by positional numbers
@@ -81,7 +168,11 @@ class(crashes[, c(1, 3)])
 class(crashes[c(2), c(3)])
 ```
 
-1. Use the `$` operator to print the `dark` column of `crashes`.
+<!-- ## Exercises {-} -->
+<!-- Todo: should these be sections? -->
+**Exercises**
+
+1. Use the `$` operator to print the `vehicle_type` column of `crashes`.
 1. Subset the crashes with the `[,]` syntax so that only the first and third columns of `crashes` are returned.
 1. Return the 2^nd^ row and the 3^rd^ column of the `crashes` dataset. 
 1. Return the 2^nd^ row and the columns 2:3 of the `crashes` dataset. 
@@ -197,7 +288,7 @@ identical(crashes3, crashes)
 
 Notice that `crashes3` and `crashes` are not identical, what has changed? Hint: read the help page associated with `?readr::write_csv`.
 
-## Now you are ready to use R
+## Now you are ready to use RStudio
 
 **Bonus: reproduce the following plot**
 

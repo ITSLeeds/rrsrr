@@ -1,12 +1,14 @@
 # Using RStudio {#rstudio}
 
 The previous chapter taught the basic's of the R language.
-This chapter takes a step back and considers how R code fits into the wider context of scripts, projects, and getting help in RStudio.
+We entered and ran commands directly in the console.
+In this chapter we will learn how to write R scripts in RStudio's source editor.
+We will also take a step back and considers how R code fits into the wider context of scripts, projects, and getting help in RStudio.
 RStudio is an integrated development environment (IDE) for R that makes it easy to create and run scripts, explore R objects and functions, plot results, and get help.
 
 The first exercise is to open up RStudio and take a look around and identify the main components, shown in the figure below.
 **Explore each of the main components of RStudio.**
-Try changing the Global Settings (in the Tools menu) and see RStudio's short cuts by pressing `Alt-Shift-K` (or `Option+Shift+K` on Mac).
+Try clicking on different buttons in RStudio's GUI and try changing the Global Settings (in the Tools menu) and see RStudio's short cuts by pressing `Alt-Shift-K` (or `Option+Shift+K` on Mac).
 
 ```{r rstudioui, echo=FALSE, out.width="70%"}
 # download.file("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/rstudio-ui.png", "figures/rstudio-ui.png")
@@ -20,7 +22,7 @@ Projects are a way to organise related work together. Each project has its own f
 > File > New Project
 You can choose to create a new directory (folder) or associate a project with an existing directory. Make a new project called stats1-course and save it in a sensible place on your computer. Notice that stats1-course now appears in the top right of RStudio.
 
-Scripts are the files where R code is stored.
+Scripts are the files where R code is stored and you edit them in the Source Editor panel (the top left panel in Figure \@ref(fig:rstudioui)).
 **Keeping your code in sensibly named, well organised and reproducible scripts will make your life easier:**
 you could simply type all our code into the console, but that require retyping commands each time you run it.
 Instead, code that you want to keep and share should be saved script files, plain text files that have the `.R` extension.
