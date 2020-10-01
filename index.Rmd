@@ -113,8 +113,8 @@ Get ready for and enjoy the ride!
 
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
 
-## Tests {-}
+<!-- ## Tests {-} -->
 
-References that failed initially.
+<!-- References that failed initially. -->
 
-[@baath_state_2012]
+<!-- [@baath_state_2012] -->
