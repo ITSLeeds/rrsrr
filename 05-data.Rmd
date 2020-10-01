@@ -8,6 +8,38 @@ Run the command `help.start()` to see a resources introducing base R, and [Chapt
 ] or `data.table` [@R-data.table] approaches in R or even in other languages such as [Python](https://www.python.org/) or [Julia](https://julialang.org/).
 If you just want to get going with processing data we suggest learning how to manipulate data in R first.
 
+## Tiverse pipelines
+
+In the previous Chapter we briefly introduced the package `dplyr`.
+The package provides an alternative to base R for manipulating objects.
+Basic operations for subsetting rows (with the command `filter()`) and columns (with the command `select()`) are  demonstrated below.
+
+```{r}
+crashes %>%
+  filter(casualty_age > 50) # filter rows
+crashes %>%
+  select(casualty_type) # select just one column
+crashes %>%
+  group_by(dark) %>% 
+  summarise(mean_age = mean(casualty_age))
+```
+
+1. Use `dplyr` to filter row in which `casualty_age` is less than 18, and then 28.
+1. Use the `arrange` function to sort the `crashes` object in descending order of age (hint: see the `?arrange` help page).
+1. Read the help page of `dplyr::mutate()`. What does the function do?
+1. Use the mutate function to create a new variable, `birth_year`, in the `crashes` data.frame which is defined as the current year minus their age.
+1. **Bonus:** Use the ` %>% ` operator to filter the output from the previous exercise so that only observations with `birth_year` after 1969 are returned.
+
+```{r dplyr, eval=FALSE, echo=FALSE}
+# answers
+crashes %>% 
+  arrange(desc(casualty_age))
+crashes %>% filter(casualty_age > 21)
+crashes %>% 
+  mutate(birth_year = 2019 - casualty_age) %>% 
+  filter(birth_year > 1969)
+```
+
 ## Filtering rows and selecting columns
 
 ## Ordering and subsetting
