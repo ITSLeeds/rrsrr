@@ -21,10 +21,12 @@ knitr::opts_chunk$set(fig.path = "figures/")
 
 
 
-```{r, include=FALSE, eval=FALSE}
-citr::tidy_bib_file(rmd_file = "_main.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
-system("find . -name '0*.Rmd' -exec cat {} \\; > /tmp/all.Rmd")
-citr::tidy_bib_file(rmd_file = "/tmp/all.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
+```{r, include=FALSE}
+if(file.exists("~/uaf/allrefs.bib")) {
+  # citr::tidy_bib_file(rmd_file = "_main.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
+  system("find . -name '0*.Rmd' -exec cat {} \\; > /tmp/all.Rmd")
+  citr::tidy_bib_file(rmd_file = "/tmp/all.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
+}
 ```
 
 ```{r cite, echo=FALSE}

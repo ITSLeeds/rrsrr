@@ -150,7 +150,14 @@ library(ggplot2)
 ggplot(crashes_2019) + geom_bar(aes(date), width = 1)
 ```
 
-Note that the `+` operator adds layers onto one another.
+A key feature of the `ggplot2` package is the initiation function `ggplot2()`, which takes a data object as its main augument, followed by one or more 'geoms' that represent layers (in this case a bar chart represented by the function `geom_bar()`).
+Another distinctive feature of `ggplot2()` is the use of `+` operator to add layers.
+The package is huge and powerful, with support for a very wide range of plot types and themes, so it is worth taking time to read the documentation associated with the package, starting with the online [reference manual](https://ggplot2.tidyverse.org/reference/index.html) and heading towards the online version of the package's official [book](https://ggplot2-book.org/) [@wickham_ggplot2_2016].
+
+```{r, eval=FALSE}
+?ggplot
+```
+
 
 1. Install a package that build on `ggplot2` that begins with with `gg`. Hint: enter `install.packages(gg)` and hit Tab when your cursor is between the `g` and the `)`.
 1. Open a help page in the newly installed package with the `?package_name::function()` syntax.
