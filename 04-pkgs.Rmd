@@ -4,13 +4,25 @@
 
 R has over 15,000 packages published on the official 'CRAN' site and many more published on code sharing sites such as GitHub.
 Packages are effectively plugins for R, that extend it in many ways.
-Packages are useful because they enhance the range of things you can do with R.
+Packages are useful because they enhance the range of things you can do with R, providing additional functions, data and documentation that build on the core (or technically 'base') R packages.
+They range from general-purpose packages such as `tidyverse` and `sf` to domain-specific packages such as `stats19`.
 
-Packages provide additional functions, data and documentation.
-They range from general-purpose packages such as the `tidyverse` and `sf` to domain-specific packages such as `stats19`.
-In this chapter we will learn about both types of package, with reference to the general purpose package `ggplot2` --- which is part of the tidyverse suite of packages --- and the domain-specific package `stats19`, the purpose of which is to download and clean road traffic casualty data from the UK.
-Domain-specific packages are often written by subject-matter experts, providing tried and tested solutions in a particular specialism.
-This book was developed partly in response to the `stats19` package, described in the next section.
+This chapter demonstrates the package lifecycle with reference `stats19` and provides a taster of R's visualisation capabilities with reference to the general purpose package `ggplot2`.
+The `stats19` package is particularly relevant for reproducible road safety research: its purpose is to download and clean road traffic casualty data from the UK's Department for Transport.
+Domain-specific packages such as `stats19` are often written by subject-matter experts, providing tried and tested solutions in a particular specialism.
+
+Regardless of which packages you install and use, they all go through the following main stages:^[
+If for whatever reason you want to uninstall a package you can uninstall it in a fifth stage with commands such as `remove.packages("stats19")`.
+]
+
+1. installing it
+2. loading it
+3. using it
+4. updating it
+
+Of these, the third stage takes by far the most amount of time.
+Stages 1, 2 and 4 are equally important, however: you cannot properly use a package unless it has been properly installed, loaded and, to get the best performance out of the latest version, updated when new versions are released.
+We will learn each of these stages of the package lifecycle with the `stats19` package.
 
 ## The stats19 R package
 
@@ -29,16 +41,6 @@ We will learn how to install, load and use the package in the next section, know
 
 ## Installing packages
 
-There are three main stages to using a package:
-
-1. installing it
-2. loading it
-3. using it
-4. updating it
-
-Of these the third stage takes by far the most amount of time but the other stages are equally important: you cannot properly use a package unless it has been properly installed, loaded and, to get the best performance out of the latest version, updated when new versions are released.
-We will learn each of these stages of the package lifecycle with the `stats19` package.
-
 The `stats19` package is available on CRAN.
 This means that it has a webpage on the CRAN website at [cran.r-project.org](https://cran.r-project.org).
 The page at [cran.r-project.org/package=stats19](https://cran.r-project.org/package=stats19) provides useful information about the package, including who developed it, what the latest version is and when it was last updated.
@@ -51,8 +53,6 @@ Note: it's usually safest to stick with the latest version on CRAN unless you kn
 ```{r, eval=FALSE}
 install.packages("stats19")
 ```
-
-
 
 Update packages with the command `update.package()` or in Tools > Check for Package Updates in RStudio.
 You only need to install a package once.
