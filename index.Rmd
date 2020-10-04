@@ -1,6 +1,6 @@
 ---
 title: "Reproducible road safety research with R: A practical introduction"
-author: "Robin Lovelace"
+author: "Robin Lovelace, Malcolm Morgan, Andrea Gilardi"
 site: bookdown::bookdown_site
 documentclass: book
 output:

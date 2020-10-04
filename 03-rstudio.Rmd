@@ -49,6 +49,7 @@ In the next section we will re-open it and continue to edit the `chapter3.R` fil
 
 ## Writing and running code
 
+After re-opening RStudio
 Let's start with some basic R operations.
 Write this code into your new `stats19-lesson-1.R` R script and execute the result line-by-line by pressing Ctrl+Enter
 
