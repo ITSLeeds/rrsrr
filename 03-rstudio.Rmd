@@ -158,9 +158,28 @@ Within a function, you can get a list of arguments by pressing Tab.
 knitr::include_graphics("figures/functionhelp.jpg")
 ```
 
+Test out RStudio's amazing auto-completion capabilities by typing in the beginning of object names and functions and pressing `Tab` to see what suggestions pop-up.
+Try pressing `Up` and `Down` after pressing `Tab` to select different options.
+
+**Bonus**: try autocompleting file names by typing `""` (the closing quote mark should be added automatically) and pressing `Tab` when your cursor is between the quote marks. What happens when you type `"~/"` and press `Tab` with your cursor just after the tilde (`~`) symbol. What does this mean (hint it involves the word 'home' and you can search the web to help get a full answer)?
+
+<!-- Todo: put this answer somewhere! -->
+<!-- It means that you can use RStudio as a command line file browser, ~ means you 'home folder'! -->
+
 ## Getting help
 
-Every function in R has a help page. You can view the help using `?` for example `?sum`. Many packages also contain vignettes, these are long form help documents containing examples and guides. `vignette()` will show a list of all the vignettes available, or you can show a specific vignette for example `vignette(topic = "sf1", package = "sf")`.
+Every function in R has a help page.
+You can view the help using `?` for example `?sum` and `?plot`.
+Many packages also contain vignettes, these are long form help documents containing examples and guides.
+`vignette()` will show a list of all the vignettes available, or you can show a specific vignette for example `vignette(topic = "sf1", package = "sf")`.
+
+Try getting help on the `stats19` package by typing the following and pressing `Tab` when your cursor is just to the left of the closing bracket `)` (autocompletion works for more than just R objects and files - try making RStudio autocomplete and run the command `vignette("stats19-vehicles")` for example):
+
+```{r, eval=FALSE}
+vignette(stats19)
+```
+
+You can can further search and explore R's help files using the **Help** panel in the bottom right window in RStudio.
 
 ## Commenting Code
 
