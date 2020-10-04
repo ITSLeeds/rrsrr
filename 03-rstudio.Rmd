@@ -6,11 +6,11 @@ In this chapter we will learn how to write R scripts in RStudio's source editor.
 We will also take a step back and considers how R code fits into the wider context of scripts, projects, and getting help in RStudio.
 RStudio is an integrated development environment (IDE) for R that makes it easy to create and run scripts, explore R objects and functions, plot results, and get help.
 
-The first exercise is to open up RStudio and take a look around and identify the main components, shown in the figure below.
+The first exercise is to open up RStudio and take a look around and identify the main components, shown in Figure \@ref(fig:rstudioui).
 **Explore each of the main components of RStudio.**
 Try clicking on different buttons in RStudio's GUI and try changing the Global Settings (in the Tools menu) and see RStudio's short cuts by pressing `Alt-Shift-K` (or `Option+Shift+K` on Mac).
 
-```{r rstudioui, echo=FALSE, out.width="70%"}
+```{r rstudioui, echo=FALSE, out.width="100%", fig.cap="The RStudio user interface showing the four main 'panes'."}
 # download.file("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/2day/images/rstudio-ui.png", "figures/rstudio-ui.png")
 knitr::include_graphics("figures/rstudio-ui.png")
 ```
