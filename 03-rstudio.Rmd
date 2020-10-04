@@ -245,6 +245,8 @@ knitr::include_graphics("figures/rstudio-autocomplete.png")
 
 ## Productivity boosting features
 
+<!-- Todo: should these bullet points be subsubsections? -->
+
 This final section describes functionality in RStudio that goes beyond the features described above.
 RStudio is an advanced and powerful IDE and is highly customisable in myriad ways, especially since the launch of the RStudio Addins add-on system in [2016](https://cran.r-project.org/web/packages/addinslist/readme/README.html).
 Rather than try to be comprehensive (an impossible task), this section provides a list of additional RStudio features, starting simple and ending advanced, that have been tried, tested and proven to work, with links to the relevant documentation rather than extended descriptions.
