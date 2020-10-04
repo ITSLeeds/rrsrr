@@ -145,7 +145,7 @@ Completing the following short exercises will ensure you've got a good understan
 `ggplot2` is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
 To plot non-spatial data, it works as follows (the command should generate the image shown in Figure \@ref(fig:crashes_2019time)):
 
-```{r crashes_2019time, message=FALSE"}
+```{r crashes_2019time, message=FALSE}
 library(ggplot2)
 ggplot(crashes_2019) + geom_bar(aes(date), width = 1)
 ```
