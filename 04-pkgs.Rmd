@@ -143,22 +143,41 @@ Completing the following short exercises will ensure you've got a good understan
 `ggplot2` is a generic plotting package that is part of the ['tidyverse'](https://www.tidyverse.org/) meta-package,  an "opinionated collection of R packages designed for data science". 
 <!-- All packages in the tidyverse "share an underlying design philosophy, grammar, and data structures".  -->
 `ggplot2` is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
-To plot non-spatial data, it works as follows (the command should generate the image shown in Figure \@ref(fig:crashes_2019time)):
+To plot non-spatial data, it works as follows (the command should generate the image shown in Figure \@ref(fig:crashes2019time)):
 
-```{r crashes_2019time, message=FALSE}
+```{r crashes2019time, message=FALSE, fig.cap="A simple ggplot2 graph."}
 library(ggplot2)
 ggplot(crashes_2019) + geom_bar(aes(date), width = 1)
 ```
 
 A key feature of the `ggplot2` package is the initiation function `ggplot2()`, which takes a data object as its main augument, followed by one or more 'geoms' that represent layers (in this case a bar chart represented by the function `geom_bar()`).
 Another distinctive feature of `ggplot2()` is the use of `+` operator to add layers.
-The package is huge and powerful, with support for a very wide range of plot types and themes, so it is worth taking time to read the documentation associated with the package, starting with the online [reference manual](https://ggplot2.tidyverse.org/reference/index.html) and heading towards the online version of the package's official [book](https://ggplot2-book.org/) [@wickham_ggplot2_2016].
+The package is excellent for generating publication quality figures.
+Starting from a basic idea, you can make incremental tweaks to a plot to get the output you want.
+Building on the figure above, we could make the bin width wider and add colour depending on the crash severity, for example, as follows:
 
-```{r, eval=FALSE}
-?ggplot
+```{r ggpropcrashes, out.width="49%", fig.show='hold', fig.cap="Demonstation of fill and position arguments in ggplot2."}
+ggplot(crashes_2019) + geom_bar(aes(date, fill = accident_severity), width = 1)
+ggplot(crashes_2019) +
+  geom_bar(aes(date, fill = accident_severity), width = 1, position = "fill") +
+  ylab("Proportion of crashes")
 ```
 
 
+
+The package is huge and powerful, with support for a very wide range of plot types and themes, so it is worth taking time to read the documentation associated with the package, starting with the online [reference manual](https://ggplot2.tidyverse.org/reference/index.html) and heading towards the online version of the package's official [book](https://ggplot2-book.org/) [@wickham_ggplot2_2016].
+As a final taught bit of `ggplot2` code in this chapter, create a facetted plot showing how the number of crashes per hour varies across the days of the week by typing the following into the Source Editor and running the chunk line-by-line (the meaning of the commands should become clear by the end of the next Chapter):
+
+```{r ggfacetr, fig.cap="A plot showing a facetted time series plot made with ggplot2.", warning=FALSE}
+library(tidyverse)
+crashes_2019 %>% 
+  mutate(hour = lubridate::hour(datetime)) %>% 
+  mutate(day = lubridate::wday(date)) %>% 
+  filter(!is.na(hour)) %>% 
+  ggplot(aes(hour, fill = accident_severity)) +
+  geom_bar(width = 1.01) +
+  facet_wrap(~day)
+```
 1. Install a package that build on `ggplot2` that begins with with `gg`. Hint: enter `install.packages(gg)` and hit Tab when your cursor is between the `g` and the `)`.
 1. Open a help page in the newly installed package with the `?package_name::function()` syntax.
 1. Attach the package.
