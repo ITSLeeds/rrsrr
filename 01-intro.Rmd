@@ -15,7 +15,7 @@ The book is based on open source software, which knows no borders: R works equal
 The book is practical, meaning that you should reproduce the examples that are provided throughout.
 As with many practical skills you learn data science by *doing* data science.
 
-Before getting stuck in with the practical content, which begins in Chapter \@ref(r-basics), the rest of this chapter:
+Before getting stuck in with the practical content, which begins in Chapter \@ref(basics), the rest of this chapter:
 
 - introduces the concept reproducibility and its importance for evidence-based policies
 - explains the choice of R as a 'tool of the trade' for road safety research
@@ -121,76 +121,31 @@ R is supported by most organisations and if you are having issues installing an 
 Various organisations manage RStudio Server instances but by far the most well-known cloud provider at [https://cloud.rstudio.com/](cloud.rstudio.com).
 To run R in the cloud, sign-up to cloud.rstudio.com (or cloud instance of your choice) and acess RStudio from the browser.
 
-## Installing and loading R packages for road safety research {#install-pkgs}
+## Recommended packages {#install-pkgs}
 
 Of the thousands of available packages that are available for road safety research, we will use a handful that are mature, well-tested and well-suited to statistical analysis and visualisation of road casualty data.
-This first practical section relies on **starting RStudio**, e.g. by tapping the Start button and searching for RStudio if you are on Windows. You should see an 'R console' like that displayed in Figure \@ref(fig:console).
-
-```{r console, echo=FALSE, fig.cap='The R console in RStudio. You should see something like this when you first open RStudio. Tapping Enter at this point will trigger the autocompletion of the command `install.packages("stats19").'}
-knitr::include_graphics("figures/console.png")
-```
-
-If you saw something like that shown in Figure \@ref(fig:console) congratulations!
-When I pressed enter with the console position shown, RStudio automatically 'autocompleted' the command.
-Pressing enter again will **run the command** in the console and install the package.
-
-If the installation of `stats19` package worked, you have a working R installation and you are ready to proceed with the tutorial.
-The first **practical challenge** is to install the other packages we will use for the course using commands similar to the one we we used to install `stats19`.
-To recap, to do this, we ran the following command in the console:
-
-```{r, eval=FALSE}
-install.packages("stats19")
-```
-
-Replacing `stats19` with other package names such as `tidyverse` will install them.
-Check the installation of `stat19` worked as follows, which 'loads' the package and makes its functions available to you in the 'global environment' [@wickham_advanced_2014]:
-
-```{r}
-library(stats19)
-```
-
-**Install and load the packages for we will use for the course** (you may need to install the packages before package loading commands below run successfull):
+For the first practical section, in Chapter \@ref(basics), all you need is a working version of R and RStudio.
+In Chapter \@ref(pkgs) we will see how to install and use add-on packages such as `stats19`.
+If you want to be ahead of the game, however, you can check that you have the necessary packages installed by running the following commands, which **install and load the packages for we will use for the course**:
 
 <!-- The completing the course requires that the following packages, which can be installed with `install.packages()`, can be loaded as follows: -->
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-library(pct)      # access travel data from DfT-funded PCT project 
-library(sf)       # spatial vector data classes
-library(stats19)  # get stats19 data, already loaded
-library(stplanr)  # transport planning tools
-library(tidyverse)# packages for 'data science'
-library(tmap)     # interactive maps
+install.packages("remotes") # install the remotes package
+pkgs = c(
+  "stats19",     # downloads and formats open stats19 crash data
+  "sf",          # spatial data package
+  "tidyverse",   # a 'metapackage' with many functions for data processing
+  "tmap",        # for making maps
+  "pct",         # access travel data from DfT-funded PCT project 
+  "stplanr"      # transport planning tools
+)
+
+remotes::install_cran(pkgs)
+lapply(pkgs, library, character.only = TRUE)
 ```
 
 <!-- You should type, run and ensure you understand each line of code in this document. -->
-
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  out.width = "50%"
-)
-```
-
-
-```{r pkgs, warning=FALSE, echo=FALSE}
-pkgs = c(
-  "sf",          # spatial data package
-  "stats19",     # downloads and formats open stats19 crash data
-  "dplyr",       # a package data manipulation, part of the tidyverse
-  "tmap"         # for making maps
-)
-```
-
-```{r cite, echo=FALSE}
-knitr::write_bib(x = pkgs, "packages.bib")
-```
-
-```{r, eval=FALSE, echo=FALSE}
-remotes::install_cran(pkgs)
-# remotes::install_github("ITSLeeds/pct")
-```
 
 
 ## Overview
@@ -207,6 +162,6 @@ The rest of the book is structured as follows.
 - Chapter \@ref(next) suggests next steps for road safety researchers looking to take their skills to the next levels and provide the strong evidence needed to safe lives.
 
 ```{r, echo=FALSE}
-rm(pkgs)
+# rm(pkgs)
 ```
 

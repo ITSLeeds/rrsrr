@@ -6,6 +6,16 @@ The same applies to data science: it will help to understand a little about synt
 This chapter may seem tedious for people who just want to crack on and load-in data.
 However, working through the examples below is recommended for most people unless you're already an experienced R user, and even experienced R users may learn something about the language's unique syntax in the following sections.
 
+The first step is to **start RStudio**, e.g. by tapping the Start button and searching for RStudio if you are on Windows.
+You should see an 'R console' like that displayed in Figure \@ref(fig:console).
+
+```{r console, echo=FALSE, fig.cap='The R console in RStudio. You should see something like this when you first open RStudio. Tapping Enter at this point will trigger the autocompletion of the command `install.packages("stats19").'}
+knitr::include_graphics("figures/console.png")
+```
+
+If you saw something like that shown in Figure \@ref(fig:console) congratulations!
+You are ready to start running R code, by entering commands into the console.
+
 ## Creating and removing R objects
 
 R can be understood as a giant calculator.

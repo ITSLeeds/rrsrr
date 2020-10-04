@@ -21,6 +21,18 @@ system("find . -name '0*.Rmd' -exec cat {} \\; > /tmp/all.Rmd")
 citr::tidy_bib_file(rmd_file = "/tmp/all.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
 ```
 
+```{r cite, echo=FALSE}
+pkgs = c(
+  "stats19",     # downloads and formats open stats19 crash data
+  "sf",          # spatial data package
+  "tidyverse",   # a 'metapackage' with many functions for data processing
+  "tmap",        # for making maps
+  "pct",         # access travel data from DfT-funded PCT project 
+  "stplanr"      # transport planning tools
+)
+knitr::write_bib(x = pkgs, "packages.bib")
+rm(pkgs)
+```
 
 <!-- Structure outline -->
 

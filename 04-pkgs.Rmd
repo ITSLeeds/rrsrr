@@ -72,14 +72,39 @@ library(stats19)
 
 What happened? 
 Other than the message telling us about the package's datasets (most packages load silently so do not worry if nothing happens when you load a package), the command above made the functions and datasets in the package available to us.
-Now we can use functions from the package as follows:
+Now we can use functions from the package without an error message, as follows:
 
 ```{r}
 find_file_name(years = 2019, type = "casualties")
 ```
 
+This raises the question: how do you know which functions are available in a particular package?
+You can find out using autocompletion, by pressing `Tab` after typing the package's name followed by two colons.
+Try typing `stats19::` and then hitting `Tab`, for example.
+You should see a load of function names appearing which you view by pressing `Up` and `Down` on your keyboard.
 
+The final thing to say about packages is that you can use them without loading them by typing `package::function()`.
+`stats19::find_file_name(years = 2019, type = "casualties")` works even if the package isn't loaded.
+You can test this by running the following command (which reports the versions of key geographic libraries you have installed on your system) in three different ways, the first of which fails but the second of which succeed:
 
+```{r, error=TRUE}
+# try running a function without loading the package first
+sf_extSoftVersion()
+```
+
+```{r}
+# run a function from a package's namespace without loading it using ::
+sf::sf_extSoftVersion()
+```
+
+```{r}
+# fun a function call after loading the package (the most common way)
+library(sf)
+sf_extSoftVersion()
+```
+
+As a bonus, try running the command `sf::sf_extSoftVersion` without the brackets `()`.
+What does that tell you about the package?
 
 ## Using packages 
 
