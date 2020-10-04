@@ -49,9 +49,9 @@ In the next section we will re-open it and continue to edit the `chapter3.R` fil
 
 ## Writing and running code
 
-After re-opening RStudio
-Let's start with some basic R operations.
-Write this code into your new `stats19-lesson-1.R` R script and execute the result line-by-line by pressing Ctrl+Enter
+Re-open RStudio and ensure that you have an empty file open in the Source Editor.
+We will type some basic commands into this file:
+type the following lines of code into your new `chapter3.R` R script and execute the result line-by-line by pressing Ctrl+Enter (Command+Enter on Mac):
 
 ```{r, eval=FALSE}
 x = 1:5
@@ -59,8 +59,11 @@ y = c(0, 1, 3, 9, 18)
 plot(x, y)
 ```
 
-This code creates two objects, both are vectors of 5 elements, and then plots them (bonus: check their length using the `length()` function).
-Save the script by pressing Ctrl+S.
+<!-- todo: add a gif? -->
+
+When the code is sent to the console two objects are created, both of which are vectors of 5 elements (bonus: check their length using the `length()` function).
+The third line of the code chunk plots them.
+Save the script by pressing `Ctrl+S`.
 
 There are several ways to run code within a script and it is worth becoming familiar with each.
 Try running the code you saved in the previous section using each of these methods:
@@ -69,10 +72,10 @@ Try running the code you saved in the previous section using each of these metho
 1. Highlight a block of code or part of a line of code and press `Ctrl+Enter` to run the highlighted code.
 1. Press `Ctrl+Shift+Enter` to run all the code in a script.
 1. Press the Run button on the toolbar to run all the code in a script.
-1. Use the function `source()` to run all the code in a script e.g. `source("stats19-lesson-1.R")`
+1. Use the function `source()` to run all the code in a script e.g. `source("chapter3.R")`
 <!-- (but don't create an infinite loop!) -->
 
-**Pro tip:** Try jumping between the console and the source editor by pressing Ctl+1 and Ctl+2.
+Practice jumping between the console and the source editor by pressing `Ctl+1` and `Ctl+2`.
 
 ## Viewing Objects
 
