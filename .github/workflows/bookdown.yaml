@@ -9,17 +9,40 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Setup R
-        uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
 
-      - name: Install pandoc and pandoc citeproc
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - name: Query dependencies
         run: |
-          brew install pandoc
-          brew install pandoc-citeproc
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
+        shell: Rscript {0}
 
       - name: Cache Renv packages
         uses: actions/cache@v2
