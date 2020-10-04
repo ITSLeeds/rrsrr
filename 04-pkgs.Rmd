@@ -53,6 +53,12 @@ Note: it's usually safest to stick with the latest version on CRAN unless you kn
 install.packages("stats19")
 ```
 
+You might think that now that the package has been loaded we can start using it, but that is not true, as illustrated below command, which tries and fails to run the `find_file_name()` function from the package (check that this function exists by running the following command `?find_file_name`) to find the file containing STATS19 casualties data for the year 2019:
+
+```{r, error=TRUE}
+find_file_name(years = 2019, type = "casualties")
+```
+
 ## Loading packages
 
 After you have installed a package the next step is to 'load' it.^[
@@ -63,6 +69,16 @@ Load the `stats19` package, that was installed in the previous section, as follo
 ```{r}
 library(stats19)
 ```
+
+What happened? 
+Other than the message telling us about the package's datasets (most packages load silently so do not worry if nothing happens when you load a package), the command above made the functions and datasets in the package available to us.
+Now we can use functions from the package as follows:
+
+```{r}
+find_file_name(years = 2019, type = "casualties")
+```
+
+
 
 
 ## Using packages 
