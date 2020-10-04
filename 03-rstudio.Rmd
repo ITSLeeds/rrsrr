@@ -17,27 +17,35 @@ knitr::include_graphics("figures/rstudio-ui.png")
 
 ## Projects and scripts
 
-Projects are a way to organise related work together. Each project has its own folder and Rproj file. **Advice: always working from projects will make your life easier!** Start a new project with:
+Projects organise files and settings in RStudio into folders.
+Each project has its own folder and Rproj file.
+**When using RStudio always ensure you are working in a named project to organise your work.**
+Start a new project with:
 
 > File > New Project
-You can choose to create a new directory (folder) or associate a project with an existing directory. Make a new project called stats1-course and save it in a sensible place on your computer. Notice that stats1-course now appears in the top right of RStudio.
+You can choose to create a new directory (folder) or associate a project with an existing directory. Make a new project called lrrsrr (short for 'learning reproducible road safety research with R') or a name of you choice and save it in a sensible place on your computer. Notice that stats1-course now appears in the top right of RStudio.
 
-Scripts are the files where R code is stored and you edit them in the Source Editor panel (the top left panel in Figure \@ref(fig:rstudioui)).
-**Keeping your code in sensibly named, well organised and reproducible scripts will make your life easier:**
-you could simply type all our code into the console, but that require retyping commands each time you run it.
-Instead, code that you want to keep and share should be saved script files, plain text files that have the `.R` extension.
+**Scripts** are files where R code is stored and you edit them in the Source Editor panel (the top left panel in Figure \@ref(fig:rstudioui)).
+**Keeping your code in sensibly named, well organised and reproducible scripts will make your life easier.**
+We could continue typing all our code into the console, as we did in Chapter \@ref(basics).
+However that approach is limited when working on anything more complicated than a few simple commands.
+Code that you want to keep and share should be saved script files, plain text files that have the `.R` extension.
 
-Make a new script with Flie > New File > Rscript or Ctrl+Shift+N
-
-Save the script and give it a sensible name like `stats19-lesson-1.R` with File > Save, the save button on the toolbar, or Ctrl+S.
-
-**Pro tip:** You can also create new R scripts by typing and running this command in the R console:
+Make a new script by typing and running this command in the R console:^[
+You can also create new files by clicking on File > New File > R Script with the mouse, or with the keyboard shortcut by pressing `Ctrl+Shift+N`. You can save the script and give it a sensible name like `chapter3.R` with File > Save or `Ctrl+S`. 
+We recommend using the command `file.edit()` to create files, however, because it is faster and develops your typing skills.
+]
 
 ```{r edit, eval=FALSE}
-file.edit("stats19-lesson-1.R")
+file.edit("chapter3.R")
 ```
 
+That will open the Source Editor and place your cursor there.
+Try jumping between the Source Editor and the Console by pressing `Ctl+1` and `Ctl+2`.
+
 Keeping scripts and other files associated with a project in a single folder per project (in an RStudio project) will help you find things you need and develop an efficient workflow.
+To check that your project is saved, next close RStudio.
+In the next section we will re-open it and continue to edit the `chapter3.R` file.
 
 ## Writing and running code
 
