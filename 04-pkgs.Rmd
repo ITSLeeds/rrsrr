@@ -55,6 +55,15 @@ install.packages("stats19")
 
 ## Loading packages
 
+After you have installed a package the next step is to 'load' it.^[
+Technically, this means that the *package namespace has been attached to the search path*, making their functions available from the global environment [@wickham_advanced_2014].
+]
+Load the `stats19` package, that was installed in the previous section, as follows:
+
+```{r}
+library(stats19)
+```
+
 
 ## Using packages 
 
