@@ -7,7 +7,7 @@ Packages are effectively plugins for R, that extend it in many ways.
 Packages are useful because they enhance the range of things you can do with R, providing additional functions, data and documentation that build on the core (or technically 'base') R packages.
 They range from general-purpose packages such as `tidyverse` and `sf` to domain-specific packages such as `stats19`.
 
-This chapter demonstrates the package lifecycle with reference `stats19` and provides a taster of R's visualisation capabilities with reference to the general purpose package `ggplot2`.
+This chapter demonstrates the package lifecycle with reference `stats19` and provides a taster of R's visualisation capabilities with reference to the general purpose packages `ggplot2` and `dplyr`.
 The `stats19` package is particularly relevant for reproducible road safety research: its purpose is to download and clean road traffic casualty data from the UK's Department for Transport.
 Domain-specific packages such as `stats19` are often written by subject-matter experts, providing tried and tested solutions in a particular specialism.
 
@@ -91,7 +91,6 @@ You can test this by running the following command (which reports the versions o
 # try running a function without loading the package first
 sf_extSoftVersion()
 ```
-
 ```{r}
 # run a function from a package's namespace without loading it using ::
 sf::sf_extSoftVersion()
@@ -106,57 +105,49 @@ sf_extSoftVersion()
 As a bonus, try running the command `sf::sf_extSoftVersion` without the brackets `()`.
 What does that tell you about the package?
 
-## Using packages 
+## Using packages
+
+After loading a package, as described in the previous section, you can start using its functions.
+In the `stats19` package, that means the following command, which uses the `stats19` function `get_stats19()`, will work:
+
+```{r}
+crashes_2019 = get_stats19(year = 2019, type = "accidents")
+```
+
+We will use other functions from the package in subsequent chapters.
+If you would like learn more about `stats19` and how it can be used for road safety research check out its vignettes.
+The `stats19` vignette, for example, should appear in the **Help** panel in the bottom right panel in RStudio after running the following command:
+
+```{r, eval=FALSE}
+vignette("stats19")
+```
 
 ## Updating packages
 
-
 Update packages with the command `update.package()` or in Tools > Check for Package Updates in RStudio.
-You only need to install a package once.
-<!-- **Note: avoid `install.packages()` within a script** -->
-<!-- Packages only need to be installed once. -->
-<!-- You can use `remotes::install_cran()` or `remotes::install_github()` to only install a package if it is not yet installed and up-to-date (note: you only need to use one of these): -->
+You only need to install a package once but packages can be updated many times.
+To update just one package, you can give the function a package name, e.g.:
 
 ```{r, eval=FALSE}
-install.packages("sf")
-# remotes::install_github("r-spatial/sf")
+update.packages(oldPkgs = "stats19")
 ```
 
-<!-- now talk about loading packages -->
-Installed packages are loaded with the command `library()`.
-Usually, the package will load silently.
-In some cases the package will provide a message, as illustrated below.
-
-```{r}
-library(sf)
-```
-
-To use a function in a package without first loading the package, use double colons, as shown below (this calls the `tibble()` function from the `tibble` package).
-
-```{r tibble2, eval=FALSE}
-crashes_tibble = tibble::tibble(
-  vehicle_type,
-  casualty_type,
-  casualty_age,
-  dark
-)
-```
+Completing the following short exercises will ensure you've got a good understanding of packages and package versions.
 
 1. Take a look in the Packages tab in the Files pane in RStudio (bottom right by default).
 1. What version of the `stats19` package is installed on your computer?
-1. Run the command `update.packages()`. What happens? Why?
+1. What happens the second time you run `update.packages()`. Why?
 
 ## ggplot2
 
-Let's take a look at a particular package.
-`ggplot2` is a generic plotting package that is part of the ['tidyverse'](https://www.tidyverse.org/) meta-package, which is an "opinionated collection of R packages designed for data science". 
-All packages in the tidyverse "share an underlying design philosophy, grammar, and data structures". 
+`ggplot2` is a generic plotting package that is part of the ['tidyverse'](https://www.tidyverse.org/) meta-package,  an "opinionated collection of R packages designed for data science". 
+<!-- All packages in the tidyverse "share an underlying design philosophy, grammar, and data structures".  -->
 `ggplot2` is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
-To plot non-spatial data, it works as follows (see figure below, left for result):
+To plot non-spatial data, it works as follows (the command should generate the image shown in Figure \@ref(fig:crashes_2019time)):
 
-```{r, message=FALSE, out.width="40%", eval=FALSE}
+```{r crashes_2019time, message=FALSE, out.width="80%"}
 library(ggplot2)
-ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age))
+ggplot(crashes_2019) + geom_bar(aes(date), width = 1)
 ```
 
 Note that the `+` operator adds layers onto one another.
@@ -169,7 +160,7 @@ Note that the `+` operator adds layers onto one another.
 ```{r gg-extend, echo=FALSE, message=FALSE, eval=FALSE}
 library(ggplot2)
 # install.packages("ggthemes")
-g1 = ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age)) 
+g1 = ggplot(crashes_2019) + geom_point(aes(x = casualty_type, y = casualty_age)) 
 g2 = ggplot(crashes) + geom_point(aes(x = casualty_type, y = casualty_age)) +
   ggthemes::theme_economist()
 g3 = cowplot::plot_grid(g1, g2)
@@ -183,8 +174,8 @@ knitr::include_graphics("figures/ggtheme-plot.png")
 
 ## dplyr
 
-Another useful package in the tidyverse is `dplyr`.
-It provides functions for manipulating data frames and using the pipe operator ` %>% `. 
+Another useful package in the tidyverse is `dplyr`, which stands for 'data pliers' and provides a handy syntax for data manipulation.
+`dplyr` has many functions for manipulating data frames and using the pipe operator ` %>% `. 
 The pipe puts the output of one command into the first argument of the next, as shown below (note the results are the same):
 
 ```{r}
