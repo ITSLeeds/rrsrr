@@ -1,14 +1,59 @@
-# The stats19 R package {#pkgs}
+# R packages {#pkgs}
 
 ## What are packages?
 
-R has over 15,000 packages (effectively plugins for base R), extending it in almost every direction of statistics and computing.
-Packages provide additional functions, data and documentation. They are very often written by subject-matter experts and therefore tend to fit well with the workflow of the analyst in that particular specialism.
-There are two main stages to using a package: installing it and loading it.
-A third stage is updating it, this is also important.
+R has over 15,000 packages published on the official 'CRAN' site and many more published on code sharing sites such as GitHub.
+Packages are effectively plugins for R, that extend it in many ways.
+Packages are useful because they enhance the range of things you can do with R.
 
-<!-- installing it... -->
-Install new packages from [The Comprehensive R Archive Network](https://cran.r-project.org/) with the command `install.packages()` (or `remotes::install_github()` to install from GitHub).
+Packages provide additional functions, data and documentation.
+They range from general-purpose packages such as the `tidyverse` and `sf` to domain-specific packages such as `stats19`.
+In this chapter we will learn about both types of package, with reference to the general purpose package `ggplot2` --- which is part of the tidyverse suite of packages --- and the domain-specific package `stats19`, the purpose of which is to download and clean road traffic casualty data from the UK.
+Domain-specific packages are often written by subject-matter experts, providing tried and tested solutions in a particular specialism.
+This book was developed partly in response to the `stats19` package, described in the next section.
+
+## The stats19 R package
+
+Like many packages, `stats19` was developed to meet a real world need.
+STATS19 data is provided as a free and open resource by the Department for Transport, encouraging evidence-based and accountable road safety research and policy interventions.
+However, researchers at the University of Leeds found that repeatedly downloading and formatting open STATS19 data was time-consuming, taking valuable resources away from more valuable (and fun) aspects of the research process.
+Importantly, manually recoding the data, from `1` to `Fatal` for example, was error-prone.
+By packaging-up code to reliably solve the problem for ourselves, we found that we could solve the problem in a free, open and reproducible way for everyone [@lovelace_stats19_2019].
+
+By abstracting the process to its fundamental steps (download, read, format), the package makes it easy to get the data into appropriate formats (of classes `tbl`, `data.frame` and `sf`), ready for for further processing and analysis steps.
+The package built on previous work [@lovelace_who_2016] with several important improvements, including the conversion of crash data into geographic data into `sf` data frame for geographic research [e.g. @austin_use_1997].
+A useful feature of the package is that it enables creation of geographic representations of the data, geo-referenced to the correct coordinate reference system, in a single function, called `format_sf()`.
+Part funded by the RAC Foundation, the package should be of use to academic researchers and professional road safety data analysts working at local authority and national levels in the UK.
+
+We will learn how to install, load and use the package in the next section, know-how that can be used to install and use any package.
+
+## Installing packages
+
+There are three main stages to using a package:
+
+1. installing it
+2. loading it
+3. using it
+4. updating it
+
+Of these the third stage takes by far the most amount of time but the other stages are equally important: you cannot properly use a package unless it has been properly installed, loaded and, to get the best performance out of the latest version, updated when new versions are released.
+We will learn each of these stages of the package lifecycle with the `stats19` package.
+
+The `stats19` package is available on CRAN.
+This means that it has a webpage on the CRAN website at [cran.r-project.org](https://cran.r-project.org).
+The page at [cran.r-project.org/package=stats19](https://cran.r-project.org/package=stats19) provides useful information about the package, including who developed it, what the latest version is and when it was last updated.
+More importantly, being 'on CRAN' (which technically means 'available on the [Comprehensive R Archive Network](https://cran.r-project.org/)') means that that it can be installed with the command `install.packages()` as follows:^[
+To install the development version, which may have new features or but fixes that are not yet on CRAN, you can use the function`remotes::install_github("org/pkg")`.
+The `stats19` package is hosted on the rOpenSci organisation at [github.com/ropensci/stats19](https://github.com/ropensci/stats19), so you can install the development version with `remotes::install_github("ropensci/stats19")` (you must have the `remotes` package installed before that will work).
+Note: it's usually safest to stick with the latest version on CRAN unless you know what you're doing.
+]
+
+```{r, eval=FALSE}
+install.packages("stats19")
+```
+
+
+
 Update packages with the command `update.package()` or in Tools > Check for Package Updates in RStudio.
 You only need to install a package once.
 <!-- **Note: avoid `install.packages()` within a script** -->
