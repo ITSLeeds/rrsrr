@@ -8,11 +8,17 @@ output:
   #bookdown::pdf_book: default
 description: "A reproducible and open source approach to aapplied road safety research"
 url: 'https\://saferactive.github.io/rrsrr/'
+book_filename: rrsrr
 github-repo: "saferactive/rrsrr"
 bibliography:
   - packages.bib
   - references.bib
 ---
+
+```{r knitopts}
+knitr::opts_chunk$set(fig.path = "figures/")
+```
+
 
 
 ```{r, include=FALSE, eval=FALSE}
