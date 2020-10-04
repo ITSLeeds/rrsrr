@@ -37,13 +37,12 @@ The package built on previous work [@lovelace_who_2016] with several important i
 A useful feature of the package is that it enables creation of geographic representations of the data, geo-referenced to the correct coordinate reference system, in a single function, called `format_sf()`.
 Part funded by the RAC Foundation, the package should be of use to academic researchers and professional road safety data analysts working at local authority and national levels in the UK.
 
-We will learn how to install, load and use the package in the next section, know-how that can be used to install and use any package.
+The following sections demonstrate how to install, load and use packages with reference to `stats19`, know-how that can be used to install and use any package.
 
 ## Installing packages
 
 The `stats19` package is available on CRAN.
-This means that it has a webpage on the CRAN website at [cran.r-project.org](https://cran.r-project.org).
-The page at [cran.r-project.org/package=stats19](https://cran.r-project.org/package=stats19) provides useful information about the package, including who developed it, what the latest version is and when it was last updated.
+This means that it has a web page on the CRAN website at [cran.r-project.org](https://cran.r-project.org) --- see [cran.r-project.org/package=stats19](https://cran.r-project.org/package=stats19) --- with useful information including who developed the package, what the latest version is and when it was last updated.
 More importantly, being 'on CRAN' (which technically means 'available on the [Comprehensive R Archive Network](https://cran.r-project.org/)') means that that it can be installed with the command `install.packages()` as follows:^[
 To install the development version, which may have new features or but fixes that are not yet on CRAN, you can use the function`remotes::install_github("org/pkg")`.
 The `stats19` package is hosted on the rOpenSci organisation at [github.com/ropensci/stats19](https://github.com/ropensci/stats19), so you can install the development version with `remotes::install_github("ropensci/stats19")` (you must have the `remotes` package installed before that will work).
@@ -53,6 +52,14 @@ Note: it's usually safest to stick with the latest version on CRAN unless you kn
 ```{r, eval=FALSE}
 install.packages("stats19")
 ```
+
+## Loading packages
+
+
+## Using packages 
+
+## Updating packages
+
 
 Update packages with the command `update.package()` or in Tools > Check for Package Updates in RStudio.
 You only need to install a package once.
