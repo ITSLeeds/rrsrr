@@ -218,15 +218,25 @@ You can remove an object with the `rm()` function e.g. `rm(x)` or `rm(x, y)` or 
 
 ## Debugging Code
 
-All the code shown so far is reproducible.
-To test RStudio's debugging features, let's write some code that fails, as illustrated in the figure below.
+All the code shown so far is reproducible and, unless you introduced typos, is 'bug free': it runs without errors.
+Typos are common though and even experienced R users frequently see error messages as they undertake interactive data analysis.
+For that reason learning to fix typos in R code is an important skill.
+RStudio comes to the rescue here with helpful debugging features.
+To test them out, write some code that fails as shown in the code chunk and Figure \@ref(fig:debug), and answer the questions below by interacting with RStudio:
 
-```{r debug, echo=FALSE, out.width="60%"}
+```{r, error=TRUE}
+x = 1:5
+y = c(0, 1, 3, 9 18.1) # R code with a typo
+```
+
+
+```{r debug, echo=FALSE, out.width="60%", fig.cap="Debugging code with RStudio: notice the wavy red line highlighting a typo."}
 # knitr::include_graphics("https://raw.githubusercontent.com/ropensci/stats19/master/inst/rstudio-autocomplete.png")
 # download.file("https://raw.githubusercontent.com/ropensci/stats19/master/inst/rstudio-autocomplete.png", "figures/rstudio-autocomplete.png")
 knitr::include_graphics("figures/rstudio-autocomplete.png")
 ```
 
+1. Try running the faulty code, how can the error message help debug the code?
 1. What is the problem with the code shown in the figure?
 1. Create other types of error in the code you have run (e.g. no symetrical brackets and other typos)
 1. Does RStudio pick up on the errors? And what happens when you try to run buggy code?
