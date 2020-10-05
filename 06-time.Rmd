@@ -32,7 +32,8 @@ class(crash_time_hms)
 
 ## The lubridate package
 
-For the analysis and manipulation of temporal data we will first load the R package `lubridate`:
+For many applications the most useful package the analysis and manipulation of temporal data is `lubridate`.
+Load it as follows:
 
 ```{r, message=FALSE}
 library(lubridate)
@@ -98,6 +99,8 @@ weekdays(dmy("09/09/93"))
 wday(dmy("09/09/93"))
 ```
 
+## Dates in a data frame
+
 We can use Dates also for subsetting events in a dataframe. For example, if we define `x_date` as before and add it to the `crash` dataset, i.e.
 
 ```{r}
@@ -119,6 +122,8 @@ Exercises:
 1. Select only the events that ocurred during the weekend or in June
 1. Select only the events that ocurred during the weekend and in June
 1. Count how many events ocurred during each day of the week. 
+
+## Components of time objects
 
 Now we'll take a look at the time components of a Date. Using the function `hms` (acronym for Hour Minutes Seconds) and its subfunctions such as `hm` or `ms`, we can parse a character vector representing several times as an Hour object (which is tecnically called a Period object). 
 
@@ -156,6 +161,8 @@ Exercises:
 1. Filter only the events that ocurred between 15:00 and 19:00
 <!-- 1. Round all hours to the next hour. Hint: Look at the help page of the `round_date` function.  -->
 1. **Bonus (difficult):** run the following code, which downloades data for car crashes occurred during 2017.
+
+## Time in a real crash dataset
 
 ```{r, eval=FALSE}
 library(stats19)
