@@ -174,7 +174,7 @@ ggplot(crashes_2019) +
 The package is huge and powerful, with support for a very wide range of plot types and themes, so it is worth taking time to read the documentation associated with the package, starting with the online [reference manual](https://ggplot2.tidyverse.org/reference/index.html) and heading towards the online version of the package's official [book](https://ggplot2-book.org/) [@wickham_ggplot2_2016].
 As a final taught bit of `ggplot2` code in this chapter, create a facetted plot showing how the number of crashes per hour varies across the days of the week by typing the following into the Source Editor and running the chunk line-by-line (the meaning of the commands should become clear by the end of the next Chapter):
 
-```{r ggfacetr, fig.cap="A plot showing a facetted time series plot made with ggplot2.", warning=FALSE}
+```{r ggfacetr, fig.cap="A plot showing a facetted time series plot made with ggplot2.", warning=FALSE, message=FALSE}
 library(tidyverse)
 crashes_2019 %>% 
   mutate(hour = lubridate::hour(datetime)) %>% 
