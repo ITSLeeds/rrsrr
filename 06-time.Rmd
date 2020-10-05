@@ -1,5 +1,37 @@
 # Temporal data {#time}
 
+Time is ubiquitous in road safety data: collisions and road safety implementations always happened at some point in time.
+Before demonstrating how to handle time series data with the `lubridate` package, in the next section, it is worth remembering that base R already has decent support for dates and `datetimes`, although the base R functions are not particularly intuitive.
+This is shown in the code chunk below, which creates objects representing the date and time of a fictitious crash event on the 1^st^ January 2020, and a subsequent road safety intervention on the 20^th^ October 2020:
+
+```{r}
+crash_datetime_character = "2020-01-01 08:35"
+as.POSIXct(crash_datetime_character, format = "%Y-%m-%d %H:%M")
+intervention_date_character = "2020-10-20"
+as.Date(intervention_date_character)
+```
+
+## Hours, minutes seconds with hms
+
+The `hms` library, which is part of the `tidyverse` can be used to process hours, minutes and seconds, as shown below.
+See a very basic demo of the package and links to the package's help pages with the following commands:
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+crash_time_character = "08:35:00"
+crash_time_hms = hms::as_hms(crash_time_character)
+class(crash_time_hms)
+```
+
+```{r, eval=FALSE}
+?hms::`hms-package`
+```
+
+## The lubridate package
+
 For the analysis and manipulation of temporal data we will first load the R package `lubridate`:
 
 ```{r, message=FALSE}
