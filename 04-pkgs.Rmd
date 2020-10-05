@@ -110,9 +110,15 @@ What does that tell you about the package?
 After loading a package, as described in the previous section, you can start using its functions.
 In the `stats19` package, that means the following command, which uses the `stats19` function `get_stats19()`, will work:
 
-```{r}
+```{r, message=FALSE}
 crashes_2019 = get_stats19(year = 2019, type = "accidents")
+nrow(crashes_2019)
 ```
+
+The command demonstrates the value of packages.
+It would have been possible to get the same dataset by manually downloading and cleaning the file from the [STATS19 website on data.gov.uk](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data).
+However, but using the package the process has happened much faster and with fewer lines of code than would have been possible using general-purpose base R functions.
+The result of the `nrow()` function call shows that we have downloaded a decent amount of data representing over 100k road traffic casualty incidents across Great Britain in 2019.
 
 We will use other functions from the package in subsequent chapters.
 If you would like learn more about `stats19` and how it can be used for road safety research check out its vignettes.
