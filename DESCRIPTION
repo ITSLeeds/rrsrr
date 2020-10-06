@@ -1,5 +1,5 @@
-Package: RoadSafetyManual
-Title: Metapackage to Install Packages for Road Safety Research
+Package: rrsrr
+Title: Install Packages for Reproducible Road Safety Research with R
 Version: 0.0.0.9000
 Authors@R: c(
     person("Robin", "Lovelace", email = "rob00x@gmail.com", role = c("aut", "cre"),
