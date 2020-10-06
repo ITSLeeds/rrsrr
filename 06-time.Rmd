@@ -9,7 +9,7 @@ If you're the kind of person who likes to know the details first, feel free to s
 
 To get a feel for temporal data analysis in R, let's start by reading-in crash data for 2019 with the `stats19` package by typing the following into the Source Editor and running the code line-by-line, as taught in Chapter \@ref(rstudio):
 
-```{r}
+```{r, message=FALSE}
 library(stats19)
 crashes_2019 = get_stats19(2019)
 ```
@@ -45,6 +45,21 @@ crashes_2019 %>%
   select(matches("time|date")) %>% 
   sapply(class)
 ```
+Of the three time variables, it should be clear from the outcome of previous exercises that `datetime` is contains the most useful information.
+To consolidate the plotting know-how learned in Chapter \@ref(pkgs), let's start by simply plotting the datetime object, a good way to understand new datasets and the variables they contain.
+Create the following three plots to show how `date` and `time` vary as a function of `datetime`:
+
+```{r ggtime1, warning=FALSE, fig.cap="Three plots of the datetime (x axis) in relation to the date and time axis.", out.width="30%", fig.show='hold'}
+library(ggplot2)
+ggplot(crashes_2019) + geom_point(aes(datetime, date))
+ggplot(crashes_2019) + geom_point(aes(datetime, time))
+b = c("07:00", "09:00", "12:00", "17:00", "19:00")
+ggplot(crashes_2019) + geom_point(aes(datetime, time), alpha = 0.01) +
+  scale_y_discrete(breaks = b)
+```
+
+
+From a datetime object of class `POSIXct` can be extracted any type of time information, including the minute, hour, day of week, and month of the crash (or other) event that the object records.
 
 
 ## Handling date and dat
