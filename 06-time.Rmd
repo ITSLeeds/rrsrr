@@ -11,10 +11,12 @@ intervention_date_character = "2020-10-20"
 as.Date(intervention_date_character)
 ```
 
+Fortunately for most users, there are easier ways to work with time series data, starting with the `hms` package.
+
 ## Hours, minutes seconds with hms
 
-The `hms` library, which is part of the `tidyverse` can be used to process hours, minutes and seconds, as shown below.
-See a very basic demo of the package and links to the package's help pages with the following commands:
+The `hms` library can be used to process hours, minutes and seconds, as shown below.
+See a very basic demo of the package and links to the package's help pages with the following commands (in which we use the package without loading it with the `library()` function, demonstrating the `package::function()` syntax taught in Chapter \@ref(pkgs):
 
 ```{r}
 library(tidyverse)
@@ -28,6 +30,20 @@ class(crash_time_hms)
 
 ```{r, eval=FALSE}
 ?hms::`hms-package`
+```
+
+As the package's name suggests it is used for dealing with hours minutes and seconds.
+It can round time objects of class `hms` to the nearest second (or any multiple of a second):
+
+```{r}
+hms::round_hms(crash_time_hms, 1)           # time to the nearest second
+hms::round_hms(crash_time_hms, 1 * 60 * 60) # time to the nearest hour
+hms::round_hms(crash_time_hms, 1 * 30 * 60) # time to the nearest half hour
+```
+It can also convert simple text strings into time objects, e.g. as follows (note we do not need to include the `:00`):
+
+```{r}
+hms::parse_hm("08:35")
 ```
 
 ## The lubridate package
