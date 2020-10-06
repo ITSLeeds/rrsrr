@@ -5,9 +5,46 @@ Before demonstrating how to handle time series data in base R and with `hms` and
 The aim is to get you up-to-speed with how data analysis with time data 'feels' before learning the details in subsequent sections.
 If you're the kind of person who likes to know the details first, feel free to skip the next section and return to it after having read the other sections.
 
-
-
 ## Temporal analysis of crash data
+
+To get a feel for temporal data analysis in R, let's start by reading-in crash data for 2019 with the `stats19` package by typing the following into the Source Editor and running the code line-by-line, as taught in Chapter \@ref(rstudio):
+
+```{r}
+library(stats19)
+crashes_2019 = get_stats19(2019)
+```
+
+Note that, unlike the longer `crashes_2019 = get_stats19(year = 2019, type = "accidents")` used in Chapter \@ref(pkgs), we did not use *named arguments* in this code chunk.
+Instead of `year = 2019`, we simply typed 2019.
+That is possible because R functions can be specified by name matching or order: the first argument of `get_stats()` is `year` so the function is expecting a year value.
+Also, although we didn't explicitly specify the `accidents` table, `type = "accidents"` is the default value, so `type` only needs to be specified when importing casualty and vehicle datasets.
+
+With that educational aside out of the way, let's take a look at the time variables that are actually in out newly read-in dataset:
+
+```{r}
+library(tidyverse)
+crashes_2019 %>% 
+  select(matches("time|date")) %>% 
+  names()
+```
+
+Building on the previous chapter and a bit of guesswork, it should be clear what just happened: 
+we selected variables that *match* (with the `matches()` function) the character strings `"time"` or (as indicated by the `|` vertical pipe symbol) `"date"` and returned the matching variable names.
+This shows that the `stats19` package gives you not one, not two, but three temporal variables.
+
+Exercises:
+
+1. Print the first 6 and then the first 10 elements of each of the three temporal variables in `crashes_2019`
+1. What is the class of each variable (technically, of each vector)?
+
+```{r, echo=FALSE, eval=FALSE}
+crashes_2019 %>% 
+  select(matches("time|date")) %>% 
+  lapply(head, 10)
+crashes_2019 %>% 
+  select(matches("time|date")) %>% 
+  sapply(class)
+```
 
 
 ## Handling date and dat
