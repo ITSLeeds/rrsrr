@@ -1,14 +1,28 @@
 # Temporal data {#time}
 
 Time is ubiquitous in road safety data: collisions and road safety implementations always happened at some point in time.
-Before demonstrating how to handle time series data with the `lubridate` package, in the next section, it is worth remembering that base R already has decent support for dates and `datetimes`, although the base R functions are not particularly intuitive.
-This is shown in the code chunk below, which creates objects representing the date and time of a fictitious crash event on the 1^st^ January 2020, and a subsequent road safety intervention on the 20^th^ October 2020:
+Before demonstrating how to handle time series data in base R and with `hms` and `lubridate` packages, in subsequent sections, we will show how you can analyse the temporal dimensions of the real world `crashes_2019` object we created in Chapter \@ref(pkgs).
+The aim is to get you up-to-speed with how data analysis with time data 'feels' before learning the details in subsequent sections.
+If you're the kind of person who likes to know the details first, feel free to skip the next section and return to it after having read the other sections.
+
+
+
+## Temporal analysis of crash data
+
+
+## Handling date and dat
+
+it is worth remembering that base R already has decent support for dates and `datetimes`, although the base R functions are not particularly intuitive.
+This is shown in the code chunk below, which creates objects representing the date and time of a fictitious crash event on a cold winter's morning, 1^st^ January 2020, and a subsequent road safety intervention on the 20^th^ October 2020:
 
 ```{r}
 crash_datetime_character = "2020-01-01 08:35"
-as.POSIXct(crash_datetime_character, format = "%Y-%m-%d %H:%M")
+crash_datetime = as.POSIXct(crash_datetime_character)
+class(crash_datetime)
 intervention_date_character = "2020-10-20"
-as.Date(intervention_date_character)
+intervention_date = as.Date(intervention_date_character)
+class(intervention_date)
+# see ?as.POSIXct for more examples
 ```
 
 Fortunately for most users, there are easier ways to work with time series data, starting with the `hms` package.
@@ -48,7 +62,7 @@ hms::parse_hm("08:35")
 
 ## The lubridate package
 
-For many applications the most useful package the analysis and manipulation of temporal data is `lubridate`.
+In many cases the most useful package easy of use when working with temporal data is `lubridate`.
 Load it as follows:
 
 ```{r, message=FALSE}
@@ -66,9 +80,11 @@ We can manipulate this object using several `lubridate` functions to extract the
 ```{r, eval=FALSE}
 x = today()
 day(x)
+wday(x)
+weekdays(x)
+wday(x) %in% c(1, 6) # is it the weekend?
 month(x)
 year(x)
-weekdays(x)
 ```
 
 Exercises: 
@@ -83,8 +99,8 @@ This is a problem, since R is not always smart enough to distinguish between cha
 ```{r, eval=FALSE}
 as.Date("2019-10-17") # works
 as.Date("2019 10 17") # fails
-ymd("2019 10 17") # works
-dmy("17/10/2019") # works
+ymd("2019 10 17")     # works
+dmy("17/10/2019")     # works
 ```
 
 Import function such as `read_csv` try to recognize the Date variables.
