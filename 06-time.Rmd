@@ -36,6 +36,53 @@ Exercises:
 
 1. Print the first 6 and then the first 10 elements of each of the three temporal variables in `crashes_2019`
 1. What is the class of each variable (technically, of each vector)?
+1. Bonus: Extract the weekday from the variable called `date`.
+1. Bonus: How many crashes happened on Monday?
+
+```{r, eval=FALSE}
+library(stats19)
+crashes_2017 = stats19::get_stats19(year = 2017, type = "ac")
+crashes_2017
+```
+
+<!-- **Advanced challenge:** calculate how many crashes occurred for each day of the week. Then plot it with ggplot2. Repeat the same exercises extracting the hour of the car accident from the variable called time. How would you combine the two informations in a single plot?  -->
+
+```{r, eval=FALSE, echo=FALSE}
+# solutions
+crashes %>% filter(casualty_hour >= 12)
+crashes %>% filter(casualty_hour > 15 & casualty_hour < 19)
+
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date)) %>%
+  filter(my_weekdays == "Monday") %>% 
+  nrow()
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date)) %>%
+  filter(my_weekdays == "Friday") %>% 
+  nrow()
+
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date)) %>% 
+  group_by(my_weekdays) %>% 
+  summarize(n = n()) %>% 
+  ggplot() + 
+  geom_col(aes(x = my_weekdays, y = n))
+
+crashes_2017 %>% 
+  mutate(my_hours = hour(hm(time))) %>% 
+  group_by(my_hours) %>% 
+  summarize(n = n()) %>% 
+  ggplot() + 
+  geom_col(aes(x = my_hours, y = n))
+
+crashes_2017 %>% 
+  mutate(my_weekdays = weekdays(date), my_hours = hour(hm(time))) %>% 
+  group_by(my_weekdays, my_hours) %>% 
+  summarise(n = n()) %>% 
+  ggplot() + 
+  geom_line(aes(x = my_hours, y = n, col = my_weekdays), size = 1.05)
+# the legend needs some reordering
+```
 
 ```{r, echo=FALSE, eval=FALSE}
 crashes_2019 %>% 
@@ -91,23 +138,34 @@ crashes_dow %>%
 ```
 
 The result is useful, but if we're interested in the number of crashes per hour on different days of the week *relative to the average*, we need to undertake one more preprocessing step.
+We will count the number of crashes per hour for all 5 working days, divided by 5 to get the average, then count the number of crashes per hour/week combination and then divide the latter by the former.
+These steps are shown in the code chunk below, which results in Figure \@ref(fig:ggfacetrwkayrel).
 
-```{r}
+```{r ggfacetrwkayrel, fig.cap="Facetted time series showing relative number of crashes per how by day in the working week.", warning=FALSE, message=FALSE, fig.height=2}
 crashes_dow_rel = crashes_dow %>% 
+  filter(!is.na(hour) & !day %in% c("Saturday", "Sunday")) %>% 
   select(day, hour) %>% 
   group_by(hour) %>% 
-  mutate(n_per_hour = n()/7) %>% 
+  mutate(n_per_hour = n()/5) %>% 
   group_by(day, hour) %>% 
   summarise(n_hday = n(), n_h = first(n_per_hour)) %>% 
   mutate(hday_relative = n_hday / n_h)
 summary(crashes_dow_rel)
 crashes_dow_rel %>% 
   ggplot() +
-  geom_bar(aes(hour, hday_relative), stat = "identity") +
+  geom_col(aes(hour, hday_relative)) +
+  facet_wrap(~day, nrow = 1)
   
 ```
 
+The results clearly show that Friday is a dangerous day.
+The extent to which the high relative number of crashes in the most anomalous hours, on Friday evening, is due increased exposure vs increased risk per km travelled cannot be ascertained by this plot but it certainly suggests that Friday afternoon and evening is a worthy focus of road safety research.
 
+Exercises: 
+
+1. Building on the code above, show the absolute and relative number of crashes per hour on Saturday and Sunday.
+2. Filter the dataset so it contains only data from two police forces of your choice (e.g. `West Yorkshire` and `Metropolitan Police`).
+3. Try creating plots similar to those shown above but facetted by police force rather than by day of the week.
 
 
 
@@ -295,53 +353,3 @@ Exercises:
 1. Filter only the events that ocurred between 15:00 and 19:00
 <!-- 1. Round all hours to the next hour. Hint: Look at the help page of the `round_date` function.  -->
 1. **Bonus (difficult):** run the following code, which downloades data for car crashes occurred during 2017.
-
-## Time in a real crash dataset
-
-```{r, eval=FALSE}
-library(stats19)
-crashes_2017 = stats19::get_stats19(year = 2017, type = "ac")
-crashes_2017
-```
-
-Extract the weekday from the variable called `date`.
-How many crashes happened on Monday?
-
-**Advanced challenge:** calculate how many crashes occurred for each day of the week. Then plot it with ggplot2. Repeat the same exercises extracting the hour of the car accident from the variable called time. How would you combine the two informations in a single plot? 
-
-```{r, eval=FALSE, echo=FALSE}
-# solutions
-crashes %>% filter(casualty_hour >= 12)
-crashes %>% filter(casualty_hour > 15 & casualty_hour < 19)
-
-crashes_2017 %>% 
-  mutate(my_weekdays = weekdays(date)) %>%
-  filter(my_weekdays == "Monday") %>% 
-  nrow()
-crashes_2017 %>% 
-  mutate(my_weekdays = weekdays(date)) %>%
-  filter(my_weekdays == "Friday") %>% 
-  nrow()
-
-crashes_2017 %>% 
-  mutate(my_weekdays = weekdays(date)) %>% 
-  group_by(my_weekdays) %>% 
-  summarize(n = n()) %>% 
-  ggplot() + 
-  geom_col(aes(x = my_weekdays, y = n))
-
-crashes_2017 %>% 
-  mutate(my_hours = hour(hm(time))) %>% 
-  group_by(my_hours) %>% 
-  summarize(n = n()) %>% 
-  ggplot() + 
-  geom_col(aes(x = my_hours, y = n))
-
-crashes_2017 %>% 
-  mutate(my_weekdays = weekdays(date), my_hours = hour(hm(time))) %>% 
-  group_by(my_weekdays, my_hours) %>% 
-  summarise(n = n()) %>% 
-  ggplot() + 
-  geom_line(aes(x = my_hours, y = n, col = my_weekdays), size = 1.05)
-# the legend needs some reordering
-```
