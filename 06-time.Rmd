@@ -67,6 +67,48 @@ Next, let's look at how the time-of-day that crashes happen varies as a function
 
 From a datetime object of class `POSIXct` can be extracted any type of time information, including the minute, hour, day of week, and month of the crash (or other) event that the object records.
 
+```{r, eval=FALSE, echo=FALSE}
+library(lubridate)
+weekdays(min(crashes_2019$date) + 0:6)
+table(factor(weekdays(crashes_2019$date), levels = weekdays(min(crashes_2019$date) + 0:6)))
+```
+
+Building on the time series plot we created in Section \@ref(ggplot2), let's create a graph showing how the hourly distribution of crash numbers changes during the course of a working week.
+We will do this first by *preprocessing* the data, creating a new object called `crashes_dow` containing `hour` and `day` columns, and then plotting the result, after filtering out the weekend days, as shown in the code chunk below which results in Figure \@ref(fig:ggfacetwkday):
+
+```{r ggfacetrwkay, fig.cap="Facetted time series showing how the number of crashes increases during the working week.", warning=FALSE, message=FALSE, fig.height=2}
+# days of the week:
+dow = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+crashes_dow = crashes_2019 %>% 
+  mutate(hour = lubridate::hour(datetime)) %>% 
+  mutate(day = factor(weekdays(date), levels = dow)) 
+
+crashes_dow %>% 
+  filter(!is.na(hour) & !day %in% c("Saturday", "Sunday")) %>% 
+  ggplot(aes(hour)) +
+  geom_bar(width = 1.01) +
+  facet_wrap(~day, nrow = 1)
+```
+
+The result is useful, but if we're interested in the number of crashes per hour on different days of the week *relative to the average*, we need to undertake one more preprocessing step.
+
+```{r}
+crashes_dow_rel = crashes_dow %>% 
+  select(day, hour) %>% 
+  group_by(hour) %>% 
+  mutate(n_per_hour = n()/7) %>% 
+  group_by(day, hour) %>% 
+  summarise(n_hday = n(), n_h = first(n_per_hour)) %>% 
+  mutate(hday_relative = n_hday / n_h)
+summary(crashes_dow_rel)
+crashes_dow_rel %>% 
+  ggplot() +
+  geom_bar(aes(hour, hday_relative), stat = "identity") +
+  
+```
+
+
+
 
 
 ## Handling date and dat
@@ -140,6 +182,7 @@ We can manipulate this object using several `lubridate` functions to extract the
 x = today()
 day(x)
 wday(x)
+# Base R function to get the day of week
 weekdays(x)
 wday(x) %in% c(1, 6) # is it the weekend?
 month(x)
