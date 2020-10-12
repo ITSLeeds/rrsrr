@@ -126,7 +126,7 @@ It is meant to be a hand-book, taken out into the field of applied research and 
 As such, it is applied and exercise based.
 
 There are strong links between data science, open data, open source software and more collaborative ways of working.
-As such, this book is itself an open source, collaborative and open source project that is designed to be a living document.
+As such, this book is itself a collaborative and open source project that is designed to be a living document.
 We encourage any comments, questions or contributions related to its contents, the source code of which can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/saferactive/rrsrr)) repo on the [saferactive GitHub organisation](https://github.com/saferactive/), via the [issue tracker](https://github.com/saferactive/rrsrr/issues).
 More broadly, we hope you enjoy the contents of the book and find the process of converting data science into data driven policy changes and investment rewarding.
 Get ready for and enjoy the ride!
