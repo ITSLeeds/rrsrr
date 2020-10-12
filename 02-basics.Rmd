@@ -1,7 +1,7 @@
 # R basics {#basics}
 
 Learning a programming language is similar to learning a human language such as French.
-Although you could just dive in and start gesticulating to people in central Paris, it's worth taking time to understand of the structure and key words of the language first.
+Although you could just dive in and start gesticulating to people in central Paris, it's worth taking time to understand the structure and key words of the language first.
 The same applies to data science: it will help to understand a little about syntax and grammar of the R language before diving into using it for applications such as road safety research.
 This chapter may seem tedious for people who just want to crack on and load-in data.
 However, working through the examples below is recommended for most people unless you're already an experienced R user, and even experienced R users may learn something about the language's unique syntax in the following sections.
