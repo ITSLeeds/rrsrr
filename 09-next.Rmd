@@ -2,6 +2,11 @@
 
  for reproducible road safety research
 
+Not sure where to add this but consider covering 
+-	mapply() / lapply() for looping through functions
+-	left_join() for replicating vlookup type functions used in Excel
+
+
 
 ## Automated reporting with RMarkdown
 
