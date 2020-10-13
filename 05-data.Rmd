@@ -98,6 +98,8 @@ Look at the help pages associated with `filter()`, `select()` and the related fu
 ## Ordering and selecting the 'top n'
 
 Other useful pipe-friendly functions are `arrange()` and `top_n()`.
+- `arrange()` is used to sort data, the optional arguments within the function can be used to define the order in which it is sorted.
+- `top_n()`simply selects the top 'n' number of rows in your data frame.
 We can use these functions to arrange datasets and take the top most 'x' values, as follows:
 
 ```{r}
@@ -122,8 +124,8 @@ crashes %>%
   summarise(mean_age = mean(casualty_age))
 ```
 
-The example above shows a powerful feature of these pipelines: many operations can be 'chained' together, whilst keeping readability with subsequent commands stacked below earlier operations.
-Another useful feature of the `tidyverse` from a user perspective is auto-completion of column names mid pip.
+The example above shows a powerful feature of these pipelines: many operations can be 'chained' together, whilst keeping readability with subsequent commands stacked below earlier operations. The combination of `group_by()` and `summarise()` can be very useful in preparing data for visualisation with a `ggplot2` function. 
+Another useful feature of the `tidyverse` from a user perspective is auto-completion of column names mid pipe.
 If you have not noticed this already, you can test it by typing the following, putting your cursor just before the `)` and pressing Tab:
 
 ```{r, eval=FALSE}
