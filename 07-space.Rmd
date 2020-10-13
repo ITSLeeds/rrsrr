@@ -1,5 +1,8 @@
 # Spatial data {#space}
 
+From displaying simple point data to examining collision density along routes or between areas, the geographic property of STATS19 data is one of its most useful attributes. Mapping is a hugely useful and powerful aspect of R and has many applications in road safety, both in understanding geographic trends and presenting insight to colleagues. This aspect of R is covered in detail in the book [Geocomputation With R](https://geocompr.robinlovelace.net/index.html) [@lovelace_geocomputation_2019]. By mapping collision data in R, you can add layers containing other geo-coded datasets to further understand the reasons for certain trends. This can lead to new opportunities for intervention and collaboration with other parties who may have mutually compatible solutuions for reaching their goals.
+
+
 ## sf objects
 
 All road crashes happen somewhere and, in the UK at least, all collisions recorded by the police are given geographic coordinates, something that can help prioritise interventions to save lives by intervening in and around 'crash hotspots'.
@@ -22,7 +25,7 @@ crashes_sf = st_as_sf(crashes_sf, coords = c("longitude", "latitude"), crs = 432
 1. Plot the 2^nd^ and 3^rd^ crashes, showing which happened in the dark.
 1. **Bonus**: How far are the points apart (hint: `sf` functions begin with `st_`)?
 1. **Bonus**: Near which settlement did the tank runover the cat?
-
+ 
 ```{r crashes-sf-ex, echo=FALSE, out.width="30%", fig.show='hold'}
 plot(crashes_sf$geometry)
 plot(crashes_sf["casualty_age"])
@@ -117,6 +120,8 @@ plot(zjd)
 
 ## CRSs
 
+A CRS is a coordinate reference system, used for plotting data on maps. There are many systems in use but they can generally be classified into two groups; 'projected' and 'geographic'. A projected system, such as Eastings/Northings, plots locations onto a flat 2D projection of the Earth's surface. A geographic system, such and Longitude/Latitude, refers to locations on the 3D surface of the globe. Distance and direction calculations work differently between geographc and projected CRSs, so it it often necessary to convert from one to another. Fortunately R makes this very easy, and every CRS has its own unique refernce number, for example 27700 for the British National Grid system. 
+
 Get and set Coordinate Reference Systems (CRSs) with the command `st_crs()`.
 Transform CRSs with the command `st_transform()`, as demonstrated in the code chunk below, which converts the 'lon/lat' geographic CRS of `crashes_sf` into the projected CRS of the British National Grid:
 
@@ -124,6 +129,17 @@ Transform CRSs with the command `st_transform()`, as demonstrated in the code ch
 crashes_osgb = st_transform(crashes_sf, 27700)
 ```
 
+When you define the gemotery in a data frame, it creates a multipoint vector. This is a single column containing coordinate pairs for point data, or multiple coordinate pairs for line vecotrs or polygons. Sometimes it may be necessary to convert from one CRS to another without creating a multipoint vector. The following code is one way to convert Eastings/Northings (CRS 27700) to Latitude/Longitude (CRS 4326) without creating a multipoint vector.
+
+```{r}
+#data frame name is Crashes, containing location data in separate columns for Eastings and Northings
+latlongcoords = (cbind(Crashes$Easting , Crashes$Northing))
+latlong = SpatialPointsDataFrame(latlongcoords,data = Crashes ,proj4string = CRS("+init=epsg:27700"))
+latlong_SP = spTransform(latlong,CRS("+init=epsg:4326"))
+Crashes_latlong = as.data.table(latlong_SP)
+```
+
+**Exercises**
 1. Try to subset the zones with the `crashes_osgb`. What does the error message say?
 1. Create `zones_osgb` by transforming the `zones` object.
 1. **Bonus:** use `st_crs()` to find out the units measurement of the British National Grid?
@@ -239,6 +255,9 @@ m
 # knitr::include_graphics("tmap-zones-interactive.png")
 ```
 
+Other mapping functions that can be powerful presentation tools are also explained in [Geocomputation With R](https://geocompr.robinlovelace.net/index.html) [@lovelace_geocomputation_2019]. These include leaflet maps, which have interactive properties and can be shared as .html files, and shiny apps that give even more interactivity as well as the possibility to embed on websites. 
+
+
 ## Analysing point data
 
 Based on the saying "don't run before you can walk", we've learned the vital foundations of R before tackling a real dataset.
@@ -327,6 +346,31 @@ tmap_mode("plot")
 tm_shape(roads_agg) + tm_fill("N. Crashes") +
   tm_shape(crashes_outside_roads) + tm_dots(col = "blue")
 ```
+
+The following code can be used to download roads data, filter it to show only main roads, and save as an .rds file for later use in your R project. In this example the code is downloading data for the county of Essex.
+
+```{r}
+library(geofabrik)
+remotes::install_github("itsleeds/geofabrik")
+region_name = "essex"         #"essex" can be changed to another area name as required
+osm_data = get_geofabrik(name = region_name)
+table(osm_data$highway)
+
+#filter osm_data to show only major roads
+roads = osm_data %>%
+  filter(highway %in% c("motorway", "primary", "secondary", "tertiary", "trunk", 
+                        "motorway_link", "primary_link", "secondary_link", "tertiary_link"))
+
+#format and save
+names(roads)[names(roads) == '_ogr_geometry_'] <- 'geometry' #renames geometry column to keep things tidy
+attr(roads, "geometry") = "geometry"
+st_geometry(roads$geometry)
+st_geometry(roads) <- "geometry"
+roads = st_transform(roads, 27700) #converts to projected BNG system for later use
+saveRDS(roads, file = "roads.rds") #saves downloded roads so it can be used without having to repeat download process
+```
+
+The data in the roads.rds file is a vector - a one dimenstional line representing the centre of the road. Some functions require the road to be treated as 2D polygon with a width property. You can use the `st_buffer()` function to turn this vector into a polygon.
 
 \newpage
 
