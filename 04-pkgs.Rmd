@@ -162,7 +162,7 @@ The package is excellent for generating publication quality figures.
 Starting from a basic idea, you can make incremental tweaks to a plot to get the output you want.
 Building on the figure above, we could make the bin width wider and add colour depending on the crash severity, for example, as follows:
 
-```{r ggpropcrashes, out.width="49%", fig.show='hold', fig.cap="Demonstation of fill and position arguments in ggplot2."}
+```{r ggpropcrashes, out.width="49%", fig.show='hold', fig.cap="Demonstration of fill and position arguments in ggplot2."}
 ggplot(crashes_2019) + geom_bar(aes(date, fill = accident_severity), width = 1)
 ggplot(crashes_2019) +
   geom_bar(aes(date, fill = accident_severity), width = 1, position = "fill") +
