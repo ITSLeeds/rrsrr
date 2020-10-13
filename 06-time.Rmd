@@ -108,7 +108,7 @@ ggplot(crashes_2019) + geom_point(aes(datetime, time), alpha = 0.01) +
 Figure \@ref(fig:ggtime1) tells us many things about the contents of the three temporal variables, and even provides insight into the temporal distribution of road casualties in Great Britain.
 The first two plots show 1) that the `date` variable is identical to the `datetime` variable (at least on the daily resolution than can be seen on the graph) and 2) that `time` values repeat regularly for the range of dates in datetime (from the start of Jan 2019 to end of Dec 2019).
 The third plot, which makes use of `ggplot2`'s functionality to show only certain labels on the Y axis and reduced oppacity so that overlapping points are not completely black, is by far the most useful.
-It shows that most crashes happen between around 7am and 7pm, with a 'long tale' of crashes in the evening, and that for most of the year there is a clear weekly cycle, reflecting the uptick in crashes during the rush hour commute on weekdays, a pattern that is greatly diminished during several weeks in summer (perhaps corresponding with summer holidays).
+It shows that most crashes happen between around 7am and 7pm, with a 'long tail' of crashes in the evening, and that for most of the year there is a clear weekly cycle, reflecting the uptick in crashes during the rush hour commute on weekdays, a pattern that is greatly diminished during several weeks in summer (perhaps corresponding with summer holidays).
 The 52 weeks of the year can be distinguished even in this small and simple plot, highlighting the ability of visualisation to help understand data.
 Next, let's look at how the time-of-day that crashes happen varies as a function of season, severity and day of week.
 
@@ -141,7 +141,7 @@ The result is useful, but if we're interested in the number of crashes per hour 
 We will count the number of crashes per hour for all 5 working days, divided by 5 to get the average, then count the number of crashes per hour/week combination and then divide the latter by the former.
 These steps are shown in the code chunk below, which results in Figure \@ref(fig:ggfacetrwkayrel).
 
-```{r ggfacetrwkayrel, fig.cap="Facetted time series showing relative number of crashes per how by day in the working week.", warning=FALSE, message=FALSE, fig.height=2}
+```{r ggfacetrwkayrel, fig.cap="Facetted time series showing relative number of crashes per hour by day in the working week.", warning=FALSE, message=FALSE, fig.height=2}
 crashes_dow_rel = crashes_dow %>% 
   filter(!is.na(hour) & !day %in% c("Saturday", "Sunday")) %>% 
   select(day, hour) %>% 
@@ -169,7 +169,7 @@ Exercises:
 
 
 
-## Handling date and dat
+## Handling dates and date-times
 
 it is worth remembering that base R already has decent support for dates and `datetimes`, although the base R functions are not particularly intuitive.
 This is shown in the code chunk below, which creates objects representing the date and time of a fictitious crash event on a cold winter's morning, 1^st^ January 2020, and a subsequent road safety intervention on the 20^th^ October 2020:
