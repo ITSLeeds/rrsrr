@@ -9,7 +9,7 @@ However, working through the examples below is recommended for most people unles
 The first step is to **start RStudio**, e.g. by tapping the Start button and searching for RStudio if you are on Windows.
 You should see an 'R console pane' like that displayed in Figure \@ref(fig:console).
 
-```{r console, echo=FALSE, fig.cap='The R console pane in RStudio. You should see something like this when you first open RStudio. Having entered the text 'install.packages("stats', tapping 'Enter' at this point will trigger the autocompletion of the command `install.packages("stats19").'}
+```{r console, echo=FALSE, fig.cap='The R console pane in RStudio that appears when you first open RStudio. After typing install.packages(stats), you should see the package name auto-completion. Pressing Enter at this point will trigger the autocompletion of the command `install.packages("stats19").'}
 knitr::include_graphics("figures/console.png")
 ```
 
