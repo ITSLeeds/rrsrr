@@ -7,9 +7,9 @@ This chapter may seem tedious for people who just want to crack on and load-in d
 However, working through the examples below is recommended for most people unless you're already an experienced R user, and even experienced R users may learn something about the language's unique syntax in the following sections.
 
 The first step is to **start RStudio**, e.g. by tapping the Start button and searching for RStudio if you are on Windows.
-You should see an 'R console' like that displayed in Figure \@ref(fig:console).
+You should see an 'R console pane' like that displayed in Figure \@ref(fig:console).
 
-```{r console, echo=FALSE, fig.cap='The R console in RStudio. You should see something like this when you first open RStudio. Tapping Enter at this point will trigger the autocompletion of the command `install.packages("stats19").'}
+```{r console, echo=FALSE, fig.cap='The R console pane in RStudio. You should see something like this when you first open RStudio. Having entered the text 'install.packages("stats', tapping 'Enter' at this point will trigger the autocompletion of the command `install.packages("stats19").'}
 knitr::include_graphics("figures/console.png")
 ```
 
@@ -20,7 +20,7 @@ You are ready to start running R code, by entering commands into the console.
 
 R can be understood as a giant calculator.
 If you feed the console arithmetic tasks, it will solve them precisely and instantly.
-Try typing the following for examples (note that `pi` is an inbuilt object) into the R console in RStudio and pressing `Enter` to make R run the code:
+Try typing the following examples (note that `pi` is an inbuilt object) into the R console in RStudio and pressing `Enter` to make R run the code.  The output of the code, when shown in this book, is preceeded by '##'.
 
 ```{r}
 2 + 19
@@ -36,10 +36,10 @@ sqrt(361)
 This is all well and good, providing a chance to see how R works with numbers and get practice with typing commands into the console.
 However, a key benefit of R is that it is *object oriented*, meaning it stores values and complex objects such as data frames representing road casualties and processes them *in memory* (meaning that R is both fast and memory hungry when working with large datasets). If you are more familiar with Excel, a data frame may be thought of as fulfilling the purpose of a single spreadsheet containing a set of data.
 
-The two most common ways of creating objects are with the the `<-` 'arrow' or `=` 'equals' assignment operators.^[
+The two most common ways of creating objects are using `<-` 'arrow' or `=` 'equals'.  These are known as assignment operators as they assign contents(?), such as numbers, to objects.^[
 We use equals assignment for speed of typing and to avoid ambiguity in commands such as `x<-1` vs `x< -1`, although `<-` has historically been (and still is) more commonly used in many fields.
 ]
-Let's reproduce the calculations above but using objects to make the final command more concise:
+Let's reproduce the calculations above using objects.  This makes the final command more concise:
 
 ```{r}
 x = 2
@@ -48,13 +48,13 @@ z = x + y
 pi^z / exp(z)
 ```
 
-The previous code chunk created three objects called `x`, `y` and `z` and showed how these objects can themselves be used to create additional objects.
+The previous code chunk created and stored three objects called `x`, `y` and `z` and showed how these objects can themselves be used to create additional objects.
 Why `x`, `y` and `z`?
 Lack of imagination!
 You can call R objects anything you like, provided they do not start with numbers or contain reserved symbols such as `+` and `-`.
 You can use various stylistic conventions when naming your R objects, including `camelCase` and `dot.case`
 [@baath_state_2012].
-We advocate using `snake_case` a style that avoids upper case characters to ease typing and uses the underscore symbol (`_`) to clearly demarcate spaces between words.
+We advocate using `snake_case`, a style that avoids upper case characters to ease typing and uses the underscore symbol (`_`) to clearly demarcate spaces between words.
 
 These objects have now served their purpose.
 
@@ -65,9 +65,9 @@ rm(x, y, z)
 ```
 
 What just happened?
-We have removed the objects using the R function `rm()`, which stands for 'remove'.
+We have removed the objects using the R function `rm()`, which stands for 'remove'. A function is an instruction or set of instructions for R to do something with what we give to that function.  What we give to the function are known as arguments.  Each function has set of arguments we can potentially give to it.  
 Technically speaking, we *passed the objects to arguments in the `rm()` function call*.
-In plain English, things that go inside the curved brackets that follow a function name are arguments.
+In plain English, things that go inside the curved brackets that follow a function name are the arguments.
 The `rm()` function removes the objects that it is passed (most functions modify objects).
 A 'nuclear option' for cleaning your workspace is to run the following command, the meaning of which you will learn in the next section (can you guess?):
 
@@ -132,13 +132,16 @@ ncol(crashes)
 The results of the previous commands tell us that the dataset has 3 rows and 2 columns.
 We will use larger datasets, with thousands of rows and tens of columns, in later chapters but for now it's good to 'start small' to understand the basics of R.
 
-## Subsetting by index or name
+## Subsetting by index or column name
 
+The most basic type of R object is a *vector*, a sequence of values of the same type. For example, a set of numbers. 
+In the earlier examples, `x`, `y` and `z` were all *numeric vectors* with a length of 1; `casualty_type` is a *character vector* (because it contains letters that cannot be added) of length 3; and `casualty_age` is a *numeric vector* of length 3.
 Subsetting returns part of an R object. 
-It can be done by providing numbers representing the positions of the elements we want (e.g. the 2^nd^ element) or with a logical vector, with values associated with `TRUE` returned. 
+Subsets of vectors can be returned by providing numbers representing the positions (index) of the elements within the vector we (e.g. '2' representing selection of the 2^nd^ element) or with logical (`TRUE` or `FALSE`) values associated with the elements that should be selected.
+
 Two dimensional objects such as matrices and data frames can be subset by rows and columns.
 Subsetting in base R is done with square brackets `[]` after the name of an object.
-**Run the following commands to practice subsetting and verify that you get the same results that are shown below.**
+**Run the following commands to practice subsetting by index and column name and verify that you get the same results that are shown below.**
 
 ```{r, eval=FALSE}
 casualty_age[2:3] # second and third casualty_age
@@ -166,7 +169,7 @@ crashes
 
 In Chapter \@ref(data) we will use `filter()` and `select()` functions to subset rows and columns.
 Before we get there, it is worth practicing subsetting using the square brackets to consolidate your understanding of how base R works with vector objects such as `vehicle_type` and data frames such as `crashes`.
-If you can answer the following questions, congratualations,  you are ready to move on.
+If you can answer the following questions, congratulations,  you are ready to move on.
 If not, it's worth doing some extra reading and practice on the topic of subsetting in base R.
 
 
@@ -215,7 +218,7 @@ crashes$casualty_age[crashes$vehicle_type == "tank"] = 61
 
 ## Dealing with NAs and recoding
 
-R objects can have a value of NA. This is how R represents missing data.
+R objects can have a value of NA. NA is how R represents missing data.
 
 ```{r, eval=FALSE}
 z = c(4, 5, NA, 7)
@@ -237,7 +240,7 @@ You can find NAs using the `is.na()` function, and then remove them
 
 ```{r, eval=FALSE}
 is.na(z)
-z_nona = z[!is.na(z)] # note the use of the not operator !
+z_no_na = z[!is.na(z)] # note the use of the not operator !
 sum(z)
 ```
 
@@ -262,7 +265,7 @@ as.matrix(crashes)
 
 Often it is useful to 'recode' values.
 In the raw STATS19 files, for example, -1 means NA.
-There are many ways to recode values in R, the simplest and most mature of which is the use of factors, as shown below:
+There are many ways to recode values in R, the simplest and most mature of which is the use of factors, which are whole numbers representing characters.  Factors are commonly used to manage categorical variables such as sex, ethnicity or, in road traffic research, vehicle type or casualty injury severity.   
 
 ```{r}
 z = c(1, 2, -1, 1, 3)
@@ -278,7 +281,7 @@ z_charcter
 
 ## Saving R objects
 
-You can also save individual R objects in the RDS format.
+You can also save individual R objects in the RDS format. The RDS format is the data format for R, meaning that any R object can be saved as an RDS file. This is equivalent to xls being the data format for Excel. 
 
 ```{r}
 saveRDS(crashes, "crashes.Rds")
@@ -294,7 +297,7 @@ identical(crashes, crashes2)
 R also supports many other formats, including CSV files, which can be created and imported with the functions `readr::read_csv()` and `readr::write_csv()` (see also the [readr](https://readr.tidyverse.org/) package).
 
 ```{r readr-write, eval=FALSE}
-readr::write_csv(crashes, "crashes.csv")
+readr::write_csv(crashes, "crashes.csv") # This code tells R to use the write_csv function from the readr package
 crashes3 = readr::read_csv("crashes.csv")
 identical(crashes3, crashes) 
 ```
