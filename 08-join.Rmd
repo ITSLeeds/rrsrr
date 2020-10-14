@@ -1,5 +1,6 @@
 # Joining road crash tables {#join}
 
+## STATS19 tables
 Content on joining road crash tables.
 
 So far we've been working primarily with 'accident' level data but there is much useful data in other tables.
@@ -45,7 +46,7 @@ The output of the previous code chunk shows that we have more variables in the '
 
 ```{r, eval=FALSE, echo=FALSE}
 skimr::skim(ac)
-
+library(dplyr)
 # experiment: simple joins
 ac_ve = inner_join(ac, ve)
 nrow(ac_ve) == nrow(ve)
@@ -58,7 +59,7 @@ nrow(ac_ca) == nrow(ca)
 nrow(ac_ca) < nrow(ca)
 nrow(ca) / nrow(ac_ca)  
 # [1] 1.000274 ??? why
-
+library(sf)
 ac_ca_ve = inner_join(ac_ca, ac_ve %>% sf::st_drop_geometry(), by = c("accident_index", "vehicle_reference"))
 nrow(ve) / nrow(ac_ca_ve)
 library(trafficalmr)
@@ -81,9 +82,46 @@ table(ac_tc_join$accident_severity)
 
 ```
 
+## Auditing the records
 
-The three main tables we have just read-in can be joined by shared key variables.
-This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
+There might be, and we have raisd this with Department For Transport safety team some mistamch in the records.  
+```{r}
+sum(ac$number_of_casualties) == nrow(ca) # F
+sum(ac$number_of_vehicles) == nrow(ve)   # F
+```
+The reason for slight mismatch in the join table is some of the "accident-index" values within casualty or vehicle tables are not within the accidents table. We know the three tables come from one STATS19 form and we can make sure there is no mismatch between the tables before we proceed any further:
+
+```{r}
+n = c("caNotINac","veNotINac","acNotINca", "acNotINve")
+# check accidents table for NA in index
+if(any(is.na(ac$accident_index))) { # should be FALSE
+  ac = ac[!is.na(ac$accident_index), ]
+}
+all(ca$accident_index %in% ac$accident_index)
+all(ve$accident_index %in% ac$accident_index)
+# to make sure
+caNotINac = which(!ca$accident_index %in% ac$accident_index)
+veNotINac = which(!ve$accident_index %in% ac$accident_index)
+acNotINca = which(!ac$accident_index %in% ca$accident_index)
+acNotINve = which(!ac$accident_index %in% ve$accident_index)
+df = list(length(caNotINac), length(veNotINac), length(acNotINca), 
+          length(acNotINve))
+names(df) = n
+kableExtra::kable(df)
+```
+
+Therefore, we safely update the tables and run some further lines to make sure that records in the accidents table match with those in the newly updated records:
+```{r}
+ca = ca[which(ca$accident_index %in% ac$accident_index), ]
+ve = ve[which(ve$accident_index %in% ac$accident_index), ]
+# now
+sum(ac$number_of_casualties) == nrow(ca)
+sum(ac$number_of_vehicles) == nrow(ve)
+```
+
+
+## Locality 
+The three main tables we have just read-in can be joined by the "accident-index" key variable and then filtered using other variables. This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
 
 ```{r table-join, message = FALSE}
 library(tidyr)
