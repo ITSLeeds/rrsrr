@@ -3,25 +3,25 @@
 ## What are packages?
 
 R has over 15,000 packages published on the official 'CRAN' site and many more published on code sharing sites such as GitHub.
-Packages are effectively plugins for R, that extend it in many ways.
-Packages are useful because they enhance the range of things you can do with R, providing additional functions, data and documentation that build on the core (or technically 'base') R packages.
+Packages are effectively plugins for R that extend it in many ways.
+Packages are useful because they enhance the range of things you can do with R, providing additional functions, data and documentation that build on the core (known as 'base') R packages.
 They range from general-purpose packages such as `tidyverse` and `sf` to domain-specific packages such as `stats19`.
 
 This chapter demonstrates the package lifecycle with reference `stats19` and provides a taster of R's visualisation capabilities with reference to the general purpose packages `ggplot2` and `dplyr`.
-The `stats19` package is particularly relevant for reproducible road safety research: its purpose is to download and clean road traffic casualty data from the UK's Department for Transport.
-Domain-specific packages such as `stats19` are often written by subject-matter experts, providing tried and tested solutions in a particular specialism.
+The `stats19` package is particularly relevant for reproducible road safety research: its purpose is to download and clean road traffic collision data from the UK's Department for Transport.
+Domain-specific packages such as `stats19` are often written by subject-matter experts, providing tried and tested solutions in a particular specialism. Packages available via CRAN are reviewed by code experts ? prior to being made available via CRAN (OR SIMILAR WORDING _ IE SOME SORT OF ASSURANCE PROCESS HAS HAPPENED..?)
 
-Regardless of which packages you install and use, they all go through the following main stages:^[
+Regardless of which packages you install and use, there are a number of steps you will take:^[
 If for whatever reason you want to uninstall a package you can uninstall it in a fifth stage with commands such as `remove.packages("stats19")`.
 ]
 
-1. installing it
-2. loading it
-3. using it
-4. updating it
+1. installing the package
+2. loading the package
+3. using the package
+4. updating the package
 
 Of these, the third stage takes by far the most amount of time.
-Stages 1, 2 and 4 are equally important, however: you cannot properly use a package unless it has been properly installed, loaded and, to get the best performance out of the latest version, updated when new versions are released.
+Stages 1, 2 and 4 are equally important, however: you cannot use a package unless it has been properly installed, loaded and, to get the best performance out of the latest version, updated when new versions are released.
 We will learn each of these stages of the package lifecycle with the `stats19` package.
 
 ## The stats19 R package
@@ -29,15 +29,15 @@ We will learn each of these stages of the package lifecycle with the `stats19` p
 Like many packages, `stats19` was developed to meet a real world need.
 STATS19 data is provided as a free and open resource by the Department for Transport, encouraging evidence-based and accountable road safety research and policy interventions.
 However, researchers at the University of Leeds found that repeatedly downloading and formatting open STATS19 data was time-consuming, taking valuable resources away from more valuable (and fun) aspects of the research process.
-Importantly, manually recoding the data, from `1` to `Fatal` for example, was error-prone.
+Importantly, manually recoding the data,for example from `1` to `Fatal`, was error-prone.
 By packaging-up code to reliably solve the problem for ourselves, we found that we could solve the problem in a free, open and reproducible way for everyone [@lovelace_stats19_2019].
 
-By abstracting the process to its fundamental steps (download, read, format), the package makes it easy to get the data into appropriate formats (of classes `tbl`, `data.frame` and `sf`), ready for for further processing and analysis steps.
-The package built on previous work [@lovelace_who_2016] with several important improvements, including the conversion of crash data into geographic data into `sf` data frame for geographic research [e.g. @austin_use_1997].
-A useful feature of the package is that it enables creation of geographic representations of the data, geo-referenced to the correct coordinate reference system, in a single function, called `format_sf()`.
+By abstracting the process to its fundamental steps (download, read, format), the `stats19` package makes it easy to get the data into appropriate formats (of classes `tbl`, `data.frame` and `sf`), ready for for further processing and analysis steps.
+The package built on previous work [@lovelace_who_2016] with several important improvements, including the conversion of crash data into geographic data in a `sf` data frame for geographic research [e.g. @austin_use_1997].
+It enables creation of geographic representations of the crash data, geo-referenced to the correct coordinate reference system, in a single function, called `format_sf()`.
 Part funded by the RAC Foundation, the package should be of use to academic researchers and professional road safety data analysts working at local authority and national levels in the UK.
 
-The following sections demonstrate how to install, load and use packages with reference to `stats19`, know-how that can be used to install and use any package.
+The following sections demonstrate how to install, load and use packages with reference to `stats19`.  This knowledge can be used to install, load and use any package.
 
 ## Installing packages
 
@@ -53,7 +53,7 @@ Note: it's usually safest to stick with the latest version on CRAN unless you kn
 install.packages("stats19")
 ```
 
-You might think that now that the package has been loaded we can start using it, but that is not true, as illustrated below command, which tries and fails to run the `find_file_name()` function from the package (check that this function exists by running the following command `?find_file_name`) to find the file containing STATS19 casualties data for the year 2019:
+You might think that now that the package has been installed we can start using it, but that is not true.  This is illustrated in the below code which tries and fails to run the `find_file_name()` function from the `stats19` package to find the file containing STATS19 casualties data for the year 2019. (check that this function exists by running the following command `?find_file_name`):
 
 ```{r, error=TRUE}
 find_file_name(years = 2019, type = "casualties")
@@ -64,7 +64,7 @@ find_file_name(years = 2019, type = "casualties")
 After you have installed a package the next step is to 'load' it.^[
 Technically, this means that the *package namespace has been attached to the search path*, making their functions available from the global environment [@wickham_advanced_2014].
 ]
-Load the `stats19` package, that was installed in the previous section, as follows:
+Load the `stats19` package, that was installed in the previous section, using the following code:
 
 ```{r}
 library(stats19)
@@ -83,16 +83,17 @@ You can find out using autocompletion, by pressing `Tab` after typing the packag
 Try typing `stats19::` and then hitting `Tab`, for example.
 You should see a load of function names appearing which you view by pressing `Up` and `Down` on your keyboard.
 
-The final thing to say about packages is that you can use them without loading them by typing `package::function()`.
-`stats19::find_file_name(years = 2019, type = "casualties")` works even if the package isn't loaded.
-You can test this by running the following command (which reports the versions of key geographic libraries you have installed on your system) in three different ways, the first of which fails but the second of which succeed:
+The final thing to say about packages is that you can use them without loading them by typing `package::function()`.  We used this before in CHAPTER 2.8 where we imported csv data using the `readr` package via `readr::read_csv()`.   
+So `stats19::find_file_name(years = 2019, type = "casualties")` works even if the package isn't loaded.
+
+You can test this by running the `sf_extSoftVersion()` command from the `sf` package. This command reports the versions of key geographic libraries installed on your system. In the first attempt below, the command fails and reports an error. In the second and third attempts, utilising `::` and `library`, you can see that the command succeeds:   
 
 ```{r, error=TRUE}
-# try running a function without loading the package first
+# try running a function without loading the sf package first
 sf_extSoftVersion()
 ```
 ```{r}
-# run a function from a package's namespace without loading it using ::
+# run a function from a package's namespace without loading it but using ::
 sf::sf_extSoftVersion()
 ```
 
@@ -108,16 +109,16 @@ What does that tell you about the package?
 ## Using packages
 
 After loading a package, as described in the previous section, you can start using its functions.
-In the `stats19` package, that means the following command, which uses the `stats19` function `get_stats19()`, will work:
+In the `stats19` package that means the following command`get_stats19()` will now work:
 
 ```{r, message=FALSE}
 crashes_2019 = get_stats19(year = 2019, type = "accidents")
 nrow(crashes_2019)
 ```
 
-The command demonstrates the value of packages.
+This command demonstrates the value of packages.
 It would have been possible to get the same dataset by manually downloading and cleaning the file from the [STATS19 website on data.gov.uk](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data).
-However, but using the package the process has happened much faster and with fewer lines of code than would have been possible using general-purpose base R functions.
+However, by using the package the process has happened much faster and with fewer lines of code than would have been possible using general-purpose base R functions.
 The result of the `nrow()` function call shows that we have downloaded a decent amount of data representing over 100k road traffic casualty incidents across Great Britain in 2019.
 
 We will use other functions from the package in subsequent chapters.
@@ -130,8 +131,8 @@ vignette("stats19")
 
 ## Updating packages
 
-Update packages with the command `update.package()` or in Tools > Check for Package Updates in RStudio.
-You only need to install a package once but packages can be updated many times.
+Packages can be updated with the command `update.package()` or in Tools > Check for Package Updates in RStudio.
+You only need to install a package once but packages can be updated many times. It is important to update packages regularly because ?????.
 To update just one package, you can give the function a package name, e.g.:
 
 ```{r, eval=FALSE}
@@ -146,21 +147,22 @@ Completing the following short exercises will ensure you've got a good understan
 
 ## ggplot2
 
-`ggplot2` is a generic plotting package that is part of the ['tidyverse'](https://www.tidyverse.org/) meta-package,  an "opinionated collection of R packages designed for data science". 
+`ggplot2` is a generic plotting package that is part of the ['tidyverse'](https://www.tidyverse.org/) meta-package. The `tidyverse` is  an "opinionated collection of R packages designed for data science". 
 <!-- All packages in the tidyverse "share an underlying design philosophy, grammar, and data structures".  -->
-`ggplot2` is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
-To plot non-spatial data, it works as follows (the command should generate the image shown in Figure \@ref(fig:crashes2019time)):
+`ggplot2` is flexible, popular and has dozens of add-on packages which build on it, such as `gganimate`.
+To plot non-spatial data, it works as follows (the command should generate the image shown in Figure \@ref(fig:crashes2019time) and show a bar chart of the number of crashes by over time):
 
 ```{r crashes2019time, message=FALSE, fig.cap="A simple ggplot2 graph."}
 library(ggplot2)
 ggplot(crashes_2019) + geom_bar(aes(date), width = 1)
 ```
 
-A key feature of the `ggplot2` package is the initiation function `ggplot2()`, which takes a data object as its main augument, followed by one or more 'geoms' that represent layers (in this case a bar chart represented by the function `geom_bar()`).
+A key feature of the `ggplot2` package is the function `ggplot2()`. This function initiates the creation of a plot by taking a data object as its main argument followed by one or more 'geoms' that represent layers (in this case a bar chart represented by the function `geom_bar()`).
 Another distinctive feature of `ggplot2()` is the use of `+` operator to add layers.
+
 The package is excellent for generating publication quality figures.
 Starting from a basic idea, you can make incremental tweaks to a plot to get the output you want.
-Building on the figure above, we could make the bin width wider and add colour depending on the crash severity, for example, as follows:
+Building on the figure above, we could make the bin width (width of the bars) wider, add colour depending on the crash severity and use count or proportion as our y axis, for example, as follows:
 
 ```{r ggpropcrashes, out.width="49%", fig.show='hold', fig.cap="Demonstration of fill and position arguments in ggplot2."}
 ggplot(crashes_2019) + geom_bar(aes(date, fill = accident_severity), width = 1)
@@ -182,9 +184,10 @@ crashes_2019 %>%
   geom_bar(width = 1.01) +
   facet_wrap(~day)
 ```
+**Exercises:**
 1. Install a package that build on `ggplot2` that begins with with `gg`. Hint: enter `install.packages(gg)` and hit Tab when your cursor is between the `g` and the `)`.
 1. Open a help page in the newly installed package with the `?package_name::function()` syntax.
-1. Attach the package.
+1. Load the package.
 1. **Bonus:** try using functionality from the new 'gg' package building on the example above to create plots like those shown below (hint: the right plot below uses the economist theme from the `ggthemes` package, try other themes).
 
 ```{r gg-extend, echo=FALSE, message=FALSE, eval=FALSE}
@@ -206,7 +209,7 @@ knitr::include_graphics("figures/ggtheme-plot.png")
 
 Another useful package in the tidyverse is `dplyr`, which stands for 'data pliers' and provides a handy syntax for data manipulation.
 `dplyr` has many functions for manipulating data frames and using the pipe operator ` %>% `. 
-The pipe puts the output of one command into the first argument of the next, as shown below (note the results are the same):
+The pipe operator puts the output of one command into the first argument of the next, as shown below (note the results are the same):
 
 ```{r}
 library(dplyr)
