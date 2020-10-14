@@ -14,25 +14,41 @@
 
 Slack group RSGB Analyst Network.
 
-## Use cases
+## Use case perspectives
 
-Hannah Bougdah
+This section provides insight into how R can be used for road safety research from a range of perspectives.
 
-Will Cubbin - Road Safety Strategy Analyst, Safer Essex Roads Partnership
+<!-- Hannah Bougdah -->
+
+
+### R for professional road safety analysts
+
+The following case study was written by Will Cubbin, Road Safety Strategy Analyst for [Safer Essex Roads Partnership](https://saferessexroads.org/).
+It provides insight not only into the power and flexibility of the approach advocated in this book, but also navigating R's at times steep learning curve.
+
 When I attended the two-day course ‘introduction to R’ I had little confidence in my natural ability to learn coding. Although familiar with many functions in Excel and having dabbled in VBA, my two previous attempts at any kind of computer language both ended in literal failure. At university I failed a module on C++ and in a previous job I failed a training course on SQL!
+
 As expected the course was a steep learning curve but after two days I had definitely learned a few tricks. However I was still concerned about the amount of material covered by the course that I hadn’t understood. It turned out this was actually a good thing because the breadth of the course showed me what R was capable of, and how it could be useful. The next part of my journey with R was to use the course materials and build on the basics I had learned, to achieve what the course showed was possible.
+
 I began with the aim of using the geospatial analysis capability in R to visualise collision data in new ways, to give more detailed insight and present it in a way that would inform meaningful action for front line resources.
 Having a clear goal of “This is what I want to achieve with my first R project” was crucial. The course had given me an idea of the sort of processes I needed to undertake in order to achieve this goal. The post-course support through GitHub was very good, I also learned a lot by finding example of code on places like GitHub and stackoverflow by searching Google. The other crucial element in getting my first success with R was having time dedicated to working on the project immediately after the course. I spent two weeks working almost exclusively on this project, starting the week after the R course.
+
 The result was well worth the effort. After the initial two weeks of intensive learning with R, I spent a a 4 to 6 weeks of working on the project a couple of days per week. By the end of this period I had working versions of two interactive mapping tools, comprising:
 1)	A multi layered leaflet map showing collision locations, collision density along main roads and a “heatmap” (Kernel Density Estimation raster) layer. I made multiple versions of each layer for different modes of transport and behaviours such as drink driving.
 2)	A ‘shiny’ mapping app showing collision locations and basic details with date filter. I was able to embed this on our website for public use.
+
 I soon added a second R script to the first of the two projects described above. This script produced and exported a range of standardised infographics showing various breakdowns of the data contained in the map. This allowed me to almost fully-automate the process for updating a proactive Roads-Policing tasking document. It turned this monthly process, which previously took 1 working day to complete, into one taking just 45 minutes. It also added more useful insight to the monthly tasking product.
+
 My next steps are to continue another project using an API to access vehicle telematics data. This project extracts driving events, such as harsh braking and harsh cornering, and plots them on an interactive map. I will also be using R for some statistical analysis as part of a research project I have recently started. Thinking of myself as an “Excel native”, I would say R hasn’t replaced Excel, but has been a powerful addition to my toolbox so I can do more interesting and in-depth work than ever before.
 
+### PhD research
 
-Other
 
-Do you have a use case of reprocible research? Please get in touch on the issue tracker.
+### Policymaking
+
+<!-- Other -->
+
+Do you have a use case of reprocible research? Please get in touch on the [issue tracker](https://github.com/saferactive/rrsrr/issues).
 
 # References
 
