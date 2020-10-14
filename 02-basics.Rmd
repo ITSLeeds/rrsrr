@@ -132,13 +132,16 @@ ncol(crashes)
 The results of the previous commands tell us that the dataset has 3 rows and 2 columns.
 We will use larger datasets, with thousands of rows and tens of columns, in later chapters but for now it's good to 'start small' to understand the basics of R.
 
-## Subsetting by index or name CHANGE TITLE OR BE CLEARER WHEN YOU ARE SUBSETTING BY INDEX OR NAME IN THE TEXT BELOW
+## Subsetting by index or column name
 
+The most basic type of R object is a *vector*, a sequence of values of the same type. For example, a set of numbers. 
+In the earlier examples, `x`, `y` and `z` were all *numeric vectors* with a length of 1; `casualty_type` is a *character vector* (because it contains letters that cannot be added) of length 3; and `casualty_age` is a *numeric vector* of length 3.
 Subsetting returns part of an R object. 
-It can be done by providing numbers representing the positions of the elements we want (e.g. the 2^nd^ element) or with a logical vector *NEED TO EXPLAIN VECTOR, with values associated with `TRUE` or `FALSE` returned. 
+Subsets of vectors can be returned by providing numbers representing the positions (index) of the elements within the vector we (e.g. '2' representing selection of the 2^nd^ element) or with logical (`TRUE` or `FALSE`) values associated with the elements that should be selected.
+
 Two dimensional objects such as matrices and data frames can be subset by rows and columns.
 Subsetting in base R is done with square brackets `[]` after the name of an object.
-**Run the following commands to practice subsetting by position and verify that you get the same results that are shown below.**
+**Run the following commands to practice subsetting by index and column name and verify that you get the same results that are shown below.**
 
 ```{r, eval=FALSE}
 casualty_age[2:3] # second and third casualty_age
@@ -260,7 +263,7 @@ as.matrix(crashes)
 
 Often it is useful to 'recode' values.
 In the raw STATS19 files, for example, -1 means NA.
-There are many ways to recode values in R, the simplest and most mature of which is the use of factors DEFINE WHAT A FACTOR IS, as shown below:
+There are many ways to recode values in R, the simplest and most mature of which is the use of factors, which are whole numbers representing characters.  Factors are commonly used to manage categorical variables such as sex, ethnicity or, in road traffic research, vehicle type or casualty injury severity.   
 
 ```{r}
 z = c(1, 2, -1, 1, 3)
@@ -275,7 +278,7 @@ z_charcter
 
 ## Saving R objects
 
-You can also save individual R objects in the RDS format. The RDS format is the ? data format for R. (? is this the right term?)
+You can also save individual R objects in the RDS format. The RDS format is the data format for R, meaning that any R object can be saved as an RDS file. This is equivalent to xls being the data format for Excel. 
 
 ```{r}
 saveRDS(crashes, "crashes.Rds")
