@@ -20,10 +20,12 @@ knitr::include_graphics("figures/rstudio-ui.png")
 Projects organise files and settings in RStudio into folders.
 Each project has its own folder and Rproj file.
 **When using RStudio always ensure you are working in a named project to organise your work.**
-Start a new project with:
-
-> File > New Project
-You can choose to create a new directory (folder) or associate a project with an existing directory. Make a new project called lrrsrr (short for 'learning reproducible road safety research with R') or a name of you choice and save it in a sensible place on your computer. Notice that stats1-course now appears in the top right of RStudio.
+Start a new project with by clicking on `File > New Project` in RStudio's top menu.^[
+You can also create new projects from the R command line, for example with the command `rstudioapi::openProject("lrrsrr")`.
+] 
+You create projects either in a new directory (folder) or in an existing directory.
+**Make a new project called lrrsrr (short for 'learning reproducible road safety research with R') or a name of you choice and save it in a sensible place on your computer.**
+The name of the project will appear in the top right of RStudio.
 
 **Scripts** are files where R code is stored and you edit them in the Source Editor panel (the top left panel in Figure \@ref(fig:rstudioui)).
 **Keeping your code in sensibly named, well organised and reproducible scripts will make your life easier.**
@@ -80,7 +82,9 @@ Practice jumping between the console and the source editor by pressing `Ctl+1` a
 ## Viewing Objects
 
 To practice typing code into scripts, rather than into the console, we will re-create the objects we created in Chapter \@ref(basics).
-Create a new script called `objects.R` and type the following commands, character-for-character including spaces in the right places (typing rather than copy-pasting will help develop good coding style and speed):
+Create a new script called `objects.R` and type the following commands, character-for-character including spaces in the right places (typing rather than copy-pasting will help develop good coding style and speed):^[
+Note: The `set.seed()` function is used to set the starting number in the random number generator used in R. Setting the seed to a fixed value in your code will ensure reproducability if you are using random number generation or sampling.
+]
 
 ```{r}
 vehicle_type = c("car", "bus", "tank")
@@ -92,7 +96,6 @@ small_matrix = matrix(1:24, nrow = 12)
 crashes = data.frame(vehicle_type, casualty_type, casualty_age, dark)
 ```
 
-Note: The ```{r}set.seed()``` function is used to set the starting number in the random number generator used in R. Setting the seed to a fixed value in your code will ensure reproducability if you are using random number generation or sampling.
 Run the code line-by-line by pressing `Ctl+Enter` multiple times, as described in the previous section.
 Try viewing the objects in the following ways:
 
