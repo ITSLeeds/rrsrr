@@ -343,23 +343,25 @@ crashes_iow = readRDS(url(u))
 
 The following code can be used to download roads data, filter it to show only main roads, and save as an .rds file for later use in your R project. In this example the code is downloading data for the county of Essex.
 
-```{r}
-library(geofabrik)
-remotes::install_github("itsleeds/geofabrik")
+```{r, eval=FALSE}
+remotes::install_github("itsleeds/osmextract")
+library(osmextract)
+library(dplyr)
+library(sf)
 region_name = "essex"         #"essex" can be changed to another area name as required
-osm_data = get_geofabrik(name = region_name)
+osm_data = oe_get(region_name, extra_tags = c("maxspeed", "ref"))
 table(osm_data$highway)
 #filter osm_data to show only major roads
 roads = osm_data %>%
   filter(highway %in% c("motorway", "primary", "secondary", "tertiary", "trunk", 
                         "motorway_link", "primary_link", "secondary_link", "tertiary_link"))
 #format and save
-names(roads)[names(roads) == '_ogr_geometry_'] <- 'geometry' #renames geometry column to keep things tidy
-attr(roads, "geometry") = "geometry"
+names(roads)[names(roads) == '_ogr_geometry_'] = 'geometry' #renames geometry column to keep things tidy
 st_geometry(roads$geometry)
-st_geometry(roads) <- "geometry"
+st_geometry(roads) = "geometry"
 roads = st_transform(roads, 27700) #converts to projected BNG system for later use
-saveRDS(roads, file = "roads.rds") #saves downloded roads so it can be used without having to repeat download process
+plot(roads$geometry)
+saveRDS(roads, file = "roads.Rds") # Saves road dataset for future use
 ```
 
 The data in the roads.rds file is a vector - a one dimenstional line representing the centre of the road. Some functions require the road to be treated as 2D polygon with a width property. You can use the `st_buffer()` function to turn this vector into a polygon.
