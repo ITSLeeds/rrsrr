@@ -141,13 +141,12 @@ Transform CRSs with the command `st_transform()`, as demonstrated in the code ch
 crashes_osgb = st_transform(crashes_sf, 27700)
 ```
 
-When you define the geometry in a data frame, it creates a multipoint vector.
-This is a single column containing coordinate pairs for point data, or multiple coordinate pairs for line vectors or polygons. Sometimes it may be necessary to convert from one CRS to another without creating a multipoint vector.
-The following code is one way to convert Eastings/Northings (CRS 27700) to Latitude/Longitude (CRS 4326) without creating a multipoint vector.
+<!-- From Will -->
+<!-- When you define the geometry in a data frame, it creates a multipoint vector. -->
+<!-- This is a single column containing coordinate pairs for point data, or multiple coordinate pairs for line vectors or polygons. Sometimes it may be necessary to convert from one CRS to another without creating a multipoint vector. -->
+<!-- The following code is one way to convert Eastings/Northings (CRS 27700) to Latitude/Longitude (CRS 4326) without creating a multipoint vector. -->
 
-
-```{r, eval=FALSE}
-# todo: fix this bit
+```{r, eval=FALSE, echo=FALSE}
 # data frame name is Crashes, containing location data in separate columns for Eastings and Northings
 latlongcoords = (cbind(Crashes$Easting , Crashes$Northing))
 latlong = SpatialPointsDataFrame(latlongcoords,data = Crashes ,proj4string = CRS("+init=epsg:27700"))
@@ -164,13 +163,20 @@ For more information on CRSs see [Chapter 6](https://geocompr.robinlovelace.net/
 
 ## Buffers
 
-Buffers are polygons surrounding geometries of a (usually) fixed distance. For example, in road safety research a 10m buffer can be created around crash locations to identify if any any crashes occured within 10m of a junction.  
-Currently buffer operations in R only work on objects with projected CRSs.
+Buffers are polygons surrounding geometries, usually with fixed distance.
+For example, in road safety research a 30m buffer can be created around crash locations to identify crashes that happened in close proximity to a particular junction or road segment.  
+<!-- Currently buffer operations in R only work on objects with projected CRSs. -->
 
 **Exercises:**
 1. Find out and read the help page of `sf`'s buffer function.
-1. Create an object called `crashes_1km_buffer` representing the area within 1 km of the crashes.
+1. Create an object called `crashes_1km_buffer` representing the area within 1 km of the `crashes_osgb` object, and plot the result with the commands `plot(crashes_1km_buffer)` and, as a fun bonus, `mapview::mapview(crashes_1km_buffer)`.
 1. **Bonus:** try creating buffers on the geographic version of the `crashes_sf` object. What happens?
+
+```{r, eval=FALSE, echo=FALSE}
+crashes_1km_buffer = sf::st_buffer(crashes_osgb, 1000)
+plot(crashes_1km_buffer)
+mapview::mapview(crashes_1km_buffer)
+```
 
 ## Attribute operations on sf objects
 
