@@ -145,8 +145,10 @@ When you define the geometry in a data frame, it creates a multipoint vector.
 This is a single column containing coordinate pairs for point data, or multiple coordinate pairs for line vectors or polygons. Sometimes it may be necessary to convert from one CRS to another without creating a multipoint vector.
 The following code is one way to convert Eastings/Northings (CRS 27700) to Latitude/Longitude (CRS 4326) without creating a multipoint vector.
 
-```{r}
-#data frame name is Crashes, containing location data in separate columns for Eastings and Northings
+
+```{r, eval=FALSE}
+# todo: fix this bit
+# data frame name is Crashes, containing location data in separate columns for Eastings and Northings
 latlongcoords = (cbind(Crashes$Easting , Crashes$Northing))
 latlong = SpatialPointsDataFrame(latlongcoords,data = Crashes ,proj4string = CRS("+init=epsg:27700"))
 latlong_SP = spTransform(latlong,CRS("+init=epsg:4326"))
