@@ -1,31 +1,29 @@
 # Spatial data {#space}
 
-From displaying simple point data to examining collision density along routes or between areas, the geographic property of STATS19 data is one of its most useful attributes. Mapping is a hugely useful and powerful aspect of R and has many applications in road safety, both in understanding geographic trends and presenting insight to colleagues. This aspect of R is covered in detail in the book [Geocomputation With R](https://geocompr.robinlovelace.net/index.html) [@lovelace_geocomputation_2019]. By mapping collision data in R, you can add layers containing other geo-coded datasets to further understand the reasons for certain trends. This can lead to new opportunities for intervention and collaboration with other parties who may have mutually compatible solutuions for reaching their goals.
-
-
 ## sf objects
 
 All road crashes happen somewhere and, in the UK at least, all collisions recorded by the police are given geographic coordinates, something that can help prioritise interventions to save lives by intervening in and around 'crash hotspots'.
-R has strong geographic data capabilities, with the `sf` package provides a generic class for spatial vector data: points, lines and polygons, are represented in `sf` objects as a special 'geometry column', typically called 'geom' or 'geometry', extending the data frame class we've already seen in `crashes`.
+R has strong geographic data capabilities with the `sf` package providing a generic class for spatial vector data. Points, lines and polygons are represented in `sf` as objects in a special 'geometry column', typically called 'geom' or 'geometry'.  extending the data frame class we've already seen in `crashes`.
 
-Create an `sf` data frame called `crashes_sf` as follows:
+Create an `sf` data frame called `crashes_sf`that expands the `crashes` data frame to include a geometry column based on the `crashes` longitude and latitude data as follows:
 
 ```{r crashes-sf, fig.height=2, fig.width=3}
 library(sf) # load the sf package for working with spatial data
 crashes_sf = crashes # create copy of crashes dataset
 crashes_sf$longitude = c(-1.3, -1.2, -1.1)
 crashes_sf$latitude = c(50.7, 50.7, 50.68)
-crashes_sf = st_as_sf(crashes_sf, coords = c("longitude", "latitude"), crs = 4326)
+crashes_sf = st_as_sf(crashes_sf, coords = c("longitude", "latitude"), crs = 4326) # st_as_sf converts longitude and latitude coordinates into spatial objects using a specified Coordinate Reference System (see 7.6)
 # plot(crashes_sf[1:4]) # basic plot
 # mapview::mapview(crashes_sf) # for interactive map
 ```
 
+**Exercises:**
 1. Plot only the geometry column of `crashes_sf` (hint: the solution may contain `$geometry`). If the result is like the figure below, congratulations, it worked!).
 1. Plot `crashes_sf`, only showing the age variable.
 1. Plot the 2^nd^ and 3^rd^ crashes, showing which happened in the dark.
 1. **Bonus**: How far are the points apart (hint: `sf` functions begin with `st_`)?
 1. **Bonus**: Near which settlement did the tank runover the cat?
- 
+
 ```{r crashes-sf-ex, echo=FALSE, out.width="30%", fig.show='hold'}
 plot(crashes_sf$geometry)
 plot(crashes_sf["casualty_age"])
@@ -43,7 +41,7 @@ plot(crashes_sf[2:3, "dark"])
 You can read and write spatial data with `read_sf()` and `write_sf()`, as shown below (see `?read_sf`).
 
 ```{r, eval=FALSE}
-write_sf(zones, "zones.geojson") # save geojson file
+write_sf(zones, "zones.geojson") # saves the spatial dataset called zones as geojson file type
 write_sf(zones, "zmapinfo", driver = "MapInfo file")
 read_sf("zmapinfo") # read in mapinfo file
 ```
@@ -58,7 +56,7 @@ This is illustrated below with reference to `zones`, a spatial object representi
 ```{r}
 zones = pct::get_pct_zones("isle-of-wight")[1:9]
 ```
-
+**Exercisees:**
 1. What is the class of the `zones` object?
 1. What are its column names?
 1. Print its first 2 rows and columns 6:8 (the result is below).
@@ -71,8 +69,8 @@ zones[1:2, c(1, 5, 6, 7, 8)]
 
 ## Spatial subsetting and sf plotting
 
-Like index and value subsetting, spatial subsetting can be done with the `[` notation.
-Subset the `zones` that contain features in `crashes_sf` as follows:
+Like index and value subsetting, spatial subsetting can be done with the `[]` notation.
+So we can identify the crashes (`crashes_sf`) that occur in the Isle of Wight (`zones`) by subsetting as follows (i.e. subset `zones` by whether it contains data in `crashes_sf`):
 
 ```{r, message=FALSE}
 zones_containing_crashes = zones[crashes_sf, ]
@@ -82,6 +80,7 @@ To plot a new layer on top of an existing `sf` plot, use the `add = TRUE` argume
 Remember to plot only the `geometry` column of objects to avoid multiple maps.
 Colours can be set with the `col` argument.
 
+**Exercises:**
 1. Plot the geometry of the zones, with the zones containing crashes overlaid on top in red.
 1. Plot the zone containing the 2^nd^ crash in blue.
 1. **Bonus:** plot all zones that intersect with a zone containing crashes, with the actual crash points plotted in black.
@@ -104,7 +103,9 @@ With `sf` objects it works as follows:
 ```{r, message=FALSE}
 zones_joined = st_join(zones[1], crashes_sf)
 ```
+The above code takes the `geo_code` column data from `zones`, matches it to the `geometry` column in `crashes_sf` and then joins it to the crashes that occur in those geo_codes.  The matched, joined `geo_code` is a new column in the `zone_joined` dataset. We now know the administrative geo_code in which each crash occured. 
 
+**Exercises:**
 1. Plot the `casualty_age` variable of the new `zones_joined` object (see the figure below to verify the result).
 1. How many zones are returned in the previous command? 
 1. Select only the `geo_code` column from the `zones` and the `dark` column from `crashes_sf` and use the `left = FALSE` argument to return only zones in which crashes occured. Plot the result.
@@ -118,28 +119,15 @@ plot(zjd)
 ```
 
 
-## CRSs
+## Coordinate Reference Systems
 
-A CRS is a coordinate reference system, used for plotting data on maps. There are many systems in use but they can generally be classified into two groups; 'projected' and 'geographic'. A projected system, such as Eastings/Northings, plots locations onto a flat 2D projection of the Earth's surface. A geographic system, such and Longitude/Latitude, refers to locations on the 3D surface of the globe. Distance and direction calculations work differently between geographc and projected CRSs, so it it often necessary to convert from one to another. Fortunately R makes this very easy, and every CRS has its own unique refernce number, for example 27700 for the British National Grid system. 
-
-Get and set Coordinate Reference Systems (CRSs) with the command `st_crs()`.
+Coordinate Reference Systems (CRS) define how two-dimensional points (such as longitude and latitude) are actually represented in the real world.  A CRS value is needed to interpret and give true meaning to coordinates. You can get and set CRSs with the command `st_crs()`.
 Transform CRSs with the command `st_transform()`, as demonstrated in the code chunk below, which converts the 'lon/lat' geographic CRS of `crashes_sf` into the projected CRS of the British National Grid:
 
 ```{r crs1}
 crashes_osgb = st_transform(crashes_sf, 27700)
 ```
-
-When you define the gemotery in a data frame, it creates a multipoint vector. This is a single column containing coordinate pairs for point data, or multiple coordinate pairs for line vecotrs or polygons. Sometimes it may be necessary to convert from one CRS to another without creating a multipoint vector. The following code is one way to convert Eastings/Northings (CRS 27700) to Latitude/Longitude (CRS 4326) without creating a multipoint vector.
-
-```{r}
-#data frame name is Crashes, containing location data in separate columns for Eastings and Northings
-latlongcoords = (cbind(Crashes$Easting , Crashes$Northing))
-latlong = SpatialPointsDataFrame(latlongcoords,data = Crashes ,proj4string = CRS("+init=epsg:27700"))
-latlong_SP = spTransform(latlong,CRS("+init=epsg:4326"))
-Crashes_latlong = as.data.table(latlong_SP)
-```
-
-**Exercises**
+**Exercises:**
 1. Try to subset the zones with the `crashes_osgb`. What does the error message say?
 1. Create `zones_osgb` by transforming the `zones` object.
 1. **Bonus:** use `st_crs()` to find out the units measurement of the British National Grid?
@@ -148,9 +136,10 @@ For more information on CRSs see [Chapter 6](https://geocompr.robinlovelace.net/
 
 ## Buffers
 
-Buffers are polygons surrounding geometries of a (usually) fixed distance.
+Buffers are polygons surrounding geometries of a (usually) fixed distance. For example, in road safety research a 10m buffer can be created around crash locations to identify if any any crashes occured within 10m of a junction.  
 Currently buffer operations in R only work on objects with projected CRSs.
 
+**Exercises:**
 1. Find out and read the help page of `sf`'s buffer function.
 1. Create an object called `crashes_1km_buffer` representing the area within 1 km of the crashes.
 1. **Bonus:** try creating buffers on the geographic version of the `crashes_sf` object. What happens?
@@ -164,21 +153,21 @@ Try the following attribute operations on the `zones` data.
 # load example dataset if it doesn't already exist
 zones = pct::get_pct_zones("isle-of-wight")
 sel = zones$all > 3000  # create a subsetting object
-zones_large = zones[sel, ] # subset areas with a popualtion over 100,000
+zones_large = zones[sel, ] # subset areas with a population over 3,000
 zones_2 = zones[zones$geo_name == "Isle of Wight 002",] # subset based on 'equality' query
 zones_first_and_third_column = zones[c(1, 3)]
 zones_just_all = zones["all"]
 ```
 
-
+**Exercises:**
 1. Practice subsetting techniques you have learned on the `sf data.frame` object `zones`:
-     1. Create an object called `zones_small` which contains only regions with less than 3000 people in the `all` column
-     1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
-     1. Create an object called `zones_foot` which contains only the foot attribute from `zones`
-     1. Bonus: plot `zones_foot` using the function `plot` to show where walking is a popular mode of travel to work
-     1. Bonus: bulding on your answers to previous questions, use `filter()` from the `dplyr` package to subset small regions where car use is high. 
-1. Bonus: What is the population density of each region (hint: you may need to use the functions `st_area()`, `as.numeric()` and use the 'all' column)?
-1. Bonus: Which zone has the highest percentage of people who cycle?
+     * Create an object called `zones_small` which contains only regions with less than 3000 people in the `all` column
+     * Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
+     * Create an object called `zones_foot` which contains only the foot attribute from `zones`
+     * **Bonus:** plot `zones_foot` using the function `plot` to show where walking is a popular mode of travel to work
+     * **Bonus:** building on your answers to previous questions, use `filter()` from the `dplyr` package to subset small regions where car use is high. 
+1. **Bonus:** What is the population density of each region (hint: you may need to use the functions `st_area()`, `as.numeric()` and use the 'all' column)?
+1. **Bonus:** Which zone has the highest percentage of people who cycle?
 
 ```{r, echo=FALSE, eval=FALSE}
 # 1. Practice subsetting techniques you have learned on the `sf data.frame` object `zones`:
@@ -231,17 +220,17 @@ I think you forgot something here. For example we could introduce `st_nearest_fe
 ## Mapping road crash data
 
 So far we have used the `plot()` function to make maps.
-That's fine for basic visualisation, but for publication-quality maps, we recommend using `tmap` (see Chapter 8 of Geocomputation with R for reasons and alternatives).
-Load the package as follows:
+That's fine for basic visualisation, but for publication-quality maps we recommend using `tmap` (see Chapter 8 of Geocomputation with R for reasons and alternatives).
+After installation, load the package as follows:
 
 ```{r}
 library(tmap)
-tmap_mode("plot")
+tmap_mode("plot") # this sets the tmap mode to plotting as opposed to interactive
 ```
-
+**Exercises:**
 1. Create the following plots using `plot()` and `tm_shape() + tm_polygons()` functions (note: the third figure relies on setting `tmap_mode("view")`.
 1. Add an additional layer to the interactive map showing the location of crashes, using marker and dot symbols.
-1. Bonus: Change the default basemap (hint: you may need to search in the package documentation or online for the solution).
+1. **Bonus:** Change the default basemap (hint: you may need to search in the package documentation or online for the solution).
 
 ```{r plot3, fig.show='hold', out.width="33%", echo=FALSE}
 plot(zones[c("all", "bicycle")])
@@ -255,15 +244,12 @@ m
 # knitr::include_graphics("tmap-zones-interactive.png")
 ```
 
-Other mapping functions that can be powerful presentation tools are also explained in [Geocomputation With R](https://geocompr.robinlovelace.net/index.html) [@lovelace_geocomputation_2019]. These include leaflet maps, which have interactive properties and can be shared as .html files, and shiny apps that give even more interactivity as well as the possibility to embed on websites. 
-
-
 ## Analysing point data
 
 Based on the saying "don't run before you can walk", we've learned the vital foundations of R before tackling a real dataset.
 Temporal and spatial attributes are key to road crash data, hence the emphasis on `lubridate` and `sf`.
-Visualisation is key to understanding and policy influence, which is where `tmap` comes in.
-With these solid foundations, plus knowledge of how to ask for help (read R's internal help functions, ask colleagues, create new comments on online forums/GitHub, generally in that order of priority), you are ready to test the methods on some real data.
+Visualisation is central to understanding data and influencing policy, which is where `tmap` comes in.
+With these solid foundations, plus knowledge of how to ask for help (we recommend reading R's internal help, asking colleagues, searching the internet and creating new questions or comments on online forums such as StackOverflow or GitHub and we suggest you follow this order of resources to get help), you are ready to test the methods on some real data.
 
 Before doing so, take a read of the `stats19` vignette, which can be launched as follows:
 
@@ -282,7 +268,7 @@ This should now be sufficient to tackle the following exercises:
 1. **Bonus:** how many crashes happened in each zone?
 1. Create a new column called `month` in the crash data using the function `lubridate::month()` and the `date` column.
 1. Create an object called `a_zones_may` representing all the crashes that happened in the Isle of Wight in the month of May
-1. Bonus: Calculate the average (`mean`) speed limit associated with each crash that happened in May across the zones of the Isle of Wight (the result is shown in the map)
+1. **Bonus:** Calculate the average (`mean`) speed limit associated with each crash that happened in May across the zones of the Isle of Wight (the result is shown in the map)
 
 
 ```{r, echo=FALSE, results='hide', message=FALSE, eval=FALSE}
@@ -313,10 +299,10 @@ class(a$date)
 ## Analysing crash data on road networks
 
 Road network data can be accessed from a range of sources, including OpenStreetMap (OSM) and Ordnance Survey.
-We will use some OSM data from the Ilse of Wight, which can be loaded as follows:
+We will use some OSM data from the Isle of Wight, which can be loaded as follows:
 
 ```{r}
-u = "https://github.com/ropensci/stats19/releases/download/1.1.0/roads_key.Rds"
+u = "https://github.com/ropensci/stats19/releases/download/1.1.0/roads_key.Rds" 
 roads_wgs = readRDS(url(u))
 roads = roads_wgs %>% st_transform(crs = 27700)
 ```
@@ -332,7 +318,7 @@ crashes_iow = readRDS(url(u))
 1. Plot the roads with the crashes overlaid.
 2. Create a buffer around the roads with a distance of 200 m.
 3. How many crashes fall outside the buffered roads?
-3. Bonus: Use the `aggregate()` function to identify how many crashes happened per segment and plot the result (hint: see `?aggregate.sf` and take a read of Section [4.2.5](https://geocompr.robinlovelace.net/spatial-operations.html#spatial-aggr) of Geocomputation with R) with `tmap` and plot the crashes that happened outside the road buffers on top.
+3. **Bonus:** Use the `aggregate()` function to identify how many crashes happened per segment and plot the result (hint: see `?aggregate.sf` and take a read of Section [4.2.5](https://geocompr.robinlovelace.net/spatial-operations.html#spatial-aggr) of Geocomputation with R) with `tmap` and plot the crashes that happened outside the road buffers on top.
 
 ```{r, echo=FALSE, out.width="49%", fig.show='hold', message=FALSE}
 plot(roads$geometry)
@@ -346,31 +332,6 @@ tmap_mode("plot")
 tm_shape(roads_agg) + tm_fill("N. Crashes") +
   tm_shape(crashes_outside_roads) + tm_dots(col = "blue")
 ```
-
-The following code can be used to download roads data, filter it to show only main roads, and save as an .rds file for later use in your R project. In this example the code is downloading data for the county of Essex.
-
-```{r}
-library(geofabrik)
-remotes::install_github("itsleeds/geofabrik")
-region_name = "essex"         #"essex" can be changed to another area name as required
-osm_data = get_geofabrik(name = region_name)
-table(osm_data$highway)
-
-#filter osm_data to show only major roads
-roads = osm_data %>%
-  filter(highway %in% c("motorway", "primary", "secondary", "tertiary", "trunk", 
-                        "motorway_link", "primary_link", "secondary_link", "tertiary_link"))
-
-#format and save
-names(roads)[names(roads) == '_ogr_geometry_'] <- 'geometry' #renames geometry column to keep things tidy
-attr(roads, "geometry") = "geometry"
-st_geometry(roads$geometry)
-st_geometry(roads) <- "geometry"
-roads = st_transform(roads, 27700) #converts to projected BNG system for later use
-saveRDS(roads, file = "roads.rds") #saves downloded roads so it can be used without having to repeat download process
-```
-
-The data in the roads.rds file is a vector - a one dimenstional line representing the centre of the road. Some functions require the road to be treated as 2D polygon with a width property. You can use the `st_buffer()` function to turn this vector into a polygon.
 
 \newpage
 
