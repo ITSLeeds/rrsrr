@@ -1,7 +1,7 @@
 # R basics {#basics}
 
 Learning a programming language is similar to learning a human language such as French.
-Although you could just dive in and start gesticulating to people in central Paris, it's worth taking time to understand of the structure and key words of the language first.
+Although you could just dive in and start gesticulating to people in central Paris, it's worth taking time to understand the structure and key words of the language first.
 The same applies to data science: it will help to understand a little about syntax and grammar of the language that we will use to do things with data (the statistical programming language R) before diving into using it for road safety research.
 This chapter may seem tedious for people who just want to crack on and load-in data.
 However, working through the examples below is recommended for most people unless you're already an experienced R user, and even experienced R users may learn something about the language's syntax and fundamental features.
@@ -9,12 +9,12 @@ However, working through the examples below is recommended for most people unles
 The first step is to **start RStudio**, e.g. by tapping the Start button and searching for RStudio if you are on Windows.
 You should see an 'R console pane' like that displayed in Figure \@ref(fig:console).
 
-```{r console, echo=FALSE, fig.cap='The R console pane in RStudio that appears when you first open RStudio. After typing install.packages(stats), you should see the package name auto-completion. Pressing Enter at this point will trigger the autocompletion of the command `install.packages("stats19").'}
+```{r console, echo=FALSE, fig.cap='The R console pane in RStudio that appears when you first open RStudio. After typing install.packages(stats), you should see the package name auto-complete. Pressing Enter at this point will trigger the autocompletion of the command `install.packages("stats19").'}
 knitr::include_graphics("figures/console.png")
 ```
 
 If you saw something like that shown in Figure \@ref(fig:console) congratulations!
-You are ready to start running R code, by entering commands into the console.
+You are ready to start running R code by entering commands into the console.
 
 ## Creating and removing R objects
 
@@ -34,8 +34,8 @@ sqrt(361)
 ```
 
 This is all well and good, providing a chance to see how R works with numbers and to get practice with typing commands into the console.
-However, the code chunks above do not make use of a key benefit of R: it is *object oriented*, meaning it stores values and complex objects such as data frames representing road casualties and processes them *in memory* (meaning that R is both fast and memory hungry when working with large datasets).
-If you are more familiar with Excel, a data frame may be thought of as fulfilling the purpose of a single spreadsheet containing a set of data.
+However, the code chunks above do not make use of a key benefit of R: it is *object oriented*, meaning it stores values and complex objects, such as data frames representing road casualties, and processes them *in memory* (meaning that R is both fast and memory hungry when working with large datasets).
+If you are more familiar with Excel, a data frame may be thought of as fulfilling the purpose of a single worksheet containing a set of data.
 
 The two most common ways of creating objects are using `<-` 'arrow' or `=` 'equals' assignment.
 These symbols are *assignment operators* because they assign contents, such as numbers, to named objects.^[
@@ -60,7 +60,7 @@ You can use various stylistic conventions when naming your R objects, including 
 [@baath_state_2012].
 We advocate using `snake_case`, a style that avoids upper case characters to ease typing and uses the underscore symbol (`_`) to clearly demarcate spaces between words.
 
-The objects created in the previous code chunk have now served their purpose (to demonstrate basic object creation in R) so, based on wise saying that tidying up is the most important part of job, we will now remove these objects:
+The objects created in the previous code chunk have now served their purpose (to demonstrate basic object creation in R) so, based on the wise saying that tidying up is the most important part of a job, we will now remove these objects:
 
 ```{r}
 rm(x, y, z)
@@ -96,7 +96,7 @@ Restarting R in this way will make R 'forget' the objects, unless you ask it to 
 In most cases we advocate *not* saving R objects in your workspace but saving the specific objects you need, something that is covered in Section \@ref(saving-r-objects).
 ]
 After running the previous code chunk the `casualty_*` objects are in the workspace (technically, the 'global environment').
-You should be able to see the object names in the Environmnet tab in the top right of RStudio.
+You should be able to see the object names in the Environment tab in the top right of RStudio.
 Objects can also be listed with the `ls()` command as follows:
 
 ```{r}
@@ -107,6 +107,7 @@ The previous command executed the function `ls()` with no arguments.
 This helps explain the command `rm(list = ls())`, which removed all objects in in the global environment in the previous section.
 <!-- The command basically means 'remove everything', **used with caution**. -->
 This also makes the wider point that functions can accept arguments (in this case the `list` argument of the `rm()` function) that are themselves function calls.
+
 Two key functions for getting the measure of R objects are `class()` and `length()`.
 
 ```{r}
@@ -123,7 +124,7 @@ length(casualty_type)
 length(casualty_age)
 ```
 
-To convert a series of vectors into a data frame, of the type shown in an Excel spreadsheet, with rows and columns, we will use the `data.frame()` function.
+To convert a series of vectors into a data frame with rows and columns (similar to an Excel worksheet), we will use the `data.frame()` function.
 Create a data frame containing the two casualty vectors as follows:
 
 ```{r}
@@ -155,7 +156,7 @@ In the earlier examples, `x`, `y` and `z` were all *numeric vectors* with a leng
 
 Subsetting means 'extracting' only part of a vector or other object, so only the parts of most interest are returned to us.
 Subsets of vectors can be returned by providing numbers representing the positions (index) of the elements within the vector we (e.g. '2' representing selection of the 2^nd^ element) or with logical (`TRUE` or `FALSE`) values associated with the element.
-Both of the following commands return the 2nd element of the `casualty_age` object, for example:
+These methods are demonstrated below to return the 2nd element of the `casualty_age` object, for example:
 
 ```{r}
 casualty_age
@@ -164,7 +165,7 @@ casualty_age[c(FALSE, TRUE, FALSE)]
 ```
 
 Two dimensional objects such as matrices and data frames can be subset by rows and columns.
-Subsetting in base R is done with square brackets `[]` after the name of an object.
+Subsetting in base R is done by using square brackets `[]` after the name of an object.
 **Run the following commands to practice subsetting by index and column name and verify that you get the same results that are shown below.**
 
 ```{r, eval=FALSE}
@@ -227,7 +228,7 @@ x[x == 5] # only when x == 5 (notice the use of double equals)
 x[x < 3] # less than 3
 x[x < 3] = 0 # assign specific elements
 casualty_age[casualty_age %% 6 == 0] # just the ages that are a multiple of 6
-crashes[crashes$dark == FALSE, ]
+crashes[crashes$dark == FALSE, ] # just crashes that occured when it wasnt dark
 ```
 
 **Exercises**
@@ -278,6 +279,7 @@ Sometimes you may want to change the class of an object.
 This is called class coercion, and can be done with functions such as `as.logical()`, `as.numeric()` and `as.matrix()`.
 
 **Exercises**
+
 1. Coerce the `vehicle_type` column of `crashes` to the class `character`.
 1. Coerce the `crashes` object into a matrix. What happened to the values?
 1. **Bonus:** What is the difference between the output of `summary()` on `character` and `factor` variables?
@@ -296,14 +298,15 @@ There are many ways to recode values in R, the simplest and most mature of which
 ```{r}
 z = c(1, 2, -1, 1, 3)
 l = c(NA, "a", "b", "c") # labels in ascending order
-z_factor = factor(z, labels = l)
-z_charcter = as.character(z_factor)
-z_charcter
+z_factor = factor(z, labels = l) # factor z using labels l
+z_character = as.character(z_factor) # convert factors to characters
+z_character
 ```
 
 **Exercises**
+
 1. Recode `z` to Slight, Serious and Fatal for 1:3 respectively.
-1. Bonus: read the help file at `?dplyr::case_when` and try to recode the values using this function.
+1. **Bonus:** read the help file at `?dplyr::case_when` and try to recode the values using this function.
 
 ## Saving R objects
 
@@ -325,7 +328,7 @@ identical(crashes, crashes2)
 R also supports many other formats, including CSV files, which can be created and imported with the functions `readr::read_csv()` and `readr::write_csv()` (see also the [readr](https://readr.tidyverse.org/) package).
 
 ```{r readr-write, eval=FALSE}
-readr::write_csv(crashes, "crashes.csv") # This code tells R to use the write_csv function from the readr package
+readr::write_csv(crashes, "crashes.csv") # uses the write_csv function from the readr package
 crashes3 = readr::read_csv("crashes.csv")
 identical(crashes3, crashes) 
 ```
