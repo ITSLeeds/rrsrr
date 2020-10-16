@@ -151,8 +151,8 @@ crashes_day_rel = crashes_dow %>%  # create 'day of week relative' object
   group_by(day, hour) %>%          # group by day and hour
   summarise(n_hday = n(), n_h = first(n_per_hour)) %>% # summarise results
   mutate(hday_relative = n_hday / n_h) # calculate relative n. crashes per hour/day
-summary(crashes_dow_rel)
-crashes_dow_rel %>% 
+summary(crashes_day_rel)
+crashes_day_rel %>% 
   ggplot() +
   geom_col(aes(hour, hday_relative)) +
   facet_wrap(~day, nrow = 1)
