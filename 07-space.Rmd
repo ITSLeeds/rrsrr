@@ -5,17 +5,30 @@ Mapping is a hugely useful and powerful aspect of R and has many applications in
 This aspect of R is covered in detail in the book [Geocomputation With R](https://geocompr.robinlovelace.net/index.html) [@lovelace_geocomputation_2019].
 By mapping collision data in R, you can add layers containing other geographic datasets to further understand the reasons for certain trends. 
 This can lead to new opportunities for intervention and collaboration with other parties who may have mutually compatible solutions for reaching their goals.
+We will use the following packages in this chapter:
+
+```{r, message=FALSE}
+library(sf)        # load the sf package for working with spatial data
+library(tidyverse) # load the tidyverse as before
+```
 
 ## sf objects
 
 All road crashes happen somewhere and, in the UK at least, all collisions recorded by the police are given geographic coordinates, something that can help prioritise interventions to save lives by intervening in and around 'crash hotspots'.
-R has strong geographic data capabilities with the `sf` package providing a generic class for spatial vector data. Points, lines and polygons are represented in `sf` as objects in a special 'geometry column', typically called 'geom' or 'geometry', extending the data frame class we've already seen in `crashes`.
+R has strong geographic data capabilities with the `sf` package providing a generic class for spatial vector data. Points, lines and polygons are represented in `sf` as objects in a special 'geometry column', typically called 'geom' or 'geometry', extending the data frame class we've already seen in `crashes`, created in Section \@ref(tibbles) (repeated here to consolidate data frame creation):
+
+```{r}
+crashes = tibble(
+  casualty_type = c("pedestrian", "cyclist", "cat"),
+  casualty_age = seq(from = 20, to = 60, by = 20),
+  vehicle_type = c("car", "bus", "tank"),
+  dark = c(TRUE, FALSE, TRUE)
+)
+```
 
 Create an `sf` data frame called `crashes_sf`that expands the `crashes` data frame to include a geometry column based on the `crashes` longitude and latitude data as follows:
 
 ```{r crashes-sf, fig.height=2, fig.width=3, message=FALSE, warning=FALSE}
-library(sf) # load the sf package for working with spatial data
-library(tidyverse) # load the tidyvers as before
 crashes_sf = crashes # create copy of crashes dataset
 crashes_sf$longitude = c(-1.3, -1.2, -1.1)
 crashes_sf$latitude = c(50.7, 50.7, 50.68)
@@ -50,8 +63,8 @@ You can read and write spatial data with `read_sf()` and `write_sf()`, as shown 
 
 ```{r, eval=FALSE}
 write_sf(zones, "zones.geojson") # saves the spatial dataset called zones as geojson file type
-write_sf(zones, "zmapinfo", driver = "MapInfo file")
-read_sf("zmapinfo") # read in mapinfo file
+write_sf(zones, "zmapinfo", driver = "MapInfo file") # saves the dataset as a MapInfo file
+read_sf("zmapinfo") # reads-in mapinfo file
 ```
 
 See [Chapter 6](https://geocompr.robinlovelace.net/read-write.html) of Geocomputation with R for further information.
@@ -85,7 +98,13 @@ So we can identify the crashes (`crashes_sf`) that occur in the Isle of Wight (`
 zones_containing_crashes = zones[crashes_sf, ]
 ```
 
-To plot a new layer on top of an existing `sf` plot, use the `add = TRUE` argument.
+To plot a new layer on top of an existing `sf` plot, use the `add = TRUE` argument, e.g. as follows:
+
+```{r, eval=FALSE}
+plot(zones$geometry) # plot just the geometry of one layer
+plot(zones_containing_crashes$geometry, col = "grey", add = TRUE)
+```
+
 Remember to plot only the `geometry` column of objects to avoid multiple maps.
 Colours can be set with the `col` argument.
 
@@ -108,7 +127,7 @@ plot(crashes_sf$geometry, pch = 20, add = TRUE)
 ## Geographic joins
 
 Geographic joins involve assigning values from one object to a new column in another, based on the geographic relationship between them.
-With `sf` objects it works as follows:
+With `sf` objects it works as follows, which joins the data from the `crashes_sf` dataset onto the 'target' `zones` dataset, to create a new object called `zones_joined`:
 
 ```{r, message=FALSE}
 zones_joined = st_join(zones[1], crashes_sf)
