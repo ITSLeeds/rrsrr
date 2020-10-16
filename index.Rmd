@@ -1,6 +1,6 @@
 ---
 title: "Reproducible road safety research with R: A practical introduction"
-author: "Robin Lovelace, Malcolm Morgan, Andrea Gilardi"
+author: "Robin Lovelace"
 site: bookdown::bookdown_site
 documentclass: book
 output:
@@ -131,6 +131,30 @@ As such, this book is itself a collaborative and open source project that is des
 We encourage any comments, questions or contributions related to its contents, the source code of which can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/saferactive/rrsrr)) repo on the [saferactive GitHub organisation](https://github.com/saferactive/), via the [issue tracker](https://github.com/saferactive/rrsrr/issues).
 More broadly, we hope you enjoy the contents of the book and find the process of converting data science into data driven policy changes and investment rewarding.
 Get ready for and enjoy the ride!
+
+# Thanks {-}
+
+```{r, include=FALSE}
+if("gh" %in% installed.packages()) {
+  contributors = source("code/list-contributors.R")[[1]]
+  # save for future reference:
+  readr::write_csv(contributors, "contributors.csv")
+  # table view:
+  # knitr::kable(contributors, caption = "Contributors to Geocomputation with R")
+  # text view
+}
+contributors = readr::read_csv("contributors.csv")
+c_txt = contributors$name
+c_url = contributors$link
+c_rmd = paste0("[", c_txt, "](", c_url, ")")
+contributors_text = paste0(c_rmd, collapse = ", ")
+```
+
+
+Many thanks to everyone who made this happen, especially RAC Foundation for funding the project, Malcolm Morgan and Andrea Gilardi for contributing to earlier versions, and the Department for Transport for funding reproducible road safety research through the SaferActive project.
+Many thanks to all contributors to the book so far via GitHub (this list will update automatically): `r contributors_text`.
+
+
 
 <!-- Comments/questions: should the stats19 package be introduced in a paper of its own right? -->
 
