@@ -39,10 +39,10 @@ This shows that the `stats19` package gives you not one, not two, but three temp
 1. **Bonus:** Extract the weekday from the variable called `date`.
 1. **Bonus:** How many crashes happened on Monday?
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo=FALSE}
 library(stats19)
-crashes_2017 = stats19::get_stats19(year = 2017, type = "ac")
-crashes_2017
+crashes_2019 = stats19::get_stats19(year = 2019, type = "ac")
+crashes_2019
 ```
 
 <!-- **Advanced challenge:** calculate how many crashes occurred for each day of the week. Then plot it with ggplot2. Repeat the same exercises extracting the hour of the car accident from the variable called time. How would you combine the two informations in a single plot?  -->
@@ -52,30 +52,30 @@ crashes_2017
 crashes %>% filter(casualty_hour >= 12)
 crashes %>% filter(casualty_hour > 15 & casualty_hour < 19)
 
-crashes_2017 %>% 
+crashes_2019 %>% 
   mutate(my_weekdays = weekdays(date)) %>%
   filter(my_weekdays == "Monday") %>% 
   nrow()
-crashes_2017 %>% 
+crashes_2019 %>% 
   mutate(my_weekdays = weekdays(date)) %>%
   filter(my_weekdays == "Friday") %>% 
   nrow()
 
-crashes_2017 %>% 
+crashes_2019 %>% 
   mutate(my_weekdays = weekdays(date)) %>% 
   group_by(my_weekdays) %>% 
   summarize(n = n()) %>% 
   ggplot() + 
   geom_col(aes(x = my_weekdays, y = n))
 
-crashes_2017 %>% 
+crashes_2019 %>% 
   mutate(my_hours = hour(hm(time))) %>% 
   group_by(my_hours) %>% 
   summarize(n = n()) %>% 
   ggplot() + 
   geom_col(aes(x = my_hours, y = n))
 
-crashes_2017 %>% 
+crashes_2019 %>% 
   mutate(my_weekdays = weekdays(date), my_hours = hour(hm(time))) %>% 
   group_by(my_weekdays, my_hours) %>% 
   summarise(n = n()) %>% 
@@ -92,6 +92,7 @@ crashes_2019 %>%
   select(matches("time|date")) %>% 
   sapply(class)
 ```
+
 Of the three time variables, it should be clear from the outcome of previous exercises that `datetime` is contains the most useful information.
 To consolidate the plotting know-how learned in Chapter \@ref(pkgs), let's start by simply plotting the `datetime` object. Plotting data is a good way to understand new datasets and the variables they contain.
 Create the following three plots to show how `date` and `time` vary as a function of `datetime`:
@@ -142,14 +143,14 @@ We will count the number of crashes per hour for all 5 working days and then div
 These steps are shown in the code chunk below, which results in Figure \@ref(fig:ggfacetrwkayrel).
 
 ```{r ggfacetrwkayrel, fig.cap="Facetted time series showing relative number of crashes per hour by day in the working week.", warning=FALSE, message=FALSE, fig.height=2}
-crashes_dow_rel = crashes_dow %>% 
-  filter(!is.na(hour) & !day %in% c("Saturday", "Sunday")) %>% 
-  select(day, hour) %>% 
-  group_by(hour) %>% 
-  mutate(n_per_hour = n()/5) %>% 
-  group_by(day, hour) %>% 
-  summarise(n_hday = n(), n_h = first(n_per_hour)) %>% 
-  mutate(hday_relative = n_hday / n_h)
+crashes_day_rel = crashes_dow %>%  # create 'day of week relative' object  
+  filter(!is.na(hour) & !day %in% c("Saturday", "Sunday")) %>% # none on weekends
+  select(day, hour) %>%            # keep only time columns
+  group_by(hour) %>%               # group by hour
+  mutate(n_per_hour = n()/5) %>%   # number per hour (divide by 5 for n. days)
+  group_by(day, hour) %>%          # group by day and hour
+  summarise(n_hday = n(), n_h = first(n_per_hour)) %>% # summarise results
+  mutate(hday_relative = n_hday / n_h) # calculate relative n. crashes per hour/day
 summary(crashes_dow_rel)
 crashes_dow_rel %>% 
   ggplot() +
@@ -352,4 +353,4 @@ crashes$casualty_hour = hour(crashes$casualty_hms)
 1. Filter only the events that occurred after midday (i.e. the PM events). Hint: your answer may include `>= 12`.
 1. Filter only the events that ocurred between 15:00 and 19:00
 <!-- 1. Round all hours to the next hour. Hint: Look at the help page of the `round_date` function.  -->
-1. **Bonus (difficult):** run the following code, which downloads data for car crashes that occurred during 2017.
+<!-- 1. **Bonus (difficult):** run the following code, which downloads data for car crashes that occurred during 2019. -->
