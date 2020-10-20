@@ -132,8 +132,6 @@ We encourage any comments, questions or contributions related to its contents, t
 More broadly, we hope you enjoy the contents of the book and find the process of converting data science into data driven policy changes and investment rewarding.
 Get ready for and enjoy the ride!
 
-Great introduction! After reading this you just feel like taking action.
-
 ## Thanks {-}
 
 ```{r, include=FALSE}
