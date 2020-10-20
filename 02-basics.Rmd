@@ -155,7 +155,7 @@ As we saw above, the most basic type of R object is a *vector*, a sequence of va
 In the earlier examples, `x`, `y` and `z` were all *numeric vectors* with a length of 1; `casualty_type` is a *character vector* (because it contains letters that cannot be added) of length 3; and `casualty_age` is a *numeric vector* of length 3.
 
 Subsetting means 'extracting' only part of a vector or other object, so only the parts of most interest are returned to us.
-Subsets of vectors can be returned by providing numbers representing the positions (index) of the elements within the vector we (e.g. '2' representing selection of the 2^nd^ element) or with logical (`TRUE` or `FALSE`) values associated with the element.
+Subsets of vectors can be returned by providing numbers representing the positions (index) of the elements within the vector (e.g. '2' representing selection of the 2^nd^ element) or with logical (`TRUE` or `FALSE`) values associated with the element.
 These methods are demonstrated below to return the 2nd element of the `casualty_age` object, for example:
 
 ```{r}
