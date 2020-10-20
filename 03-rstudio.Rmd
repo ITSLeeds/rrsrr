@@ -24,7 +24,7 @@ Start a new project with by clicking on `File > New Project` in RStudio's top me
 You can also create new projects from the R command line, for example with the command `rstudioapi::openProject("lrrsrr")`.
 ] 
 You create projects either in a new directory (folder) or in an existing directory.
-**Make a new project called lrrsrr (short for 'learning reproducible road safety research with R') or a name of you choice and save it in a sensible place on your computer.**
+**Make a new project called lrrsrr (short for 'learning reproducible road safety research with R') or a name of your choice and save it in a sensible place on your computer.**
 The name of the project will appear in the top right of RStudio.
 
 **Scripts** are files where R code is stored and you edit them in the Source Editor panel (the top left panel in Figure \@ref(fig:rstudioui)).
@@ -183,7 +183,7 @@ Try getting help on the `stats19` package by typing the following and pressing `
 vignette(stats19)
 ```
 
-You can can further search and explore R's help files using the **Help** panel in the bottom right window in RStudio.
+You can further search and explore R's help files using the **Help** panel in the bottom right window in RStudio.
 
 ## Commenting Code
 
