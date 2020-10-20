@@ -118,7 +118,7 @@ The two main reasons why people cannot install recent versions of R/RStudio are 
 R is supported by most organisations and if you are having issues installing an up-to-date version of R/RStudio, we recommend politely asking your system administrator for support.
 ]
 
-Various organisations manage RStudio Server instances but by far the most well-known cloud provider is at [https://rstudio.com/products/cloud/](cloud.rstudio.com).
+Various organisations manage RStudio Server instances but by far the most well-known cloud provider is at [cloud.rstudio.com](https://rstudio.com/products/cloud/).
 To run R in the cloud, sign-up to cloud.rstudio.com (or cloud instance of your choice) and acess RStudio from the browser.
 
 ## Recommended packages {#install-pkgs}
