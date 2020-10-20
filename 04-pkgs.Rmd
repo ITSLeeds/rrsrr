@@ -32,7 +32,7 @@ However, researchers at the University of Leeds found that repeatedly downloadin
 Importantly, manually recoding the data,for example from `1` to `Fatal`, was error-prone.
 By packaging-up code to reliably solve the problem for ourselves, we found that we could solve the problem in a free, open and reproducible way for everyone [@lovelace_stats19_2019].
 
-By abstracting the process to its fundamental steps (download, read, format), the `stats19` package makes it easy to get the data into appropriate formats (of classes `tbl`, `data.frame` and `sf`), ready for for further processing and analysis steps.
+By abstracting the process to its fundamental steps (download, read, format), the `stats19` package makes it easy to get the data into appropriate formats (of classes `tbl`, `data.frame` and `sf`), ready for further processing and analysis steps.
 The package built on previous work [@lovelace_who_2016] with several important improvements, including the conversion of crash data into geographic data in a `sf` data frame for geographic research [e.g. @austin_use_1997].
 It enables creation of geographic representations of the crash data, geo-referenced to the correct coordinate reference system, in a single function, called `format_sf()`.
 Part funded by the RAC Foundation, the package should be of use to academic researchers and professional road safety data analysts working at local authority and national levels in the UK.
@@ -122,7 +122,7 @@ However, by using the package the process has happened much faster and with fewe
 The result of the `nrow()` function call shows that we have downloaded a decent amount of data representing over 100k road traffic casualty incidents across Great Britain in 2019.
 
 We will use other functions from the package in subsequent chapters.
-If you would like learn more about `stats19` and how it can be used for road safety research check out its vignettes.
+If you would like to learn more about `stats19` and how it can be used for road safety research check out its vignettes.
 The `stats19` vignette, for example, should appear in the **Help** panel in the bottom right panel in RStudio after running the following command:
 
 ```{r, eval=FALSE}
