@@ -1,17 +1,26 @@
 # Joining road crash tables {#join}
 
 ## STATS19 tables
-Content on joining road crash tables.
+
+<!-- Content on joining road crash tables. -->
 
 So far we've been working primarily with 'accident' level data but there is much useful data in other tables.
+As outlined in the `stats19` vignette --- which you can view by entering the command `vignette("stats19")` to get extended help pages about R packages --- there are three main tables that contain STATS19 data.
+
 Let's read in data from 2019 to take a look:
 
 ```{r, message=FALSE}
 library(stats19)
-ac = get_stats19(year = 2019, type = "ac", output_format = "sf")
-ca = get_stats19(year = 2019, type = "ca")
-ve = get_stats19(year = 2019, type = "ve")
+ac = get_stats19(year = 2019, type = "accidents")
+ca = get_stats19(year = 2019, type = "casualties")
+ve = get_stats19(year = 2019, type = "vehicles")
 ```
+
+The three objects read-in above correspond to the main types of entity that are recorded by the police:
+
+- Crashes: the 'crash event' table contains general data about crashes including where and when they happened and the conditions in which the crash happened (e.g. light levels in the column `light_conditions` in the `ac` object). For historical reasons, crash level data is stored in tables called 'Accidents' (a term that has fallen out of favour because it implies that nobody was at fault). See names for all 33 variables in the crashes table by running the command `names(ac)`. Crashes range from collisions involving only one vehicle and another entity (e.g. a person on foot, bicycle or a car) causing only 'slight' injuries such as a graze, to multi-vehicle pile-ups involving multiple deaths and dozens of slight and serious injuries.
+- Casualties: the casualties table, assigned to an object called `ca` in the code above, contains data at the casualty level. As you will see by running the command `names(ca)`, the STATS19 casualties table has 16 variables including `age_of_casualty`, `casualty_severity` and `casualty_type`, reporting the mode of transport in which the person was travelling when they were hit.
+- Vehicles: The vehicles table, assigned to `ve` above, contains information about the vehicles and their drivers involved in each collision. As you will see by running the command `names(ve)`, the 23 variables in this table includes `vehicle_type`, `hit_object_off_carriageway` and `first_point_of_impact`. Information about the driver of vehicles involved is contained in variables such as `age_of_driver`, `engine_capacity_cc` and `age_of_vehicle`.
 
 Each table represents the same phenomena: road casualties in Great Britain in 2019.
 Therefore you may expect they would have the same number of rows, but that is not the case:
@@ -25,7 +34,6 @@ nrow(ve)
 The reason for this is that there are, on average, more than one casualty per crash (e.g. when a car hits two people) and more than one vehicle, including bicycles, per crash^[
 STATS19 data contains information on when a single crashes without involvement of any other vehicles, but not when a lone cyclist crashes without any other vehicle involved.
 ]
-
 We can find the average number of casualties and vehicles per crash as follows:
 
 ```{r}
@@ -82,51 +90,28 @@ table(ac_tc_join$accident_severity)
 
 ```
 
-## Auditing the records
+<!-- ## Auditing the records -->
 
-There might be some mismatch in the records when we pull STATS19 data as it is the case in this example, and we have raised this with Department For Transport safety team.  
+To check that the datasets are consistent, we can check that the number of casualties reported in the crashes table is equal to the number of rows in the casualties table, and the same for the vehicles table:
+
 ```{r}
-sum(ac$number_of_casualties) == nrow(ca) # F
-sum(ac$number_of_vehicles) == nrow(ve)   # F
-```
-The reason for the mismatch in the tables is that some of the "accident-index" values within casualty or vehicle tables are not within the accidents table. We know the three tables come from one STATS19 form and so all records in the other two tables should be indexed in the accidents table. We can make sure there is no mismatch between the tables before we proceed:
-
-```{r, message=FALSE}
-library(stats19)
-n = c("caNotINac","veNotINac","acNotINca", "acNotINve")
-check = function(year = 2019) {
-  if(is.null(year) || is.na(year)) stop("Year is required")
-  a = get_stats19(year = year, type = "ac", output_format = "sf")
-  c = get_stats19(year = year, type = "ca")
-  v = get_stats19(year = year, type = "ve")
-
-  # all(c$accident_index %in% a$accident_index)
-  # all(v$accident_index %in% a$accident_index)
-
-  caNotINac = which(!c$accident_index %in% a$accident_index)
-  veNotINac = which(!v$accident_index %in% a$accident_index)
-  acNotINca = which(!a$accident_index %in% c$accident_index)
-  acNotINve = which(!a$accident_index %in% v$accident_index)
-  v = list(caNotINac, veNotINac, acNotINca, acNotINve)
-  names(v) = n
-  return(v)
-}
-# here we only check 2018 and 2019 records
-checks = lapply(2018:2019, function(x) check(x))
-l = lapply(checks, function(x) list(
-  caNotINac = length(x[[1]]),
-  veNotINac = length(x[[2]]),
-  acNotINca = length(x[[3]]),
-  acNotINve = length(x[[4]])
-))
-d = as.data.frame(matrix(unlist(l), nrow=length(unlist(l[1]))))
-names(d) = 2018:2019
-rownames(d) = n
-kableExtra::kable(d, caption = "Cross checking 'accident_index' between the three tables")
+sum(ac$number_of_casualties) == nrow(ca) 
+sum(ac$number_of_vehicles) == nrow(ve)   
 ```
 
-Therefore, we can safely update the tables and run some further checks to make sure that records in the accidents table match with those in the now updated other two tables:
+Sometimes crash, casualty and vehicle datasets will be inconsistent, for example after removing records that contain no geographic coordinates with the command `format_sf()`, as demonstrated below:
+
 ```{r}
+ac_sf = format_sf(ac)
+```
+
+After the 28 crash records with missing coordinates have been removed, the associated casualty and vehicles datasets will not match.
+Update the tables and run some further checks to make ensure that records in the accidents table match with those in the now updated other two tables as follows:
+
+```{r}
+# detect mismatch
+sum(ac_sf$number_of_casualties) == nrow(ca) 
+sum(ac_sf$number_of_vehicles) == nrow(ve)   
 ca = ca[which(ca$accident_index %in% ac$accident_index), ]
 ve = ve[which(ve$accident_index %in% ac$accident_index), ]
 # now
@@ -134,8 +119,8 @@ sum(ac$number_of_casualties) == nrow(ca)
 sum(ac$number_of_vehicles) == nrow(ve)
 ```
 
-
 ## Locality 
+
 The three main tables we have just read-in can be joined by the "accident-index" key variable and then filtered using other variables. This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
 
 ```{r table-join, message = FALSE}
