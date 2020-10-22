@@ -4,8 +4,9 @@ author: "Robin Lovelace"
 site: bookdown::bookdown_site
 documentclass: book
 output:
-  bookdown::gitbook: default
-  #bookdown::pdf_book: default
+  # bookdown::gitbook: default
+  bookdown::word_document2: default
+  # bookdown::pdf_book: default
 description: "A reproducible and open source approach to applied road safety research"
 url: 'https\://saferactive.github.io/rrsrr/'
 book_filename: rrsrr
@@ -15,7 +16,14 @@ bibliography:
   - references.bib
 ---
 
-```{r knitopts}
+```{r, eval=FALSE, echo=FALSE}
+# custom outputs
+bookdown::render_book("index.Rmd", output_format = "bookdown::word_document2")
+file.rename("_book/_main.docx", "rrsrr.docx")
+```
+
+
+```{r knitopts, echo=FALSE}
 knitr::opts_chunk$set(fig.path = "figures/")
 ```
 

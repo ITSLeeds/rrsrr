@@ -115,8 +115,8 @@ sum(ac_sf$number_of_vehicles) == nrow(ve)
 ca = ca[which(ca$accident_index %in% ac$accident_index), ]
 ve = ve[which(ve$accident_index %in% ac$accident_index), ]
 # now
-sum(ac$number_of_casualties) == nrow(ca)
-sum(ac$number_of_vehicles) == nrow(ve)
+sum(ac_sf$number_of_casualties) == nrow(ca)
+sum(ac_sf$number_of_vehicles) == nrow(ve)
 ```
 
 ## Locality 
@@ -126,9 +126,9 @@ The three main tables we have just read-in can be joined by the "accident-index"
 ```{r table-join, message = FALSE}
 library(tidyr)
 library(dplyr)
-# table(ac$police_force)
+# table(ac_sf$police_force)
 lnd_police = c("City of London", "Metropolitan Police")
-ac_lnd = ac %>% 
+ac_lnd = ac_sf %>% 
   filter(police_force %in% lnd_police)
 ca_lnd = ca %>% 
   filter(accident_index %in% ac_lnd$accident_index)
@@ -205,8 +205,6 @@ ggplot(ac_types, aes(size = Total, colour = speed_limit)) +
   scale_color_gradientn(colours = c("blue", "yellow", "red")) +
   theme(axis.text = element_blank(), axis.ticks = element_blank())
 ```
-
-
 
 ```{r}
 ac_names = names(ac)
