@@ -89,7 +89,7 @@ dim(crashes_darkness_a)
 
 Look at the help pages associated with `filter()`, `select()` and the related function `slice()` as follows and try running the examples that you will find at the bottom of the help pages for each to gain a greater understanding (note you can use the `package::function` notation to get help on functions also):
 
-```{r}
+```{r, eval=FALSE}
 ?dplyr::filter
 ?dplyr::select
 ?dplyr::slice
