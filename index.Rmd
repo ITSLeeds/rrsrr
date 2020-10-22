@@ -162,6 +162,8 @@ contributors_text = paste0(c_rmd, collapse = ", ")
 Many thanks to everyone who made this happen, especially RAC Foundation for funding the project, Malcolm Morgan and Andrea Gilardi for contributing to earlier versions, and the Department for Transport for funding reproducible road safety research through the SaferActive project.
 Many thanks to all contributors to the book so far via GitHub (this list will update automatically): `r contributors_text`.
 
+This version of the book book was built `r Sys.time()` with the [bookdown](https://bookdown.org/) R package and R version
+`r R.version$version.string`.
 
 
 <!-- Comments/questions: should the stats19 package be introduced in a paper of its own right? -->
