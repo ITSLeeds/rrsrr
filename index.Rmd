@@ -6,7 +6,7 @@ documentclass: book
 output:
   bookdown::gitbook: default
   #bookdown::pdf_book: default
-description: "A reproducible and open source approach to aapplied road safety research"
+description: "A reproducible and open source approach to applied road safety research"
 url: 'https\://saferactive.github.io/rrsrr/'
 book_filename: rrsrr
 github-repo: "saferactive/rrsrr"
