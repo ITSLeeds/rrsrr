@@ -39,7 +39,7 @@ crashes = tibble(
 )
 ```
 
-In the previous code chunk we passed four vector objects as *named arguments* to the `tibble` function, resulting in columns such as `casualty_type`
+In the previous code chunk we passed four vector objects as *named arguments* to the `tibble` function, resulting in columns such as `casualty_type`.
 A `tibble` is basically just a fancy way of representing `data.frame` objects preferred by `tidyverse` users and optimised for data science.
 It has a few sensible defaults and advantages compared with the `data.frame`, one of which can be seen by printing a `tibble`: 
 
@@ -48,7 +48,7 @@ class(crashes)
 crashes
 ```
 
-Note the `<chr>` and `<dbl>` text below each column, providing a quick indication of the class of each variable - this is not provided when using `data.frame`.
+Note the `<chr>`, `<dbl>`, `<chr>` and `<lgl>` text below each column, providing a quick indication of the class of each variable - this is not provided when using `data.frame`.
 
 ## filter() and select() rows and columns
 
@@ -98,7 +98,8 @@ Look at the help pages associated with `filter()`, `select()` and the related fu
 ## Ordering and selecting the 'top n'
 
 Other useful pipe-friendly functions are `arrange()` and `top_n()`. `arrange()` is used to sort data and optional arguments within the function can be used to define the order in which it is sorted. `top_n()`simply selects the top 'n' number of rows in your data frame.
-We can use these functions to arrange datasets and take the top most 'n' values, as follows:
+Below we arrange vehicle type alphabetically and select the older casualty.
+
 
 ```{r}
 crashes %>% 
