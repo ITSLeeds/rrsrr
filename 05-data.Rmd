@@ -98,7 +98,7 @@ Look at the help pages associated with `filter()`, `select()` and the related fu
 ## Ordering and selecting the 'top n'
 
 Other useful pipe-friendly functions are `arrange()` and `top_n()`. `arrange()` is used to sort data and optional arguments within the function can be used to define the order in which it is sorted. `top_n()`simply selects the top 'n' number of rows in your data frame.
-Below we arrange vehicle type alphabetically and select the older casualty.
+Below, we first arrange alphabetically the crashes dataset by vehicle type and then we select the older casualty.
 
 
 ```{r}
