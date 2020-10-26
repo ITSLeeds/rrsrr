@@ -46,6 +46,8 @@ I soon added a second R script to the first of the two projects described above.
 
 My next steps are to continue another project using an API to access vehicle telematics data. This project extracts driving events, such as harsh braking and harsh cornering, and plots them on an interactive map. I will also be using R for some statistical analysis as part of a research project I have recently started. Thinking of myself as an “Excel native”, I would say R hasn’t replaced Excel, but has been a powerful addition to my toolbox so I can do more interesting and in-depth work than ever before.
 
+### R in a road safety research consultancy
+
 ### PhD research
 
 
