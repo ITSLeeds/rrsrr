@@ -48,6 +48,10 @@ My next steps are to continue another project using an API to access vehicle tel
 
 ### R in a road safety research consultancy
 
+Dr Craig Smith, Data Scientist, [Agilysis Ltd](https://agilysis.co.uk/)
+
+After attending the first _R for Road Safety_ course, I immediately saw how useful the language could be to our team.  At [Agilysis](https://agilysis.co.uk/), we have integrated R into almost everything our analytics team does, pushing for our work to be as robust and reproducible as possible.  The incredible integration R has with SQL database engines, cloud-based infrastructure like AWS, and proprietary GIS software like ArcGIS has given us a huge scope to automate a lot of our regular data processing tasks.  The added ability to automate the production of reports, charts and maps has allowed us to gain quick insights into our data, speeding up our exploratory analysis.  The huge Shiny ecosystem has allowed us to produce interactive applications for sharing our tools and visualisations with stakeholders.  There is also a wide range of open-source statistical and machine learning packages available which, when combined with the added capability to translate and use tools from python, has allowed us to innovate and take full advantage of what artificial intelligence has to offer.  All of this, embedded in a supportive community of R users that is continually sharing its knowledge and helping spread these skills, means that anything is possible for users with any level of experience.  The fact that this community includes a growing number of road safety analysts and transport-focused data scientists (thanks, in part, to this book and the previous _R for Road Safety_ courses) means that there are plenty of like-minded R users all over the country that you can share ideas (and code) with.
+
 ### PhD research
 
 
