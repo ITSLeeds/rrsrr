@@ -1,3 +1,9 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
 # Next steps {#next}
 
 You have reached the end of this short book on reproducible road safety research with R.
@@ -14,19 +20,21 @@ In terms of next steps, you cannot go wrong with checking-out the R4DS website w
 As you will see by visiting [r4ds.had.co.nz](https://r4ds.had.co.nz) many of these topics, including workflow and modelling, will be of use from a road safety research perspective.
 
 A strength of R is its flexibility.
-It can be used as a calculator one minute, a statistical modelling toolbox the next, and a web application development framework the next, as illustrated by major shiny apps such as the Propensity to Cycle Tool (try it at [www.pct.bike](https://www.pct.bike/)) and tools developed by road safety consultancy Agilysis, described in Section \@ref(testimonials) below.
-Indeed, within the R ecosystem there are many sub-ecosystems, each of which has excellence free and open resources for people who want to learn more in a particular domain.
-If you are particularly in the geographic analysis of road crash data, the book [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by yours truly and which has already been mentioned in Chapter \@ref(space), is highly recommended [@lovelace_geocomputation_2019].
+It can be used as a calculator one minute, a statistical modelling toolbox the next, and a web application development framework the next, as illustrated by major shiny apps such as the Propensity to Cycle Tool (try it at [www.pct.bike](https://www.pct.bike/)) and tools developed by road safety consultancy Agilysis, described in Section \@ref(testimonials) below. Indeed, within the R ecosystem there are many sub-ecosystems, each of which has excellence free and open resources for people who want to learn more in a particular domain. If you are particularly in the geographic analysis of road crash data, the book [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by yours truly and which has already been mentioned in Chapter \@ref(space), is highly recommended [@lovelace_geocomputation_2019].
+If you are looking for methods of analysing trends and forecasting with time series data, \@hyndman_forecasting_2018's book on [*Forecasting*](https://otexts.com/fpp2/), which is also freely available online, is highly recommended.
+Indeed, there is a whole library's worth of open resources to be found on any area of data-driven research, from web development and visualisation to text analysis, online.
+A recommended next step for learning more in any of these areas and more is the website [bookdown.org](https://bookdown.org/) which links to books that can also be bought as physical items if you, like many people, prefer learning with a physically tangible resource.
 
+In fact, with the size and rapidly evolving nature of the R ecosystem one of the hardest things for a beginner is knowing which packages, functions or workflow options to choose from a wide array of options.
+The internet is there to help you but it can also hinder progress by serving-up out-of-date solutions and providing 'quick fixes' at the expense of a deep understanding.
+Therefore, instead of trying to be comprehensive (focussed web searches prioritising tried-and-tested solutions documented in authoritative sources can help with that), the rest of this final section provides pointers on a few particularly useful aspects of R from a road safety analysis perspective.
+If you at any point become frustrated due to tricky-to-fix error messages (something that all users of command-line software have experienced at some point!) you may want to skip to Section \@ref(testimonials), written by people who have navigated R's at first daunting learning curve to arrive safely at place where R saves more time than it consumes and takes your work "to the next level".
 
 ## Automated reporting with RMarkdown
 
 ## Sharing code
 
-
-
 ## Asking questions
-
 
 Slack group RSGB Analyst Network.
 
@@ -39,44 +47,86 @@ This final section provides insight into how R can be used for road safety resea
 The following case study was written by Will Cubbin, Road Safety Strategy Analyst for [Safer Essex Roads Partnership](https://saferessexroads.org/).
 It provides insight not only into the power and flexibility of the approach advocated in this book, but also navigating R's at times steep learning curve.
 
-When I attended the two-day course ‘introduction to R’ I had little confidence in my natural ability to learn coding. Although familiar with many functions in Excel and having dabbled in VBA, my two previous attempts at any kind of computer language both ended in literal failure. At university I failed a module on C++ and in a previous job I failed a training course on SQL!
+When I attended the two-day course 'introduction to R' I had little confidence in my natural ability to learn coding.
+Although familiar with many functions in Excel and having dabbled in VBA, my two previous attempts at any kind of computer language both ended in literal failure.
+At university I failed a module on C++ and in a previous job I failed a training course on SQL!
 
-As expected the course was a steep learning curve but after two days I had definitely learned a few tricks. However I was still concerned about the amount of material covered by the course that I hadn’t understood. It turned out this was actually a good thing because the breadth of the course showed me what R was capable of, and how it could be useful. The next part of my journey with R was to use the course materials and build on the basics I had learned, to achieve what the course showed was possible.
+As expected the course was a steep learning curve but after two days I had definitely learned a few tricks.
+However I was still concerned about the amount of material covered by the course that I hadn't understood.
+It turned out this was actually a good thing because the breadth of the course showed me what R was capable of, and how it could be useful.
+The next part of my journey with R was to use the course materials and build on the basics I had learned, to achieve what the course showed was possible.
 
 I began with the aim of using the geospatial analysis capability in R to visualise collision data in new ways, to give more detailed insight and present it in a way that would inform meaningful action for front line resources.
-Having a clear goal of “This is what I want to achieve with my first R project” was crucial. The course had given me an idea of the sort of processes I needed to undertake in order to achieve this goal. The post-course support through GitHub was very good, I also learned a lot by finding examples of code on places like GitHub and stackoverflow through Google searches. The other crucial element in getting my first success with R was having time dedicated to working on the project immediately after the course. I spent two weeks working almost exclusively on this project, starting the week after the R course.
+Having a clear goal of "This is what I want to achieve with my first R project" was crucial.
+The course had given me an idea of the sort of processes I needed to undertake in order to achieve this goal.
+The post-course support through GitHub was very good, I also learned a lot by finding examples of code on places like GitHub and stackoverflow through Google searches.
+The other crucial element in getting my first success with R was having time dedicated to working on the project immediately after the course.
+I spent two weeks working almost exclusively on this project, starting the week after the R course.
 
-The result was well worth the effort. After the initial two weeks of intensive learning with R, I spent 4 to 6 weeks working on the project a couple of days per week. By the end of this period I had working versions of two interactive mapping tools, comprising:
-1)	A multi layered leaflet map showing collision locations, collision density along main roads and a “heatmap” (Kernel Density Estimation raster) layer. I made multiple versions of each layer for different modes of transport and behaviours such as drink driving.
-2)	A ‘shiny’ mapping app showing collision locations and basic details with date filter. I was able to embed this on our website for public use. It can be viewed here [SERP website data page](https://saferessexroads.org/collision-data/) under the heading 'Interactive Map'.
+The result was well worth the effort.
+After the initial two weeks of intensive learning with R, I spent 4 to 6 weeks working on the project a couple of days per week.
+By the end of this period I had working versions of two interactive mapping tools, comprising: 1) A multi layered leaflet map showing collision locations, collision density along main roads and a "heatmap" (Kernel Density Estimation raster) layer.
+I made multiple versions of each layer for different modes of transport and behaviours such as drink driving.
+2) A 'shiny' mapping app showing collision locations and basic details with date filter.
+I was able to embed this on our website for public use.
+It can be viewed here [SERP website data page](https://saferessexroads.org/collision-data/) under the heading 'Interactive Map'.
 
-I soon added a second R script to the first of the two projects described above. This script produced and exported a range of standardised infographics showing various breakdowns of the data contained in the map. This allowed me to almost fully-automate the process for updating a proactive Roads-Policing tasking document. It turned this monthly process, which previously took 1 working day to complete, into one taking just 45 minutes. It also added more useful insight to the monthly tasking product.
+I soon added a second R script to the first of the two projects described above.
+This script produced and exported a range of standardised infographics showing various breakdowns of the data contained in the map.
+This allowed me to almost fully-automate the process for updating a proactive Roads-Policing tasking document.
+It turned this monthly process, which previously took 1 working day to complete, into one taking just 45 minutes.
+It also added more useful insight to the monthly tasking product.
 
-My next steps are to continue another project using an API to access vehicle telematics data. This project extracts driving events, such as harsh braking and harsh cornering, and plots them on an interactive map. I will also be using R for some statistical analysis as part of a research project I have recently started. Thinking of myself as an “Excel native”, I would say R hasn’t replaced Excel, but has been a powerful addition to my toolbox so I can do more interesting and in-depth work than ever before.
+My next steps are to continue another project using an API to access vehicle telematics data.
+This project extracts driving events, such as harsh braking and harsh cornering, and plots them on an interactive map.
+I will also be using R for some statistical analysis as part of a research project I have recently started.
+Thinking of myself as an "Excel native", I would say R hasn't replaced Excel, but has been a powerful addition to my toolbox so I can do more interesting and in-depth work than ever before.
 
 ### R in a road safety research consultancy
 
 Dr Craig Smith, Data Scientist, [Agilysis Ltd](https://agilysis.co.uk/)
 
-After attending the first _R for Road Safety_ course, I immediately saw how useful the language could be to our team.  At [Agilysis](https://agilysis.co.uk/), we have integrated R into almost everything our analytics team does, pushing for our work to be as robust and reproducible as possible.  The incredible integration R has with SQL database engines, cloud-based infrastructure like AWS, and proprietary GIS software like ArcGIS has given us a huge scope to automate a lot of our regular data processing tasks.  The added ability to automate the production of reports, charts and maps has allowed us to gain quick insights into our data, speeding up our exploratory analysis.  The huge Shiny ecosystem has allowed us to produce interactive applications for sharing our tools and visualisations with stakeholders.  There is also a wide range of open-source statistical and machine learning packages available which, when combined with the added capability to translate and use tools from python, has allowed us to innovate and take full advantage of what artificial intelligence has to offer.  All of this, embedded in a supportive community of R users that is continually sharing its knowledge and helping spread these skills, means that anything is possible for users with any level of experience.  The fact that this community includes a growing number of road safety analysts and transport-focused data scientists (thanks, in part, to this book and the previous _R for Road Safety_ courses) means that there are plenty of like-minded R users all over the country that you can share ideas (and code) with.
+After attending the first *R for Road Safety* course, I immediately saw how useful the language could be to our team.
+At [Agilysis](https://agilysis.co.uk/), we have integrated R into almost everything our analytics team does, pushing for our work to be as robust and reproducible as possible.
+The incredible integration R has with SQL database engines, cloud-based infrastructure like AWS, and proprietary GIS software like ArcGIS has given us a huge scope to automate a lot of our regular data processing tasks.
+The added ability to automate the production of reports, charts and maps has allowed us to gain quick insights into our data, speeding up our exploratory analysis.
+The huge Shiny ecosystem has allowed us to produce interactive applications for sharing our tools and visualisations with stakeholders.
+There is also a wide range of open-source statistical and machine learning packages available which, when combined with the added capability to translate and use tools from python, has allowed us to innovate and take full advantage of what artificial intelligence has to offer.
+All of this, embedded in a supportive community of R users that is continually sharing its knowledge and helping spread these skills, means that anything is possible for users with any level of experience.
+The fact that this community includes a growing number of road safety analysts and transport-focused data scientists (thanks, in part, to this book and the previous *R for Road Safety* courses) means that there are plenty of like-minded R users all over the country that you can share ideas (and code) with.
 
 ### Using R in a road safety charity
 
-I was first introduced to R in my master’s program by a professor who was very enthusiastic about it and how much better it was than ArcGIS for spatial analysis. While he did project his views very strongly on us as students, I still tended towards ArcGIS when given a choice between the two. I had never written code before this point, and to me the GUI of ArcGIS was simply easier to work with. However, over the course of my program I incorporated R more and more as our coursework became increasingly complex. Datasets with tens of thousands of rows quickly became a pain in Excel, and the inefficiency of working between two programs rather than one was tedious. Like many of my classmates I soon realised the point our professor had been trying to make all along; in order to push your analytical capabilities to the next level you need to use the right tool. I can agree that there is a steep learning curve to R, but once you’ve become comfortable with the language it’s harder to go back than it is to go forward. Meaning once you reach a point in your proficiency it’s easier to build on your skills and knowledge of the language, than it is to revert back to Excel knowing there is a smarter alternative.
+I was first introduced to R in my master's program by a professor who was very enthusiastic about it and how much better it was than ArcGIS for spatial analysis.
+While he did project his views very strongly on us as students, I still tended towards ArcGIS when given a choice between the two.
+I had never written code before this point, and to me the GUI of ArcGIS was simply easier to work with.
+However, over the course of my program I incorporated R more and more as our coursework became increasingly complex.
+Datasets with tens of thousands of rows quickly became a pain in Excel, and the inefficiency of working between two programs rather than one was tedious.
+Like many of my classmates I soon realised the point our professor had been trying to make all along; in order to push your analytical capabilities to the next level you need to use the right tool.
+I can agree that there is a steep learning curve to R, but once you've become comfortable with the language it's harder to go back than it is to go forward.
+Meaning once you reach a point in your proficiency it's easier to build on your skills and knowledge of the language, than it is to revert back to Excel knowing there is a smarter alternative.
 
-I found myself face to face with R again in my role at the RAC Foundation a year later, and since I’d already become an R convert, it was easy to pick up again. However, now I saw new benefits from a different perspective, relating to collaboration and reproducibility. Before this point the only eyes on my scripts were my own, there was no need to refer back to them once an assignment was done. However, in my role as a data analyst it is important and necessary to create something that can be shared and understood by others. The ability to have a full account written out line by line makes it much easier to work off of someone else’s code and importantly to quality check one another’s work. By having traceable, repeatable analysis there is an accountability to the methods that you simply cannot get to the same degree in Excel.
+I found myself face to face with R again in my role at the RAC Foundation a year later, and since I'd already become an R convert, it was easy to pick up again.
+However, now I saw new benefits from a different perspective, relating to collaboration and reproducibility.
+Before this point the only eyes on my scripts were my own, there was no need to refer back to them once an assignment was done.
+However, in my role as a data analyst it is important and necessary to create something that can be shared and understood by others.
+The ability to have a full account written out line by line makes it much easier to work off of someone else's code and importantly to quality check one another's work.
+By having traceable, repeatable analysis there is an accountability to the methods that you simply cannot get to the same degree in Excel.
 
-Another great aspect of R is the helpful community presence online thanks to its open source nature. Anyone can access the software, and anyone can contribute to the discussion, which I often find more helpful than the FAQs of a paid for software. I would say this aspect alone has helped hugely in my work both academically and professionally, I’m never far from an answer when stuck no matter how specific the problem gets. In terms of its use in my work on road safety and transport analysis, it has become a great tool for combining data with maps, something that I think highlights results in a more insightful way. That being said, visualisation is just as important as the analysis, and I’ve been pleased with the array of packages that can create eye-catching maps, interactive dashboards, and much more outside of the traditional data wrangling capabilities. Looking to the future of my career I see myself continuing to use R and I’m confident that its capabilities will only get better the more people engage with it
-
+Another great aspect of R is the helpful community presence online thanks to its open source nature.
+Anyone can access the software, and anyone can contribute to the discussion, which I often find more helpful than the FAQs of a paid for software.
+I would say this aspect alone has helped hugely in my work both academically and professionally, I'm never far from an answer when stuck no matter how specific the problem gets.
+In terms of its use in my work on road safety and transport analysis, it has become a great tool for combining data with maps, something that I think highlights results in a more insightful way.
+That being said, visualisation is just as important as the analysis, and I've been pleased with the array of packages that can create eye-catching maps, interactive dashboards, and much more outside of the traditional data wrangling capabilities.
+Looking to the future of my career I see myself continuing to use R and I'm confident that its capabilities will only get better the more people engage with it
 
 ### PhD research
-
 
 ### Policymaking
 
 <!-- Other -->
 
-Do you have a use case of reprocible research? Please get in touch on the [issue tracker](https://github.com/saferactive/rrsrr/issues).
+Do you have a use case of reprocible research?
+Please get in touch on the [issue tracker](https://github.com/saferactive/rrsrr/issues).
 
 # References
-
