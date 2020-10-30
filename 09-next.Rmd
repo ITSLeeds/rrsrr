@@ -1,11 +1,22 @@
 # Next steps {#next}
 
- for reproducible road safety research
+You have reached the end of this short book on reproducible road safety research with R.
+Armed with knowledge of what R and RStudio can do, and how add-on packages provide powerful tools for a wide range of data analysis, visualisation and statistical modelling tasks, you should have a much better understanding of what the language can do.
 
-Not sure where to add this but consider covering 
--	mapply() / lapply() for looping through functions
--	left_join() for replicating vlookup type functions used in Excel
+I hope that in the process of working through the exercises you have learned not only the technicalities of data science with powerful tool of the trade, but also a way of working that puts reproducibility centre stage.
+Learning any new skill takes time and effort.
+But in my experience, once you get past a critical threshold, the amount of time saved using the new approach starts to outweigh the amount of time taken-up by learning.
+The same concept applies to other 'tools of the trade' that are available, such as the open source geographic information system (GIS) software QGIS and other languages for data science such as Python and Julia.
 
+Rather than go off and learn such additional tools as the next step, we encourage you to stick with R.
+It is preferable to know one language in-depth and then branch out to learn other approaches than to learn many approaches superficially or, as @grolemund_data_2016 put it in the excellent R for Data Science (R4DS) book: "You will get better faster if you dive deep, rather than spreading yourself thinly over many topics".
+In terms of next steps, you cannot go wrong with checking-out the R4DS website which, like this book, has worked examples and exercises in abundance, on a much wider range of data science topics.
+As you will see by visiting [r4ds.had.co.nz](https://r4ds.had.co.nz) many of these topics, including workflow and modelling, will be of use from a road safety research perspective.
+
+A strength of R is its flexibility.
+It can be used as a calculator one minute, a statistical modelling toolbox the next, and a web application development framework the next, as illustrated by major shiny apps such as the Propensity to Cycle Tool (try it at [www.pct.bike](https://www.pct.bike/)) and tools developed by road safety consultancy Agilysis, described in Section \@ref(testimonials) below.
+Indeed, within the R ecosystem there are many sub-ecosystems, each of which has excellence free and open resources for people who want to learn more in a particular domain.
+If you are particularly in the geographic analysis of road crash data, the book [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by yours truly and which has already been mentioned in Chapter \@ref(space), is highly recommended [@lovelace_geocomputation_2019].
 
 
 ## Automated reporting with RMarkdown
@@ -19,12 +30,9 @@ Not sure where to add this but consider covering
 
 Slack group RSGB Analyst Network.
 
-## Use case perspectives
+## Testimonials
 
-This section provides insight into how R can be used for road safety research from a range of perspectives.
-
-<!-- Hannah Bougdah -->
-
+This final section provides insight into how R can be used for road safety research from a range of perspectives.
 
 ### R for professional road safety analysts
 
