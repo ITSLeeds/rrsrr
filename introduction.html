@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Introduction | Reproducible road safety research with R: A practical introduction</title>
+  <meta name="description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Introduction | Reproducible road safety research with R: A practical introduction" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://saferactive.github.io/rrsrr/" />
+  
+  <meta property="og:description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="github-repo" content="saferactive/rrsrr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Introduction | Reproducible road safety research with R: A practical introduction" />
+  
+  <meta name="twitter:description" content="A reproducible and open source approach to applied road safety research" />
+  
+
+<meta name="author" content="Robin Lovelace" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="basics.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#thanks"><i class="fa fa-check"></i>Thanks</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#reproducibility"><i class="fa fa-check"></i><b>1.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-is-r"><i class="fa fa-check"></i><b>1.2</b> What is R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#why-r-for-road-safety-research"><i class="fa fa-check"></i><b>1.3</b> Why R for road safety research?</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.4</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.5</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#r-in-the-cloud"><i class="fa fa-check"></i><b>1.6</b> R in the cloud</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#install-pkgs"><i class="fa fa-check"></i><b>1.7</b> Recommended packages</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#overview"><i class="fa fa-check"></i><b>1.8</b> Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#creating-and-removing-r-objects"><i class="fa fa-check"></i><b>2.1</b> Creating and removing R objects</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#object-types-vectors-and-data-frames"><i class="fa fa-check"></i><b>2.2</b> Object types: vectors and data frames</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#subsetting-by-index-or-column-name"><i class="fa fa-check"></i><b>2.3</b> Subsetting by index or column name</a></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#subsetting-by-values"><i class="fa fa-check"></i><b>2.4</b> Subsetting by values</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#dealing-with-nas-and-recoding"><i class="fa fa-check"></i><b>2.5</b> Dealing with NAs and recoding</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#changing-class"><i class="fa fa-check"></i><b>2.6</b> Changing class</a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#recoding-values"><i class="fa fa-check"></i><b>2.7</b> Recoding values</a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#saving-r-objects"><i class="fa fa-check"></i><b>2.8</b> Saving R objects</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#now-you-are-ready-to-use-rstudio"><i class="fa fa-check"></i><b>2.9</b> Now you are ready to use RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>3</b> Using RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="rstudio.html"><a href="rstudio.html#projects-and-scripts"><i class="fa fa-check"></i><b>3.1</b> Projects and scripts</a></li>
+<li class="chapter" data-level="3.2" data-path="rstudio.html"><a href="rstudio.html#writing-and-running-code"><i class="fa fa-check"></i><b>3.2</b> Writing and running code</a></li>
+<li class="chapter" data-level="3.3" data-path="rstudio.html"><a href="rstudio.html#viewing-objects"><i class="fa fa-check"></i><b>3.3</b> Viewing Objects</a></li>
+<li class="chapter" data-level="3.4" data-path="rstudio.html"><a href="rstudio.html#autocompletion"><i class="fa fa-check"></i><b>3.4</b> Autocompletion</a></li>
+<li class="chapter" data-level="3.5" data-path="rstudio.html"><a href="rstudio.html#getting-help"><i class="fa fa-check"></i><b>3.5</b> Getting help</a></li>
+<li class="chapter" data-level="3.6" data-path="rstudio.html"><a href="rstudio.html#commenting-code"><i class="fa fa-check"></i><b>3.6</b> Commenting Code</a></li>
+<li class="chapter" data-level="3.7" data-path="rstudio.html"><a href="rstudio.html#the-global-environment"><i class="fa fa-check"></i><b>3.7</b> The global environment</a></li>
+<li class="chapter" data-level="3.8" data-path="rstudio.html"><a href="rstudio.html#debugging-code"><i class="fa fa-check"></i><b>3.8</b> Debugging Code</a></li>
+<li class="chapter" data-level="3.9" data-path="rstudio.html"><a href="rstudio.html#productivity-boosting-features"><i class="fa fa-check"></i><b>3.9</b> Productivity boosting features</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pkgs.html"><a href="pkgs.html"><i class="fa fa-check"></i><b>4</b> R packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="pkgs.html"><a href="pkgs.html#what-are-packages"><i class="fa fa-check"></i><b>4.1</b> What are packages?</a></li>
+<li class="chapter" data-level="4.2" data-path="pkgs.html"><a href="pkgs.html#the-stats19-r-package"><i class="fa fa-check"></i><b>4.2</b> The stats19 R package</a></li>
+<li class="chapter" data-level="4.3" data-path="pkgs.html"><a href="pkgs.html#installing-packages"><i class="fa fa-check"></i><b>4.3</b> Installing packages</a></li>
+<li class="chapter" data-level="4.4" data-path="pkgs.html"><a href="pkgs.html#loading-packages"><i class="fa fa-check"></i><b>4.4</b> Loading packages</a></li>
+<li class="chapter" data-level="4.5" data-path="pkgs.html"><a href="pkgs.html#using-packages"><i class="fa fa-check"></i><b>4.5</b> Using packages</a></li>
+<li class="chapter" data-level="4.6" data-path="pkgs.html"><a href="pkgs.html#updating-packages"><i class="fa fa-check"></i><b>4.6</b> Updating packages</a></li>
+<li class="chapter" data-level="4.7" data-path="pkgs.html"><a href="pkgs.html#ggplot2"><i class="fa fa-check"></i><b>4.7</b> ggplot2</a></li>
+<li class="chapter" data-level="4.8" data-path="pkgs.html"><a href="pkgs.html#dplyr"><i class="fa fa-check"></i><b>4.8</b> dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>5</b> Manipulating data</a><ul>
+<li class="chapter" data-level="5.1" data-path="data.html"><a href="data.html#tibbles"><i class="fa fa-check"></i><b>5.1</b> tibbles</a></li>
+<li class="chapter" data-level="5.2" data-path="data.html"><a href="data.html#filter-and-select-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> filter() and select() rows and columns</a></li>
+<li class="chapter" data-level="5.3" data-path="data.html"><a href="data.html#ordering-and-selecting-the-top-n"><i class="fa fa-check"></i><b>5.3</b> Ordering and selecting the ‘top n’</a></li>
+<li class="chapter" data-level="5.4" data-path="data.html"><a href="data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> Summarise</a></li>
+<li class="chapter" data-level="5.5" data-path="data.html"><a href="data.html#tidyverse-exercises"><i class="fa fa-check"></i><b>5.5</b> Tidyverse exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="time.html"><a href="time.html"><i class="fa fa-check"></i><b>6</b> Temporal data</a><ul>
+<li class="chapter" data-level="6.1" data-path="time.html"><a href="time.html#temporal-analysis-of-crash-data"><i class="fa fa-check"></i><b>6.1</b> Temporal analysis of crash data</a></li>
+<li class="chapter" data-level="6.2" data-path="time.html"><a href="time.html#handling-dates-and-date-times"><i class="fa fa-check"></i><b>6.2</b> Handling dates and date-times</a></li>
+<li class="chapter" data-level="6.3" data-path="time.html"><a href="time.html#hours-minutes-seconds-with-hms"><i class="fa fa-check"></i><b>6.3</b> Hours, minutes seconds with hms</a></li>
+<li class="chapter" data-level="6.4" data-path="time.html"><a href="time.html#the-lubridate-package"><i class="fa fa-check"></i><b>6.4</b> The lubridate package</a></li>
+<li class="chapter" data-level="6.5" data-path="time.html"><a href="time.html#dates-in-a-data-frame"><i class="fa fa-check"></i><b>6.5</b> Dates in a data frame</a></li>
+<li class="chapter" data-level="6.6" data-path="time.html"><a href="time.html#components-of-time-objects"><i class="fa fa-check"></i><b>6.6</b> Components of time objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="space.html"><a href="space.html"><i class="fa fa-check"></i><b>7</b> Spatial data</a><ul>
+<li class="chapter" data-level="7.1" data-path="space.html"><a href="space.html#sf-objects"><i class="fa fa-check"></i><b>7.1</b> sf objects</a></li>
+<li class="chapter" data-level="7.2" data-path="space.html"><a href="space.html#reading-and-writing-spatial-data"><i class="fa fa-check"></i><b>7.2</b> Reading and writing spatial data</a></li>
+<li class="chapter" data-level="7.3" data-path="space.html"><a href="space.html#sf-polygons"><i class="fa fa-check"></i><b>7.3</b> sf polygons</a></li>
+<li class="chapter" data-level="7.4" data-path="space.html"><a href="space.html#spatial-subsetting-and-sf-plotting"><i class="fa fa-check"></i><b>7.4</b> Spatial subsetting and sf plotting</a></li>
+<li class="chapter" data-level="7.5" data-path="space.html"><a href="space.html#geographic-joins"><i class="fa fa-check"></i><b>7.5</b> Geographic joins</a></li>
+<li class="chapter" data-level="7.6" data-path="space.html"><a href="space.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>7.6</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="7.7" data-path="space.html"><a href="space.html#buffers"><i class="fa fa-check"></i><b>7.7</b> Buffers</a></li>
+<li class="chapter" data-level="7.8" data-path="space.html"><a href="space.html#attribute-operations-on-sf-objects"><i class="fa fa-check"></i><b>7.8</b> Attribute operations on sf objects</a></li>
+<li class="chapter" data-level="7.9" data-path="space.html"><a href="space.html#mapping-road-crash-data"><i class="fa fa-check"></i><b>7.9</b> Mapping road crash data</a></li>
+<li class="chapter" data-level="7.10" data-path="space.html"><a href="space.html#analysing-point-data"><i class="fa fa-check"></i><b>7.10</b> Analysing point data</a></li>
+<li class="chapter" data-level="7.11" data-path="space.html"><a href="space.html#analysing-crash-data-on-road-networks"><i class="fa fa-check"></i><b>7.11</b> Analysing crash data on road networks</a></li>
+<li class="chapter" data-level="" data-path="space.html"><a href="space.html#bonus-exercises"><i class="fa fa-check"></i>Bonus exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>8</b> Joining road crash tables</a><ul>
+<li class="chapter" data-level="8.1" data-path="join.html"><a href="join.html#stats19-tables"><i class="fa fa-check"></i><b>8.1</b> STATS19 tables</a></li>
+<li class="chapter" data-level="8.2" data-path="join.html"><a href="join.html#locality"><i class="fa fa-check"></i><b>8.2</b> Locality</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="next.html"><a href="next.html"><i class="fa fa-check"></i><b>9</b> Next steps</a><ul>
+<li class="chapter" data-level="9.1" data-path="next.html"><a href="next.html#automated-reporting-with-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Automated reporting with RMarkdown</a></li>
+<li class="chapter" data-level="9.2" data-path="next.html"><a href="next.html#sharing-code"><i class="fa fa-check"></i><b>9.2</b> Sharing code</a></li>
+<li class="chapter" data-level="9.3" data-path="next.html"><a href="next.html#asking-questions"><i class="fa fa-check"></i><b>9.3</b> Asking questions</a></li>
+<li class="chapter" data-level="9.4" data-path="next.html"><a href="next.html#testimonials"><i class="fa fa-check"></i><b>9.4</b> Testimonials</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="next.html"><a href="next.html#r-for-professional-road-safety-analysts"><i class="fa fa-check"></i><b>9.4.1</b> R for professional road safety analysts</a></li>
+<li class="chapter" data-level="9.4.2" data-path="next.html"><a href="next.html#r-in-a-road-safety-research-consultancy"><i class="fa fa-check"></i><b>9.4.2</b> R in a road safety research consultancy</a></li>
+<li class="chapter" data-level="9.4.3" data-path="next.html"><a href="next.html#using-r-in-a-road-safety-charity"><i class="fa fa-check"></i><b>9.4.3</b> Using R in a road safety charity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible road safety research with R: A practical introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>This book teaches reproducible road safety analysis with R.
+It was initially developed for a 2 day <a href="https://www.racfoundation.org/introduction-to-r-for-road-safety">Introduction to R for Road Safety</a> course.
+Since then, interest in the topic has grown.
+The <a href="https://www.racfoundation.org/">RAC Foundation</a> charity in the UK funded the development of this book as a free and open resource to support their objective of making the roads safer for everyone.
+The content is based on open access road crash data from the UK, which is provided by the R package <strong>stats19</strong> <span class="citation">(Lovelace et al. 2019)</span>.
+However, the content is designed to be general and should be of use to <strong>anyone working with road crash data worldwide</strong> that has (at a minimum):</p>
+<ul>
+<li>A timestamp</li>
+<li>A location (or address that can be geocoded)</li>
+<li>Attribute data, such as severity of crash, and type of vehicles involved</li>
+</ul>
+<p>The book is based on open source software, which knows no borders: R, and works equally well in China, India, the USA and the UK.
+The book is practical, meaning that you should reproduce the examples that are provided throughout.
+As with many practical skills you learn data science by <em>doing</em> data science.</p>
+<p>Before getting stuck in with the practical content, which begins in Chapter <a href="basics.html#basics">2</a>, the rest of this chapter:</p>
+<ul>
+<li>introduces the concept reproducibility and its importance for evidence-based policies</li>
+<li>explains the choice of R as a ‘tool of the trade’ for road safety research</li>
+<li>outlines how to install R on your computer or access it through remote servers in the ‘cloud’, and</li>
+<li>explains the structure of the book, outlines chapter contents and how they should be used for maximum benefit depending on your level of experience and aims (Section <a href="introduction.html#overview">1.8</a>)</li>
+</ul>
+<div id="reproducibility" class="section level2">
+<h2><span class="header-section-number">1.1</span> Reproducibility</h2>
+<p>Reproducible research can be defined as work that generates results that can be regenerated by others using publicly accessible code <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span>.
+By contrast, findings that cannot be repeated are <strong>not reproducible</strong>.</p>
+<p>Reproducibility is not a binary concept but a continuum.
+On one hand, there is work that does not report the data source, methods or software.
+On the other hand, there are findings that can be reproduced in their entirety, including the production of figures and, as is the case with this book, the manuscript/medium in which results are presented.
+Reproducibility can be built into every stage of quantitative research, as shown in Table <a href="introduction.html#tab:reproducibility">1.1</a>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<table>
+<caption><span id="tab:reproducibility">Table 1.1: </span>Four elements of reproducibility adapted from Peng, Dominici, and Zeger (2006).</caption>
+<colgroup>
+<col width="13%" />
+<col width="86%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Research component</th>
+<th align="left">Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Data</td>
+<td align="left">Datasets used are available.</td>
+</tr>
+<tr class="even">
+<td align="left">Methods</td>
+<td align="left">Computer code underlying figures, tables, etc are available. Software to execute that code is available.</td>
+</tr>
+<tr class="odd">
+<td align="left">Documentation</td>
+<td align="left">Documentation of the computer code, software environment, and methods for others to repeat and build on the analysis.</td>
+</tr>
+<tr class="even">
+<td align="left">Distribution</td>
+<td align="left">Standard methods of distribution are used for others to access the software, data, and documentation.</td>
+</tr>
+</tbody>
+</table>
+<p>The importance of reproducibility in scientific research should be obvious: if findings cannot be repeated, this casts doubt on the validity and truth of the conclusions drawn from them.
+Reproducibility is vital for <em>falsifiability</em>, a cornerstone of science <span class="citation">(Popper 1959)</span>.</p>
+<p>In applied, policy-relevant research areas such as road safety research, reproducibility is equally important:
+policy makers and the public want to have confidence that the evidence underlying key decisions is reliable.
+Policies based on results that nobody can reproduce are harder to defend than policies that are based on a clear evidence base that others, including members of the public and educators, can repeat.
+In transport planning, open and reproducible methods support more transparent and democratically accountable interventions <span class="citation">(Lovelace, Parkin, and Cohen 2020)</span>.
+Reproducibility leads to solid science which is conducive to effective policies.
+In the context of road safety research, this means that <strong>reproducibility can save lives</strong>.</p>
+</div>
+<div id="what-is-r" class="section level2">
+<h2><span class="header-section-number">1.2</span> What is R?</h2>
+<p>R is an open source programming language first developed by award-winning academic statisticians Dr <a href="https://en.wikipedia.org/wiki/Ross_Ihaka">Ross Ihaka</a> and Professor <a href="https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician)">Robert Gentleman</a>.
+Since its first release in 1995 and the release of version 1.0.0 in 2000, R has seen rapid uptake <span class="citation">(Gentleman and Temple Lang 2007; Ihaka, Gentleman, and Robert 1996)</span>.
+As of September 2020, R is ranked as the 9<sup>th</sup> most used programming language on the <a href="https://www.tiobe.com/tiobe-index/">TIOBE Index</a>, ahead of other languages for data processing such as SQL and MATLAB and behind <em>general purpose</em> languages such as C, Java and Python.</p>
+<p>An important feature of R is that it was <em>designed</em> for data processing and statistical analysis.
+This means that you can undertake many aspects of road safety research using the core language.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+R is widely acknowledged to outperform other open languages for data science such as Julia, Python and Scala in terms of data visualisation and deployment of web applications for presenting data via the R package <code>shiny</code> <span class="citation">(Wickham 2020)</span>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
+Furthermore, recently developed <code>tidyverse</code> and <code>sf</code> packages provide a unified and user friendly system for working with attribute-rich and geographic datasets <span class="citation">(Grolemund and Wickham 2016; Lovelace, Nowosad, and Muenchow 2019)</span>.
+Because road crash data is commonly attribute-rich and geographic, we will be using these packages in subsequent chapters.</p>
+</div>
+<div id="why-r-for-road-safety-research" class="section level2">
+<h2><span class="header-section-number">1.3</span> Why R for road safety research?</h2>
+<p>R is an outstanding language for reproducible research <span class="citation">(Lovelace, Nowosad, and Muenchow 2019; Peng, Dominici, and Zeger 2006)</span>.
+It is accessible with no licensing restrictions and easy installation procedures on a wide range of computers including most versions of Windows, Mac and Linux operating systems <span class="citation">(R Core Team 2020a)</span>.
+Furthermore, R is highly extensible.
+With 15,000+ packages available, many of which are developed by professional statisticians and domain experts, R provides access to a wide array of statistical, computational and visualisation techniques.
+Many packages, such as <code>markdown</code> and <code>reprex</code>, were designed to support more reproducible research <span class="citation">(Xie, Allaire, and Grolemund 2018; Bryan et al. 2019)</span>.</p>
+<p>From a road safety perspective, R is well suited to handling data structures used in road safety research.
+R excels at the processing, analysis, modelling and visualisation of large spatio-temporal and attribute-rich datasets of the type key to road safety research.
+R is a mature and growing tool for data science, popular in industry, academia and government, so creates multiple opportunities for collaboration, within and between organisations and internationally.</p>
+<p>It is important to have an up-to-date version of R installed before proceeding to the practical sections.
+This and other prerequisites are covered in the next section.</p>
+</div>
+<div id="prerequisites" class="section level2">
+<h2><span class="header-section-number">1.4</span> Prerequisites</h2>
+<p>You do not need to be a professional programmer, data scientist or computer wizard to use R for road safety research.
+If you have primarily used graphical user interfaces (GUIs) such as Microsoft Excel for your work, it may take some time to get used to the code-based R approach.
+However, the command-line interface (CLI) of R is no ‘harder’ than the incessant pointing and clicking demanded by tools such as Excel and web-based GUIs for road safety research.
+It takes time to adapt to new ways of working and R has a steep learning curve at the outset.
+However, persevering can be very rewarding: proficiency with R’s CLI is a future-proof and transferable skill that can yield huge productivity gains.
+Perhaps the most important prerequisite, therefore, is time and a willingness to try new ways of working.</p>
+<p>The good news is that it has never been easier to install and learn R, as highlighted in the <a href="https://docs.ropensci.org/stats19/articles/stats19-training-setup.html"><code>stats19-training-setup</code></a> that can be found on the <strong>stats19</strong> package website at <a href="https://docs.ropensci.org/stats19/">docs.ropensci.org/stats19</a>.</p>
+<p>Note that like any actively developed software, R is evolving, so it is worth updating or re-installing R/RStudio every year or so and updating your R packages every month or so, to ensure you have the latest software.</p>
+</div>
+<div id="installing-r-and-rstudio" class="section level2">
+<h2><span class="header-section-number">1.5</span> Installing R and RStudio</h2>
+<p>If you plan to use R <strong>on your own computer or your organisation’s computer</strong> (recommended for most people), the installation steps are as follows:</p>
+<ul>
+<li>Install R from <a href="https://cran.r-project.org/">cran.r-project.org</a></li>
+<li>Install RStudio from <a href="https://rstudio.com/products/rstudio/download/#download">rstudio.com</a></li>
+<li>Install R packages, by opening RStudio and typing <code>install.packages("stats19")</code> in the console to install the <code>stats19</code> package, for example (see Section <a href="introduction.html#install-pkgs">1.7</a> for details)</li>
+</ul>
+<p>We recommend using at least the latest stable release of R (4.0.0 at the time of writing in 2020).
+We recommend running R on a decent computer, with at least 4 GB RAM and ideally 8 GB or more RAM and a modern processor.
+R is computationally efficient and therefore fast language for data science but, because of the size of some road safety datasets, we recommend using it on a high spec laptop or desktop.</p>
+</div>
+<div id="r-in-the-cloud" class="section level2">
+<h2><span class="header-section-number">1.6</span> R in the cloud</h2>
+<p>If you do not have access to a suitable computer on which you can install R or just want to get up-and-running quickly, you can run R in the cloud.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p>Various organisations manage RStudio Server instances but by far the most well-known cloud provider is at <a href="https://rstudio.com/products/cloud/">cloud.rstudio.com</a>.
+To run R in the cloud, sign-up to cloud.rstudio.com (or cloud instance of your choice) and acess RStudio from the browser.</p>
+</div>
+<div id="install-pkgs" class="section level2">
+<h2><span class="header-section-number">1.7</span> Recommended packages</h2>
+<p>Of the thousands of available packages that are available for road safety research, we will use a handful that are mature, well-tested and well-suited to statistical analysis and visualisation of road casualty data.
+For the first practical section, in Chapter <a href="basics.html#basics">2</a>, all you need is a working version of R and RStudio.
+In Chapter <a href="pkgs.html#pkgs">4</a> we will see how to install and use add-on packages such as <code>stats19</code>.
+If you want to be ahead of the game, you can check that you have the necessary packages installed by running the following commands, which <strong>install and load the packages that we will use for the course</strong>:</p>
+<!-- The completing the course requires that the following packages, which can be installed with `install.packages()`, can be loaded as follows: -->
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="introduction.html#cb2-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>) <span class="co"># installs the remotes package</span></span>
+<span id="cb2-2"><a href="introduction.html#cb2-2"></a>pkgs =<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb2-3"><a href="introduction.html#cb2-3"></a>  <span class="st">&quot;stats19&quot;</span>,     <span class="co"># downloads and formats open stats19 crash data</span></span>
+<span id="cb2-4"><a href="introduction.html#cb2-4"></a>  <span class="st">&quot;sf&quot;</span>,          <span class="co"># spatial data package</span></span>
+<span id="cb2-5"><a href="introduction.html#cb2-5"></a>  <span class="st">&quot;tidyverse&quot;</span>,   <span class="co"># a &#39;metapackage&#39; with many functions for data processing</span></span>
+<span id="cb2-6"><a href="introduction.html#cb2-6"></a>  <span class="st">&quot;tmap&quot;</span>,        <span class="co"># for making maps</span></span>
+<span id="cb2-7"><a href="introduction.html#cb2-7"></a>  <span class="st">&quot;pct&quot;</span>,         <span class="co"># access travel data from DfT-funded PCT project </span></span>
+<span id="cb2-8"><a href="introduction.html#cb2-8"></a>  <span class="st">&quot;stplanr&quot;</span>      <span class="co"># transport planning tools</span></span>
+<span id="cb2-9"><a href="introduction.html#cb2-9"></a>)</span>
+<span id="cb2-10"><a href="introduction.html#cb2-10"></a></span>
+<span id="cb2-11"><a href="introduction.html#cb2-11"></a>remotes<span class="op">::</span><span class="kw">install_cran</span>(pkgs)</span>
+<span id="cb2-12"><a href="introduction.html#cb2-12"></a><span class="kw">lapply</span>(pkgs, library, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<!-- You should type, run and ensure you understand each line of code in this document. -->
+</div>
+<div id="overview" class="section level2">
+<h2><span class="header-section-number">1.8</span> Overview</h2>
+<p>The rest of the book is structured as follows.</p>
+<ul>
+<li>Chapter <a href="basics.html#basics">2</a> introduces the basics of the R language. While not essential reading for people who already have experience with R or who just want to get stuck-in importing datasets, as per Chapter <a href="data.html#data">5</a>, it is recommended reading even if you already use R. This chapter introduces key aspects of the R language that may not be needed for basic data analysis tasks but which will be vital when ‘debugging’ (the process you go through to remove bugs/mistakes) your code. It provides strong foundations for subsequent chapters.</li>
+<li>Chapter <a href="rstudio.html#rstudio">3</a> provides a brief introduction to productive research workflows using RStudio, an advanced integrated development environment for not only writing R code but for project management and boosting your productivity with a suite of features that puts Excel to shame.</li>
+<li>Chapter <a href="pkgs.html#pkgs">4</a> introduces the <code>stats19</code> package and other R packages we will be using in subsequent chapters.</li>
+<li>Chapter <a href="data.html#data">5</a> demonstrates key data processing techniques using the <code>tidyverse</code>.</li>
+<li>Chapter <a href="time.html#time">6</a> teaches key functions for working with time stamps.</li>
+<li>Chapter <a href="space.html#space">7</a> shows how you can create maps and perform geographic data analysis with road crash data in R.</li>
+<li>Chapter <a href="join.html#join">8</a> provides an introduction to joining road crash data, with a focus on casualty and accident tables in STATS19 data (introduced in Chapter <a href="pkgs.html#pkgs">4</a>).</li>
+<li>Chapter <a href="next.html#next">9</a> suggests next steps for road safety researchers looking to take their skills to the next levels and provide the strong evidence needed to safe lives.</li>
+</ul>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>
+See <span class="citation">Peng, Dominici, and Zeger (2006)</span> for a detailed account of how to ensure reproducibility.<a href="introduction.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>
+Unlike with general purpose languages such as Python — which requires you to install add-on packages such as Pandas before undertaking common data analysis tasks — R allows you to process, visualise and even model datasets <em>out of the box</em> using the ‘base’ packages (see <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Standard-packages">An Introduction to R</a> for details).
+Base R consists of core packages such as <code>base</code>, <code>stats</code> and <code>graphics</code> which contain functions for data processing, modelling and visualisation, respectively.
+Installing additional packages is covered in Section <a href="introduction.html#install-pkgs">1.7</a>.<a href="introduction.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>
+If you are interested in the relative strengths and weaknesses of R in comparison with other languages for data science, I recommend a YouTube video titled <a href="https://www.youtube.com/watch?v=ZGeLAqGkObw">‘R or Python: Which Should You Learn in 2020’</a> and other recent videos by an experienced data scientist who goes by the name of ‘RichardOnData’.<a href="introduction.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>
+The two main reasons why people cannot install recent versions of R/RStudio are lack of access to hardware or lack of admin rights on your computer.
+R is supported by most organisations and if you are having issues installing an up-to-date version of R/RStudio, we recommend politely asking your system administrator for support.<a href="introduction.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/saferactive/rrsrr/edit/master/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/saferactive/rrsrr/blob/master/01-intro.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

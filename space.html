@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Spatial data | Reproducible road safety research with R: A practical introduction</title>
+  <meta name="description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Spatial data | Reproducible road safety research with R: A practical introduction" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://saferactive.github.io/rrsrr/" />
+  
+  <meta property="og:description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="github-repo" content="saferactive/rrsrr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Spatial data | Reproducible road safety research with R: A practical introduction" />
+  
+  <meta name="twitter:description" content="A reproducible and open source approach to applied road safety research" />
+  
+
+<meta name="author" content="Robin Lovelace" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="time.html"/>
+<link rel="next" href="join.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#thanks"><i class="fa fa-check"></i>Thanks</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#reproducibility"><i class="fa fa-check"></i><b>1.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-is-r"><i class="fa fa-check"></i><b>1.2</b> What is R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#why-r-for-road-safety-research"><i class="fa fa-check"></i><b>1.3</b> Why R for road safety research?</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.4</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.5</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#r-in-the-cloud"><i class="fa fa-check"></i><b>1.6</b> R in the cloud</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#install-pkgs"><i class="fa fa-check"></i><b>1.7</b> Recommended packages</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#overview"><i class="fa fa-check"></i><b>1.8</b> Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#creating-and-removing-r-objects"><i class="fa fa-check"></i><b>2.1</b> Creating and removing R objects</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#object-types-vectors-and-data-frames"><i class="fa fa-check"></i><b>2.2</b> Object types: vectors and data frames</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#subsetting-by-index-or-column-name"><i class="fa fa-check"></i><b>2.3</b> Subsetting by index or column name</a></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#subsetting-by-values"><i class="fa fa-check"></i><b>2.4</b> Subsetting by values</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#dealing-with-nas-and-recoding"><i class="fa fa-check"></i><b>2.5</b> Dealing with NAs and recoding</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#changing-class"><i class="fa fa-check"></i><b>2.6</b> Changing class</a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#recoding-values"><i class="fa fa-check"></i><b>2.7</b> Recoding values</a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#saving-r-objects"><i class="fa fa-check"></i><b>2.8</b> Saving R objects</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#now-you-are-ready-to-use-rstudio"><i class="fa fa-check"></i><b>2.9</b> Now you are ready to use RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>3</b> Using RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="rstudio.html"><a href="rstudio.html#projects-and-scripts"><i class="fa fa-check"></i><b>3.1</b> Projects and scripts</a></li>
+<li class="chapter" data-level="3.2" data-path="rstudio.html"><a href="rstudio.html#writing-and-running-code"><i class="fa fa-check"></i><b>3.2</b> Writing and running code</a></li>
+<li class="chapter" data-level="3.3" data-path="rstudio.html"><a href="rstudio.html#viewing-objects"><i class="fa fa-check"></i><b>3.3</b> Viewing Objects</a></li>
+<li class="chapter" data-level="3.4" data-path="rstudio.html"><a href="rstudio.html#autocompletion"><i class="fa fa-check"></i><b>3.4</b> Autocompletion</a></li>
+<li class="chapter" data-level="3.5" data-path="rstudio.html"><a href="rstudio.html#getting-help"><i class="fa fa-check"></i><b>3.5</b> Getting help</a></li>
+<li class="chapter" data-level="3.6" data-path="rstudio.html"><a href="rstudio.html#commenting-code"><i class="fa fa-check"></i><b>3.6</b> Commenting Code</a></li>
+<li class="chapter" data-level="3.7" data-path="rstudio.html"><a href="rstudio.html#the-global-environment"><i class="fa fa-check"></i><b>3.7</b> The global environment</a></li>
+<li class="chapter" data-level="3.8" data-path="rstudio.html"><a href="rstudio.html#debugging-code"><i class="fa fa-check"></i><b>3.8</b> Debugging Code</a></li>
+<li class="chapter" data-level="3.9" data-path="rstudio.html"><a href="rstudio.html#productivity-boosting-features"><i class="fa fa-check"></i><b>3.9</b> Productivity boosting features</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pkgs.html"><a href="pkgs.html"><i class="fa fa-check"></i><b>4</b> R packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="pkgs.html"><a href="pkgs.html#what-are-packages"><i class="fa fa-check"></i><b>4.1</b> What are packages?</a></li>
+<li class="chapter" data-level="4.2" data-path="pkgs.html"><a href="pkgs.html#the-stats19-r-package"><i class="fa fa-check"></i><b>4.2</b> The stats19 R package</a></li>
+<li class="chapter" data-level="4.3" data-path="pkgs.html"><a href="pkgs.html#installing-packages"><i class="fa fa-check"></i><b>4.3</b> Installing packages</a></li>
+<li class="chapter" data-level="4.4" data-path="pkgs.html"><a href="pkgs.html#loading-packages"><i class="fa fa-check"></i><b>4.4</b> Loading packages</a></li>
+<li class="chapter" data-level="4.5" data-path="pkgs.html"><a href="pkgs.html#using-packages"><i class="fa fa-check"></i><b>4.5</b> Using packages</a></li>
+<li class="chapter" data-level="4.6" data-path="pkgs.html"><a href="pkgs.html#updating-packages"><i class="fa fa-check"></i><b>4.6</b> Updating packages</a></li>
+<li class="chapter" data-level="4.7" data-path="pkgs.html"><a href="pkgs.html#ggplot2"><i class="fa fa-check"></i><b>4.7</b> ggplot2</a></li>
+<li class="chapter" data-level="4.8" data-path="pkgs.html"><a href="pkgs.html#dplyr"><i class="fa fa-check"></i><b>4.8</b> dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>5</b> Manipulating data</a><ul>
+<li class="chapter" data-level="5.1" data-path="data.html"><a href="data.html#tibbles"><i class="fa fa-check"></i><b>5.1</b> tibbles</a></li>
+<li class="chapter" data-level="5.2" data-path="data.html"><a href="data.html#filter-and-select-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> filter() and select() rows and columns</a></li>
+<li class="chapter" data-level="5.3" data-path="data.html"><a href="data.html#ordering-and-selecting-the-top-n"><i class="fa fa-check"></i><b>5.3</b> Ordering and selecting the ‘top n’</a></li>
+<li class="chapter" data-level="5.4" data-path="data.html"><a href="data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> Summarise</a></li>
+<li class="chapter" data-level="5.5" data-path="data.html"><a href="data.html#tidyverse-exercises"><i class="fa fa-check"></i><b>5.5</b> Tidyverse exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="time.html"><a href="time.html"><i class="fa fa-check"></i><b>6</b> Temporal data</a><ul>
+<li class="chapter" data-level="6.1" data-path="time.html"><a href="time.html#temporal-analysis-of-crash-data"><i class="fa fa-check"></i><b>6.1</b> Temporal analysis of crash data</a></li>
+<li class="chapter" data-level="6.2" data-path="time.html"><a href="time.html#handling-dates-and-date-times"><i class="fa fa-check"></i><b>6.2</b> Handling dates and date-times</a></li>
+<li class="chapter" data-level="6.3" data-path="time.html"><a href="time.html#hours-minutes-seconds-with-hms"><i class="fa fa-check"></i><b>6.3</b> Hours, minutes seconds with hms</a></li>
+<li class="chapter" data-level="6.4" data-path="time.html"><a href="time.html#the-lubridate-package"><i class="fa fa-check"></i><b>6.4</b> The lubridate package</a></li>
+<li class="chapter" data-level="6.5" data-path="time.html"><a href="time.html#dates-in-a-data-frame"><i class="fa fa-check"></i><b>6.5</b> Dates in a data frame</a></li>
+<li class="chapter" data-level="6.6" data-path="time.html"><a href="time.html#components-of-time-objects"><i class="fa fa-check"></i><b>6.6</b> Components of time objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="space.html"><a href="space.html"><i class="fa fa-check"></i><b>7</b> Spatial data</a><ul>
+<li class="chapter" data-level="7.1" data-path="space.html"><a href="space.html#sf-objects"><i class="fa fa-check"></i><b>7.1</b> sf objects</a></li>
+<li class="chapter" data-level="7.2" data-path="space.html"><a href="space.html#reading-and-writing-spatial-data"><i class="fa fa-check"></i><b>7.2</b> Reading and writing spatial data</a></li>
+<li class="chapter" data-level="7.3" data-path="space.html"><a href="space.html#sf-polygons"><i class="fa fa-check"></i><b>7.3</b> sf polygons</a></li>
+<li class="chapter" data-level="7.4" data-path="space.html"><a href="space.html#spatial-subsetting-and-sf-plotting"><i class="fa fa-check"></i><b>7.4</b> Spatial subsetting and sf plotting</a></li>
+<li class="chapter" data-level="7.5" data-path="space.html"><a href="space.html#geographic-joins"><i class="fa fa-check"></i><b>7.5</b> Geographic joins</a></li>
+<li class="chapter" data-level="7.6" data-path="space.html"><a href="space.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>7.6</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="7.7" data-path="space.html"><a href="space.html#buffers"><i class="fa fa-check"></i><b>7.7</b> Buffers</a></li>
+<li class="chapter" data-level="7.8" data-path="space.html"><a href="space.html#attribute-operations-on-sf-objects"><i class="fa fa-check"></i><b>7.8</b> Attribute operations on sf objects</a></li>
+<li class="chapter" data-level="7.9" data-path="space.html"><a href="space.html#mapping-road-crash-data"><i class="fa fa-check"></i><b>7.9</b> Mapping road crash data</a></li>
+<li class="chapter" data-level="7.10" data-path="space.html"><a href="space.html#analysing-point-data"><i class="fa fa-check"></i><b>7.10</b> Analysing point data</a></li>
+<li class="chapter" data-level="7.11" data-path="space.html"><a href="space.html#analysing-crash-data-on-road-networks"><i class="fa fa-check"></i><b>7.11</b> Analysing crash data on road networks</a></li>
+<li class="chapter" data-level="" data-path="space.html"><a href="space.html#bonus-exercises"><i class="fa fa-check"></i>Bonus exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>8</b> Joining road crash tables</a><ul>
+<li class="chapter" data-level="8.1" data-path="join.html"><a href="join.html#stats19-tables"><i class="fa fa-check"></i><b>8.1</b> STATS19 tables</a></li>
+<li class="chapter" data-level="8.2" data-path="join.html"><a href="join.html#locality"><i class="fa fa-check"></i><b>8.2</b> Locality</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="next.html"><a href="next.html"><i class="fa fa-check"></i><b>9</b> Next steps</a><ul>
+<li class="chapter" data-level="9.1" data-path="next.html"><a href="next.html#automated-reporting-with-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Automated reporting with RMarkdown</a></li>
+<li class="chapter" data-level="9.2" data-path="next.html"><a href="next.html#sharing-code"><i class="fa fa-check"></i><b>9.2</b> Sharing code</a></li>
+<li class="chapter" data-level="9.3" data-path="next.html"><a href="next.html#asking-questions"><i class="fa fa-check"></i><b>9.3</b> Asking questions</a></li>
+<li class="chapter" data-level="9.4" data-path="next.html"><a href="next.html#testimonials"><i class="fa fa-check"></i><b>9.4</b> Testimonials</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="next.html"><a href="next.html#r-for-professional-road-safety-analysts"><i class="fa fa-check"></i><b>9.4.1</b> R for professional road safety analysts</a></li>
+<li class="chapter" data-level="9.4.2" data-path="next.html"><a href="next.html#r-in-a-road-safety-research-consultancy"><i class="fa fa-check"></i><b>9.4.2</b> R in a road safety research consultancy</a></li>
+<li class="chapter" data-level="9.4.3" data-path="next.html"><a href="next.html#using-r-in-a-road-safety-charity"><i class="fa fa-check"></i><b>9.4.3</b> Using R in a road safety charity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible road safety research with R: A practical introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="space" class="section level1">
+<h1><span class="header-section-number">7</span> Spatial data</h1>
+<p>From displaying simple point data to examining collision density along routes or between areas, the geographic property of STATS19 data is one of its most useful attributes.
+Mapping is a hugely useful and powerful aspect of R and has many applications in road safety, both in understanding geographic trends and presenting insight to colleagues.
+This aspect of R is covered in detail in the book <a href="https://geocompr.robinlovelace.net/index.html">Geocomputation With R</a> <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span>.
+By mapping collision data in R, you can add layers containing other geographic datasets to further understand the reasons for certain trends.
+This can lead to new opportunities for intervention and collaboration with other parties who may have mutually compatible solutions for reaching their goals.
+We will use the following packages in this chapter:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="space.html#cb155-1"></a><span class="kw">library</span>(sf)        <span class="co"># load the sf package for working with spatial data</span></span>
+<span id="cb155-2"><a href="space.html#cb155-2"></a><span class="kw">library</span>(tidyverse) <span class="co"># load the tidyverse as before</span></span></code></pre></div>
+<div id="sf-objects" class="section level2">
+<h2><span class="header-section-number">7.1</span> sf objects</h2>
+<p>All road crashes happen somewhere and, in the UK at least, all collisions recorded by the police are given geographic coordinates, something that can help prioritise interventions to save lives by intervening in and around ‘crash hotspots’.
+R has strong geographic data capabilities with the <code>sf</code> package providing a generic class for spatial vector data. Points, lines and polygons are represented in <code>sf</code> as objects in a special ‘geometry column’, typically called ‘geom’ or ‘geometry’, extending the data frame class we’ve already seen in <code>crashes</code>, created in Section <a href="data.html#tibbles">5.1</a> (repeated here to consolidate data frame creation):</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="space.html#cb156-1"></a>crashes =<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb156-2"><a href="space.html#cb156-2"></a>  <span class="dt">casualty_type =</span> <span class="kw">c</span>(<span class="st">&quot;pedestrian&quot;</span>, <span class="st">&quot;cyclist&quot;</span>, <span class="st">&quot;cat&quot;</span>),</span>
+<span id="cb156-3"><a href="space.html#cb156-3"></a>  <span class="dt">casualty_age =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">20</span>, <span class="dt">to =</span> <span class="dv">60</span>, <span class="dt">by =</span> <span class="dv">20</span>),</span>
+<span id="cb156-4"><a href="space.html#cb156-4"></a>  <span class="dt">vehicle_type =</span> <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;tank&quot;</span>),</span>
+<span id="cb156-5"><a href="space.html#cb156-5"></a>  <span class="dt">dark =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb156-6"><a href="space.html#cb156-6"></a>)</span></code></pre></div>
+<p>Create an <code>sf</code> data frame called <code>crashes_sf</code>that expands the <code>crashes</code> data frame to include a geometry column based on the <code>crashes</code> longitude and latitude data as follows:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="space.html#cb157-1"></a>crashes_sf =<span class="st"> </span>crashes <span class="co"># create copy of crashes dataset</span></span>
+<span id="cb157-2"><a href="space.html#cb157-2"></a>crashes_sf<span class="op">$</span>longitude =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.3</span>, <span class="fl">-1.2</span>, <span class="fl">-1.1</span>)</span>
+<span id="cb157-3"><a href="space.html#cb157-3"></a>crashes_sf<span class="op">$</span>latitude =<span class="st"> </span><span class="kw">c</span>(<span class="fl">50.7</span>, <span class="fl">50.7</span>, <span class="fl">50.68</span>)</span>
+<span id="cb157-4"><a href="space.html#cb157-4"></a>crashes_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(crashes_sf, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># st_as_sf converts longitude and latitude coordinates into spatial objects using a specified Coordinate Reference System (see 7.6)</span></span>
+<span id="cb157-5"><a href="space.html#cb157-5"></a><span class="co"># plot(crashes_sf[1:4]) # basic plot</span></span>
+<span id="cb157-6"><a href="space.html#cb157-6"></a><span class="co"># mapview::mapview(crashes_sf) # for interactive map</span></span></code></pre></div>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Plot only the geometry column of <code>crashes_sf</code> (hint: the solution may contain <code>$geometry</code>). If the result is like that in Figure <a href="space.html#fig:crashes-sf-ex">7.1</a>, congratulations, it worked!).</li>
+<li>Plot <code>crashes_sf</code>, only showing the age variable.</li>
+<li>Plot the 2<sup>nd</sup> and 3<sup>rd</sup> crashes, showing which happened in the dark.</li>
+<li><strong>Bonus</strong>: How far are the points apart (hint: <code>sf</code> functions begin with <code>st_</code>)?</li>
+<li><strong>Bonus</strong>: Near which settlement did the tank runover the cat?</li>
+</ol>
+<div class="figure"><span id="fig:crashes-sf-ex"></span>
+<img src="figures/crashes-sf-ex-1.png" alt="The `crashes_sf` dataset shown in map form with the function `plot()`." width="30%" /><img src="figures/crashes-sf-ex-2.png" alt="The `crashes_sf` dataset shown in map form with the function `plot()`." width="30%" /><img src="figures/crashes-sf-ex-3.png" alt="The `crashes_sf` dataset shown in map form with the function `plot()`." width="30%" />
+<p class="caption">
+Figure 7.1: The <code>crashes_sf</code> dataset shown in map form with the function <code>plot()</code>.
+</p>
+</div>
+</div>
+<div id="reading-and-writing-spatial-data" class="section level2">
+<h2><span class="header-section-number">7.2</span> Reading and writing spatial data</h2>
+<p>You can read and write spatial data with <code>read_sf()</code> and <code>write_sf()</code>, as shown below (see <code>?read_sf</code>).</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="space.html#cb158-1"></a><span class="kw">write_sf</span>(zones, <span class="st">&quot;zones.geojson&quot;</span>) <span class="co"># saves the spatial dataset called zones as geojson file type</span></span>
+<span id="cb158-2"><a href="space.html#cb158-2"></a><span class="kw">write_sf</span>(zones, <span class="st">&quot;zmapinfo&quot;</span>, <span class="dt">driver =</span> <span class="st">&quot;MapInfo file&quot;</span>) <span class="co"># saves the dataset as a MapInfo file</span></span>
+<span id="cb158-3"><a href="space.html#cb158-3"></a><span class="kw">read_sf</span>(<span class="st">&quot;zmapinfo&quot;</span>) <span class="co"># reads-in mapinfo file</span></span></code></pre></div>
+<p>See <a href="https://geocompr.robinlovelace.net/read-write.html">Chapter 6</a> of Geocomputation with R for further information.</p>
+</div>
+<div id="sf-polygons" class="section level2">
+<h2><span class="header-section-number">7.3</span> sf polygons</h2>
+<p><code>sf</code> objects can also represent administrative zones.
+This is illustrated below with reference to <code>zones</code>, a spatial object representing the Isle of Wight, that we will download using the <code>pct</code> package (note: the <code>[1:9]</code> appended to the function selects only the first 9 columns).</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="space.html#cb159-1"></a>zones =<span class="st"> </span>pct<span class="op">::</span><span class="kw">get_pct_zones</span>(<span class="st">&quot;isle-of-wight&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>]</span></code></pre></div>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>What is the class of the <code>zones</code> object?</li>
+<li>What are its column names?</li>
+<li>Print its first 2 rows and columns 6:8 (the result is below).</li>
+</ol>
+<pre><code>## Simple feature collection with 2 features and 5 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -1.301131 ymin: 50.69052 xmax: -1.28837 ymax: 50.70547
+## geographic CRS: WGS 84
+## # A tibble: 2 x 6
+##   geo_code    all bicycle  foot car_driver                              geometry
+##   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;                    &lt;MULTIPOLYGON [°]&gt;
+## 1 E01017326   698      23   285        286 (((-1.289993 50.69766, -1.290177 50.…
+## 2 E01017327   720      25   225        374 (((-1.295712 50.69383, -1.29873 50.6…</code></pre>
+</div>
+<div id="spatial-subsetting-and-sf-plotting" class="section level2">
+<h2><span class="header-section-number">7.4</span> Spatial subsetting and sf plotting</h2>
+<p>Like index and value subsetting, spatial subsetting can be done with the <code>[]</code> notation.
+So we can identify the crashes (<code>crashes_sf</code>) that occur in the Isle of Wight (<code>zones</code>) by subsetting as follows (i.e. subset <code>zones</code> by whether it contains data in <code>crashes_sf</code>):</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="space.html#cb161-1"></a>zones_containing_crashes =<span class="st"> </span>zones[crashes_sf, ]</span></code></pre></div>
+<p>To plot a new layer on top of an existing <code>sf</code> plot, use the <code>add = TRUE</code> argument, e.g. as follows:</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="space.html#cb162-1"></a><span class="kw">plot</span>(zones<span class="op">$</span>geometry) <span class="co"># plot just the geometry of one layer</span></span>
+<span id="cb162-2"><a href="space.html#cb162-2"></a><span class="kw">plot</span>(zones_containing_crashes<span class="op">$</span>geometry, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>Remember to plot only the <code>geometry</code> column of objects to avoid multiple maps.
+Colours can be set with the <code>col</code> argument.</p>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Plot the geometry of the zones, with the zones containing crashes overlaid on top in red (see Figure <a href="space.html#fig:sp-ex">7.2</a> left).</li>
+<li>Plot the zone containing the 2<sup>nd</sup> crash in blue (see Figure <a href="space.html#fig:sp-ex">7.2</a> middle).</li>
+<li><strong>Bonus:</strong> plot all zones that intersect with a zone containing crashes, with the actual crash points plotted in black(see Figure <a href="space.html#fig:sp-ex">7.2</a> right).</li>
+</ol>
+<div class="figure"><span id="fig:sp-ex"></span>
+<img src="figures/sp-ex-1.png" alt="Illustration of the results of spatial subsetting." width="33%" /><img src="figures/sp-ex-2.png" alt="Illustration of the results of spatial subsetting." width="33%" /><img src="figures/sp-ex-3.png" alt="Illustration of the results of spatial subsetting." width="33%" />
+<p class="caption">
+Figure 7.2: Illustration of the results of spatial subsetting.
+</p>
+</div>
+</div>
+<div id="geographic-joins" class="section level2">
+<h2><span class="header-section-number">7.5</span> Geographic joins</h2>
+<p>Geographic joins involve assigning values from one object to a new column in another, based on the geographic relationship between them.
+With <code>sf</code> objects it works as follows, which joins the data from the <code>crashes_sf</code> dataset onto the ‘target’ <code>zones</code> dataset, to create a new object called <code>zones_joined</code>:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="space.html#cb163-1"></a>zones_joined =<span class="st"> </span><span class="kw">st_join</span>(zones[<span class="dv">1</span>], crashes_sf)</span></code></pre></div>
+<p>The above code takes the <code>geo_code</code> column data from <code>zones</code>, matches it to the <code>geometry</code> column in <code>crashes_sf</code> and then joins it to the crashes that occur in those geo_codes. The matched, joined <code>geo_code</code> is a new column in the <code>zone_joined</code> dataset. We now know the administrative geo_code in which each crash occured.</p>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Plot the <code>casualty_age</code> variable of the new <code>zones_joined</code> object (see Figure <a href="space.html#fig:joinf">7.3</a>, left, to verify the result).</li>
+<li>How many zones are returned in the previous command?</li>
+<li>Select only the <code>geo_code</code> column from the <code>zones</code> and the <code>dark</code> column from <code>crashes_sf</code> and use the <code>left = FALSE</code> argument to return only zones in which crashes occurred. Plot the result (it should look like the map shown in Figure <a href="space.html#fig:joinf">7.3</a>, right).</li>
+</ol>
+<p>See <a href="https://geocompr.robinlovelace.net/spatial-operations.html#spatial-joining">Chapter 4</a> of Geocomputation with R <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span> for further information on geographic joins.</p>
+<div class="figure"><span id="fig:joinf"></span>
+<img src="figures/joinf-1.png" alt="Illustration of geographic joins." width="40%" /><img src="figures/joinf-2.png" alt="Illustration of geographic joins." width="40%" />
+<p class="caption">
+Figure 7.3: Illustration of geographic joins.
+</p>
+</div>
+</div>
+<div id="coordinate-reference-systems" class="section level2">
+<h2><span class="header-section-number">7.6</span> Coordinate Reference Systems</h2>
+<p>A Coordinate Reference Systems (CRS) is used for plotting data on maps.
+There are many systems in use but they can generally be classified into two groups; ‘projected’ and ‘geographic’.
+A projected system, such as Eastings/Northings, plots locations onto a flat 2D projection of the Earth’s surface.
+A geographic system, such and Longitude/Latitude, refers to locations on the 3D surface of the globe.
+Distance and direction calculations work differently between geographic and projected CRSs, so it it often necessary to convert from one to another.
+Fortunately, R makes this very easy, and every CRS has its own unique reference number, for example 27700 for the British National Grid system.</p>
+<p>CRSs define how two-dimensional points (such as longitude and latitude) are actually represented in the real world. A CRS value is needed to interpret and give true meaning to coordinates. You can get and set CRSs with the command <code>st_crs()</code>.
+Transform CRSs with the command <code>st_transform()</code>, as demonstrated in the code chunk below, which converts the ‘lon/lat’ geographic CRS of <code>crashes_sf</code> into the projected CRS of the British National Grid:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="space.html#cb164-1"></a>crashes_osgb =<span class="st"> </span><span class="kw">st_transform</span>(crashes_sf, <span class="dv">27700</span>)</span></code></pre></div>
+<!-- From Will -->
+<!-- When you define the geometry in a data frame, it creates a multipoint vector. -->
+<!-- This is a single column containing coordinate pairs for point data, or multiple coordinate pairs for line vectors or polygons. Sometimes it may be necessary to convert from one CRS to another without creating a multipoint vector. -->
+<!-- The following code is one way to convert Eastings/Northings (CRS 27700) to Latitude/Longitude (CRS 4326) without creating a multipoint vector. -->
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Try to subset the zones with the <code>crashes_osgb</code>. What does the error message say?</li>
+<li>Create <code>zones_osgb</code> by transforming the <code>zones</code> object.</li>
+<li><strong>Bonus:</strong> use <code>st_crs()</code> to find out the units measurement of the British National Grid?</li>
+</ol>
+<p>For more information on CRSs see <a href="https://geocompr.robinlovelace.net/reproj-geo-data.html">Chapter 6</a> of Geocompuation with R.</p>
+</div>
+<div id="buffers" class="section level2">
+<h2><span class="header-section-number">7.7</span> Buffers</h2>
+<p>Buffers are polygons surrounding geometries, usually with fixed distance.
+For example, in road safety research a 30m buffer can be created around crash locations to identify crashes that happened in close proximity to a particular junction or road segment.<br />
+<!-- Currently buffer operations in R only work on objects with projected CRSs. --></p>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Find out and read the help page of <code>sf</code>’s buffer function.</li>
+<li>Create an object called <code>crashes_1km_buffer</code> representing the area within 1 km of the <code>crashes_osgb</code> object, and plot the result with the commands <code>plot(crashes_1km_buffer)</code> and, as a fun bonus, <code>mapview::mapview(crashes_1km_buffer)</code>.</li>
+<li><strong>Bonus:</strong> try creating buffers on the geographic version of the <code>crashes_sf</code> object. What happens?</li>
+</ol>
+</div>
+<div id="attribute-operations-on-sf-objects" class="section level2">
+<h2><span class="header-section-number">7.8</span> Attribute operations on sf objects</h2>
+<p>Because <code>sf</code> objects are <code>data.frame</code>s, we can do non-spatial operations on them.
+Try the following attribute operations on the <code>zones</code> data.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="space.html#cb165-1"></a><span class="co"># load example dataset if it doesn&#39;t already exist</span></span>
+<span id="cb165-2"><a href="space.html#cb165-2"></a>zones =<span class="st"> </span>pct<span class="op">::</span><span class="kw">get_pct_zones</span>(<span class="st">&quot;isle-of-wight&quot;</span>)</span>
+<span id="cb165-3"><a href="space.html#cb165-3"></a>sel =<span class="st"> </span>zones<span class="op">$</span>all <span class="op">&gt;</span><span class="st"> </span><span class="dv">3000</span>  <span class="co"># create a subsetting object</span></span>
+<span id="cb165-4"><a href="space.html#cb165-4"></a>zones_large =<span class="st"> </span>zones[sel, ] <span class="co"># subset areas with a population over 3,000</span></span>
+<span id="cb165-5"><a href="space.html#cb165-5"></a>zones_<span class="dv">2</span> =<span class="st"> </span>zones[zones<span class="op">$</span>geo_name <span class="op">==</span><span class="st"> &quot;Isle of Wight 002&quot;</span>,] <span class="co"># subset based on &#39;equality&#39; query</span></span>
+<span id="cb165-6"><a href="space.html#cb165-6"></a>zones_first_and_third_column =<span class="st"> </span>zones[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span>
+<span id="cb165-7"><a href="space.html#cb165-7"></a>zones_just_all =<span class="st"> </span>zones[<span class="st">&quot;all&quot;</span>]</span></code></pre></div>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Practice subsetting techniques you have learned on the <code>sf data.frame</code> object <code>zones</code>:
+<ul>
+<li>Create an object called <code>zones_small</code> which contains only regions with less than 3000 people in the <code>all</code> column</li>
+<li>Create a selection object called <code>sel_high_car</code> which is <code>TRUE</code> for regions with above median numbers of people who travel by car and <code>FALSE</code> otherwise</li>
+<li>Create an object called <code>zones_foot</code> which contains only the foot attribute from <code>zones</code></li>
+<li><strong>Bonus:</strong> plot <code>zones_foot</code> using the function <code>plot</code> to show where walking is a popular mode of travel to work</li>
+<li><strong>Bonus:</strong> building on your answers to previous questions, use <code>filter()</code> from the <code>dplyr</code> package to subset small regions where car use is high.</li>
+</ul></li>
+<li><strong>Bonus:</strong> What is the population density of each region (hint: you may need to use the functions <code>st_area()</code>, <code>as.numeric()</code> and use the ‘all’ column)?</li>
+<li><strong>Bonus:</strong> Which zone has the highest percentage of people who cycle?</li>
+</ol>
+<!-- ## Matching roads to crashes -->
+<!-- I think you forgot something here. For example we could introduce `st_nearest_feature`? Or counting using `st_within` and `st_buffer`.  -->
+</div>
+<div id="mapping-road-crash-data" class="section level2">
+<h2><span class="header-section-number">7.9</span> Mapping road crash data</h2>
+<p>So far we have used the <code>plot()</code> function to make maps.
+That’s fine for basic visualisation, but for publication-quality maps we recommend using <code>tmap</code> (see Chapter 8 of Geocomputation with R for reasons and alternatives).
+After installation, load the package as follows:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="space.html#cb166-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb166-2"><a href="space.html#cb166-2"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>) <span class="co"># this sets the tmap mode to plotting as opposed to interactive</span></span></code></pre></div>
+<pre><code>## tmap mode set to plotting</code></pre>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Create the plots of the <code>zones</code> object using <code>plot()</code> and <code>tm_shape() + tm_polygons()</code> functions (see Figure <a href="space.html#fig:plot3">7.4</a>).</li>
+<li>Create an interactive version of the <code>tmap</code> plot by setting <code>tmap_mode("view")</code> and re-running the plotting commands.</li>
+<li>Add an additional layer to the interactive map showing the location of crashes, using marker and dot symbols.</li>
+<li><strong>Bonus:</strong> Change the default basemap (hint: you may need to search in the package documentation or online for the solution).</li>
+</ol>
+<div class="figure"><span id="fig:plot3"></span>
+<img src="figures/plot3-1.png" alt="Illustration of the plot and tmap approaches for creating maps." width="50%" /><img src="figures/plot3-2.png" alt="Illustration of the plot and tmap approaches for creating maps." width="50%" />
+<p class="caption">
+Figure 7.4: Illustration of the plot and tmap approaches for creating maps.
+</p>
+</div>
+</div>
+<div id="analysing-point-data" class="section level2">
+<h2><span class="header-section-number">7.10</span> Analysing point data</h2>
+<p>Based on the saying “don’t run before you can walk”, we’ve learned the vital foundations of R before tackling a real dataset.
+Temporal and spatial attributes are key to road crash data, hence the emphasis on <code>lubridate</code> and <code>sf</code>.
+Visualisation is central to understanding data and influencing policy, which is where <code>tmap</code> comes in.
+With these solid foundations, plus knowledge of how to ask for help (we recommend reading R’s internal help, asking colleagues, searching the internet and creating new questions or comments on online forums such as StackOverflow or GitHub and we suggest you follow this order of resources to get help), you are ready to test the methods on some real data.</p>
+<p>Before doing so, take a read of the <code>stats19</code> vignette, which can be launched as follows:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="space.html#cb168-1"></a><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">&quot;stats19&quot;</span>) <span class="co"># view all vignettes available on stats19</span></span>
+<span id="cb168-2"><a href="space.html#cb168-2"></a><span class="kw">vignette</span>(<span class="st">&quot;stats19&quot;</span>) <span class="co"># view the introductory vignette</span></span></code></pre></div>
+<p>This should now be sufficient to tackle the following exercises:</p>
+<ol style="list-style-type: decimal">
+<li>Download and plot all crashes reported in Great Britain in 2018 (hint: see <a href="https://docs.ropensci.org/stats19/articles/stats19.html">the stats19 vignette</a>)</li>
+<li>Find the function in the <code>stats19</code> package that converts a <code>data.frame</code> object into an <code>sf</code> data frame. Use this function to convert the road crashes into an <code>sf</code> object, called <code>crashes_sf</code>, for example.</li>
+<li>Filter crashes that happened in the Isle of Wight based on attribute data (hint: the relevant column contains the word <code>local</code>)</li>
+<li>Filter crashes happened in the Isle of Wight using geographic subsetting (hint: remember <code>st_crs()</code>?)</li>
+<li><strong>Bonus:</strong> Which type of subsetting yielded more results and why?</li>
+<li><strong>Bonus:</strong> how many crashes happened in each zone?</li>
+<li>Create a new column called <code>month</code> in the crash data using the function <code>lubridate::month()</code> and the <code>date</code> column.</li>
+<li>Create an object called <code>a_zones_may</code> representing all the crashes that happened in the Isle of Wight in the month of May</li>
+<li><strong>Bonus:</strong> Calculate the average (<code>mean</code>) speed limit associated with each crash that happened in May across the zones of the Isle of Wight (the result is shown in the map)</li>
+</ol>
+<p>Other mapping functions that can be powerful presentation tools are also explained in <a href="https://geocompr.robinlovelace.net/index.html">Geocomputation With R</a> <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span>.
+These include leaflet maps, which have interactive properties and can be shared as .html files, and shiny apps that give even more interactivity as well as the possibility to embed on websites.</p>
+</div>
+<div id="analysing-crash-data-on-road-networks" class="section level2">
+<h2><span class="header-section-number">7.11</span> Analysing crash data on road networks</h2>
+<p>Road network data can be accessed from a range of sources, including OpenStreetMap (OSM) and Ordnance Survey.
+We will use some OSM data from the Isle of Wight, which can be loaded as follows:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="space.html#cb169-1"></a>u =<span class="st"> &quot;https://github.com/ropensci/stats19/releases/download/1.1.0/roads_key.Rds&quot;</span> </span>
+<span id="cb169-2"><a href="space.html#cb169-2"></a>roads_wgs =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">url</span>(u))</span>
+<span id="cb169-3"><a href="space.html#cb169-3"></a>roads =<span class="st"> </span>roads_wgs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(<span class="dt">crs =</span> <span class="dv">27700</span>)</span></code></pre></div>
+<p>You should already have road crashes for the Isle of Wight from the previous stage.
+If not, load crash data as follows:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="space.html#cb170-1"></a>u =<span class="st"> &quot;https://github.com/ropensci/stats19/releases/download/1.1.0/car_accidents_2017_iow.Rds&quot;</span></span>
+<span id="cb170-2"><a href="space.html#cb170-2"></a>crashes_iow =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">url</span>(u))</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li>Plot the roads with the crashes overlaid.</li>
+<li>Create a buffer around the roads with a distance of 200 m.</li>
+<li>How many crashes fall outside the buffered roads?</li>
+<li><strong>Bonus:</strong> Use the <code>aggregate()</code> function to identify how many crashes happened per segment and plot the result (hint: see <code>?aggregate.sf</code> and take a read of Section <a href="https://geocompr.robinlovelace.net/spatial-operations.html#spatial-aggr">4.2.5</a> of Geocomputation with R) with <code>tmap</code> and plot the crashes that happened outside the road buffers on top, as shown in Figure <a href="space.html#fig:iowbuff">7.5</a>.</li>
+<li>Try undertaking the same steps for a different region of your choice. Example for Exeter shown in the code chunk which results in Figure <a href="space.html#fig:ex">7.6</a>, thanks to Will Cubbin).<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></li>
+</ol>
+<div class="figure"><span id="fig:iowbuff"></span>
+<img src="figures/iowbuff-1.png" alt="Maps of the Isle of Wight." width="49%" /><img src="figures/iowbuff-2.png" alt="Maps of the Isle of Wight." width="49%" />
+<p class="caption">
+Figure 7.5: Maps of the Isle of Wight.
+</p>
+</div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="space.html#cb171-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;itsleeds/osmextract&quot;</span>) <span class="co"># install github package for osm data</span></span>
+<span id="cb171-2"><a href="space.html#cb171-2"></a><span class="kw">library</span>(osmextract)</span>
+<span id="cb171-3"><a href="space.html#cb171-3"></a>region_name =<span class="st"> &quot;essex&quot;</span> <span class="co"># &quot;essex&quot; can be changed to another area name as required</span></span>
+<span id="cb171-4"><a href="space.html#cb171-4"></a>osm_data =<span class="st"> </span><span class="kw">oe_get</span>(region_name, <span class="dt">extra_tags =</span> <span class="kw">c</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="st">&quot;ref&quot;</span>))</span>
+<span id="cb171-5"><a href="space.html#cb171-5"></a><span class="kw">table</span>(osm_data<span class="op">$</span>highway)</span>
+<span id="cb171-6"><a href="space.html#cb171-6"></a><span class="co">#filter osm_data to show only major roads</span></span>
+<span id="cb171-7"><a href="space.html#cb171-7"></a>roads =<span class="st"> </span>osm_data <span class="op">%&gt;%</span></span>
+<span id="cb171-8"><a href="space.html#cb171-8"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(highway, <span class="dt">pattern =</span> <span class="st">&quot;moto|prim|seco|tert|trunk&quot;</span>))</span>
+<span id="cb171-9"><a href="space.html#cb171-9"></a><span class="co"># transform geometry and save</span></span>
+<span id="cb171-10"><a href="space.html#cb171-10"></a>roads =<span class="st"> </span><span class="kw">st_transform</span>(roads, <span class="dv">27700</span>) <span class="co">#converts to projected BNG system for later use</span></span>
+<span id="cb171-11"><a href="space.html#cb171-11"></a><span class="kw">tm_shape</span>(roads) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="dt">showNA =</span> T, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb171-12"><a href="space.html#cb171-12"></a><span class="kw">plot</span>(roads<span class="op">$</span>geometry)</span>
+<span id="cb171-13"><a href="space.html#cb171-13"></a><span class="kw">saveRDS</span>(roads, <span class="dt">file =</span> <span class="st">&quot;roads.Rds&quot;</span>) <span class="co"># Saves road dataset for future use</span></span></code></pre></div>
+<div class="figure"><span id="fig:ex"></span>
+<img src="figures/ex-1.png" alt="Roads in Essex downloaded with the code shown above." width="672" />
+<p class="caption">
+Figure 7.6: Roads in Essex downloaded with the code shown above.
+</p>
+</div>
+</div>
+<div id="bonus-exercises" class="section level2 unnumbered">
+<h2>Bonus exercises</h2>
+<p>Identify a region and zonal units of interest from <a href="http://geoportal.statistics.gov.uk/" class="uri">http://geoportal.statistics.gov.uk/</a> or from the object <code>police_boundaries</code> in the <code>stats19</code> package.</p>
+<ol style="list-style-type: decimal">
+<li>Read them into R as an <code>sf</code> object</li>
+<li>Create a map showing the number of crashes in each zone</li>
+<li>Identify the average speed limit associated with crashes in each zone</li>
+<li>Identify an interesting question you can ask to the data and use exploratory data analysis to find answers</li>
+<li>Check another <a href="https://github.com/agila5/leeds_seminar">related project</a> for further information on smoothing techniques of counts on a linear network.
+<!-- 1. Take a look at the code in [the file iow_example.R in the inst directory in the stats19 repo](https://github.com/ropensci/stats19/blob/master/inst/iow_example.R). Run it to create smoothed estimates of crash frequency on the road network (see [code in the  GitHub repo](https://github.com/agila5/leeds_seminar/blob/master/examples.R) for further information on these preliminary methods). --></li>
+</ol>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="16">
+<li id="fn16"><p>
+The code chunk downloads and filters road data to show only main roads, and saves as an .Rds file for later use in your R project.
+The geometry of the <code>roads.Rds</code> file from this example is a one dimensional line representing the centre of the road.
+Some functions require the road to be treated as 2D polygon with a width property.
+You can use the <code>st_buffer()</code> function to turn this vector into a polygon.<a href="space.html#fnref16" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="time.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="join.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/saferactive/rrsrr/edit/master/07-space.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/saferactive/rrsrr/blob/master/07-space.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Using RStudio | Reproducible road safety research with R: A practical introduction</title>
+  <meta name="description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Using RStudio | Reproducible road safety research with R: A practical introduction" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://saferactive.github.io/rrsrr/" />
+  
+  <meta property="og:description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="github-repo" content="saferactive/rrsrr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Using RStudio | Reproducible road safety research with R: A practical introduction" />
+  
+  <meta name="twitter:description" content="A reproducible and open source approach to applied road safety research" />
+  
+
+<meta name="author" content="Robin Lovelace" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basics.html"/>
+<link rel="next" href="pkgs.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#thanks"><i class="fa fa-check"></i>Thanks</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#reproducibility"><i class="fa fa-check"></i><b>1.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-is-r"><i class="fa fa-check"></i><b>1.2</b> What is R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#why-r-for-road-safety-research"><i class="fa fa-check"></i><b>1.3</b> Why R for road safety research?</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.4</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.5</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#r-in-the-cloud"><i class="fa fa-check"></i><b>1.6</b> R in the cloud</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#install-pkgs"><i class="fa fa-check"></i><b>1.7</b> Recommended packages</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#overview"><i class="fa fa-check"></i><b>1.8</b> Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#creating-and-removing-r-objects"><i class="fa fa-check"></i><b>2.1</b> Creating and removing R objects</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#object-types-vectors-and-data-frames"><i class="fa fa-check"></i><b>2.2</b> Object types: vectors and data frames</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#subsetting-by-index-or-column-name"><i class="fa fa-check"></i><b>2.3</b> Subsetting by index or column name</a></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#subsetting-by-values"><i class="fa fa-check"></i><b>2.4</b> Subsetting by values</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#dealing-with-nas-and-recoding"><i class="fa fa-check"></i><b>2.5</b> Dealing with NAs and recoding</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#changing-class"><i class="fa fa-check"></i><b>2.6</b> Changing class</a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#recoding-values"><i class="fa fa-check"></i><b>2.7</b> Recoding values</a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#saving-r-objects"><i class="fa fa-check"></i><b>2.8</b> Saving R objects</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#now-you-are-ready-to-use-rstudio"><i class="fa fa-check"></i><b>2.9</b> Now you are ready to use RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>3</b> Using RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="rstudio.html"><a href="rstudio.html#projects-and-scripts"><i class="fa fa-check"></i><b>3.1</b> Projects and scripts</a></li>
+<li class="chapter" data-level="3.2" data-path="rstudio.html"><a href="rstudio.html#writing-and-running-code"><i class="fa fa-check"></i><b>3.2</b> Writing and running code</a></li>
+<li class="chapter" data-level="3.3" data-path="rstudio.html"><a href="rstudio.html#viewing-objects"><i class="fa fa-check"></i><b>3.3</b> Viewing Objects</a></li>
+<li class="chapter" data-level="3.4" data-path="rstudio.html"><a href="rstudio.html#autocompletion"><i class="fa fa-check"></i><b>3.4</b> Autocompletion</a></li>
+<li class="chapter" data-level="3.5" data-path="rstudio.html"><a href="rstudio.html#getting-help"><i class="fa fa-check"></i><b>3.5</b> Getting help</a></li>
+<li class="chapter" data-level="3.6" data-path="rstudio.html"><a href="rstudio.html#commenting-code"><i class="fa fa-check"></i><b>3.6</b> Commenting Code</a></li>
+<li class="chapter" data-level="3.7" data-path="rstudio.html"><a href="rstudio.html#the-global-environment"><i class="fa fa-check"></i><b>3.7</b> The global environment</a></li>
+<li class="chapter" data-level="3.8" data-path="rstudio.html"><a href="rstudio.html#debugging-code"><i class="fa fa-check"></i><b>3.8</b> Debugging Code</a></li>
+<li class="chapter" data-level="3.9" data-path="rstudio.html"><a href="rstudio.html#productivity-boosting-features"><i class="fa fa-check"></i><b>3.9</b> Productivity boosting features</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pkgs.html"><a href="pkgs.html"><i class="fa fa-check"></i><b>4</b> R packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="pkgs.html"><a href="pkgs.html#what-are-packages"><i class="fa fa-check"></i><b>4.1</b> What are packages?</a></li>
+<li class="chapter" data-level="4.2" data-path="pkgs.html"><a href="pkgs.html#the-stats19-r-package"><i class="fa fa-check"></i><b>4.2</b> The stats19 R package</a></li>
+<li class="chapter" data-level="4.3" data-path="pkgs.html"><a href="pkgs.html#installing-packages"><i class="fa fa-check"></i><b>4.3</b> Installing packages</a></li>
+<li class="chapter" data-level="4.4" data-path="pkgs.html"><a href="pkgs.html#loading-packages"><i class="fa fa-check"></i><b>4.4</b> Loading packages</a></li>
+<li class="chapter" data-level="4.5" data-path="pkgs.html"><a href="pkgs.html#using-packages"><i class="fa fa-check"></i><b>4.5</b> Using packages</a></li>
+<li class="chapter" data-level="4.6" data-path="pkgs.html"><a href="pkgs.html#updating-packages"><i class="fa fa-check"></i><b>4.6</b> Updating packages</a></li>
+<li class="chapter" data-level="4.7" data-path="pkgs.html"><a href="pkgs.html#ggplot2"><i class="fa fa-check"></i><b>4.7</b> ggplot2</a></li>
+<li class="chapter" data-level="4.8" data-path="pkgs.html"><a href="pkgs.html#dplyr"><i class="fa fa-check"></i><b>4.8</b> dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>5</b> Manipulating data</a><ul>
+<li class="chapter" data-level="5.1" data-path="data.html"><a href="data.html#tibbles"><i class="fa fa-check"></i><b>5.1</b> tibbles</a></li>
+<li class="chapter" data-level="5.2" data-path="data.html"><a href="data.html#filter-and-select-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> filter() and select() rows and columns</a></li>
+<li class="chapter" data-level="5.3" data-path="data.html"><a href="data.html#ordering-and-selecting-the-top-n"><i class="fa fa-check"></i><b>5.3</b> Ordering and selecting the ‘top n’</a></li>
+<li class="chapter" data-level="5.4" data-path="data.html"><a href="data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> Summarise</a></li>
+<li class="chapter" data-level="5.5" data-path="data.html"><a href="data.html#tidyverse-exercises"><i class="fa fa-check"></i><b>5.5</b> Tidyverse exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="time.html"><a href="time.html"><i class="fa fa-check"></i><b>6</b> Temporal data</a><ul>
+<li class="chapter" data-level="6.1" data-path="time.html"><a href="time.html#temporal-analysis-of-crash-data"><i class="fa fa-check"></i><b>6.1</b> Temporal analysis of crash data</a></li>
+<li class="chapter" data-level="6.2" data-path="time.html"><a href="time.html#handling-dates-and-date-times"><i class="fa fa-check"></i><b>6.2</b> Handling dates and date-times</a></li>
+<li class="chapter" data-level="6.3" data-path="time.html"><a href="time.html#hours-minutes-seconds-with-hms"><i class="fa fa-check"></i><b>6.3</b> Hours, minutes seconds with hms</a></li>
+<li class="chapter" data-level="6.4" data-path="time.html"><a href="time.html#the-lubridate-package"><i class="fa fa-check"></i><b>6.4</b> The lubridate package</a></li>
+<li class="chapter" data-level="6.5" data-path="time.html"><a href="time.html#dates-in-a-data-frame"><i class="fa fa-check"></i><b>6.5</b> Dates in a data frame</a></li>
+<li class="chapter" data-level="6.6" data-path="time.html"><a href="time.html#components-of-time-objects"><i class="fa fa-check"></i><b>6.6</b> Components of time objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="space.html"><a href="space.html"><i class="fa fa-check"></i><b>7</b> Spatial data</a><ul>
+<li class="chapter" data-level="7.1" data-path="space.html"><a href="space.html#sf-objects"><i class="fa fa-check"></i><b>7.1</b> sf objects</a></li>
+<li class="chapter" data-level="7.2" data-path="space.html"><a href="space.html#reading-and-writing-spatial-data"><i class="fa fa-check"></i><b>7.2</b> Reading and writing spatial data</a></li>
+<li class="chapter" data-level="7.3" data-path="space.html"><a href="space.html#sf-polygons"><i class="fa fa-check"></i><b>7.3</b> sf polygons</a></li>
+<li class="chapter" data-level="7.4" data-path="space.html"><a href="space.html#spatial-subsetting-and-sf-plotting"><i class="fa fa-check"></i><b>7.4</b> Spatial subsetting and sf plotting</a></li>
+<li class="chapter" data-level="7.5" data-path="space.html"><a href="space.html#geographic-joins"><i class="fa fa-check"></i><b>7.5</b> Geographic joins</a></li>
+<li class="chapter" data-level="7.6" data-path="space.html"><a href="space.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>7.6</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="7.7" data-path="space.html"><a href="space.html#buffers"><i class="fa fa-check"></i><b>7.7</b> Buffers</a></li>
+<li class="chapter" data-level="7.8" data-path="space.html"><a href="space.html#attribute-operations-on-sf-objects"><i class="fa fa-check"></i><b>7.8</b> Attribute operations on sf objects</a></li>
+<li class="chapter" data-level="7.9" data-path="space.html"><a href="space.html#mapping-road-crash-data"><i class="fa fa-check"></i><b>7.9</b> Mapping road crash data</a></li>
+<li class="chapter" data-level="7.10" data-path="space.html"><a href="space.html#analysing-point-data"><i class="fa fa-check"></i><b>7.10</b> Analysing point data</a></li>
+<li class="chapter" data-level="7.11" data-path="space.html"><a href="space.html#analysing-crash-data-on-road-networks"><i class="fa fa-check"></i><b>7.11</b> Analysing crash data on road networks</a></li>
+<li class="chapter" data-level="" data-path="space.html"><a href="space.html#bonus-exercises"><i class="fa fa-check"></i>Bonus exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>8</b> Joining road crash tables</a><ul>
+<li class="chapter" data-level="8.1" data-path="join.html"><a href="join.html#stats19-tables"><i class="fa fa-check"></i><b>8.1</b> STATS19 tables</a></li>
+<li class="chapter" data-level="8.2" data-path="join.html"><a href="join.html#locality"><i class="fa fa-check"></i><b>8.2</b> Locality</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="next.html"><a href="next.html"><i class="fa fa-check"></i><b>9</b> Next steps</a><ul>
+<li class="chapter" data-level="9.1" data-path="next.html"><a href="next.html#automated-reporting-with-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Automated reporting with RMarkdown</a></li>
+<li class="chapter" data-level="9.2" data-path="next.html"><a href="next.html#sharing-code"><i class="fa fa-check"></i><b>9.2</b> Sharing code</a></li>
+<li class="chapter" data-level="9.3" data-path="next.html"><a href="next.html#asking-questions"><i class="fa fa-check"></i><b>9.3</b> Asking questions</a></li>
+<li class="chapter" data-level="9.4" data-path="next.html"><a href="next.html#testimonials"><i class="fa fa-check"></i><b>9.4</b> Testimonials</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="next.html"><a href="next.html#r-for-professional-road-safety-analysts"><i class="fa fa-check"></i><b>9.4.1</b> R for professional road safety analysts</a></li>
+<li class="chapter" data-level="9.4.2" data-path="next.html"><a href="next.html#r-in-a-road-safety-research-consultancy"><i class="fa fa-check"></i><b>9.4.2</b> R in a road safety research consultancy</a></li>
+<li class="chapter" data-level="9.4.3" data-path="next.html"><a href="next.html#using-r-in-a-road-safety-charity"><i class="fa fa-check"></i><b>9.4.3</b> Using R in a road safety charity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible road safety research with R: A practical introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rstudio" class="section level1">
+<h1><span class="header-section-number">3</span> Using RStudio</h1>
+<p>The previous chapter taught the basic’s of the R language.
+We entered and ran commands directly in the console.
+In this chapter we will learn how to write R scripts in RStudio’s source editor.
+We will also take a step back and considers how R code fits into the wider context of scripts, projects, and getting help in RStudio.
+RStudio is an integrated development environment (IDE) for R that makes it easy to create and run scripts, explore R objects and functions, plot results, and get help.</p>
+<p>The first exercise is to open up RStudio and take a look around and identify the main components, shown in Figure <a href="rstudio.html#fig:rstudioui">3.1</a>.
+<strong>Explore each of the main components of RStudio.</strong>
+Try clicking on different buttons in RStudio’s GUI and try changing the Global Settings (in the Tools menu) and see RStudio’s short cuts by pressing <code>Alt-Shift-K</code> (or <code>Option+Shift+K</code> on Mac).</p>
+<div class="figure"><span id="fig:rstudioui"></span>
+<img src="figures/rstudio-ui.png" alt="The RStudio user interface showing the four main 'panes'." width="100%" />
+<p class="caption">
+Figure 3.1: The RStudio user interface showing the four main ‘panes’.
+</p>
+</div>
+<div id="projects-and-scripts" class="section level2">
+<h2><span class="header-section-number">3.1</span> Projects and scripts</h2>
+<p>Projects organise files and settings in RStudio into folders.
+Each project has its own folder and Rproj file.
+<strong>When using RStudio always ensure you are working in a named project to organise your work.</strong>
+Start a new project with by clicking on <code>File &gt; New Project</code> in RStudio’s top menu.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>
+You create projects either in a new directory (folder) or in an existing directory.
+<strong>Make a new project called lrrsrr (short for ‘learning reproducible road safety research with R’) or a name of your choice and save it in a sensible place on your computer.</strong>
+The name of the project will appear in the top right of RStudio.</p>
+<p><strong>Scripts</strong> are files where R code is stored and you edit them in the Source Editor panel (the top left panel in Figure <a href="rstudio.html#fig:rstudioui">3.1</a>).
+<strong>Keeping your code in sensibly named, well organised and reproducible scripts will make your life easier.</strong>
+We could continue typing all our code into the console, as we did in Chapter <a href="basics.html#basics">2</a>.
+However that approach is limited when working on anything more complicated than a few simple commands.
+Code that you want to keep and share should be saved script files, plain text files that have the <code>.R</code> extension.</p>
+<p>Make a new script by typing and running this command in the R console:<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="rstudio.html#cb51-1"></a><span class="kw">file.edit</span>(<span class="st">&quot;chapter3.R&quot;</span>)</span></code></pre></div>
+<p>That will open the Source Editor and place your cursor there.
+Try jumping between the Source Editor and the Console by pressing <code>Ctl+1</code> and <code>Ctl+2</code>.</p>
+<p>Keeping scripts and other files associated with a project in a single folder per project (in an RStudio project) will help you find things you need and develop an efficient workflow.
+To check that your project is saved, next close RStudio.
+In the next section we will re-open it and continue to edit the <code>chapter3.R</code> file.</p>
+</div>
+<div id="writing-and-running-code" class="section level2">
+<h2><span class="header-section-number">3.2</span> Writing and running code</h2>
+<p>Re-open RStudio and ensure that you have an empty file open in the Source Editor.
+We will type some basic commands into this file:
+type the following lines of code into your new <code>chapter3.R</code> R script and execute the result line-by-line by pressing Ctrl+Enter (Command+Enter on Mac):</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="rstudio.html#cb52-1"></a>x =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb52-2"><a href="rstudio.html#cb52-2"></a>y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">18</span>)</span>
+<span id="cb52-3"><a href="rstudio.html#cb52-3"></a><span class="kw">plot</span>(x, y)</span></code></pre></div>
+<!-- todo: add a gif? -->
+<p>When the code is sent to the console two objects are created, both of which are vectors of 5 elements (bonus: check their length using the <code>length()</code> function).
+The third line of the code chunk plots them.
+Save the script by pressing <code>Ctrl+S</code>.</p>
+<p>There are several ways to run code within a script and it is worth becoming familiar with each.
+Try running the code you saved in the previous section using each of these methods:</p>
+<ol style="list-style-type: decimal">
+<li>Place the cursor in different places on each line of code and press <code>Ctrl+Enter</code> to run that line of code.</li>
+<li>Highlight a block of code or part of a line of code and press <code>Ctrl+Enter</code> to run the highlighted code.</li>
+<li>Press <code>Ctrl+Shift+Enter</code> to run all the code in a script.</li>
+<li>Press the Run button on the toolbar to run all the code in a script.</li>
+<li>Bonus: Use the function <code>source()</code> to run all the code in a script e.g. <code>source("chapter3.R")</code>
+<!-- (but don't create an infinite loop!) --></li>
+</ol>
+<p>Practice jumping between the console and the source editor by pressing <code>Ctl+1</code> and <code>Ctl+2</code>.</p>
+</div>
+<div id="viewing-objects" class="section level2">
+<h2><span class="header-section-number">3.3</span> Viewing Objects</h2>
+<p>To practice typing code into scripts, rather than into the console, we will re-create the objects we created in Chapter <a href="basics.html#basics">2</a>.
+Create a new script called <code>objects.R</code> and type the following commands, character-for-character including spaces in the right places (typing rather than copy-pasting will help develop good coding style and speed):<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="rstudio.html#cb53-1"></a>vehicle_type =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;tank&quot;</span>)</span>
+<span id="cb53-2"><a href="rstudio.html#cb53-2"></a>casualty_type =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;pedestrian&quot;</span>, <span class="st">&quot;cyclist&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span>
+<span id="cb53-3"><a href="rstudio.html#cb53-3"></a>casualty_age =<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">20</span>, <span class="dt">to =</span> <span class="dv">60</span>, <span class="dt">by =</span> <span class="dv">20</span>)</span>
+<span id="cb53-4"><a href="rstudio.html#cb53-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb53-5"><a href="rstudio.html#cb53-5"></a>dark =<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb53-6"><a href="rstudio.html#cb53-6"></a>small_matrix =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>, <span class="dt">nrow =</span> <span class="dv">12</span>)</span>
+<span id="cb53-7"><a href="rstudio.html#cb53-7"></a>crashes =<span class="st"> </span><span class="kw">data.frame</span>(vehicle_type, casualty_type, casualty_age, dark)</span></code></pre></div>
+<p>Run the code line-by-line by pressing <code>Ctl+Enter</code> multiple times, as described in the previous section.
+Try viewing the objects in the following ways:</p>
+<ol style="list-style-type: decimal">
+<li>Type the name of the object into the console, e.g. <code>crashes</code> and <code>small_matrix</code>, and run that code. Scroll up to see the numbers that didn’t fit on the screen.</li>
+<li>Use the <code>head()</code> function to view just the first 6 rows e.g. <code>head(small_matrix)</code></li>
+<li>Bonus: use the <code>n</code> argument in the previous function call to show only the first 2 rows of <code>small_matrix</code></li>
+<li>Click on the <code>crashes</code> object in the environment tab to View it in a spreadsheet.</li>
+<li>Run the command <code>View(vehicle_type)</code>. What just happened?</li>
+</ol>
+<p>We can also get an overview of an object using a range of functions, including:</p>
+<ul>
+<li><code>summary()</code></li>
+<li><code>class()</code></li>
+<li><code>typeof()</code></li>
+<li><code>dim()</code></li>
+<li><code>length()</code></li>
+</ul>
+<p>View a summary of the <code>casualty_age</code> variable by running the following line of code (you should see the same output as shown below):</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="rstudio.html#cb54-1"></a><span class="kw">summary</span>(casualty_age)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##      20      30      40      40      50      60</code></pre>
+<p><strong>Exercise</strong> use the functions listed above (<code>class()</code> to <code>length()</code>) to test out basic R functions and get key information about the object <code>vehicle_type</code>.
+What does the output tell us about the object?</p>
+<!-- **Bonus**: Find out the class of the column `vehicle_type` in the data frame `crashes` with the command `class(crashes$vehicle_type)`. -->
+<!-- Why has it changed?  -->
+<!-- Create a new object called `crashes_char` that keeps the class of the character vectors intact by using the function `tibble::tibble()` (see [tibble.tidyverse.org](https://tibble.tidyverse.org/) and Section 4 for details). -->
+</div>
+<div id="autocompletion" class="section level2">
+<h2><span class="header-section-number">3.4</span> Autocompletion</h2>
+<p>RStudio can help you write code by autocompleting it. RStudio will look for similar objects and functions after typing the first three letters of a name.</p>
+<p><img src="figures/autocomplete.jpg" /><!-- --></p>
+<p>When there is more than one option you can select from the list using the mouse or arrow keys.
+Within a function, you can get a list of arguments by pressing Tab.</p>
+<p><img src="figures/functionhelp.jpg" /><!-- --></p>
+<p>Test out RStudio’s amazing auto-completion capabilities by typing in the beginning of object names and functions and pressing <code>Tab</code> to see what suggestions pop-up.
+Try pressing <code>Up</code> and <code>Down</code> after pressing <code>Tab</code> to select different options.</p>
+<p><strong>Bonus</strong>: try autocompleting file names by typing <code>""</code> (the closing quote mark should be added automatically) and pressing <code>Tab</code> when your cursor is between the quote marks. What happens when you type <code>"~/"</code> and press <code>Tab</code> with your cursor just after the tilde (<code>~</code>) symbol. What does this mean (hint it involves the word ‘home’ and you can search the web to help get a full answer)?</p>
+<!-- Todo: put this answer somewhere! -->
+<!-- It means that you can use RStudio as a command line file browser, ~ means you 'home folder'! -->
+</div>
+<div id="getting-help" class="section level2">
+<h2><span class="header-section-number">3.5</span> Getting help</h2>
+<p>Every function in R has a help page.
+You can view the help using <code>?</code> for example <code>?sum</code> and <code>?plot</code>.
+Many packages also contain vignettes, these are long form help documents containing examples and guides.
+<code>vignette()</code> will show a list of all the vignettes available, or you can show a specific vignette for example <code>vignette(topic = "sf1", package = "sf")</code>.</p>
+<p>Try getting help on the <code>stats19</code> package by typing the following and pressing <code>Tab</code> when your cursor is just to the left of the closing bracket <code>)</code> (autocompletion works for more than just R objects and files - try making RStudio autocomplete and run the command <code>vignette("stats19-vehicles")</code> for example):</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="rstudio.html#cb56-1"></a><span class="kw">vignette</span>(stats19)</span></code></pre></div>
+<p>You can further search and explore R’s help files using the <strong>Help</strong> panel in the bottom right window in RStudio.</p>
+</div>
+<div id="commenting-code" class="section level2">
+<h2><span class="header-section-number">3.6</span> Commenting Code</h2>
+<p>It is good practice to use comments in your code to explain what it does. You can comment code using <code>#</code></p>
+<p>For example:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="rstudio.html#cb57-1"></a><span class="co"># Create vector objects (a whole line comment)</span></span>
+<span id="cb57-2"><a href="rstudio.html#cb57-2"></a>x =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="co"># a seqence of consecutive integers (inline comment)</span></span>
+<span id="cb57-3"><a href="rstudio.html#cb57-3"></a>y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="fl">18.1</span>) </span></code></pre></div>
+<p>You can comment/uncomment a whole block of text by selecting it and using <code>Ctrl+Shift+C</code>.
+<!-- not sure about the next statement so commenting out (RL) -->
+<!-- and you can reformat a block of code using `Ctrl+Shift  + /`.  --></p>
+<p><strong>Pro tip:</strong> You can add a comment section using Ctrl + Shift + R</p>
+</div>
+<div id="the-global-environment" class="section level2">
+<h2><span class="header-section-number">3.7</span> The global environment</h2>
+<p>The Environment tab shows all the objects in your environment, this includes datasets, parameters, and any functions you have created.
+By default, new objects appear in the Global Environment but you can see other environments with the drop-down menu.
+For example, each package has its own environment.</p>
+<p>Sometimes you wish to remove things from your environment, perhaps because you no longer need them or things are getting cluttered.</p>
+<p>You can remove an object with the <code>rm()</code> function e.g. <code>rm(x)</code> or <code>rm(x, y)</code> or you can clear your whole environment with the broom button on the Environment Tab.</p>
+<ol style="list-style-type: decimal">
+<li>Remove the object <code>x</code> that was created in a previous section.</li>
+<li>What happens when you try to print the <code>x</code> by entering it into the console?</li>
+<li>Try running the following commands in order: <code>save.image(); rm(list = ls()); load(".RData")</code>. What happened?</li>
+<li>How big (how many bytes) is the <code>.RData</code> file in your project’s folder?</li>
+<li>Tidy up by removing the <code>.Rdata</code> file with <code>file.remove(".Rdata")</code>.</li>
+</ol>
+</div>
+<div id="debugging-code" class="section level2">
+<h2><span class="header-section-number">3.8</span> Debugging Code</h2>
+<p>All the code shown so far is reproducible and, unless you introduced typos, is ‘bug free’: it runs without errors.
+Typos are common though and even experienced R users frequently see error messages as they undertake interactive data analysis.
+For that reason learning to fix typos in R code is an important skill.
+RStudio comes to the rescue here with helpful debugging features.
+To test them out, write some code that fails as shown in the code chunk and Figure <a href="rstudio.html#fig:debug">3.2</a>, and answer the questions below by interacting with RStudio:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="rstudio.html#cb58-1"></a>x =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb58-2"><a href="rstudio.html#cb58-2"></a>y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span> <span class="fl">18.1</span>) <span class="co"># R code with a typo</span></span></code></pre></div>
+<pre><code>## Error: &lt;text&gt;:2:18: unexpected numeric constant
+## 1: x = 1:5
+## 2: y = c(0, 1, 3, 9 18.1
+##                     ^</code></pre>
+<div class="figure"><span id="fig:debug"></span>
+<img src="figures/rstudio-autocomplete.png" alt="Debugging code with RStudio: notice the wavy red line highlighting a typo." width="60%" />
+<p class="caption">
+Figure 3.2: Debugging code with RStudio: notice the wavy red line highlighting a typo.
+</p>
+</div>
+<ol style="list-style-type: decimal">
+<li>Try running the faulty code, how can the error message help debug the code?</li>
+<li>What is the problem with the code shown in the figure?</li>
+<li>Create other types of error in the code you have run (e.g. no symetrical brackets and other typos)</li>
+<li>Does RStudio pick up on the errors? And what happens when you try to run buggy code?</li>
+</ol>
+<p><strong>Always address debugging prompts to ensure your code is reproducible</strong></p>
+</div>
+<div id="productivity-boosting-features" class="section level2">
+<h2><span class="header-section-number">3.9</span> Productivity boosting features</h2>
+<!-- Todo: should these bullet points be subsubsections? -->
+<p>This final section describes functionality in RStudio that goes beyond the features described above.
+RStudio is an advanced and powerful IDE and is highly customisable in myriad ways, especially since the launch of the RStudio Addins add-on system in <a href="https://cran.r-project.org/web/packages/addinslist/readme/README.html">2016</a>.
+Rather than try to be comprehensive (an impossible task), this section provides a list of additional RStudio features, starting simple and ending advanced, that have been tried, tested and proven to work, with links to the relevant documentation rather than extended descriptions.</p>
+<ul>
+<li><p>Zoom levels and appearance settings: it is important for code and other text to be the right size. Too small and it’s hard to see, too big and you end up frequently scrolling up and down. The appropriate text size varies: if you’re doing a screen share big text is appropriate; if you’re writing copious amounts of text (as I was when writing this prose in RStudio) smaller text will be handy. On Windows and Linux you can zoom with the shortcuts <code>Ctl+Shift++</code> and <code>Ctl+-</code> for zooming in and out respectively. See Tools &gt; Global Options menu (which can be launched with the shortcut <code>Alt+T</code> and then <code>G</code>) for more advanced Appearance settings.</p></li>
+<li><p>Global search (and replace): in addition to search and replace functionality for single files (accessed in the standard way, by pressing <code>Ctl+F</code>), RStudio has a powerful global search feature inbuilt. Launch this feature by pressing <code>Ctl+Shift+F</code> and you can search any file types (e.g. only files ending in <code>.R</code>) for any string within an entire project. This feature is very handy when working with large, multi-file projects.</p></li>
+<li><p>Shortcuts: there are many, many shortcuts built into RStudio. In fact, there is even a shortcut to show the list of shortcuts. Try pressing <code>Alt+Shift+K</code> to get the complete list. Nobody I know can remember, let alone use, all of these. However, over time I expect that you will learn to love some of them. My top 5 RStudio-specific (there are many generic shortcuts such as <code>Ctl+A</code> to select all text) shortcuts are:<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<ul>
+<li><code>Ctl+Enter</code> to send a line of code from the code editor (called the Source Editor in RStudio) to be executed or ‘run’ in the console. Amazingly, some other prominent IDEs such as Microsoft’s VSCode editor, lack this important feature by default.</li>
+<li><code>Ctl+1</code> and <code>Ctl+2</code> to switch between the console (for writing test code and ‘run once’ commands) and the code editor (for writing code to keep).</li>
+<li><code>Alt+Up/Down</code> and <code>Alt+Shift+Up/Down</code> to move and copy lines of code up and down, handy when you want to re-order your code or make small changes to a copy of a line of code.</li>
+<li><a href="https://nhsrcommunity.com/blog/r-studio-shortcuts/"><code>Ctl+Shift+M</code></a> will create the pipe operator (<code>%&gt;%</code>, this pipe was created using the shortcut!), saving time when creating <code>dplyr</code> pipelines, as discussed in Chapter <a href="data.html#data">5</a>.</li>
+<li><code>Ctl+Shift+F10</code> when you want to restart R, leaving you with a ‘blank slate’ in which packages are not loaded and objects are removed from the global environment
+<!-- - Any other key ones? Todo: think about this... --></li>
+</ul></li>
+<li><p>Git integration for collaboration: RStudio provides two mechanisms for sharing your code with others via sites such as GitHub and GitLab, with the ‘Git’ panel in the top right pane and via the Terminal panel described in the next section.</p></li>
+<li><p>Support for Python, C++ and other languages: a joke on Twitter said “What’s the best Python editor? RStudio.” Although most Python programmers would probably disagree, the joke is true in the sense that R has good support for some other languages, Python and C++ in particular. If you open a Python script in RStudio on a computer that has Python and the <code>reticulate</code> R package installed, the R console will magically convert into a Python console when you press <code>Ctl+Enter</code> to execute a line of Python code, as described in the article “<a href="https://blog.rstudio.com/2018/10/09/rstudio-1-2-preview-reticulated-python/">Reticulated Python</a>” on the RStudio website.</p></li>
+</ul>
+<p>Like R package, an active community of developers is developing a range of extensions and RStudio itself is gradually evolving to meet the evolving needs of 21<sup>st</sup> Century data scientists.
+If there are any features that you would like to see, you can always ask others for pointers, e.g. on the <a href="https://community.rstudio.com/">RStudio Community forum</a>.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>
+You can also create new projects from the R command line, for example with the command <code>rstudioapi::openProject("lrrsrr")</code>.<a href="rstudio.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>
+You can also create new files by clicking on File &gt; New File &gt; R Script with the mouse, or with the keyboard shortcut by pressing <code>Ctrl+Shift+N</code>. You can save the script and give it a sensible name like <code>chapter3.R</code> with File &gt; Save or <code>Ctrl+S</code>.
+We recommend using the command <code>file.edit()</code> to create files, however, because it is faster and develops your typing skills.<a href="rstudio.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>
+Note: The <code>set.seed()</code> function is used to set the starting number in the random number generator used in R. Setting the seed to a fixed value in your code will ensure reproducability if you are using random number generation or sampling.<a href="rstudio.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>
+See online articles such as “<a href="https://www.dataquest.io/blog/rstudio-tips-tricks-shortcuts/">23 RStudio Tips, Tricks and Shortcuts</a>” for more comprehensive lists of useful RStudio shortcuts.<a href="rstudio.html#fnref10" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pkgs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/saferactive/rrsrr/edit/master/03-rstudio.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/saferactive/rrsrr/blob/master/03-rstudio.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 R basics | Reproducible road safety research with R: A practical introduction</title>
+  <meta name="description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 R basics | Reproducible road safety research with R: A practical introduction" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://saferactive.github.io/rrsrr/" />
+  
+  <meta property="og:description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="github-repo" content="saferactive/rrsrr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 R basics | Reproducible road safety research with R: A practical introduction" />
+  
+  <meta name="twitter:description" content="A reproducible and open source approach to applied road safety research" />
+  
+
+<meta name="author" content="Robin Lovelace" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="rstudio.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#thanks"><i class="fa fa-check"></i>Thanks</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#reproducibility"><i class="fa fa-check"></i><b>1.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-is-r"><i class="fa fa-check"></i><b>1.2</b> What is R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#why-r-for-road-safety-research"><i class="fa fa-check"></i><b>1.3</b> Why R for road safety research?</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.4</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.5</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#r-in-the-cloud"><i class="fa fa-check"></i><b>1.6</b> R in the cloud</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#install-pkgs"><i class="fa fa-check"></i><b>1.7</b> Recommended packages</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#overview"><i class="fa fa-check"></i><b>1.8</b> Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#creating-and-removing-r-objects"><i class="fa fa-check"></i><b>2.1</b> Creating and removing R objects</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#object-types-vectors-and-data-frames"><i class="fa fa-check"></i><b>2.2</b> Object types: vectors and data frames</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#subsetting-by-index-or-column-name"><i class="fa fa-check"></i><b>2.3</b> Subsetting by index or column name</a></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#subsetting-by-values"><i class="fa fa-check"></i><b>2.4</b> Subsetting by values</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#dealing-with-nas-and-recoding"><i class="fa fa-check"></i><b>2.5</b> Dealing with NAs and recoding</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#changing-class"><i class="fa fa-check"></i><b>2.6</b> Changing class</a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#recoding-values"><i class="fa fa-check"></i><b>2.7</b> Recoding values</a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#saving-r-objects"><i class="fa fa-check"></i><b>2.8</b> Saving R objects</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#now-you-are-ready-to-use-rstudio"><i class="fa fa-check"></i><b>2.9</b> Now you are ready to use RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>3</b> Using RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="rstudio.html"><a href="rstudio.html#projects-and-scripts"><i class="fa fa-check"></i><b>3.1</b> Projects and scripts</a></li>
+<li class="chapter" data-level="3.2" data-path="rstudio.html"><a href="rstudio.html#writing-and-running-code"><i class="fa fa-check"></i><b>3.2</b> Writing and running code</a></li>
+<li class="chapter" data-level="3.3" data-path="rstudio.html"><a href="rstudio.html#viewing-objects"><i class="fa fa-check"></i><b>3.3</b> Viewing Objects</a></li>
+<li class="chapter" data-level="3.4" data-path="rstudio.html"><a href="rstudio.html#autocompletion"><i class="fa fa-check"></i><b>3.4</b> Autocompletion</a></li>
+<li class="chapter" data-level="3.5" data-path="rstudio.html"><a href="rstudio.html#getting-help"><i class="fa fa-check"></i><b>3.5</b> Getting help</a></li>
+<li class="chapter" data-level="3.6" data-path="rstudio.html"><a href="rstudio.html#commenting-code"><i class="fa fa-check"></i><b>3.6</b> Commenting Code</a></li>
+<li class="chapter" data-level="3.7" data-path="rstudio.html"><a href="rstudio.html#the-global-environment"><i class="fa fa-check"></i><b>3.7</b> The global environment</a></li>
+<li class="chapter" data-level="3.8" data-path="rstudio.html"><a href="rstudio.html#debugging-code"><i class="fa fa-check"></i><b>3.8</b> Debugging Code</a></li>
+<li class="chapter" data-level="3.9" data-path="rstudio.html"><a href="rstudio.html#productivity-boosting-features"><i class="fa fa-check"></i><b>3.9</b> Productivity boosting features</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pkgs.html"><a href="pkgs.html"><i class="fa fa-check"></i><b>4</b> R packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="pkgs.html"><a href="pkgs.html#what-are-packages"><i class="fa fa-check"></i><b>4.1</b> What are packages?</a></li>
+<li class="chapter" data-level="4.2" data-path="pkgs.html"><a href="pkgs.html#the-stats19-r-package"><i class="fa fa-check"></i><b>4.2</b> The stats19 R package</a></li>
+<li class="chapter" data-level="4.3" data-path="pkgs.html"><a href="pkgs.html#installing-packages"><i class="fa fa-check"></i><b>4.3</b> Installing packages</a></li>
+<li class="chapter" data-level="4.4" data-path="pkgs.html"><a href="pkgs.html#loading-packages"><i class="fa fa-check"></i><b>4.4</b> Loading packages</a></li>
+<li class="chapter" data-level="4.5" data-path="pkgs.html"><a href="pkgs.html#using-packages"><i class="fa fa-check"></i><b>4.5</b> Using packages</a></li>
+<li class="chapter" data-level="4.6" data-path="pkgs.html"><a href="pkgs.html#updating-packages"><i class="fa fa-check"></i><b>4.6</b> Updating packages</a></li>
+<li class="chapter" data-level="4.7" data-path="pkgs.html"><a href="pkgs.html#ggplot2"><i class="fa fa-check"></i><b>4.7</b> ggplot2</a></li>
+<li class="chapter" data-level="4.8" data-path="pkgs.html"><a href="pkgs.html#dplyr"><i class="fa fa-check"></i><b>4.8</b> dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>5</b> Manipulating data</a><ul>
+<li class="chapter" data-level="5.1" data-path="data.html"><a href="data.html#tibbles"><i class="fa fa-check"></i><b>5.1</b> tibbles</a></li>
+<li class="chapter" data-level="5.2" data-path="data.html"><a href="data.html#filter-and-select-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> filter() and select() rows and columns</a></li>
+<li class="chapter" data-level="5.3" data-path="data.html"><a href="data.html#ordering-and-selecting-the-top-n"><i class="fa fa-check"></i><b>5.3</b> Ordering and selecting the ‘top n’</a></li>
+<li class="chapter" data-level="5.4" data-path="data.html"><a href="data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> Summarise</a></li>
+<li class="chapter" data-level="5.5" data-path="data.html"><a href="data.html#tidyverse-exercises"><i class="fa fa-check"></i><b>5.5</b> Tidyverse exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="time.html"><a href="time.html"><i class="fa fa-check"></i><b>6</b> Temporal data</a><ul>
+<li class="chapter" data-level="6.1" data-path="time.html"><a href="time.html#temporal-analysis-of-crash-data"><i class="fa fa-check"></i><b>6.1</b> Temporal analysis of crash data</a></li>
+<li class="chapter" data-level="6.2" data-path="time.html"><a href="time.html#handling-dates-and-date-times"><i class="fa fa-check"></i><b>6.2</b> Handling dates and date-times</a></li>
+<li class="chapter" data-level="6.3" data-path="time.html"><a href="time.html#hours-minutes-seconds-with-hms"><i class="fa fa-check"></i><b>6.3</b> Hours, minutes seconds with hms</a></li>
+<li class="chapter" data-level="6.4" data-path="time.html"><a href="time.html#the-lubridate-package"><i class="fa fa-check"></i><b>6.4</b> The lubridate package</a></li>
+<li class="chapter" data-level="6.5" data-path="time.html"><a href="time.html#dates-in-a-data-frame"><i class="fa fa-check"></i><b>6.5</b> Dates in a data frame</a></li>
+<li class="chapter" data-level="6.6" data-path="time.html"><a href="time.html#components-of-time-objects"><i class="fa fa-check"></i><b>6.6</b> Components of time objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="space.html"><a href="space.html"><i class="fa fa-check"></i><b>7</b> Spatial data</a><ul>
+<li class="chapter" data-level="7.1" data-path="space.html"><a href="space.html#sf-objects"><i class="fa fa-check"></i><b>7.1</b> sf objects</a></li>
+<li class="chapter" data-level="7.2" data-path="space.html"><a href="space.html#reading-and-writing-spatial-data"><i class="fa fa-check"></i><b>7.2</b> Reading and writing spatial data</a></li>
+<li class="chapter" data-level="7.3" data-path="space.html"><a href="space.html#sf-polygons"><i class="fa fa-check"></i><b>7.3</b> sf polygons</a></li>
+<li class="chapter" data-level="7.4" data-path="space.html"><a href="space.html#spatial-subsetting-and-sf-plotting"><i class="fa fa-check"></i><b>7.4</b> Spatial subsetting and sf plotting</a></li>
+<li class="chapter" data-level="7.5" data-path="space.html"><a href="space.html#geographic-joins"><i class="fa fa-check"></i><b>7.5</b> Geographic joins</a></li>
+<li class="chapter" data-level="7.6" data-path="space.html"><a href="space.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>7.6</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="7.7" data-path="space.html"><a href="space.html#buffers"><i class="fa fa-check"></i><b>7.7</b> Buffers</a></li>
+<li class="chapter" data-level="7.8" data-path="space.html"><a href="space.html#attribute-operations-on-sf-objects"><i class="fa fa-check"></i><b>7.8</b> Attribute operations on sf objects</a></li>
+<li class="chapter" data-level="7.9" data-path="space.html"><a href="space.html#mapping-road-crash-data"><i class="fa fa-check"></i><b>7.9</b> Mapping road crash data</a></li>
+<li class="chapter" data-level="7.10" data-path="space.html"><a href="space.html#analysing-point-data"><i class="fa fa-check"></i><b>7.10</b> Analysing point data</a></li>
+<li class="chapter" data-level="7.11" data-path="space.html"><a href="space.html#analysing-crash-data-on-road-networks"><i class="fa fa-check"></i><b>7.11</b> Analysing crash data on road networks</a></li>
+<li class="chapter" data-level="" data-path="space.html"><a href="space.html#bonus-exercises"><i class="fa fa-check"></i>Bonus exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>8</b> Joining road crash tables</a><ul>
+<li class="chapter" data-level="8.1" data-path="join.html"><a href="join.html#stats19-tables"><i class="fa fa-check"></i><b>8.1</b> STATS19 tables</a></li>
+<li class="chapter" data-level="8.2" data-path="join.html"><a href="join.html#locality"><i class="fa fa-check"></i><b>8.2</b> Locality</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="next.html"><a href="next.html"><i class="fa fa-check"></i><b>9</b> Next steps</a><ul>
+<li class="chapter" data-level="9.1" data-path="next.html"><a href="next.html#automated-reporting-with-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Automated reporting with RMarkdown</a></li>
+<li class="chapter" data-level="9.2" data-path="next.html"><a href="next.html#sharing-code"><i class="fa fa-check"></i><b>9.2</b> Sharing code</a></li>
+<li class="chapter" data-level="9.3" data-path="next.html"><a href="next.html#asking-questions"><i class="fa fa-check"></i><b>9.3</b> Asking questions</a></li>
+<li class="chapter" data-level="9.4" data-path="next.html"><a href="next.html#testimonials"><i class="fa fa-check"></i><b>9.4</b> Testimonials</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="next.html"><a href="next.html#r-for-professional-road-safety-analysts"><i class="fa fa-check"></i><b>9.4.1</b> R for professional road safety analysts</a></li>
+<li class="chapter" data-level="9.4.2" data-path="next.html"><a href="next.html#r-in-a-road-safety-research-consultancy"><i class="fa fa-check"></i><b>9.4.2</b> R in a road safety research consultancy</a></li>
+<li class="chapter" data-level="9.4.3" data-path="next.html"><a href="next.html#using-r-in-a-road-safety-charity"><i class="fa fa-check"></i><b>9.4.3</b> Using R in a road safety charity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible road safety research with R: A practical introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basics" class="section level1">
+<h1><span class="header-section-number">2</span> R basics</h1>
+<p>Learning a programming language is similar to learning a human language such as French.
+Although you could just dive in and start gesticulating to people in central Paris, it’s worth taking time to understand the structure and key words of the language first.
+The same applies to data science: it will help to understand a little about syntax and grammar of the language that we will use to do things with data (the statistical programming language R) before diving into using it for road safety research.
+This chapter may seem tedious for people who just want to crack on and load-in data.
+However, working through the examples below is recommended for most people unless you’re already an experienced R user, and even experienced R users may learn something about the language’s syntax and fundamental features.</p>
+<p>The first step is to <strong>start RStudio</strong>, e.g. by tapping the Start button and searching for RStudio if you are on Windows.
+You should see an ‘R console pane’ like that displayed in Figure <a href="basics.html#fig:console">2.1</a>.</p>
+<div class="figure"><span id="fig:console"></span>
+<img src="figures/console.png" alt="The R console pane in RStudio that appears when you first open RStudio. After typing install.packages(stats), you should see the package name auto-complete. Pressing Enter at this point will trigger the autocompletion of the command `install.packages(&quot;stats19&quot;)." width="958" />
+<p class="caption">
+Figure 2.1: The R console pane in RStudio that appears when you first open RStudio. After typing install.packages(stats), you should see the package name auto-complete. Pressing Enter at this point will trigger the autocompletion of the command `install.packages(“stats19”).
+</p>
+</div>
+<p>If you saw something like that shown in Figure <a href="basics.html#fig:console">2.1</a> congratulations!
+You are ready to start running R code by entering commands into the console.</p>
+<div id="creating-and-removing-r-objects" class="section level2">
+<h2><span class="header-section-number">2.1</span> Creating and removing R objects</h2>
+<p>R can be understood as a giant calculator.
+If you feed the console arithmetic tasks, it will solve them precisely and instantly.
+Try typing the following examples (note that <code>pi</code> is an inbuilt object) into the R console in RStudio and pressing <code>Enter</code> to make R run the code. The output of the code, when shown in this book, is preceeded by ‘##’.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="basics.html#cb3-1"></a><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">19</span></span></code></pre></div>
+<pre><code>## [1] 21</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="basics.html#cb5-1"></a>pi<span class="op">^</span>(<span class="dv">19</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(<span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">19</span>) </span></code></pre></div>
+<pre><code>## [1] 20.89119</code></pre>
+<p>Use the same approach to find the square route of 361 (answer not shown):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="basics.html#cb7-1"></a><span class="kw">sqrt</span>(<span class="dv">361</span>)</span></code></pre></div>
+<p>This is all well and good, providing a chance to see how R works with numbers and to get practice with typing commands into the console.
+However, the code chunks above do not make use of a key benefit of R: it is <em>object oriented</em>, meaning it stores values and complex objects, such as data frames representing road casualties, and processes them <em>in memory</em> (meaning that R is both fast and memory hungry when working with large datasets).
+If you are more familiar with Excel, a data frame may be thought of as fulfilling the purpose of a single worksheet containing a set of data.</p>
+<p>The two most common ways of creating objects are using <code>&lt;-</code> ‘arrow’ or <code>=</code> ‘equals’ assignment.
+These symbols are <em>assignment operators</em> because they assign contents, such as numbers, to named objects.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
+Let’s reproduce the calculations above using objects.
+This makes the final command more concise:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="basics.html#cb8-1"></a>x =<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb8-2"><a href="basics.html#cb8-2"></a>y =<span class="st"> </span><span class="dv">19</span></span>
+<span id="cb8-3"><a href="basics.html#cb8-3"></a>z =<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y</span>
+<span id="cb8-4"><a href="basics.html#cb8-4"></a>pi<span class="op">^</span>z <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(z)</span></code></pre></div>
+<pre><code>## [1] 20.89119</code></pre>
+<p>The previous code chunk created and stored three objects called <code>x</code>, <code>y</code> and <code>z</code> and showed how these objects can themselves be used to create additional objects.
+Why <code>x</code>, <code>y</code> and <code>z</code>?
+Lack of imagination!</p>
+<p>You can call R objects anything you like, provided they do not start with numbers or contain reserved symbols such as <code>+</code> and <code>-</code>.
+You can use various stylistic conventions when naming your R objects, including <code>camelCase</code> and <code>dot.case</code>
+<span class="citation">(Baath 2012)</span>.
+We advocate using <code>snake_case</code>, a style that avoids upper case characters to ease typing and uses the underscore symbol (<code>_</code>) to clearly demarcate spaces between words.</p>
+<p>The objects created in the previous code chunk have now served their purpose (to demonstrate basic object creation in R) so, based on the wise saying that tidying up is the most important part of a job, we will now remove these objects:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="basics.html#cb10-1"></a><span class="kw">rm</span>(x, y, z)</span></code></pre></div>
+<p>What just happened?
+We removed the objects using the R function <code>rm()</code>, which stands for ‘remove’.
+A function is an instruction or set of instructions for R to do something with what we give to that function.
+What we give to the function are known as arguments.
+Each function has set of arguments we can potentially give to it.</p>
+<p>Technically speaking, we <em>passed the objects to arguments in the <code>rm()</code> function call</em>.
+In plain English, things that go inside the curved brackets that follow a function name are the arguments.
+The <code>rm()</code> function removes the objects that it is passed (most functions modify objects).
+A ‘nuclear option’ for cleaning your workspace is to run the following command, the meaning of which you will learn in the next section (can you guess?):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="basics.html#cb11-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
+<p>Next exercise: create objects that more closely approximate road casualty data by typing and running the following lines of code in the console:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basics.html#cb12-1"></a>casualty_type =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;pedestrian&quot;</span>, <span class="st">&quot;cyclist&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span>
+<span id="cb12-2"><a href="basics.html#cb12-2"></a>casualty_age =<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">20</span>, <span class="dt">to =</span> <span class="dv">60</span>, <span class="dt">by =</span> <span class="dv">20</span>)</span></code></pre></div>
+</div>
+<div id="object-types-vectors-and-data-frames" class="section level2">
+<h2><span class="header-section-number">2.2</span> Object types: vectors and data frames</h2>
+<p>The final stage in the previous section was to create two objects with sensible names in our R session.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>
+After running the previous code chunk the <code>casualty_*</code> objects are in the workspace (technically, the ‘global environment’).
+You should be able to see the object names in the Environment tab in the top right of RStudio.
+Objects can also be listed with the <code>ls()</code> command as follows:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="basics.html#cb13-1"></a><span class="kw">ls</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;casualty_age&quot;  &quot;casualty_type&quot;</code></pre>
+<p>The previous command executed the function <code>ls()</code> with no arguments.
+This helps explain the command <code>rm(list = ls())</code>, which removed all objects in in the global environment in the previous section.
+<!-- The command basically means 'remove everything', **used with caution**. -->
+This also makes the wider point that functions can accept arguments (in this case the <code>list</code> argument of the <code>rm()</code> function) that are themselves function calls.</p>
+<p>Two key functions for getting the measure of R objects are <code>class()</code> and <code>length()</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="basics.html#cb15-1"></a><span class="kw">class</span>(casualty_type)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="basics.html#cb17-1"></a><span class="kw">class</span>(casualty_age)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>The class of the <code>casualty_type</code> and <code>casualty_type</code> objects are <code>character</code> (meaning text) and <code>numeric</code> (meaning numbers), respectively.
+The objects are <em>vectors</em>, a sequence of values of the same type.
+Next challenge: guess their length and check your guess was correct by running the following commands (results not shown):</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="basics.html#cb19-1"></a><span class="kw">length</span>(casualty_type)</span>
+<span id="cb19-2"><a href="basics.html#cb19-2"></a><span class="kw">length</span>(casualty_age)</span></code></pre></div>
+<p>To convert a series of vectors into a data frame with rows and columns (similar to an Excel worksheet), we will use the <code>data.frame()</code> function.
+Create a data frame containing the two casualty vectors as follows:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="basics.html#cb20-1"></a>crashes =<span class="st"> </span><span class="kw">data.frame</span>(casualty_type, casualty_age)</span></code></pre></div>
+<p>We can see the contents of the new <code>crashes</code> object by entering the following line of code.
+This prints its the contents (results not shown, you need to run the command on your own computer to see the result):</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="basics.html#cb21-1"></a>crashes</span></code></pre></div>
+<p>We can get a handle of data frame objects such as <code>crashes</code> as follows:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="basics.html#cb22-1"></a><span class="kw">class</span>(crashes)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="basics.html#cb24-1"></a><span class="kw">nrow</span>(crashes)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="basics.html#cb26-1"></a><span class="kw">ncol</span>(crashes)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>The results of the previous commands tell us that the dataset has 3 rows and 2 columns.
+We will use larger datasets, with thousands of rows and tens of columns, in later chapters but for now it’s good to ‘start small’ to understand the basics of R.</p>
+</div>
+<div id="subsetting-by-index-or-column-name" class="section level2">
+<h2><span class="header-section-number">2.3</span> Subsetting by index or column name</h2>
+<p>As we saw above, the most basic type of R object is a <em>vector</em>, a sequence of values of the same type such as the numbers in the object <code>casualty_age</code>.
+In the earlier examples, <code>x</code>, <code>y</code> and <code>z</code> were all <em>numeric vectors</em> with a length of 1; <code>casualty_type</code> is a <em>character vector</em> (because it contains letters that cannot be added) of length 3; and <code>casualty_age</code> is a <em>numeric vector</em> of length 3.</p>
+<p>Subsetting means ‘extracting’ only part of a vector or other object, so only the parts of most interest are returned to us.
+Subsets of vectors can be returned by providing numbers representing the positions (index) of the elements within the vector (e.g. ‘2’ representing selection of the 2<sup>nd</sup> element) or with logical (<code>TRUE</code> or <code>FALSE</code>) values associated with the element.
+These methods are demonstrated below to return the 2nd element of the <code>casualty_age</code> object, for example:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="basics.html#cb28-1"></a>casualty_age</span></code></pre></div>
+<pre><code>## [1] 20 40 60</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="basics.html#cb30-1"></a>casualty_age[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 40</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="basics.html#cb32-1"></a>casualty_age[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</span></code></pre></div>
+<pre><code>## [1] 40</code></pre>
+<p>Two dimensional objects such as matrices and data frames can be subset by rows and columns.
+Subsetting in base R is done by using square brackets <code>[]</code> after the name of an object.
+<strong>Run the following commands to practice subsetting by index and column name and verify that you get the same results that are shown below.</strong></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="basics.html#cb34-1"></a>casualty_age[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># second and third casualty_age</span></span>
+<span id="cb34-2"><a href="basics.html#cb34-2"></a>crashes[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), ] <span class="co"># first and second row of crashes</span></span>
+<span id="cb34-3"><a href="basics.html#cb34-3"></a>crashes[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">1</span>] <span class="co"># first and second row of crashes, first column</span></span>
+<span id="cb34-4"><a href="basics.html#cb34-4"></a>crashes<span class="op">$</span>casualty_type <span class="co"># returns just one column</span></span></code></pre></div>
+<p>The final command used the dollar symbol (<code>$</code>) to subset a column.
+We can use the same symbol to create a new column as follows:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="basics.html#cb35-1"></a>vehicle_type =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;tank&quot;</span>)</span>
+<span id="cb35-2"><a href="basics.html#cb35-2"></a>crashes<span class="op">$</span>vehicle_type =<span class="st"> </span>vehicle_type</span>
+<span id="cb35-3"><a href="basics.html#cb35-3"></a><span class="kw">ncol</span>(crashes)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>Notice that the dataset now has three columns after we added one to the right of the previous one.
+Note also that this would involve copying and pasting cells in Excel, but in R it is instant and happens as fast as you can type the command.
+To confirm what we think has happened has actually happened, let’s print out the object again to see its contents:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="basics.html#cb37-1"></a>crashes</span></code></pre></div>
+<pre><code>##   casualty_type casualty_age vehicle_type
+## 1    pedestrian           20          car
+## 2       cyclist           40          bus
+## 3           cat           60         tank</code></pre>
+<p>In Chapter <a href="data.html#data">5</a> we will use <code>filter()</code> and <code>select()</code> functions to subset rows and columns.
+Before we get there, it is worth practicing subsetting using the square brackets to consolidate your understanding of how base R works with vector objects such as <code>vehicle_type</code> and data frames such as <code>crashes</code>.
+If you can answer the following questions, congratulations, you are ready to move on.
+If not, it’s worth doing some extra reading and practice on the topic of subsetting in base R.</p>
+<!-- ## Exercises {-} -->
+<!-- Todo: should these be sections? -->
+<p><strong>Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Use the <code>$</code> operator to print the <code>vehicle_type</code> column of <code>crashes</code>.</li>
+<li>Subset the crashes with the <code>[,]</code> syntax so that only the first and third columns of <code>crashes</code> are returned.</li>
+<li>Return the 2<sup>nd</sup> row and the 3<sup>rd</sup> column of the <code>crashes</code> dataset.</li>
+<li>Return the 2<sup>nd</sup> row and the columns 2:3 of the <code>crashes</code> dataset.</li>
+<li><strong>Bonus</strong>: what is the <code>class()</code> of the objects created by each of the previous exercises?</li>
+</ol>
+</div>
+<div id="subsetting-by-values" class="section level2">
+<h2><span class="header-section-number">2.4</span> Subsetting by values</h2>
+<p>It is also possible to subset objects by the values of their elements.
+This works because the <code>[</code> operator accepts logical vectors returned by queries such as ‘is it less than 3?’ (<code>x &lt; 3</code> in R) and ‘was it light?’ (<code>crashes$dark == FALSE</code>), as demonstrated below:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="basics.html#cb39-1"></a>x[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)] <span class="co"># 1st, 3rd, and 5th element in x</span></span>
+<span id="cb39-2"><a href="basics.html#cb39-2"></a>x[x <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] <span class="co"># only when x == 5 (notice the use of double equals)</span></span>
+<span id="cb39-3"><a href="basics.html#cb39-3"></a>x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>] <span class="co"># less than 3</span></span>
+<span id="cb39-4"><a href="basics.html#cb39-4"></a>x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>] =<span class="st"> </span><span class="dv">0</span> <span class="co"># assign specific elements</span></span>
+<span id="cb39-5"><a href="basics.html#cb39-5"></a>casualty_age[casualty_age <span class="op">%%</span><span class="st"> </span><span class="dv">6</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] <span class="co"># just the ages that are a multiple of 6</span></span>
+<span id="cb39-6"><a href="basics.html#cb39-6"></a>crashes[crashes<span class="op">$</span>dark <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>, ] <span class="co"># just crashes that occured when it wasnt dark</span></span></code></pre></div>
+<p><strong>Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Subset the <code>casualty_age</code> object using the inequality (<code>&lt;</code>) so that only elements less than 50 are returned.</li>
+<li>Subset the <code>crashes</code> data frame so that only tanks are returned using the <code>==</code> operator.</li>
+<li><strong>Bonus</strong>: assign the age of all tanks to 61.</li>
+</ol>
+</div>
+<div id="dealing-with-nas-and-recoding" class="section level2">
+<h2><span class="header-section-number">2.5</span> Dealing with NAs and recoding</h2>
+<p>R objects can have a value of NA. NA is how R represents missing data.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="basics.html#cb40-1"></a>z =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="ot">NA</span>, <span class="dv">7</span>)</span></code></pre></div>
+<p>NA values are common in real-world data but can cause trouble, for example</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="basics.html#cb41-1"></a><span class="kw">sum</span>(z) <span class="co"># result is NA</span></span></code></pre></div>
+<p>Some functions can be told to ignore NA values.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="basics.html#cb42-1"></a><span class="kw">sum</span>(z, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># result is equal to 4 + 5 + 7</span></span></code></pre></div>
+<p>You can find NAs using the <code>is.na()</code> function, and then remove them</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="basics.html#cb43-1"></a><span class="kw">is.na</span>(z)</span>
+<span id="cb43-2"><a href="basics.html#cb43-2"></a>z_no_na =<span class="st"> </span>z[<span class="op">!</span><span class="kw">is.na</span>(z)] <span class="co"># note the use of the not operator !</span></span>
+<span id="cb43-3"><a href="basics.html#cb43-3"></a><span class="kw">sum</span>(z)</span></code></pre></div>
+<p>If you remove records with NAs be warned: the average of a value excluding NAs may not be representative.</p>
+</div>
+<div id="changing-class" class="section level2">
+<h2><span class="header-section-number">2.6</span> Changing class</h2>
+<p>Sometimes you may want to change the class of an object.
+This is called class coercion, and can be done with functions such as <code>as.logical()</code>, <code>as.numeric()</code> and <code>as.matrix()</code>.</p>
+<p><strong>Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Coerce the <code>vehicle_type</code> column of <code>crashes</code> to the class <code>character</code>.</li>
+<li>Coerce the <code>crashes</code> object into a matrix. What happened to the values?</li>
+<li><strong>Bonus:</strong> What is the difference between the output of <code>summary()</code> on <code>character</code> and <code>factor</code> variables?</li>
+</ol>
+</div>
+<div id="recoding-values" class="section level2">
+<h2><span class="header-section-number">2.7</span> Recoding values</h2>
+<p>Often it is useful to ‘recode’ values.
+In the raw STATS19 files, for example, -1 means NA.
+There are many ways to recode values in R, the simplest and most mature of which is the use of factors, which are whole numbers representing characters. Factors are commonly used to manage categorical variables such as sex, ethnicity or, in road traffic research, vehicle type or casualty injury severity.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="basics.html#cb44-1"></a>z =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">-1</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb44-2"><a href="basics.html#cb44-2"></a>l =<span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>) <span class="co"># labels in ascending order</span></span>
+<span id="cb44-3"><a href="basics.html#cb44-3"></a>z_factor =<span class="st"> </span><span class="kw">factor</span>(z, <span class="dt">labels =</span> l) <span class="co"># factor z using labels l</span></span>
+<span id="cb44-4"><a href="basics.html#cb44-4"></a>z_character =<span class="st"> </span><span class="kw">as.character</span>(z_factor) <span class="co"># convert factors to characters</span></span>
+<span id="cb44-5"><a href="basics.html#cb44-5"></a>z_character</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; NA  &quot;a&quot; &quot;c&quot;</code></pre>
+<p><strong>Exercises</strong></p>
+<ol style="list-style-type: decimal">
+<li>Recode <code>z</code> to Slight, Serious and Fatal for 1:3 respectively.</li>
+<li><strong>Bonus:</strong> read the help file at <code>?dplyr::case_when</code> and try to recode the values using this function.</li>
+</ol>
+</div>
+<div id="saving-r-objects" class="section level2">
+<h2><span class="header-section-number">2.8</span> Saving R objects</h2>
+<p>You can also save individual R objects as <code>.Rds</code> files.
+The <code>.Rds</code> format is the data format for R, meaning that any R object can be saved as an <code>Rds</code> file, equivalent to saving an Excel spreadsheet as a <code>.xlsx</code> file.
+The following command saves the <code>crashes</code> dataset into a compressed file called <code>crashes.Rds</code>:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="basics.html#cb46-1"></a><span class="kw">saveRDS</span>(crashes, <span class="st">&quot;crashes.Rds&quot;</span>)</span></code></pre></div>
+<p>Try reading in the data just saved, and checking that the new object is the same as <code>crashes</code>, as follows:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="basics.html#cb47-1"></a>crashes2 =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;crashes.Rds&quot;</span>)</span>
+<span id="cb47-2"><a href="basics.html#cb47-2"></a><span class="kw">identical</span>(crashes, crashes2)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>R also supports many other formats, including CSV files, which can be created and imported with the functions <code>readr::read_csv()</code> and <code>readr::write_csv()</code> (see also the <a href="https://readr.tidyverse.org/">readr</a> package).</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="basics.html#cb49-1"></a>readr<span class="op">::</span><span class="kw">write_csv</span>(crashes, <span class="st">&quot;crashes.csv&quot;</span>) <span class="co"># uses the write_csv function from the readr package</span></span>
+<span id="cb49-2"><a href="basics.html#cb49-2"></a>crashes3 =<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;crashes.csv&quot;</span>)</span>
+<span id="cb49-3"><a href="basics.html#cb49-3"></a><span class="kw">identical</span>(crashes3, crashes) </span></code></pre></div>
+<p>Notice that <code>crashes3</code> and <code>crashes</code> are not identical, what has changed? Hint: read the help page associated with <code>?readr::write_csv</code>.</p>
+</div>
+<div id="now-you-are-ready-to-use-rstudio" class="section level2">
+<h2><span class="header-section-number">2.9</span> Now you are ready to use RStudio</h2>
+<p><strong>Bonus: reproduce the following plot by typing the following code into the console.</strong></p>
+<!-- Todo: find a better place for this comment: -->
+<!-- Note: Any characters on a line of R script following the '#' symbol are not read as part of the computer code. It is used for writing plain English comments on the code to help naviage and understand what you have written. It is also used to 'comment-out' lines of code if you do not want them to run. See section 3.6 for more details. -->
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="basics.html#cb50-1"></a>eyes =<span class="st"> </span><span class="kw">c</span>(<span class="fl">2.3</span>, <span class="dv">4</span>, <span class="fl">3.7</span>, <span class="dv">4</span>)</span>
+<span id="cb50-2"><a href="basics.html#cb50-2"></a>eyes =<span class="st"> </span><span class="kw">matrix</span>(eyes, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> T)</span>
+<span id="cb50-3"><a href="basics.html#cb50-3"></a>mouth =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">2.5</span>, <span class="fl">1.3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="fl">3.5</span>, <span class="fl">1.3</span>, <span class="dv">4</span>, <span class="dv">2</span>)</span>
+<span id="cb50-4"><a href="basics.html#cb50-4"></a>mouth =<span class="st"> </span><span class="kw">matrix</span>(mouth, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> T)</span>
+<span id="cb50-5"><a href="basics.html#cb50-5"></a><span class="kw">plot</span>(eyes, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;RRR!&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>))</span>
+<span id="cb50-6"><a href="basics.html#cb50-6"></a><span class="kw">lines</span>(mouth, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-33-1.png" width="672" /></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>
+We use equals assignment for speed of typing and to avoid ambiguity in commands such as <code>x&lt;-1</code> vs <code>x&lt; -1</code>, although <code>&lt;-</code> has historically been (and still is) more commonly used in many fields.<a href="basics.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>
+The R session can be restarted by closing RStudio and then reopening it, or by pressing <code>Ctl+Shift+F10</code>.
+Restarting R in this way will make R ‘forget’ the objects, unless you ask it to save the objects.
+In most cases we advocate <em>not</em> saving R objects in your workspace but saving the specific objects you need, something that is covered in Section <a href="basics.html#saving-r-objects">2.8</a>.<a href="basics.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rstudio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/saferactive/rrsrr/edit/master/02-basics.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/saferactive/rrsrr/blob/master/02-basics.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

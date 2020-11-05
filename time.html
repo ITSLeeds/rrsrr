@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Temporal data | Reproducible road safety research with R: A practical introduction</title>
+  <meta name="description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Temporal data | Reproducible road safety research with R: A practical introduction" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://saferactive.github.io/rrsrr/" />
+  
+  <meta property="og:description" content="A reproducible and open source approach to applied road safety research" />
+  <meta name="github-repo" content="saferactive/rrsrr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Temporal data | Reproducible road safety research with R: A practical introduction" />
+  
+  <meta name="twitter:description" content="A reproducible and open source approach to applied road safety research" />
+  
+
+<meta name="author" content="Robin Lovelace" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data.html"/>
+<link rel="next" href="space.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#thanks"><i class="fa fa-check"></i>Thanks</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#reproducibility"><i class="fa fa-check"></i><b>1.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#what-is-r"><i class="fa fa-check"></i><b>1.2</b> What is R?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#why-r-for-road-safety-research"><i class="fa fa-check"></i><b>1.3</b> Why R for road safety research?</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.4</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.5</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#r-in-the-cloud"><i class="fa fa-check"></i><b>1.6</b> R in the cloud</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#install-pkgs"><i class="fa fa-check"></i><b>1.7</b> Recommended packages</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#overview"><i class="fa fa-check"></i><b>1.8</b> Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#creating-and-removing-r-objects"><i class="fa fa-check"></i><b>2.1</b> Creating and removing R objects</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#object-types-vectors-and-data-frames"><i class="fa fa-check"></i><b>2.2</b> Object types: vectors and data frames</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#subsetting-by-index-or-column-name"><i class="fa fa-check"></i><b>2.3</b> Subsetting by index or column name</a></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#subsetting-by-values"><i class="fa fa-check"></i><b>2.4</b> Subsetting by values</a></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#dealing-with-nas-and-recoding"><i class="fa fa-check"></i><b>2.5</b> Dealing with NAs and recoding</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#changing-class"><i class="fa fa-check"></i><b>2.6</b> Changing class</a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#recoding-values"><i class="fa fa-check"></i><b>2.7</b> Recoding values</a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#saving-r-objects"><i class="fa fa-check"></i><b>2.8</b> Saving R objects</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#now-you-are-ready-to-use-rstudio"><i class="fa fa-check"></i><b>2.9</b> Now you are ready to use RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>3</b> Using RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="rstudio.html"><a href="rstudio.html#projects-and-scripts"><i class="fa fa-check"></i><b>3.1</b> Projects and scripts</a></li>
+<li class="chapter" data-level="3.2" data-path="rstudio.html"><a href="rstudio.html#writing-and-running-code"><i class="fa fa-check"></i><b>3.2</b> Writing and running code</a></li>
+<li class="chapter" data-level="3.3" data-path="rstudio.html"><a href="rstudio.html#viewing-objects"><i class="fa fa-check"></i><b>3.3</b> Viewing Objects</a></li>
+<li class="chapter" data-level="3.4" data-path="rstudio.html"><a href="rstudio.html#autocompletion"><i class="fa fa-check"></i><b>3.4</b> Autocompletion</a></li>
+<li class="chapter" data-level="3.5" data-path="rstudio.html"><a href="rstudio.html#getting-help"><i class="fa fa-check"></i><b>3.5</b> Getting help</a></li>
+<li class="chapter" data-level="3.6" data-path="rstudio.html"><a href="rstudio.html#commenting-code"><i class="fa fa-check"></i><b>3.6</b> Commenting Code</a></li>
+<li class="chapter" data-level="3.7" data-path="rstudio.html"><a href="rstudio.html#the-global-environment"><i class="fa fa-check"></i><b>3.7</b> The global environment</a></li>
+<li class="chapter" data-level="3.8" data-path="rstudio.html"><a href="rstudio.html#debugging-code"><i class="fa fa-check"></i><b>3.8</b> Debugging Code</a></li>
+<li class="chapter" data-level="3.9" data-path="rstudio.html"><a href="rstudio.html#productivity-boosting-features"><i class="fa fa-check"></i><b>3.9</b> Productivity boosting features</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pkgs.html"><a href="pkgs.html"><i class="fa fa-check"></i><b>4</b> R packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="pkgs.html"><a href="pkgs.html#what-are-packages"><i class="fa fa-check"></i><b>4.1</b> What are packages?</a></li>
+<li class="chapter" data-level="4.2" data-path="pkgs.html"><a href="pkgs.html#the-stats19-r-package"><i class="fa fa-check"></i><b>4.2</b> The stats19 R package</a></li>
+<li class="chapter" data-level="4.3" data-path="pkgs.html"><a href="pkgs.html#installing-packages"><i class="fa fa-check"></i><b>4.3</b> Installing packages</a></li>
+<li class="chapter" data-level="4.4" data-path="pkgs.html"><a href="pkgs.html#loading-packages"><i class="fa fa-check"></i><b>4.4</b> Loading packages</a></li>
+<li class="chapter" data-level="4.5" data-path="pkgs.html"><a href="pkgs.html#using-packages"><i class="fa fa-check"></i><b>4.5</b> Using packages</a></li>
+<li class="chapter" data-level="4.6" data-path="pkgs.html"><a href="pkgs.html#updating-packages"><i class="fa fa-check"></i><b>4.6</b> Updating packages</a></li>
+<li class="chapter" data-level="4.7" data-path="pkgs.html"><a href="pkgs.html#ggplot2"><i class="fa fa-check"></i><b>4.7</b> ggplot2</a></li>
+<li class="chapter" data-level="4.8" data-path="pkgs.html"><a href="pkgs.html#dplyr"><i class="fa fa-check"></i><b>4.8</b> dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>5</b> Manipulating data</a><ul>
+<li class="chapter" data-level="5.1" data-path="data.html"><a href="data.html#tibbles"><i class="fa fa-check"></i><b>5.1</b> tibbles</a></li>
+<li class="chapter" data-level="5.2" data-path="data.html"><a href="data.html#filter-and-select-rows-and-columns"><i class="fa fa-check"></i><b>5.2</b> filter() and select() rows and columns</a></li>
+<li class="chapter" data-level="5.3" data-path="data.html"><a href="data.html#ordering-and-selecting-the-top-n"><i class="fa fa-check"></i><b>5.3</b> Ordering and selecting the ‘top n’</a></li>
+<li class="chapter" data-level="5.4" data-path="data.html"><a href="data.html#summarise"><i class="fa fa-check"></i><b>5.4</b> Summarise</a></li>
+<li class="chapter" data-level="5.5" data-path="data.html"><a href="data.html#tidyverse-exercises"><i class="fa fa-check"></i><b>5.5</b> Tidyverse exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="time.html"><a href="time.html"><i class="fa fa-check"></i><b>6</b> Temporal data</a><ul>
+<li class="chapter" data-level="6.1" data-path="time.html"><a href="time.html#temporal-analysis-of-crash-data"><i class="fa fa-check"></i><b>6.1</b> Temporal analysis of crash data</a></li>
+<li class="chapter" data-level="6.2" data-path="time.html"><a href="time.html#handling-dates-and-date-times"><i class="fa fa-check"></i><b>6.2</b> Handling dates and date-times</a></li>
+<li class="chapter" data-level="6.3" data-path="time.html"><a href="time.html#hours-minutes-seconds-with-hms"><i class="fa fa-check"></i><b>6.3</b> Hours, minutes seconds with hms</a></li>
+<li class="chapter" data-level="6.4" data-path="time.html"><a href="time.html#the-lubridate-package"><i class="fa fa-check"></i><b>6.4</b> The lubridate package</a></li>
+<li class="chapter" data-level="6.5" data-path="time.html"><a href="time.html#dates-in-a-data-frame"><i class="fa fa-check"></i><b>6.5</b> Dates in a data frame</a></li>
+<li class="chapter" data-level="6.6" data-path="time.html"><a href="time.html#components-of-time-objects"><i class="fa fa-check"></i><b>6.6</b> Components of time objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="space.html"><a href="space.html"><i class="fa fa-check"></i><b>7</b> Spatial data</a><ul>
+<li class="chapter" data-level="7.1" data-path="space.html"><a href="space.html#sf-objects"><i class="fa fa-check"></i><b>7.1</b> sf objects</a></li>
+<li class="chapter" data-level="7.2" data-path="space.html"><a href="space.html#reading-and-writing-spatial-data"><i class="fa fa-check"></i><b>7.2</b> Reading and writing spatial data</a></li>
+<li class="chapter" data-level="7.3" data-path="space.html"><a href="space.html#sf-polygons"><i class="fa fa-check"></i><b>7.3</b> sf polygons</a></li>
+<li class="chapter" data-level="7.4" data-path="space.html"><a href="space.html#spatial-subsetting-and-sf-plotting"><i class="fa fa-check"></i><b>7.4</b> Spatial subsetting and sf plotting</a></li>
+<li class="chapter" data-level="7.5" data-path="space.html"><a href="space.html#geographic-joins"><i class="fa fa-check"></i><b>7.5</b> Geographic joins</a></li>
+<li class="chapter" data-level="7.6" data-path="space.html"><a href="space.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>7.6</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="7.7" data-path="space.html"><a href="space.html#buffers"><i class="fa fa-check"></i><b>7.7</b> Buffers</a></li>
+<li class="chapter" data-level="7.8" data-path="space.html"><a href="space.html#attribute-operations-on-sf-objects"><i class="fa fa-check"></i><b>7.8</b> Attribute operations on sf objects</a></li>
+<li class="chapter" data-level="7.9" data-path="space.html"><a href="space.html#mapping-road-crash-data"><i class="fa fa-check"></i><b>7.9</b> Mapping road crash data</a></li>
+<li class="chapter" data-level="7.10" data-path="space.html"><a href="space.html#analysing-point-data"><i class="fa fa-check"></i><b>7.10</b> Analysing point data</a></li>
+<li class="chapter" data-level="7.11" data-path="space.html"><a href="space.html#analysing-crash-data-on-road-networks"><i class="fa fa-check"></i><b>7.11</b> Analysing crash data on road networks</a></li>
+<li class="chapter" data-level="" data-path="space.html"><a href="space.html#bonus-exercises"><i class="fa fa-check"></i>Bonus exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>8</b> Joining road crash tables</a><ul>
+<li class="chapter" data-level="8.1" data-path="join.html"><a href="join.html#stats19-tables"><i class="fa fa-check"></i><b>8.1</b> STATS19 tables</a></li>
+<li class="chapter" data-level="8.2" data-path="join.html"><a href="join.html#locality"><i class="fa fa-check"></i><b>8.2</b> Locality</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="next.html"><a href="next.html"><i class="fa fa-check"></i><b>9</b> Next steps</a><ul>
+<li class="chapter" data-level="9.1" data-path="next.html"><a href="next.html#automated-reporting-with-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Automated reporting with RMarkdown</a></li>
+<li class="chapter" data-level="9.2" data-path="next.html"><a href="next.html#sharing-code"><i class="fa fa-check"></i><b>9.2</b> Sharing code</a></li>
+<li class="chapter" data-level="9.3" data-path="next.html"><a href="next.html#asking-questions"><i class="fa fa-check"></i><b>9.3</b> Asking questions</a></li>
+<li class="chapter" data-level="9.4" data-path="next.html"><a href="next.html#testimonials"><i class="fa fa-check"></i><b>9.4</b> Testimonials</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="next.html"><a href="next.html#r-for-professional-road-safety-analysts"><i class="fa fa-check"></i><b>9.4.1</b> R for professional road safety analysts</a></li>
+<li class="chapter" data-level="9.4.2" data-path="next.html"><a href="next.html#r-in-a-road-safety-research-consultancy"><i class="fa fa-check"></i><b>9.4.2</b> R in a road safety research consultancy</a></li>
+<li class="chapter" data-level="9.4.3" data-path="next.html"><a href="next.html#using-r-in-a-road-safety-charity"><i class="fa fa-check"></i><b>9.4.3</b> Using R in a road safety charity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible road safety research with R: A practical introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="time" class="section level1">
+<h1><span class="header-section-number">6</span> Temporal data</h1>
+<p>Time is ubiquitous in road safety data: collisions and road safety implementations always happen at some point in time.
+This chapter will show how you can analyse the temporal dimensions of the real world <code>crashes_2019</code> object we created in Chapter <a href="pkgs.html#pkgs">4</a> and then demonstrate how to handle time series data in base R and with <code>hms</code> and <code>lubridate</code> packages
+The aim is to get you up-to-speed with how data analysis with time data ‘feels’ before learning the details in subsequent sections.
+If you are the kind of person who likes to know the details first, feel free to skip the next sections and return to the first section later.</p>
+<div id="temporal-analysis-of-crash-data" class="section level2">
+<h2><span class="header-section-number">6.1</span> Temporal analysis of crash data</h2>
+<p>To get a feel for temporal data analysis in R, let’s start by reading-in crash data for 2019 with the <code>stats19</code> package by typing the following into the Source Editor and running the code line-by-line, as taught in Chapter <a href="rstudio.html#rstudio">3</a>:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="time.html#cb107-1"></a><span class="kw">library</span>(stats19)</span>
+<span id="cb107-2"><a href="time.html#cb107-2"></a>crashes_<span class="dv">2019</span> =<span class="st"> </span><span class="kw">get_stats19</span>(<span class="dv">2019</span>)</span></code></pre></div>
+<p>Note that, unlike the longer <code>crashes_2019 = get_stats19(year = 2019, type = "accidents")</code> used in Chapter <a href="pkgs.html#pkgs">4</a>, we did not use <em>named arguments</em> in this code chunk.
+Instead of <code>year = 2019</code>, we simply typed 2019.
+That is possible because R functions can be specified by name matching or order: the first argument of <code>get_stats()</code> is <code>year</code> so the function is expecting a year value.
+Also, although we didn’t explicitly specify the <code>accidents</code> table, <code>type = "accidents"</code> is the default value, so <code>type</code> only needs to be specified when importing casualty and vehicle datasets.</p>
+<p>With that educational aside out of the way, let’s take a look at the time variables that are actually in out newly read-in dataset:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="time.html#cb108-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb108-2"><a href="time.html#cb108-2"></a>crashes_<span class="dv">2019</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb108-3"><a href="time.html#cb108-3"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;time|date&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb108-4"><a href="time.html#cb108-4"></a><span class="st">  </span><span class="kw">names</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;date&quot;     &quot;time&quot;     &quot;datetime&quot;</code></pre>
+<p>Building on the previous chapter and a bit of guesswork, it should be clear what just happened:
+we selected variables that <em>match</em> (with the <code>matches()</code> function) the character strings <code>"time"</code> or (as indicated by the <code>|</code> vertical pipe symbol) <code>"date"</code> and returned the matching variable names.
+This shows that the <code>stats19</code> package gives you not one, not two, but three temporal variables.</p>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Print the first 6 and then the first 10 elements of each of the three temporal variables in <code>crashes_2019</code></li>
+<li>What is the class of each variable (technically, of each vector)?</li>
+<li><strong>Bonus:</strong> Extract the weekday from the variable called <code>date</code>.</li>
+<li><strong>Bonus:</strong> How many crashes happened on Monday?</li>
+</ol>
+<!-- **Advanced challenge:** calculate how many crashes occurred for each day of the week. Then plot it with ggplot2. Repeat the same exercises extracting the hour of the car accident from the variable called time. How would you combine the two informations in a single plot?  -->
+<p>Of the three time variables, it should be clear from the outcome of previous exercises that <code>datetime</code> is contains the most useful information.
+To consolidate the plotting know-how learned in Chapter <a href="pkgs.html#pkgs">4</a>, let’s start by simply plotting the <code>datetime</code> object. Plotting data is a good way to understand new datasets and the variables they contain.
+Create the following three plots to show how <code>date</code> and <code>time</code> vary as a function of <code>datetime</code>:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="time.html#cb110-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb110-2"><a href="time.html#cb110-2"></a><span class="kw">ggplot</span>(crashes_<span class="dv">2019</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(datetime, date))</span>
+<span id="cb110-3"><a href="time.html#cb110-3"></a><span class="kw">ggplot</span>(crashes_<span class="dv">2019</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(datetime, time))</span>
+<span id="cb110-4"><a href="time.html#cb110-4"></a>b =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;07:00&quot;</span>, <span class="st">&quot;09:00&quot;</span>, <span class="st">&quot;12:00&quot;</span>, <span class="st">&quot;17:00&quot;</span>, <span class="st">&quot;19:00&quot;</span>)</span>
+<span id="cb110-5"><a href="time.html#cb110-5"></a><span class="kw">ggplot</span>(crashes_<span class="dv">2019</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(datetime, time), <span class="dt">alpha =</span> <span class="fl">0.01</span>) <span class="op">+</span></span>
+<span id="cb110-6"><a href="time.html#cb110-6"></a><span class="st">  </span><span class="kw">scale_y_discrete</span>(<span class="dt">breaks =</span> b)</span></code></pre></div>
+<div class="figure"><span id="fig:ggtime1"></span>
+<img src="figures/ggtime1-1.png" alt="Three plots of the datetime (x axis) in relation to the date and time axis." width="30%" /><img src="figures/ggtime1-2.png" alt="Three plots of the datetime (x axis) in relation to the date and time axis." width="30%" /><img src="figures/ggtime1-3.png" alt="Three plots of the datetime (x axis) in relation to the date and time axis." width="30%" />
+<p class="caption">
+Figure 6.1: Three plots of the datetime (x axis) in relation to the date and time axis.
+</p>
+</div>
+<p>Figure <a href="time.html#fig:ggtime1">6.1</a> tells us many things about the contents of the three temporal variables, and even provides insight into the temporal distribution of road casualties in Great Britain.
+The first two plots show 1) that the <code>date</code> variable is identical to the <code>datetime</code> variable (at least on the daily resolution than can be seen on the graph) and 2) that <code>time</code> values repeat regularly for the range of dates in <code>datetime</code> (from the start of Jan 2019 to end of Dec 2019).
+The third plot, which makes use of <code>ggplot2</code>‘s functionality to show only certain labels on the Y axis and reduced opacity so that overlapping points are not completely black, is by far the most useful.
+It shows that most crashes happen between around 7am and 7pm, with a ’long tail’ of crashes in the evening, and that for most of the year there is a clear weekly cycle, reflecting the uptick in crashes during the rush hour commute on weekdays, a pattern that is greatly diminished during several weeks in summer (perhaps corresponding with summer holidays).
+The 52 weeks of the year can be distinguished even in this small and simple plot, highlighting the ability of visualisation to help understand data.
+Next, let’s look at how the time-of-day that crashes happen varies as a function of season, severity and day of week.</p>
+<p>From the <code>datetime</code> object of class <code>POSIXct</code> any type of time information can be extracted. This includes the minute, hour, day of week and month of the crash (or other) event that the object records.</p>
+<p>Building on the time series plot we created in Section <a href="pkgs.html#ggplot2">4.7</a>, let’s create a graph showing how the hourly distribution of crash numbers changes during the course of a working week.
+We will do this first by <em>preprocessing</em> the data, creating a new object called <code>crashes_dow</code> containing <code>hour</code> and <code>day</code> columns then filtering out weekend and plotting the results, as shown in the code chunk below and Figure <a href="#fig:ggfacetwkday"><strong>??</strong></a>:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="time.html#cb111-1"></a><span class="co"># days of the week:</span></span>
+<span id="cb111-2"><a href="time.html#cb111-2"></a>dow =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Sunday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>)</span>
+<span id="cb111-3"><a href="time.html#cb111-3"></a>crashes_dow =<span class="st"> </span>crashes_<span class="dv">2019</span> <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-4"><a href="time.html#cb111-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hour =</span> lubridate<span class="op">::</span><span class="kw">hour</span>(datetime)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-5"><a href="time.html#cb111-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">factor</span>(<span class="kw">weekdays</span>(date), <span class="dt">levels =</span> dow)) </span>
+<span id="cb111-6"><a href="time.html#cb111-6"></a></span>
+<span id="cb111-7"><a href="time.html#cb111-7"></a>crashes_dow <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-8"><a href="time.html#cb111-8"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(hour) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>day <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-9"><a href="time.html#cb111-9"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(hour)) <span class="op">+</span></span>
+<span id="cb111-10"><a href="time.html#cb111-10"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">width =</span> <span class="fl">1.01</span>) <span class="op">+</span></span>
+<span id="cb111-11"><a href="time.html#cb111-11"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>day, <span class="dt">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:ggfacetrwkay"></span>
+<img src="figures/ggfacetrwkay-1.png" alt="Facetted time series showing how the number of crashes increases during the working week." width="672" />
+<p class="caption">
+Figure 6.2: Facetted time series showing how the number of crashes increases during the working week.
+</p>
+</div>
+<p>The result is useful, but if we’re interested in the number of crashes per hour on different days of the week <em>relative to the average</em>, we need to undertake more preprocessing steps.
+We will count the number of crashes per hour for all 5 working days and then divide by 5 to get the average number of crashes per hour during weekdays. Then we will count the number of crashes per hour/week combination. Finally we will divide the latter by the former.
+These steps are shown in the code chunk below, which results in Figure <a href="time.html#fig:ggfacetrwkayrel">6.3</a>.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="time.html#cb112-1"></a>crashes_day_rel =<span class="st"> </span>crashes_dow <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># create &#39;day of week relative&#39; object  </span></span>
+<span id="cb112-2"><a href="time.html#cb112-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(hour) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>day <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># none on weekends</span></span>
+<span id="cb112-3"><a href="time.html#cb112-3"></a><span class="st">  </span><span class="kw">select</span>(day, hour) <span class="op">%&gt;%</span><span class="st">            </span><span class="co"># keep only time columns</span></span>
+<span id="cb112-4"><a href="time.html#cb112-4"></a><span class="st">  </span><span class="kw">group_by</span>(hour) <span class="op">%&gt;%</span><span class="st">               </span><span class="co"># group by hour</span></span>
+<span id="cb112-5"><a href="time.html#cb112-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_per_hour =</span> <span class="kw">n</span>()<span class="op">/</span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># number per hour (divide by 5 for n. days)</span></span>
+<span id="cb112-6"><a href="time.html#cb112-6"></a><span class="st">  </span><span class="kw">group_by</span>(day, hour) <span class="op">%&gt;%</span><span class="st">          </span><span class="co"># group by day and hour</span></span>
+<span id="cb112-7"><a href="time.html#cb112-7"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n_hday =</span> <span class="kw">n</span>(), <span class="dt">n_h =</span> <span class="kw">first</span>(n_per_hour)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># summarise results</span></span>
+<span id="cb112-8"><a href="time.html#cb112-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hday_relative =</span> n_hday <span class="op">/</span><span class="st"> </span>n_h) <span class="co"># calculate relative n. crashes per hour/day</span></span>
+<span id="cb112-9"><a href="time.html#cb112-9"></a><span class="kw">summary</span>(crashes_day_rel)</span></code></pre></div>
+<pre><code>##         day          hour           n_hday            n_h        
+##  Sunday   : 0   Min.   : 0.00   Min.   :  68.0   Min.   :  76.6  
+##  Monday   :24   1st Qu.: 5.75   1st Qu.: 226.8   1st Qu.: 290.0  
+##  Tuesday  :24   Median :11.50   Median : 790.0   Median : 794.1  
+##  Wednesday:24   Mean   :11.50   Mean   : 741.6   Mean   : 741.6  
+##  Thursday :24   3rd Qu.:17.25   3rd Qu.:1006.2   3rd Qu.: 976.5  
+##  Friday   :24   Max.   :23.00   Max.   :1756.0   Max.   :1669.0  
+##  Saturday : 0                                                    
+##  hday_relative   
+##  Min.   :0.7182  
+##  1st Qu.:0.9397  
+##  Median :0.9925  
+##  Mean   :1.0000  
+##  3rd Qu.:1.0516  
+##  Max.   :1.6198  
+## </code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="time.html#cb114-1"></a>crashes_day_rel <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb114-2"><a href="time.html#cb114-2"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb114-3"><a href="time.html#cb114-3"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(hour, hday_relative)) <span class="op">+</span></span>
+<span id="cb114-4"><a href="time.html#cb114-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>day, <span class="dt">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:ggfacetrwkayrel"></span>
+<img src="figures/ggfacetrwkayrel-1.png" alt="Facetted time series showing relative number of crashes per hour by day in the working week." width="672" />
+<p class="caption">
+Figure 6.3: Facetted time series showing relative number of crashes per hour by day in the working week.
+</p>
+</div>
+<p>The results clearly show that Friday is a dangerous day as many of the columns are above 1 (<em>NB as this is a relative calculation, columns that are less than 1 indicate that there are less crashes per hour on that day than average whereas those above 1 indicate that there are more crashes per hour on that day than average</em>).
+The extent to which the high relative number of crashes in the most anomalous hours (Friday evening) is due increased exposure vs increased risk per km travelled cannot be ascertained by this plot but it certainly suggests that Friday afternoon and evening is a worthy focus of road safety research.</p>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Building on the code above, show the absolute and relative number of crashes per hour on Saturday and Sunday.</li>
+<li>Filter the dataset so it contains only data from two police forces of your choice (e.g. <code>West Yorkshire</code> and <code>Metropolitan Police</code>).</li>
+<li>Try creating plots similar to those shown above but facetted by police force rather than by day of the week.</li>
+</ol>
+</div>
+<div id="handling-dates-and-date-times" class="section level2">
+<h2><span class="header-section-number">6.2</span> Handling dates and date-times</h2>
+<p>it is worth remembering that base R already has decent support for dates and <code>datetimes</code>, although the base R functions are not particularly intuitive.
+This is shown in the code chunk below, which creates objects representing the date and time of a fictitious crash event on a cold winter’s morning, 1<sup>st</sup> January 2020, and a subsequent road safety intervention on the 20<sup>th</sup> October 2020:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="time.html#cb115-1"></a>crash_datetime_character =<span class="st"> &quot;2020-01-01 08:35&quot;</span> <span class="co"># creates date/time as a character</span></span>
+<span id="cb115-2"><a href="time.html#cb115-2"></a>crash_datetime =<span class="st"> </span><span class="kw">as.POSIXct</span>(crash_datetime_character) <span class="co"># converts date/time to a object of the POSIXct type</span></span>
+<span id="cb115-3"><a href="time.html#cb115-3"></a><span class="kw">class</span>(crash_datetime)</span></code></pre></div>
+<pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="time.html#cb117-1"></a>intervention_date_character =<span class="st"> &quot;2020-10-20&quot;</span></span>
+<span id="cb117-2"><a href="time.html#cb117-2"></a>intervention_date =<span class="st"> </span><span class="kw">as.Date</span>(intervention_date_character) <span class="co"># converts date/time to a object of the Date type</span></span>
+<span id="cb117-3"><a href="time.html#cb117-3"></a><span class="kw">class</span>(intervention_date)</span></code></pre></div>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="time.html#cb119-1"></a><span class="co"># see ?as.POSIXct for more examples</span></span></code></pre></div>
+<p>‘POSIXct’, ‘POSIXt’ and ‘Date’ are data types for dates and time that enable easy manipulation of such data. Fortunately for most users, there are easier ways to work with time series data, starting with the <code>hms</code> package.</p>
+</div>
+<div id="hours-minutes-seconds-with-hms" class="section level2">
+<h2><span class="header-section-number">6.3</span> Hours, minutes seconds with hms</h2>
+<p>The <code>hms</code> library in the <code>tidyverse</code> can be used to process hours, minutes and seconds, as shown below.
+See a very basic demo of the package and links to the package’s help pages with the following commands (in which we use the package without loading it with the <code>library()</code> function, demonstrating the <code>package::function()</code> syntax taught in Chapter <a href="pkgs.html#pkgs">4</a>:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="time.html#cb120-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="time.html#cb121-1"></a>crash_time_character =<span class="st"> &quot;08:35:00&quot;</span></span>
+<span id="cb121-2"><a href="time.html#cb121-2"></a>crash_time_hms =<span class="st"> </span>hms<span class="op">::</span><span class="kw">as_hms</span>(crash_time_character)</span>
+<span id="cb121-3"><a href="time.html#cb121-3"></a><span class="kw">class</span>(crash_time_hms)</span></code></pre></div>
+<pre><code>## [1] &quot;hms&quot;      &quot;difftime&quot;</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="time.html#cb123-1"></a>?hms<span class="op">::</span><span class="st">`</span><span class="dt">hms-package</span><span class="st">`</span></span></code></pre></div>
+<p>As the package’s name suggests it is used for dealing with hours minutes and seconds.
+It can round time objects of class <code>hms</code> to the nearest second (or any multiple of a second):</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="time.html#cb124-1"></a>hms<span class="op">::</span><span class="kw">round_hms</span>(crash_time_hms, <span class="dv">1</span>)           <span class="co"># time to the nearest second</span></span></code></pre></div>
+<pre><code>## 08:35:00</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="time.html#cb126-1"></a>hms<span class="op">::</span><span class="kw">round_hms</span>(crash_time_hms, <span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span>) <span class="co"># time to the nearest hour</span></span></code></pre></div>
+<pre><code>## 09:00:00</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="time.html#cb128-1"></a>hms<span class="op">::</span><span class="kw">round_hms</span>(crash_time_hms, <span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">30</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span>) <span class="co"># time to the nearest half hour</span></span></code></pre></div>
+<pre><code>## 08:30:00</code></pre>
+<p>It can also convert simple text strings into time objects, e.g. as follows (note we do not need to include the <code>:00</code>):</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="time.html#cb130-1"></a>hms<span class="op">::</span><span class="kw">parse_hm</span>(<span class="st">&quot;08:35&quot;</span>)</span></code></pre></div>
+<pre><code>## 08:35:00</code></pre>
+</div>
+<div id="the-lubridate-package" class="section level2">
+<h2><span class="header-section-number">6.4</span> The lubridate package</h2>
+<p>In many cases the most useful and easy to use package when working with temporal data is <code>lubridate</code>.
+Having installed it, load it as follows:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="time.html#cb132-1"></a><span class="kw">library</span>(lubridate)</span></code></pre></div>
+<p>The simplest example of a Date object that we can analyze is just the current date, i.e.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="time.html#cb133-1"></a><span class="kw">today</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;2020-11-05&quot;</code></pre>
+<p>We can manipulate this object using several <code>lubridate</code> functions to extract the current day, month, year, weekday and so on…</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="time.html#cb135-1"></a>x =<span class="st"> </span><span class="kw">today</span>()</span>
+<span id="cb135-2"><a href="time.html#cb135-2"></a><span class="kw">day</span>(x)</span>
+<span id="cb135-3"><a href="time.html#cb135-3"></a><span class="kw">wday</span>(x)</span>
+<span id="cb135-4"><a href="time.html#cb135-4"></a><span class="kw">wday</span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">6</span>) <span class="co"># is it the weekend?</span></span>
+<span id="cb135-5"><a href="time.html#cb135-5"></a><span class="kw">month</span>(x)</span>
+<span id="cb135-6"><a href="time.html#cb135-6"></a><span class="kw">year</span>(x)</span></code></pre></div>
+<p>Base R can also be used to extract data e.g. <code># Base R function to get the day of week weekdays(x)</code>.</p>
+<p><strong>Exercises: </strong></p>
+<ol style="list-style-type: decimal">
+<li>Look at the help page of the <code>lubridate</code> function <code>month</code> to see how it is possible to extract the current month as character vector</li>
+<li>Look at other functions in <code>lubridate</code> to extract the current weekday as a number, the week of year and the day of the year</li>
+</ol>
+<p>Date variables are often stored simply as a character vectors.
+This is a problem, since R is not always smart enough to distinguish between character vectors representing Dates.
+<code>lubridate</code> provides functions that can translate a wide range of date encodings such as <code>ymd()</code>, which extracts the Year Month and Day from a character string, as demonstrated below.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="time.html#cb136-1"></a><span class="kw">as.Date</span>(<span class="st">&quot;2019-10-17&quot;</span>) <span class="co"># works</span></span>
+<span id="cb136-2"><a href="time.html#cb136-2"></a><span class="kw">as.Date</span>(<span class="st">&quot;2019 10 17&quot;</span>) <span class="co"># fails</span></span>
+<span id="cb136-3"><a href="time.html#cb136-3"></a><span class="kw">ymd</span>(<span class="st">&quot;2019 10 17&quot;</span>)     <span class="co"># works</span></span>
+<span id="cb136-4"><a href="time.html#cb136-4"></a><span class="kw">dmy</span>(<span class="st">&quot;17/10/2019&quot;</span>)     <span class="co"># works</span></span></code></pre></div>
+<p>Import function such as <code>read_csv</code> try to recognize the Date variables.
+Sometimes this fails.
+You can manually create Date objects, as shown below.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="time.html#cb137-1"></a>x =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;2009-01-01&quot;</span>, <span class="st">&quot;2009-02-02&quot;</span>, <span class="st">&quot;2009-03-03&quot;</span>)</span>
+<span id="cb137-2"><a href="time.html#cb137-2"></a>x_date =<span class="st"> </span><span class="kw">ymd</span>(x)</span>
+<span id="cb137-3"><a href="time.html#cb137-3"></a>x_date</span></code></pre></div>
+<pre><code>## [1] &quot;2009-01-01&quot; &quot;2009-02-02&quot; &quot;2009-03-03&quot;</code></pre>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Extract the day, the year-day, the month and the weekday (as a non-abbreviated character vector) of each element of <code>x_date</code>.</li>
+<li>Convert <code>"09/09/93"</code> into a date object and extract its weekday.</li>
+<li><strong>Bonus:</strong> Read the help page of <code>as.Date</code> and <code>strptime</code> for further details on base R functions for dates.</li>
+<li><strong>Bonus:</strong> Read the Chapter 16 of <a href="https://r4ds.had.co.nz/dates-and-times.html">R for Data Science book</a> for further details on <code>lubridate</code> package.</li>
+</ol>
+</div>
+<div id="dates-in-a-data-frame" class="section level2">
+<h2><span class="header-section-number">6.5</span> Dates in a data frame</h2>
+<p>We can use Dates for subsetting events in a dataframe. For example, if we define <code>x_date</code> as before and add it to the <code>crash</code> dataset, i.e.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="time.html#cb139-1"></a>crashes<span class="op">$</span>casualty_day =<span class="st"> </span>x_date</span></code></pre></div>
+<p>then we can subset events using Dates. For example</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="time.html#cb140-1"></a><span class="kw">filter</span>(crashes, <span class="kw">day</span>(casualty_day) <span class="op">&lt;</span><span class="st"> </span><span class="dv">7</span>) <span class="co"># the events that ocurred in the first week of the month</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 x 5
+##   casualty_type casualty_age vehicle_type dark  casualty_day
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt; &lt;date&gt;      
+## 1 pedestrian              20 car          TRUE  2009-01-01  
+## 2 cyclist                 40 bus          FALSE 2009-02-02  
+## 3 cat                     60 tank         TRUE  2009-03-03</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="time.html#cb142-1"></a><span class="kw">filter</span>(crashes, <span class="kw">weekdays</span>(casualty_day) <span class="op">==</span><span class="st"> &quot;Monday&quot;</span>) <span class="co"># the events occurred on monday</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 x 5
+##   casualty_type casualty_age vehicle_type dark  casualty_day
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt; &lt;date&gt;      
+## 1 cyclist                 40 bus          FALSE 2009-02-02</code></pre>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Select only the events (rows in <code>crashes</code>) that occurred in January</li>
+<li>Select only the events that ocurred in an odd year-day</li>
+<li>Select only the events that ocurred in a leap-year (HINT: check the function <code>leap_year</code>)</li>
+<li>Select only the events that ocurred during the weekend or in June</li>
+<li>Select only the events that ocurred during the weekend and in June</li>
+<li>Count how many events ocurred during each day of the week.</li>
+</ol>
+</div>
+<div id="components-of-time-objects" class="section level2">
+<h2><span class="header-section-number">6.6</span> Components of time objects</h2>
+<p>Now we’ll take a look at the time components of a Date. Using the function <code>hms</code> (acronym for Hour Minutes Seconds) and its subfunctions such as <code>hm</code> or <code>ms</code>, we can parse a character vector representing several times into an Hour object (which is technically called a Period object).</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="time.html#cb144-1"></a>x =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;18:23:35&quot;</span>, <span class="st">&quot;00:00:01&quot;</span>, <span class="st">&quot;12:34:56&quot;</span>)</span>
+<span id="cb144-2"><a href="time.html#cb144-2"></a>x_hour =<span class="st"> </span><span class="kw">hms</span>(x)</span>
+<span id="cb144-3"><a href="time.html#cb144-3"></a>x_hour</span></code></pre></div>
+<pre><code>## [1] &quot;18H 23M 35S&quot; &quot;1S&quot;          &quot;12H 34M 56S&quot;</code></pre>
+<p>We can manipulate these objects using several <code>lubridate</code> functions to extract the hour component, the minutes and so on:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="time.html#cb146-1"></a><span class="kw">hour</span>(x_hour)</span></code></pre></div>
+<pre><code>## [1] 18  0 12</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="time.html#cb148-1"></a><span class="kw">minute</span>(x_hour)</span></code></pre></div>
+<pre><code>## [1] 23  0 34</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="time.html#cb150-1"></a><span class="kw">second</span>(x_hour)</span></code></pre></div>
+<pre><code>## [1] 35  1 56</code></pre>
+<p>If the Hour data does not specify the seconds, we just a subfunction of <code>hms</code>, namely <code>hm</code>, to get the hours and minutes rather than hours, minutes and seconds.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="time.html#cb152-1"></a>x =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;18:23&quot;</span>, <span class="st">&quot;00:00&quot;</span>, <span class="st">&quot;12:34&quot;</span>)</span>
+<span id="cb152-2"><a href="time.html#cb152-2"></a>(<span class="dt">x_hour =</span> <span class="kw">hm</span>(x))</span></code></pre></div>
+<pre><code>## [1] &quot;18H 23M 0S&quot; &quot;0S&quot;         &quot;12H 34M 0S&quot;</code></pre>
+<p>We can use Hour data also for subsetting events, like we did for Dates. Let’s add a new column for hour to the crashes data,</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="time.html#cb154-1"></a>crashes<span class="op">$</span>casualty_hms =<span class="st"> </span><span class="kw">hms</span>(<span class="kw">c</span>(<span class="st">&quot;18:23:35&quot;</span>, <span class="st">&quot;00:00:01&quot;</span>, <span class="st">&quot;12:34:56&quot;</span>))</span>
+<span id="cb154-2"><a href="time.html#cb154-2"></a>crashes<span class="op">$</span>casualty_hour =<span class="st"> </span><span class="kw">hour</span>(crashes<span class="op">$</span>casualty_hms)</span></code></pre></div>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Filter only the events that occurred after midday (i.e. the PM events). Hint: your answer may include <code>&gt;= 12</code>.</li>
+<li>Filter only the events that ocurred between 15:00 and 19:00
+<!-- 1. Round all hours to the next hour. Hint: Look at the help page of the `round_date` function.  -->
+<!-- 1. **Bonus (difficult):** run the following code, which downloads data for car crashes that occurred during 2019. --></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="space.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/saferactive/rrsrr/edit/master/06-time.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/saferactive/rrsrr/blob/master/06-time.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
