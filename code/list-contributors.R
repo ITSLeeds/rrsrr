@@ -10,10 +10,10 @@ library(tidyverse)
 #**********************************************************
 
 # git has to be in PATH
-out_json = gh::gh(endpoint = "/repos/saferactive/rrsrr/contributors", .limit = "Inf")
+out_json = gh::gh(endpoint = "/repos/ITSLeeds/rrsrr/contributors", .limit = "Inf")
 link = vapply(out_json, "[[", FUN.VALUE = "", "html_url")
 name = gsub(pattern = "https://github.com/", "", link)
-commits = paste0("https://github.com/saferactive/rrsrr/commits?author=", name)
+commits = paste0("https://github.com/ITSLeeds/rrsrr/commits?author=", name)
 out_df = tibble(name, link)
 # remove book authors
 filter(out_df, !grepl("robin", name, TRUE))

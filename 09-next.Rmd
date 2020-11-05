@@ -179,6 +179,6 @@ Looking to the future of my career I see myself continuing to use R and I'm conf
 <!-- Other -->
 
 Do you have a use case of reproducible research?
-Please get in touch on the [issue tracker](https://github.com/saferactive/rrsrr/issues).
+Please get in touch on the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
 
 # References
