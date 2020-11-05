@@ -46,7 +46,6 @@ file.edit("test-document.Rmd")
 
 Try adding some code chunks and text by following the guidance in the RMarkdown cheatsheet, which you can get from the Help > Cheatsheets menu in RStudio.
 
-
 ## Sharing code
 
 Another way to increase the impact of your code is to share it.
