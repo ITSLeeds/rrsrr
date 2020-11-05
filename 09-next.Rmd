@@ -40,6 +40,13 @@ Here is not the place to explain how to use RMarkdown.
 The framework is explained in detail in a free and open book [@xie_markdown_2018].
 To get started with the framework, however, you can try the following (code example showing the creation of an Rmd file):
 
+```{r, eval=FALSE}
+file.edit("test-document.Rmd")
+```
+
+Try adding some code chunks and text by following the guidance in the RMarkdown cheatsheet, which you can get from the Help > Cheatsheets menu in RStudio.
+
+
 ## Sharing code
 
 Another way to increase the impact of your code is to share it.
@@ -67,6 +74,22 @@ There are many places to ask for help online, including:
 Perhaps better than all of the above is to ask a colleague who has slightly more experience than you, that way you will build 'collaboration networks'.
 The final thing to say on asking questions is 'use `reprex`'!
 To see what I mean by this try typing the following:
+
+```{r, eval=FALSE}
+# example of creating a good reprex:
+reprex::reprex({
+  x = 1
+  y = "2"
+  # why does this fail?
+  x + y
+  # but this succeeds?
+  x + as.numeric(y)
+})
+# after running the code above you can share the copied output to help ask questions
+```
+
+Note, you can turn any bit of code into a 'reprex' by selecting it and by running the 'Reprex selection' Addin in RStudio, as described on the [Tidyverse website](https://www.tidyverse.org/help/).
+
 
 ## Testimonials
 
@@ -150,9 +173,9 @@ In terms of its use in my work on road safety and transport analysis, it has bec
 That being said, visualisation is just as important as the analysis, and I've been pleased with the array of packages that can create eye-catching maps, interactive dashboards, and much more outside of the traditional data wrangling capabilities.
 Looking to the future of my career I see myself continuing to use R and I'm confident that its capabilities will only get better the more people engage with it
 
-### PhD research
+<!-- ### PhD research -->
 
-### Policymaking
+<!-- ### Policymaking -->
 
 <!-- Other -->
 
