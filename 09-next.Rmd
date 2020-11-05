@@ -32,6 +32,8 @@ If you at any point become frustrated due to tricky-to-fix error messages (somet
 
 ## Automated reporting with RMarkdown
 
+An advantage of R is that it has many packages dedicated to the communication and publication of results, vital for policy impact.
+
 ## Sharing code
 
 ## Asking questions
