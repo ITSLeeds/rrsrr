@@ -33,12 +33,40 @@ If you at any point become frustrated due to tricky-to-fix error messages (somet
 ## Automated reporting with RMarkdown
 
 An advantage of R is that it has many packages dedicated to the communication and publication of results, vital for policy impact.
+Perhaps the most important important package for communication of results is `rmarkdown`.
+This is more of a *framework* than a package, providing a powerful system for generating reports, web pages and even books (this book was written with the `bookdown` package, which builds on `rmarkdown`).
+
+Here is not the place to explain how to use RMarkdown.
+The framework is explained in detail in a free and open book [@xie_markdown_2018].
+To get started with the framework, however, you can try the following (code example showing the creation of an Rmd file):
 
 ## Sharing code
 
+Another way to increase the impact of your code is to share it.
+This can help collaborate with colleagues, getting feedback from others, and generating interest in your work as part of collaborative research processes that have been in operation for hundreds of years, as summarised by the phrase 'building on the shoulders of giants'.
+A more prosaic but perhaps more important corollary to that is 'do not reinvent the wheel'.
+By getting your code 'out there' you will be able to ensure that others can use your code and, because publishing your code encourages searching for other code bases, help you to find components written by others to improve your work.
+Sharing code can therefore save many hours of time, provided you are happy to read and re-use, and of course give due credit and references to, code and ideas from other people.
+
+The easiest way to share code in 2020 (and likely for the foreseeable future) is GitHub, an online code sharing, project management and file hosting platform.
+A great way to get started with GitHub, after you have signed up and created a user name at github.com, is to contribute to an existing project.
+**Challenge:** suggest a change to the code repository on GitHub that contains the source code of this book.
+
 ## Asking questions
 
-Slack group RSGB Analyst Network.
+A final thing to say on R before the testimonials below is how to ask questions.
+There are many places to ask for help online, including:
+
+-   The question and answer site <https://stackoverflow.com/>.
+    You will get quick answers here but be warned, answers may not always be particularly friendly if you ask a question that doesn't make sense or which has already been answered in the documentation - that should not put you off though, sometimes it's a case of 'don't ask, don't get'.
+
+-   The <https://community.rstudio.com/> forum, where you may get more detailed and friendlier responses, especially if the question relates to RStudio, although the answer may be slower.
+
+-   Special interest groups such as <https://gis.stackexchange.com/> (for GIS related questions) and the Slack group RSGB Analyst Network for road safety data analysis questions
+
+Perhaps better than all of the above is to ask a colleague who has slightly more experience than you, that way you will build 'collaboration networks'.
+The final thing to say on asking questions is 'use `reprex`'!
+To see what I mean by this try typing the following:
 
 ## Testimonials
 
@@ -128,7 +156,7 @@ Looking to the future of my career I see myself continuing to use R and I'm conf
 
 <!-- Other -->
 
-Do you have a use case of reprocible research?
+Do you have a use case of reproducible research?
 Please get in touch on the [issue tracker](https://github.com/saferactive/rrsrr/issues).
 
 # References
