@@ -8,9 +8,9 @@ output:
   # bookdown::word_document2: default
   # bookdown::pdf_book: default
 description: "A reproducible and open source approach to applied road safety research"
-url: 'https\://saferactive.github.io/rrsrr/'
+url: 'https\://ITSLeeds.github.io/rrsrr/'
 book_filename: rrsrr
-github-repo: "saferactive/rrsrr"
+github-repo: "ITSLeeds/rrsrr"
 bibliography:
   - packages.bib
   - references.bib
@@ -136,7 +136,7 @@ As such, it is applied and exercise based.
 
 There are strong links between data science, open data, open source software and more collaborative ways of working.
 As such, this book is itself a collaborative and open source project that is designed to be a living document.
-We encourage any comments, questions or contributions related to its contents, the source code of which can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/saferactive/rrsrr)) repo on the [saferactive GitHub organisation](https://github.com/saferactive/), via the [issue tracker](https://github.com/saferactive/rrsrr/issues).
+We encourage any comments, questions or contributions related to its contents, the source code of which can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/ITSLeeds/rrsrr)) repo on the [ITSLeeds GitHub organisation](https://github.com/ITSLeeds/), via the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
 More broadly, we hope you enjoy the contents of the book and find the process of converting data science into data driven policy changes and investment rewarding.
 Get ready for and enjoy the ride!
 
