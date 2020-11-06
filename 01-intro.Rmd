@@ -1,28 +1,3 @@
-# Preface
-
-Many areas of research have real world implications, but few have the ability to save lives in the way that road safety research does. 
-Road safety research is a data driven field, underpinned by attribute-rich spatio-temporal event-based datasets representing the grim reality of people who are tragically hurt or killed on the roads. 
-Because of the incessant nature of road casualties, there is a danger that it becomes normalised, an implicitly accepted cost associated with the benefits of personal mobility.
-
-Data analysis in general, and ‘data science’ in particular, has great potential to support more evidence-based road safety policies. Data science can be defined as a particular type of data analysis process, in that it is script-based, reproducible and scalable. 
-As such, it has the ability to represent what we know about road casualties in new ways, demonstrate the life-saving impacts of effective policies, and prioritise interventions that are most likely to work.
-
-This manual was not designed to be a static textbook that is read once and accumulates dust. 
-It is meant to be a hand-book, taken out into the field of applied research and referred to frequently in the course of an analysis project. 
-As such, it is applied and exercise based.
-
-There are strong links between data science, open data, open source software and more collaborative ways of working. 
-As such, this manual is itself a collaborative and open source project that is designed to be a living document. 
-We encourage any comments, questions or contributions related to its contents. 
-The source code can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/ITSLeeds/rrsrr)) repo on the [saferactive GitHub organisation](https://github.com/saferactive/), via the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues). 
-More broadly, we hope that you enjoy the contents of this manual and find the process of converting data science into data driven policy changes and investment rewarding. 
-Get ready to enjoy the ride!
-
-# Thanks
-
-Many thanks to everyone who made this happen, especially the RAC Foundation for funding the project; Malcolm Morgan and Andrea Gilardi for contributing to earlier versions; and the Department for Transport for funding reproducible road safety research through the SaferActive project. 
-Many thanks to all contributors to the manual so far via GitHub (this list will update automatically): .
-
 # Introduction
 
 This book teaches reproducible road safety analysis with R.
