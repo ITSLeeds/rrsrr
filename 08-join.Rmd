@@ -170,7 +170,7 @@ plot(
 ```
 
 The spatial distribution of crashes in London clearly relates to the region's geography.
-Car crashes tend to happen on fast roads, including busy dual carriageway roads, displayed in yellow ing Figure 8.2 above.
+Car crashes tend to happen on fast roads, including busy dual carriageway roads, displayed in yellow in Figure 8.2 above.
 Cycling is as an urban activity, and the most bike crashes can be found in near Leeds city centre, which has a comparatively high level of cycling (compared to the low baseline of 3%).
 This can be seen by comparing the previous map (Figure 8.1) with an overview of the area, from an academic paper on the social, spatial and temporal distribution of bike crashes [@lovelace_who_2016].
 
