@@ -204,13 +204,13 @@ You can comment/uncomment a whole block of text by selecting it and using `Ctrl+
 
 ## The global environment
 
-The `Environment` tab shows all the objects in your environment. This includes datasets, parameters, and any functions you have created.
+The 'Environment' tab shows all the objects in your environment. This includes datasets, parameters, and any functions you have created.
 By default, new objects appear in the Global Environment, but you can see other environments with the dropdown menu.
 For example, each package has its own environment.
 
 Sometimes you wish to remove things from your environment, perhaps because you no longer need them or because things are getting cluttered.
 
-You can remove an object with the `rm()` function e.g. `rm(x)` or `rm(x, y)`. Alternatively, you can clear your whole environment with the `broom` button on the `Environment` Tab.
+You can remove an object with the `rm()` function e.g. `rm(x)` or `rm(x, y)`. Alternatively, you can clear your whole environment with the 'broom' button on the 'Environment' Tab.
 
 1. Remove the object `x` that was created in a previous section.
 2. What happens when you try to print the `x` by entering it into the console?
