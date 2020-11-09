@@ -1,9 +1,9 @@
 # Manipulating data {#data}
 
-This chapter provides an introduction to manipulating datasets using the `dplyr` package.
-As outlined in the previous chapter, `dplyr` and `ggplot2` are part of the `tidyverse`, which aims to provide a user friendly framework for data science [@grolemund_data_2016].
+This section is an introduction to manipulating datasets using the `dplyr` package.
+As outlined in the previous section, `dplyr` and `ggplot2` are part of the `tidyverse`, which aims to provide a user-friendly framework for data science [@grolemund_data_2016].
 
-Experience of teaching R over the past few years suggests that many people find it easier to get going with data driven research if they learn the 'tidy' workflow presented in this chapter.
+Experience of teaching R over the past few years suggests that many people find it easier to get going with data driven research if they learn the 'tidy' workflow presented in this section.
 However, if you do not like this style of R code or you are simply curious, we encourage you to try alternative approaches for achieving the similar results using base R [@rcoreteam_language_2020]^[
 Run the command `help.start()` to see a resources introducing base R, and [Chapter 6 on lists and data frames](https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Lists-and-data-frames) in [An Introduction to R](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) in particular for an introduction to data manipulation with base R.
 ] 
@@ -13,10 +13,10 @@ If you just want to get going with processing data, the `tidyverse` is a solid a
 <!-- Todo: add new part here? -->
 
 Before diving into the `tidyverse`, it is worth re-capping where we have got to so far as we have covered a lot of ground.
-Chapter \@ref(basics) introduced R's basic syntax; Chapter \@ref(rstudio) showed how to use the Source Editor and other features of RStudio to support data science; and Chapter \@ref(pkgs) introduced the concept and practicalities of R packages, with reference to `stats19`, `ggplot2` and `dplyr`.
+Section \@ref(basics) introduced R's basic syntax; Section \@ref(rstudio) showed how to use the Source Editor and other features of RStudio to support data science; and Section \@ref(pkgs) introduced the concept and practicalities of R packages, with reference to `stats19`, `ggplot2` and `dplyr`.
 
-In this chapter, we will start with a blank slate.
-In Chapter \@ref(basics) we learned that in R having a 'clear desk' means an *empty global environment*.
+In this section, we will start with a blank slate.
+In Section \@ref(basics) we learned that in R having a 'clear desk' means an *empty global environment*.
 This can be achieved by running the following command, which removes the `list()` of all objects returned by the function `ls()`:
 
 ```{r}
@@ -25,8 +25,8 @@ rm(list = ls())
 
 ## tibbles
 
-Although the data processing techniques in R are capable of handling large datasets --- such as the `crashes_2019` object representing 100k+ casualties that we created in the previous Chapter (and which we will revisit in the next chapter) --- it makes sense to start small.
-Let's start by re-creating the `crashes` dataset from Chapter \@ref(basics), but this time using the `tidyverse` `tibble()` function. This is the `tidyverse` equivalent of base R's `data.frame`.
+Although the data processing techniques in R are capable of handling large datasets, such as the `crashes_2019` object that we created in the previous section, representing 100k+ casualties, it makes sense to start small.
+Let's start by re-creating the `crashes` dataset from Section \@ref(basics), but this time using the `tidyverse` `tibble()` function. This is the `tidyverse` equivalent of base R's `data.frame`.
 `tibble` objects can be created, after loading the `tidyverse`, as follows:
 
 ```{r, message=FALSE}
@@ -39,8 +39,8 @@ crashes = tibble(
 )
 ```
 
-In the previous code chunk we passed four vector objects as *named arguments* to the `tibble` function, resulting in columns such as `casualty_type`.
-A `tibble` is basically just a fancy way of representing `data.frame` objects preferred by `tidyverse` users and optimised for data science.
+In the previous code chunk, we passed four vector objects as *named arguments* to the `tibble` function, resulting in columns such as `casualty_type`.
+A `tibble` is just a fancy way of representing `data.frame` objects, preferred by `tidyverse` users and optimised for data science.
 It has a few sensible defaults and advantages compared with the `data.frame`, one of which can be seen by printing a `tibble`: 
 
 ```{r}
@@ -48,11 +48,11 @@ class(crashes)
 crashes
 ```
 
-Note the `<chr>`, `<dbl>`, `<chr>` and `<lgl>` text below each column, providing a quick indication of the class of each variable - this is not provided when using `data.frame`.
+Note the `<chr>`, `<dbl>` or `<lgl>` text below each column, providing a quick indication of the class of each variable - this is not provided when using `data.frame`.
 
 ## filter() and select() rows and columns
 
-In the previous Chapter we briefly introduced the package `dplyr`, which provides an alternative to base R for manipulating objects. `dplyr` provides different and some would argue simpler approaches for subsetting rows and columns than base R.  
+In the previous section, we briefly introduced the package `dplyr`, which provides an alternative to base R for manipulating objects. `dplyr` provides different, and some would argue simpler, approaches for subsetting rows and columns than base R.  
 `dplyr` operations for subsetting rows (with the function `filter()`) and columns (with the function `select()`) are  demonstrated below. Here we can also see the use of the pipe operator `%>%` to take the dataset and apply the function to that dataset. 
 
 ```{r}
@@ -63,7 +63,7 @@ crashes %>% select(casualty_type) # select just one column
 It should be clear what happened: `filter()` returns only rows that match the criteria in the function call, only observations with a `casualty_age` greater than 50 in this case.
 Likewise, `select()` returns data objects that include only columns named inside the function call, `casualty_type` in this case.
 
-To gain a greater understanding of the functions type and run the following commands, which also illustrate how the `%>%` can be used more than once to manipulate data (more on this soon):
+To gain a greater understanding of the functions, type and run the following commands, which also illustrate how the `%>%` can be used more than once to manipulate data (more on this soon):
 
 ```{r}
 crashes_darkness = crashes %>% filter(dark)
@@ -74,9 +74,9 @@ crashes_darkness_a = crashes %>%
 ```
 
 Can you guess what the dimensions of the resulting objects will be?
-Write down your guesses for the number of rows and number of columns that the new objects, `crashes_darkness` to `crashes_darkness_a`, have before running the following commands to find out (which also demonstrates the handy function `dim()`, short for dimension, results not shown):^[
+Write down your guesses for the number of rows and number of columns that the new objects, `crashes_darkness` to `crashes_darkness_a`, have before running the following commands to find out. This also demonstrates the handy function `dim()`, short for dimension (results not shown):^[
 Note that the number of rows is reported before the number of columns.
-This is a feature of R: rows are alse specificiefied first when subsetting using the square brackets in commands such as `crashes[1, 2:3]`.
+This is a feature of R: rows are also specificiefied first when subsetting using the square brackets in commands such as `crashes[1, 2:3]`.
 ]
 
 ```{r, eval=FALSE}
@@ -97,8 +97,8 @@ Look at the help pages associated with `filter()`, `select()` and the related fu
 
 ## Ordering and selecting the 'top n'
 
-Other useful pipe-friendly functions are `arrange()` and `top_n()`. `arrange()` is used to sort data and optional arguments within the function can be used to define the order in which it is sorted. `top_n()`simply selects the top 'n' number of rows in your data frame.
-Below, we first arrange alphabetically the crashes dataset by vehicle type and then we select the older casualty.
+Other useful pipe-friendly functions are `arrange()` and `top_n()`. `arrange()` can be used to sort data. Within. the `arrage()` function, optional arguments can be used to define the order in which it is sorted. `top_n()`simply selects the top 'n' number of rows in your data frame.
+We can use these functions to arrange datasets and take the top most ‘n’ values, as follows:
 
 
 ```{r}
@@ -115,7 +115,7 @@ crashes %>%
 
 A powerful two-function combination is `group_by()` and `summarise()`.
 Used together, they can provide *grouped summaries* of datasets.
-In the example below we find the mean age of casualties in dark and light conditions.
+In the example below, we find the mean age of casualties in dark and light conditions.
 
 ```{r}
 crashes %>%
@@ -123,27 +123,27 @@ crashes %>%
   summarise(mean_age = mean(casualty_age))
 ```
 
-The example above shows a powerful feature of these pipelines: many operations can be 'chained' together, whilst keeping readability with subsequent commands stacked below earlier operations. The combination of `group_by()` and `summarise()` can be very useful in preparing data for visualisation with a `ggplot2` function. 
-Another useful feature of the `tidyverse` from a user perspective is auto-completion of column names mid pipe.
-If you have not noticed this already, you can test it by typing the following, putting your cursor just before the `)` and pressing Tab:
+The example above shows a powerful feature of these pipelines. Many operations can be 'chained' together, whilst keeping readability with subsequent commands stacked below earlier operations. The combination of `group_by()` and `summarise()` can be very useful in preparing data for visualisation with a `ggplot2` function. 
+Another useful feature of the `tidyverse` from a user perspective is the autocompletion of column names mid pipe.
+If you have not noticed this already, you can test it by typing the following, putting your cursor just before the `)` and pressing `Tab`:
 
 ```{r, eval=FALSE}
 crashes %>% select(ca) # press Tab when your cursor is just after the a
 ```
 
-You should see `casualty_age` and `casualty_type` pop up as options that can be selected by pressing Up and Down.
+You should see `casualty_age` and `casualty_type` pop up as options that can be selected by pressing `Up` and `Down`.
 This may not seem like much, but when analysing large datasets with dozens of variables, it can be a godsend.
 
-This chapter has not provided a comprehensive introduction to the `tidyverse` suite of packages but should provide enough to get started with using it for road safety data analysis.
+Rather than providing a comprehensive introduction to the `tidyverse` suite of packages, this section should have offered enough to get started with using it for road safety data analysis.
 For further information, check out up-to-date online courses from respected organisations like [Data Carpentry](https://datacarpentry.org/R-ecology-lesson/index.html) and the free online [books](https://bookdown.org/) such as [R for Data Science]((https://r4ds.had.co.nz/)) [@grolemund_data_2016].
 
 ## Tidyverse exercises
 
 1. Use `dplyr` to filter rows in which `casualty_age` is less than 18, and then 28.
-1. Use the `arrange` function to sort the `crashes` object in descending order of age (hint: see the `?arrange` help page).
-1. Read the help page of `dplyr::mutate()`. What does the function do?
-1. Use the mutate function to create a new variable, `birth_year`, in the `crashes` data.frame which is defined as the current year minus their age.
-1. **Bonus:** Use the ` %>% ` operator to filter the output from the previous exercise so that only observations with `birth_year` after 1969 are returned.
+2. Use the `arrange` function to sort the `crashes` object in descending order of age (**Hint:** see the `?arrange` help page).
+3. Read the help page of `dplyr::mutate()`. What does the function do?
+4. Use the mutate function to create a new variable, `birth_year`, in the `crashes` data.frame which is defined as the current year minus their age.
+5. **Bonus:** Use the ` %>% ` operator to filter the output from the previous exercise so that only observations with `birth_year` after 1969 are returned.
 
 ```{r dplyr, eval=FALSE, echo=FALSE}
 # answers
