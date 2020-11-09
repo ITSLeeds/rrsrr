@@ -1,25 +1,25 @@
 # Temporal data {#time}
 
-Time is ubiquitous in road safety data: collisions and road safety implementations always happen at some point in time.
-This chapter will show how you can analyse the temporal dimensions of the real world `crashes_2019` object we created in Chapter \@ref(pkgs) and then demonstrate how to handle time series data in base R and with `hms` and `lubridate` packages
+Time is ubiquitous in road safety data, since collisions and road safety implementations always happen at some point in time.
+This section will show how you can analyse the temporal dimensions of the real world `crashes_2019` object we created in Section \@ref(pkgs), and then demonstrate how to handle time series data in base R, as well as with `hms` and `lubridate` packages.
 The aim is to get you up-to-speed with how data analysis with time data 'feels' before learning the details in subsequent sections.
-If you are the kind of person who likes to know the details first, feel free to skip the next sections and return to the first section later.
+If you are the kind of person who likes to know the details first, feel free to skip this section and return to it later.
 
 ## Temporal analysis of crash data
 
-To get a feel for temporal data analysis in R, let's start by reading-in crash data for 2019 with the `stats19` package by typing the following into the Source Editor and running the code line-by-line, as taught in Chapter \@ref(rstudio):
+To get a feel for temporal data analysis in R, let's start by reading-in crash data for 2019 with the `stats19` package by typing the following into the Source Editor and running the code, line-by-line, as taught in Section \@ref(rstudio):
 
 ```{r, message=FALSE}
 library(stats19)
 crashes_2019 = get_stats19(2019)
 ```
 
-Note that, unlike the longer `crashes_2019 = get_stats19(year = 2019, type = "accidents")` used in Chapter \@ref(pkgs), we did not use *named arguments* in this code chunk.
+Note that, unlike the longer `crashes_2019 = get_stats19(year = 2019, type = "accidents")` used in Section \@ref(pkgs), we did not use *named arguments* in this code chunk.
 Instead of `year = 2019`, we simply typed 2019.
-That is possible because R functions can be specified by name matching or order: the first argument of `get_stats()` is `year` so the function is expecting a year value.
+That is possible because R functions can be specified by name matching or order: the first argument of `get_stats()` is `year`, so the function is expecting a year value.
 Also, although we didn't explicitly specify the `accidents` table, `type = "accidents"` is the default value, so `type` only needs to be specified when importing casualty and vehicle datasets.
 
-With that educational aside out of the way, let's take a look at the time variables that are actually in out newly read-in dataset:
+With that educational aside out of the way, we will now take a look at the time variables that are actually in our newly read-in dataset:
 
 ```{r}
 library(tidyverse)
@@ -28,16 +28,16 @@ crashes_2019 %>%
   names()
 ```
 
-Building on the previous chapter and a bit of guesswork, it should be clear what just happened: 
+Building on the previous section and a bit of guesswork, it should be clear what just happened: 
 we selected variables that *match* (with the `matches()` function) the character strings `"time"` or (as indicated by the `|` vertical pipe symbol) `"date"` and returned the matching variable names.
 This shows that the `stats19` package gives you not one, not two, but three temporal variables.
 
 **Exercises:**
 
-1. Print the first 6 and then the first 10 elements of each of the three temporal variables in `crashes_2019`
-1. What is the class of each variable (technically, of each vector)?
-1. **Bonus:** Extract the weekday from the variable called `date`.
-1. **Bonus:** How many crashes happened on Monday?
+1. Print the first 6 and then the first 10 elements of each of the three temporal variables in `crashes_2019`.
+2. What is the class of each variable (technically, of each vector)?
+3. **Bonus:** Extract the weekday from the variable called `date`.
+4. **Bonus:** How many crashes happened on Monday?
 
 ```{r, eval=FALSE, echo=FALSE}
 library(stats19)
@@ -93,8 +93,8 @@ crashes_2019 %>%
   sapply(class)
 ```
 
-Of the three time variables, it should be clear from the outcome of previous exercises that `datetime` is contains the most useful information.
-To consolidate the plotting know-how learned in Chapter \@ref(pkgs), let's start by simply plotting the `datetime` object. Plotting data is a good way to understand new datasets and the variables they contain.
+Of the three time variables, it should be clear from the outcome of previous exercises that `datetime` contains the most useful information.
+To consolidate the plotting know-how learned in Section \@ref(pkgs), we shall start by simply plotting the `datetime` object (Figure 6.1). Plotting data is a good way of understanding new datasets and the variables they contain.
 Create the following three plots to show how `date` and `time` vary as a function of `datetime`:
 
 ```{r ggtime1, warning=FALSE, fig.cap="Three plots of the datetime (x axis) in relation to the date and time axis.", out.width="30%", fig.show='hold'}
@@ -106,14 +106,13 @@ ggplot(crashes_2019) + geom_point(aes(datetime, time), alpha = 0.01) +
   scale_y_discrete(breaks = b)
 ```
 
-Figure \@ref(fig:ggtime1) tells us many things about the contents of the three temporal variables, and even provides insight into the temporal distribution of road casualties in Great Britain.
-The first two plots show 1) that the `date` variable is identical to the `datetime` variable (at least on the daily resolution than can be seen on the graph) and 2) that `time` values repeat regularly for the range of dates in `datetime` (from the start of Jan 2019 to end of Dec 2019).
-The third plot, which makes use of `ggplot2`'s functionality to show only certain labels on the Y axis and reduced opacity so that overlapping points are not completely black, is by far the most useful.
-It shows that most crashes happen between around 7am and 7pm, with a 'long tail' of crashes in the evening, and that for most of the year there is a clear weekly cycle, reflecting the uptick in crashes during the rush hour commute on weekdays, a pattern that is greatly diminished during several weeks in summer (perhaps corresponding with summer holidays).
+The three figures above tell us many things about the contents of the three temporal variables. It even provides insight into the temporal distribution of road casualties in Great Britain.
+The first two plots (Figure 6.1 and 6.2) show: 1) that the `date` variable is identical to the `datetime` variable (at least on the daily resolution than can be seen on the graph); and 2) that `time` values repeat regularly for the range of dates in `datetime` (from the start of Jan 2019 to end of Dec 2019).
+Figure 6.3 makes use of `ggplot2`'s functionality to show only certain labels on the Y axis and reduced opacity, so that overlapping points are not completely black. This by far is the most useful of the three plots, showing that most crashes happen between around 7am and 7pm, with a 'long tail' of crashes in the evening, and that for most of the year there is a clear weekly cycle, reflecting the uptick in crashes during the rush hour commute on weekdays, a pattern that is greatly diminished during several weeks in summer (perhaps corresponding with summer holidays).
 The 52 weeks of the year can be distinguished even in this small and simple plot, highlighting the ability of visualisation to help understand data.
-Next, let's look at how the time-of-day that crashes happen varies as a function of season, severity and day of week.
+Next, let's look at how the time-of-day that crashes occur varies as a function of season, severity and day of week.
 
-From the `datetime` object of class `POSIXct` any type of time information can be extracted. This includes the minute, hour, day of week and month of the crash (or other) event that the object records.
+From the `datetime` object of class `POSIXct`, any type of time information can be extracted. This includes the minute, hour, day of week and month of the crash (or other) event that the object records.
 
 ```{r, eval=FALSE, echo=FALSE}
 library(lubridate)
@@ -122,7 +121,7 @@ table(factor(weekdays(crashes_2019$date), levels = weekdays(min(crashes_2019$dat
 ```
 
 Building on the time series plot we created in Section \@ref(ggplot2), let's create a graph showing how the hourly distribution of crash numbers changes during the course of a working week.
-We will do this first by *preprocessing* the data, creating a new object called `crashes_dow` containing `hour` and `day` columns then filtering out weekend and plotting the results, as shown in the code chunk below and Figure \@ref(fig:ggfacetwkday):
+We will do this first by *preprocessing* the data, creating a new object called `crashes_dow`, containing `hour` and `day` columns, then filtering out weekend, and plotting the results, as shown in the code chunk below and Figure \@ref(fig:ggfacetwkday):
 
 ```{r ggfacetrwkay, fig.cap="Facetted time series showing how the number of crashes increases during the working week.", warning=FALSE, message=FALSE, fig.height=2}
 # days of the week:
@@ -138,7 +137,7 @@ crashes_dow %>%
   facet_wrap(~day, nrow = 1)
 ```
 
-The result is useful, but if we're interested in the number of crashes per hour on different days of the week *relative to the average*, we need to undertake more preprocessing steps.
+The result in Figure \@ref(fig:ggfacetwkday) is useful, but if we're interested in the number of crashes per hour on different days of the week *relative to the average*, we need to undertake more preprocessing steps.
 We will count the number of crashes per hour for all 5 working days and then divide by 5 to get the average number of crashes per hour during weekdays. Then we will count the number of crashes per hour/week combination. Finally we will divide the latter by the former.
 These steps are shown in the code chunk below, which results in Figure \@ref(fig:ggfacetrwkayrel).
 
@@ -172,7 +171,7 @@ The extent to which the high relative number of crashes in the most anomalous ho
 
 ## Handling dates and date-times
 
-it is worth remembering that base R already has decent support for dates and `datetimes`, although the base R functions are not particularly intuitive.
+It is worth remembering that base R already has decent support for dates and `datetimes`, although the base R functions are not particularly intuitive.
 This is shown in the code chunk below, which creates objects representing the date and time of a fictitious crash event on a cold winter's morning, 1^st^ January 2020, and a subsequent road safety intervention on the 20^th^ October 2020:
 
 ```{r}
@@ -190,7 +189,7 @@ class(intervention_date)
 ## Hours, minutes seconds with hms
 
 The `hms` library in the `tidyverse` can be used to process hours, minutes and seconds, as shown below.
-See a very basic demo of the package and links to the package's help pages with the following commands (in which we use the package without loading it with the `library()` function, demonstrating the `package::function()` syntax taught in Chapter \@ref(pkgs):
+See a very basic demo of the package and links to the package's help pages with the following commands in which we use the package without loading it with the `library()` function, demonstrating the `package::function()` syntax taught in Section \@ref(pkgs):
 
 ```{r}
 library(tidyverse)
@@ -206,7 +205,7 @@ class(crash_time_hms)
 ?hms::`hms-package`
 ```
 
-As the package's name suggests it is used for dealing with hours minutes and seconds.
+As the package's name suggests, it is used for dealing with hours, minutes and seconds.
 It can round time objects of class `hms` to the nearest second (or any multiple of a second):
 
 ```{r}
@@ -214,7 +213,7 @@ hms::round_hms(crash_time_hms, 1)           # time to the nearest second
 hms::round_hms(crash_time_hms, 1 * 60 * 60) # time to the nearest hour
 hms::round_hms(crash_time_hms, 1 * 30 * 60) # time to the nearest half hour
 ```
-It can also convert simple text strings into time objects, e.g. as follows (note we do not need to include the `:00`):
+It can also convert simple text strings into time objects, e.g. as follows (**Note:** we do not need to include the `:00`):
 
 ```{r}
 hms::parse_hm("08:35")
@@ -229,7 +228,7 @@ Having installed it, load it as follows:
 library(lubridate)
 ```
 
-The simplest example of a Date object that we can analyze is just the current date, i.e.
+The simplest example of a Date object that we can analyze is just the current date, i.e.:
 
 ```{r}
 today()
@@ -250,12 +249,12 @@ weekdays(x)`.
 
 **Exercises: **
 
-1. Look at the help page of the `lubridate` function `month` to see how it is possible to extract the current month as character vector 
-1. Look at other functions in `lubridate` to extract the current weekday as a number, the week of year and the day of the year
+1. Look at the help page of the `lubridate` function `month` to see how it is possible to extract the current month as a character vector. 
+2. Look at other functions in `lubridate` to extract the current weekday as a number, the week of year and the day of the year.
 
-Date variables are often stored simply as a character vectors.
+Date variables are often stored simply as character vectors.
 This is a problem, since R is not always smart enough to distinguish between character vectors representing Dates.
-`lubridate` provides functions that can translate a wide range of date encodings such as `ymd()`, which extracts the Year Month and Day from a character string, as demonstrated below.
+`lubridate` provides functions that can translate a wide range of date encodings such as `ymd()`, which extracts the Year, Month and Day from a character string, as demonstrated below.
 
 ```{r, eval=FALSE}
 as.Date("2019-10-17") # works
@@ -264,9 +263,9 @@ ymd("2019 10 17")     # works
 dmy("17/10/2019")     # works
 ```
 
-Import function such as `read_csv` try to recognize the Date variables.
+Import functions, such as `read_csv`, try to recognize the Date variables.
 Sometimes this fails.
-You can manually create Date objects, as shown below.
+You can manually create Date objects, as shown below:
 
 ```{r}
 x = c("2009-01-01", "2009-02-02", "2009-03-03")
@@ -277,9 +276,9 @@ x_date
 **Exercises:** 
 
 1. Extract the day, the year-day, the month and the weekday (as a non-abbreviated character vector) of each element of `x_date`. 
-1. Convert `"09/09/93"` into a date object and extract its weekday. 
-1. **Bonus:** Read the help page of `as.Date` and `strptime` for further details on base R functions for dates. 
-1. **Bonus:** Read the Chapter 16 of [R for Data Science book](https://r4ds.had.co.nz/dates-and-times.html) for further details on `lubridate` package. 
+2. Convert `"09/09/93"` into a date object and extract its weekday. 
+3. **Bonus:** Read the help page of `as.Date` and `strptime` for further details on base R functions for dates. 
+4. **Bonus:** Read the Chapter 16 of [R for Data Science book](https://r4ds.had.co.nz/dates-and-times.html) for further details on `lubridate` package. 
 
 ```{r, echo=FALSE, eval=FALSE}
 # 1. Extract the day, the year-day, the month and the weekday (as a non-abbreviated character vector) of each element of `x_date`. 
@@ -294,13 +293,13 @@ wday(dmy("09/09/93"))
 
 ## Dates in a data frame
 
-We can use Dates for subsetting events in a dataframe. For example, if we define `x_date` as before and add it to the `crash` dataset, i.e.
+We can use Dates for subsetting events in a dataframe. For example, if we define `x_date` as before and add it to the `crash` dataset, i.e.:
 
 ```{r}
 crashes$casualty_day = x_date
 ```
 
-then we can subset events using Dates. For example
+Then we can subset events using Dates. For example:
 
 ```{r}
 filter(crashes, day(casualty_day) < 7) # the events that ocurred in the first week of the month
@@ -309,16 +308,16 @@ filter(crashes, weekdays(casualty_day) == "Monday") # the events occurred on mon
 
 **Exercises:** 
 
-1. Select only the events (rows in `crashes`) that occurred in January
-1. Select only the events that ocurred in an odd year-day 
-1. Select only the events that ocurred in a leap-year (HINT: check the function `leap_year`)
-1. Select only the events that ocurred during the weekend or in June
-1. Select only the events that ocurred during the weekend and in June
-1. Count how many events ocurred during each day of the week. 
+1. Select only the events (rows in `crashes`) that occurred in January.
+2. Select only the events that ocurred in an odd year-day. 
+3. Select only the events that ocurred in a leap-year (**Hint:** check the function `leap_year`).
+4. Select only the events that ocurred during the weekend or in June.
+5. Select only the events that ocurred during the weekend and in June.
+6. Count how many events ocurred during each day of the week. 
 
 ## Components of time objects
 
-Now we'll take a look at the time components of a Date. Using the function `hms` (acronym for Hour Minutes Seconds) and its subfunctions such as `hm` or `ms`, we can parse a character vector representing several times into an Hour object (which is technically called a Period object). 
+Now we'll take a look at the time components of a Date. Using the function `hms` (acronym for Hour, Minutes, Seconds) and its subfunctions such as `hm` or `ms`, we can parse a character vector representing several times into an Hour object (which is technically called a 'period object'). 
 
 ```{r}
 x = c("18:23:35", "00:00:01", "12:34:56")
@@ -326,7 +325,7 @@ x_hour = hms(x)
 x_hour
 ```
 
-We can manipulate these objects using several `lubridate` functions to extract the hour component, the minutes and so on:
+We can manipulate these objects using several `lubridate` functions to extract the hour component, the minutes, and so on:
 
 ```{r}
 hour(x_hour)
@@ -334,14 +333,14 @@ minute(x_hour)
 second(x_hour)
 ```
 
-If the Hour data does not specify the seconds, we just a subfunction of `hms`, namely `hm`, to get the hours and minutes rather than hours, minutes and seconds. 
+If the Hour data does not specify the seconds, we just use a subfunction of `hms`, namely `hm`, to get the hours and minutes, rather than hours, minutes and seconds. 
 
 ```{r}
 x = c("18:23", "00:00", "12:34")
 (x_hour = hm(x))
 ```
 
-We can use Hour data also for subsetting events, like we did for Dates. Let's add a new column for hour to the crashes data, 
+We can use Hour data also for subsetting events, like we did for Dates. Let's add a new column for hour to the crashes data: 
 
 ```{r}
 crashes$casualty_hms = hms(c("18:23:35", "00:00:01", "12:34:56"))
@@ -350,7 +349,7 @@ crashes$casualty_hour = hour(crashes$casualty_hms)
 
 **Exercises:** 
 
-1. Filter only the events that occurred after midday (i.e. the PM events). Hint: your answer may include `>= 12`.
-1. Filter only the events that ocurred between 15:00 and 19:00
+1. Filter only the events that occurred after midday (i.e. the PM events). **Hint:** your answer may include `>= 12`.
+2. Filter only the events that ocurred between 15:00 and 19:00.
 <!-- 1. Round all hours to the next hour. Hint: Look at the help page of the `round_date` function.  -->
 <!-- 1. **Bonus (difficult):** run the following code, which downloads data for car crashes that occurred during 2019. -->
