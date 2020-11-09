@@ -4,10 +4,10 @@
 
 <!-- Content on joining road crash tables. -->
 
-So far we've been working primarily with 'accident' level data but there is much useful data in other tables.
+Thus far, we have been working primarily with 'accident' level data, but there is much useful data in other tables.
 As outlined in the `stats19` vignette --- which you can view by entering the command `vignette("stats19")` to get extended help pages about R packages --- there are three main tables that contain STATS19 data.
 
-Let's read in data from 2019 to take a look:
+Let's read-in data from 2019 to take a look:
 
 ```{r, message=FALSE}
 library(stats19)
@@ -18,12 +18,12 @@ ve = get_stats19(year = 2019, type = "vehicles")
 
 The three objects read-in above correspond to the main types of entity that are recorded by the police:
 
-- Crashes: the 'crash event' table contains general data about crashes including where and when they happened and the conditions in which the crash happened (e.g. light levels in the column `light_conditions` in the `ac` object). For historical reasons, crash level data is stored in tables called 'Accidents' (a term that has fallen out of favour because it implies that nobody was at fault). See names for all 33 variables in the crashes table by running the command `names(ac)`. Crashes range from collisions involving only one vehicle and another entity (e.g. a person on foot, bicycle or a car) causing only 'slight' injuries such as a graze, to multi-vehicle pile-ups involving multiple deaths and dozens of slight and serious injuries.
-- Casualties: the casualties table, assigned to an object called `ca` in the code above, contains data at the casualty level. As you will see by running the command `names(ca)`, the STATS19 casualties table has 16 variables including `age_of_casualty`, `casualty_severity` and `casualty_type`, reporting the mode of transport in which the person was travelling when they were hit.
+- Crashes: The 'crash event' table contains general data about crashes, including where and when they happened and the conditions in which the crash occurred (e.g. light levels in the column `light_conditions` in the `ac` object). For historical reasons, crash level data is stored in tables called 'Accidents' (a term that has fallen out of favour because it implies that nobody was at fault). See names for all 33 variables in the crashes table by running the command `names(ac)`. Crashes range from collisions involving only one vehicle and another entity (e.g. a person on foot, bicycle or a car) causing only 'slight' injuries such as a graze, to multi-vehicle pile-ups involving multiple deaths and dozens of slight and serious injuries.
+- Casualties: The casualties table, assigned to an object called `ca` in the code above, contains data at the casualty level. As you will see by running the command `names(ca)`, the STATS19 casualties table has 16 variables including `age_of_casualty`, `casualty_severity` and `casualty_type`, reporting the mode of transport in which the person was travelling when they were hit.
 - Vehicles: The vehicles table, assigned to `ve` above, contains information about the vehicles and their drivers involved in each collision. As you will see by running the command `names(ve)`, the 23 variables in this table includes `vehicle_type`, `hit_object_off_carriageway` and `first_point_of_impact`. Information about the driver of vehicles involved is contained in variables such as `age_of_driver`, `engine_capacity_cc` and `age_of_vehicle`.
 
 Each table represents the same phenomena: road casualties in Great Britain in 2019.
-Therefore you may expect they would have the same number of rows, but that is not the case:
+Therefore, you may expect they would have the same number of rows, but this is not the case:
 
 ```{r}
 nrow(ac)
@@ -31,8 +31,8 @@ nrow(ca)
 nrow(ve)
 ```
 
-The reason for this is that there are, on average, more than one casualty per crash (e.g. when a car hits two people) and more than one vehicle, including bicycles, per crash^[
-STATS19 data contains information on when a single crashes without involvement of any other vehicles, but not when a lone cyclist crashes without any other vehicle involved.
+The reason for this is that there are, on average, more than one casualty per crash (e.g. when a car hits two people), and more than one vehicle, including bicycles, per crash^[
+STATS19 data contains information on when a single vehicle crashes without involvement of any other vehicles, but not when a lone cyclist crashes without any other vehicle involved.
 ]
 We can find the average number of casualties and vehicles per crash as follows:
 
@@ -42,7 +42,7 @@ nrow(ve) / nrow(ac)
 ```
 
 The output of the commands above show that there are around 1.3 casualties and 1.8 vehicles involved in each crash record in the STATS19 dataset for 2019.
-Each table each contains a different number of columns, reporting the characteristics of each casualty and each driver/vehicle for the `ca` and `ve` datasets respectively.
+Each table contains a different number of columns, reporting the characteristics of each casualty and each driver/vehicle for the `ca` and `ve` datasets respectively.
 
 ```{r}
 ncol(ac)
@@ -50,7 +50,8 @@ ncol(ca)
 ncol(ve)
 ```
 
-The output of the previous code chunk shows that we have more variables in the 'accidents' table than the others but the other tables are data rich with 16 columns on the casualties and 23 on the vehicles.
+The output of the previous code chunk shows that we have more variables in the 'accidents' table than the others but the others, but the other tables are data rich with 16 columns on the casualties and 23 on the vehicles.
+To check that the datasets are consistent, we can check that the number of casualties reported in the crashes table is equal to the number of rows in the casualties table, and the same for the vehicles table:
 
 ```{r, eval=FALSE, echo=FALSE}
 skimr::skim(ac)
@@ -92,21 +93,19 @@ table(ac_tc_join$accident_severity)
 
 <!-- ## Auditing the records -->
 
-To check that the datasets are consistent, we can check that the number of casualties reported in the crashes table is equal to the number of rows in the casualties table, and the same for the vehicles table:
-
 ```{r}
 sum(ac$number_of_casualties) == nrow(ca) 
 sum(ac$number_of_vehicles) == nrow(ve)   
 ```
 
-Sometimes crash, casualty and vehicle datasets will be inconsistent, for example after removing records that contain no geographic coordinates with the command `format_sf()`, as demonstrated below:
+Sometimes crash, casualty and vehicle datasets will be inconsistent, for example, after removing records that contain no geographic coordinates with the command `format_sf()`, as demonstrated below:
 
 ```{r}
 ac_sf = format_sf(ac)
 ```
 
-After the 28 crash records with missing coordinates have been removed, the associated casualty and vehicles datasets will not match.
-Update the tables and run some further checks to make ensure that records in the accidents table match with those in the now updated other two tables as follows:
+After the 28 crash records with missing coordinates have been removed, the associated casualty and vehicles datasets do not match.
+Update the tables and run some further checks to ensure that records in the accidents table match with those in the now updated other two tables as follows:
 
 ```{r}
 # detect mismatch
@@ -145,16 +144,16 @@ cj = left_join(ac_lnd, cas_types)
 ```
 
 What just happened? We found the subset of casualties that took place in London with reference to the `accident_index` variable.
-Then we used the **dplyr** function `summarise()`, to find the number of people who were in a car, cycling, and walking when they were injured.
+Then we used the **dplyr** function, `summarise()`, to find the number of people who were in a car, cycling, and walking when they were injured.
 This new casualty dataset is joined onto the `crashes_lnd` dataset.
-The result is a spatial (`sf`) data frame of ac in London, with columns counting how many road users of different types were hurt.
+The result is a spatial (`sf`) data frame of `ac` in London, with columns counting how many road users of different types were hurt.
 The joined data has additional variables:
 
 ```{r table-join-examples}
 base::setdiff(names(cj), names(ac_lnd))
 ```
 
-As a simple spatial plot, we can map all the crashes that have happened in London in 2017, with the colour related to the total number of people hurt in each crash.
+As a simple spatial plot, we can map all crashes that occurred in London in 2017, with the colour related to the total number of people hurt in each crash.
 Placing this plot next to a map of London provides context:
 
 ```{r, out.width="90%", fig.show='hold'}
@@ -171,19 +170,19 @@ plot(
 ```
 
 The spatial distribution of crashes in London clearly relates to the region's geography.
-Car crashes tend to happen on fast roads, including busy Motorway roads, displayed in yellow above.
-Cycling is as an urban activity, and the most bike crashes can be found in near Leeds city centre, which has a comparatively high level of cycling (compared with the low baseline of 3%).
-This can be seen by comparing the previous map with an overview of the area, from an academic paper on the social, spatial and temporal distribution of bike crashes [@lovelace_who_2016]:
+Car crashes tend to happen on fast roads, including busy dual carriageway roads, displayed in yellow ing Figure 8.2 above.
+Cycling is as an urban activity, and the most bike crashes can be found in near Leeds city centre, which has a comparatively high level of cycling (compared to the low baseline of 3%).
+This can be seen by comparing the previous map (Figure 8.1) with an overview of the area, from an academic paper on the social, spatial and temporal distribution of bike crashes [@lovelace_who_2016].
 
 ```{r, echo=FALSE}
 # knitr::include_graphics("lnd-overview.jpg")
 ```
 
-In addition to the `Total` number of people hurt/killed, `cj` contains a column for each type of casualty (cyclist, car occupant, etc.), and a number corresponding to the number of each type hurt in each crash.
+In addition to the `Total` number of people hurt/killed, `cj` contains a column for each type of casualty (cyclist, car occupant, etc.), and a number corresponding to casualties in crashes involving each type of vehicle.
 It also contains the `geometry` column from `ac_sf`.
 In other words, joins allow the casualties and vehicles tables to be geo-referenced.
 We can then explore the spatial distribution of different casualty types.
-The following figure, for example, shows the spatial distribution of pedestrians and car passengers hurt in car crashes across London in 2017:
+For example, Figure 8.3 shows the spatial distribution of pedestrians and car passengers hurt in car crashes across London in 2017, via the following code:
 
 ```{r sfplot, fig.show='hold', out.width="100%", fig.cap="Spatial distribution of serious and fatal crashes in London, for cycling, walking, being a car passenger and other modes of travel. Colour is related to the speed limit where the crash happened (red is faster) and size is proportional to the total number of people hurt in each crash (legend not shown).", fig.width=9, fig.height=7}
 library(ggplot2)
