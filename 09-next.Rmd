@@ -149,7 +149,7 @@ The fact that this community includes a growing number of road safety analysts a
 
 ### Using R in a road safety charity
 
-Emily Nagler, Data Analyst, [RAC Foundation] (https://www.racfoundation.org/)
+Emily Nagler, Data Analyst, [RAC Foundation](http://www.racfoundation.org)
 
 I was first introduced to R in my master’s program by a professor who was very enthusiastic as to how much better it was than ArcGIS for spatial analysis. 
 Whilst he did project his views very strongly on us as students, I still tended towards ArcGIS when given a choice between the two. 
@@ -175,14 +175,16 @@ In terms of its use in my work on road safety and transport analysis it has beco
 That being said, visualisation is just as important as the analysis, and I’ve been pleased with the array of packages that can create eye-catching maps, interactive dashboards, and much more outside of the traditional data wrangling capabilities. 
 Looking to the future of my career I see myself continuing to use R and I’m confident that its capabilities will only get better the more people engage with it.
 
+### Using R in other areas of road safety research
+
+Do you have a use case of reproducible research?
+Please get in touch on the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
+
 <!-- ### PhD research -->
 
 <!-- ### Policymaking -->
 
 <!-- Other -->
-
-Do you have a use case of reproducible research?
-Please get in touch on the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
 
 # References
 
