@@ -16,7 +16,7 @@ bibliography:
   - references.bib
 ---
 
-# Preable {-}
+# Preamble {-}
 
 ```{r, eval=FALSE, echo=FALSE}
 # custom outputs
@@ -87,7 +87,9 @@ There are strong links between data science, open data, open source software and
 As such, this book is itself a collaborative and open source project that is designed to be a living document.
 We encourage any comments, questions or contributions related to its contents, the source code of which can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/ITSLeeds/rrsrr)) repo on the [ITSLeeds GitHub organisation](https://github.com/ITSLeeds/), via the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
 More broadly, we hope you enjoy the contents of the book and find the process of converting data science into data driven policy changes and investment rewarding.
-Get ready for and enjoy the ride!
+Get ready for the brave new reproducible world and enjoy the ride!
+
+*Robin Lovelace, Leeds, Autumn 2020*
 
 
 ## Thanks {-}
