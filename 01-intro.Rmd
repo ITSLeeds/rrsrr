@@ -1,18 +1,3 @@
-# Forewords
-
-Road Safety GB recognises the importance of high quality data analysis as a fundamental element in efforts to reduce road casualties at a local and national level by enabling evidence-based intervention. The use of open source software like R in this way is to be actively encouraged and tools such as this manual provide valuable support for analysts working across the industry in enhancing the analysis they are able to provide to decision-makers. This approach also supports the reproduction of high-quality analysis up and down the country using locally-held data, which I hope in turn will improve the consistency and quality of evidence used in day-to-day road safety activity.
- 
-I would like to thank those that have worked hard to pull this manual together and encourage all those working with road safety data to make use of this resource to learn, develop and share their analysis methods with others.
- 
-*Matt Staton, Director of Research, Road Safety GB*
-
-
-The STATS19 data collection for road traffic collisions has existed in the current form since 1979. It is a well-established source of road safety data which offers great insights into the trends and locations of road traffic collisions for central and local government, the police and the general public. The openness and accessibility of this data is important to DfT, who have launched a data download tool to improve the access to road safety data. As well as working to enhance the use of R and Reproducible Analytical Pipelines to improve the quality of their analysis and publications. 
- 
-The standard use of packages and code creates transparent and consistent framework for analysis. And the work by the University of Leeds takes new and experienced R users through the process of producing temporal and special analysis using STATS19 data. We commend this book to all those who wish to conduct analysis of road traffic collisions and use analysis to help save lives on our roads.
- 
-*John Wilkins, Deputy Director, Statistics Travel and Safety Division, Department for Transport*
-
 # Introduction
 
 This book teaches reproducible road safety analysis with R.
