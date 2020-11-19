@@ -1,19 +1,33 @@
 # Introduction
 
-This book teaches reproducible road safety analysis with R.
+This book teaches reproducible road safety analysis with R, a popular, free and open source statistical programming language.
 It was initially developed for a 2 day course, [Introduction to R for Road Safety](https://www.racfoundation.org/introduction-to-r-for-road-safety) course.
 Since then, interest in the topic has grown.
 The [RAC Foundation](https://www.racfoundation.org/) charity in the UK funded the development of this manual as a free and open resource to support their objective of making the roads safer for everyone.
 The content is based on open access road crash data from the UK, which is provided by the R package **stats19** [@lovelace_stats19_2019]. 
-However, the content is designed to be general and should be of use to **anyone working with road crash data worldwide,** who has (at a minimum):
+However, the content is designed to be general and should be of use to **anyone working with road crash data worldwide,** that has (at a minimum) the following variables (see Table \@ref(tab:asample) for an example crash dataset):
 
 - a timestamp;
 - a location (or address that can be geocoded); and
 - attribute data, such as severity of crash, and type of vehicles involved.
 
-The manual is based on open source software, which knows no borders: R. 
-It works equally well in China, India, the USA and the UK. 
-It is practical, meaning that you should reproduce the examples that are provided throughout. 
+```{r asample, echo=FALSE, message=FALSE}
+a = stats19::get_stats19(2019)
+v = c("date", "longitude", "latitude", "accident_severity")
+a_sample = a[3:5, v]
+knitr::kable(a_sample, caption = "Sample crash dataset. These are real records taken from the open STATS19 database, provided by the UK's Department for Transport, under the terms of the Open Government Licence ([OGL](www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)).")
+```
+
+Clearly, work is needed to go from the raw data to evidence that can save lives.
+Although the datasets used in this guide are report road casualty data from Britain, the approach knows no borders: R works equally well in China, India, the USA and Zambia.
+Road safety is a global issue, that can be considered an epidemic and "the leading cause of
+death for people aged between 5 and 29 years" worldwide, ahead of hunger, disease and war [@worldhealthorganization_global_2018].
+
+```{r world, echo=FALSE, fig.cap="Road danger levels worldwide in 2016. Data source: World Bank. Reproducible source code: github.com/itsleeds/rrsrr."}
+knitr::include_graphics("figures/road-casualties.png")
+```
+
+The guide is practical, meaning that you should reproduce the examples that are provided throughout. 
 As with many practical skills, you learn data science by doing data science.
 
 Before getting stuck in with the practical content, which begins in Section \@ref(basics), the remainder of this chapter:
