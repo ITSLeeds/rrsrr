@@ -98,16 +98,16 @@ sum(ac$number_of_casualties) == nrow(ca)
 sum(ac$number_of_vehicles) == nrow(ve)   
 ```
 
-Sometimes crash, casualty and vehicle datasets will be inconsistent, for example, after removing records that contain no geographic coordinates with the command `format_sf()`, as demonstrated below:
+<!-- Sometimes crash, casualty and vehicle datasets will be inconsistent, for example, after removing records that contain no geographic coordinates with the command `format_sf()`, as demonstrated below: -->
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 ac_sf = format_sf(ac)
 ```
 
-After the 28 crash records with missing coordinates have been removed, the associated casualty and vehicles datasets do not match.
-Update the tables and run some further checks to ensure that records in the accidents table match with those in the now updated other two tables as follows:
+<!-- After the 28 crash records with missing coordinates have been removed, the associated casualty and vehicles datasets do not match. -->
+<!-- Update the tables and run some further checks to ensure that records in the accidents table match with those in the now updated other two tables as follows: -->
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 # detect mismatch
 sum(ac_sf$number_of_casualties) == nrow(ca) 
 sum(ac_sf$number_of_vehicles) == nrow(ve)   
@@ -118,13 +118,16 @@ sum(ac_sf$number_of_casualties) == nrow(ca)
 sum(ac_sf$number_of_vehicles) == nrow(ve)
 ```
 
-## Locality 
 
-The three main tables we have just read-in can be joined by the "accident-index" key variable and then filtered using other variables. This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
+
+## Case study: London 
+
+The three main tables we have just read-in can be joined by the `accident_index` variable and then filtered using other variables. This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
 
 ```{r table-join, message = FALSE}
 library(tidyr)
 library(dplyr)
+ac_sf = format_sf(ac)
 # table(ac_sf$police_force)
 lnd_police = c("City of London", "Metropolitan Police")
 ac_lnd = ac_sf %>% 
