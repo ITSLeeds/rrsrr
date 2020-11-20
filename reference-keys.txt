@@ -1,3 +1,5 @@
+tab:asample
+fig:world
 tab:reproducibility
 fig:console
 fig:rstudioui
@@ -80,8 +82,8 @@ analysing-point-data
 analysing-crash-data-on-road-networks
 join
 stats19-tables
-locality
-next
+case-study-london
+next-steps
 automated-reporting-with-rmarkdown
 sharing-code
 asking-questions
@@ -89,4 +91,5 @@ testimonials
 r-for-professional-road-safety-analysts
 r-in-a-road-safety-research-consultancy
 using-r-in-a-road-safety-charity
+using-r-in-other-areas-of-road-safety-research
 references
