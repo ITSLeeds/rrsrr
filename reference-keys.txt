@@ -82,6 +82,8 @@ analysing-point-data
 analysing-crash-data-on-road-networks
 join
 stats19-tables
+joining-casualty-data
+joining-vehicle-data
 case-study-london
 next-steps
 automated-reporting-with-rmarkdown

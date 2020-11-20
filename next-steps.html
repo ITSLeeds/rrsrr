@@ -210,7 +210,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="join.html"><a href="join.html"><i class="fa fa-check"></i><b>8</b> Joining road crash tables</a><ul>
 <li class="chapter" data-level="8.1" data-path="join.html"><a href="join.html#stats19-tables"><i class="fa fa-check"></i><b>8.1</b> STATS19 tables</a></li>
-<li class="chapter" data-level="8.2" data-path="join.html"><a href="join.html#case-study-london"><i class="fa fa-check"></i><b>8.2</b> Case study: London</a></li>
+<li class="chapter" data-level="8.2" data-path="join.html"><a href="join.html#joining-casualty-data"><i class="fa fa-check"></i><b>8.2</b> Joining casualty data</a></li>
+<li class="chapter" data-level="8.3" data-path="join.html"><a href="join.html#joining-vehicle-data"><i class="fa fa-check"></i><b>8.3</b> Joining vehicle data</a></li>
+<li class="chapter" data-level="8.4" data-path="join.html"><a href="join.html#case-study-london"><i class="fa fa-check"></i><b>8.4</b> Case study: London</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="next-steps.html"><a href="next-steps.html"><i class="fa fa-check"></i><b>9</b> Next steps</a><ul>
 <li class="chapter" data-level="9.1" data-path="next-steps.html"><a href="next-steps.html#automated-reporting-with-rmarkdown"><i class="fa fa-check"></i><b>9.1</b> Automated reporting with RMarkdown</a></li>
@@ -272,7 +274,7 @@ This is more of a framework than a package, providing a powerful system for gene
 <p>Here is not the place to explain how to use RMarkdown and their associated .Rmd files.
 The framework is explained in detail in a free and open book <span class="citation">(Xie, Allaire, and Grolemund 2018)</span>.
 To get started with the framework, however, you can try the following code example, which shows the creation of an Rmd file:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="next-steps.html#cb199-1"></a><span class="kw">file.edit</span>(<span class="st">&quot;test-document.Rmd&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="next-steps.html#cb212-1"></a><span class="kw">file.edit</span>(<span class="st">&quot;test-document.Rmd&quot;</span>)</span></code></pre></div>
 <p>Try adding some code chunks and text by following the guidance in the Rmd cheatsheet, which you can get from the Help &gt; Cheatsheets menu in RStudio.</p>
 </div>
 <div id="sharing-code" class="section level2">
@@ -299,16 +301,16 @@ You will get quick answers here but be warned, answers may not always be particu
 <p>Perhaps better than all of the above, is to ask a colleague who has slightly more experience than you.
 That way you will build ‘collaboration networks.’
 The final thing to say on asking questions is ‘use reprex!’ To see what I mean by this try typing the following:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="next-steps.html#cb200-1"></a><span class="co"># example of creating a good reprex:</span></span>
-<span id="cb200-2"><a href="next-steps.html#cb200-2"></a>reprex<span class="op">::</span><span class="kw">reprex</span>({</span>
-<span id="cb200-3"><a href="next-steps.html#cb200-3"></a>  x =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb200-4"><a href="next-steps.html#cb200-4"></a>  y =<span class="st"> &quot;2&quot;</span></span>
-<span id="cb200-5"><a href="next-steps.html#cb200-5"></a>  <span class="co"># why does this fail?</span></span>
-<span id="cb200-6"><a href="next-steps.html#cb200-6"></a>  x <span class="op">+</span><span class="st"> </span>y</span>
-<span id="cb200-7"><a href="next-steps.html#cb200-7"></a>  <span class="co"># but this succeeds?</span></span>
-<span id="cb200-8"><a href="next-steps.html#cb200-8"></a>  x <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(y)</span>
-<span id="cb200-9"><a href="next-steps.html#cb200-9"></a>})</span>
-<span id="cb200-10"><a href="next-steps.html#cb200-10"></a><span class="co"># after running the code above you can share the copied output to help ask questions</span></span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="next-steps.html#cb213-1"></a><span class="co"># example of creating a good reprex:</span></span>
+<span id="cb213-2"><a href="next-steps.html#cb213-2"></a>reprex<span class="op">::</span><span class="kw">reprex</span>({</span>
+<span id="cb213-3"><a href="next-steps.html#cb213-3"></a>  x =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb213-4"><a href="next-steps.html#cb213-4"></a>  y =<span class="st"> &quot;2&quot;</span></span>
+<span id="cb213-5"><a href="next-steps.html#cb213-5"></a>  <span class="co"># why does this fail?</span></span>
+<span id="cb213-6"><a href="next-steps.html#cb213-6"></a>  x <span class="op">+</span><span class="st"> </span>y</span>
+<span id="cb213-7"><a href="next-steps.html#cb213-7"></a>  <span class="co"># but this succeeds?</span></span>
+<span id="cb213-8"><a href="next-steps.html#cb213-8"></a>  x <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(y)</span>
+<span id="cb213-9"><a href="next-steps.html#cb213-9"></a>})</span>
+<span id="cb213-10"><a href="next-steps.html#cb213-10"></a><span class="co"># after running the code above you can share the copied output to help ask questions</span></span></code></pre></div>
 <p>Note, you can turn any bit of code into a ‘reprex’ by selecting it and by running the ‘Reprex selection’ addin in RStudio, as described on the <a href="https://www.tidyverse.org/help/">Tidyverse website</a>.</p>
 </div>
 <div id="testimonials" class="section level2">
