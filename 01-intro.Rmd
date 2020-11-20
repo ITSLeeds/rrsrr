@@ -23,7 +23,7 @@ Although the datasets used in this guide are report road casualty data from Brit
 Road safety is a global issue, that can be considered an epidemic and "the leading cause of
 death for people aged between 5 and 29 years" worldwide, ahead of hunger, disease and war [@worldhealthorganization_global_2018].
 
-```{r world, echo=FALSE, fig.cap="Road danger levels worldwide in 2016. Data source: World Bank. Reproducible source code: github.com/itsleeds/rrsrr."}
+```{r world, echo=FALSE, fig.cap="Road danger levels worldwide in 2016. Data source: World Bank. Reproducible source code: [github.com/itsleeds/rrsrr](https://github.com/ITSLeeds/rrsrr/blob/master/code/world-casualties.R)."}
 knitr::include_graphics("figures/road-casualties.png")
 ```
 
