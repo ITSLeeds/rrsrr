@@ -337,101 +337,92 @@ We can see this finding the accident that had the most crashes and printing the 
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="join.html#cb200-1"></a>ac_veh_joined =<span class="st"> </span><span class="kw">inner_join</span>(ac, ve)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;accident_index&quot;</code></pre>
 <p>This information can be used as the basis of who-hit-who visualisation, in this case looking at vehicles involved in the most common type of casualties (recoded using the <code>trafficalmr</code> package):</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="join.html#cb202-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;saferactive/trafficalmr&quot;</span>)</span></code></pre></div>
-<pre><code>## Using bundled GitHub PAT. Please add your own PAT to the env var `GITHUB_PAT`</code></pre>
-<pre><code>## Skipping install of &#39;trafficalmr&#39; from a github remote, the SHA1 (65fbb057) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="join.html#cb205-1"></a><span class="kw">library</span>(trafficalmr)</span>
-<span id="cb205-2"><a href="join.html#cb205-2"></a>ac_cas_joined<span class="op">$</span>cas_type =<span class="st"> </span><span class="kw">tc_recode_casualties</span>(ac_cas_joined<span class="op">$</span>casualty_type)</span>
-<span id="cb205-3"><a href="join.html#cb205-3"></a>p =<span class="st"> </span><span class="kw">c</span>(<span class="st">`</span><span class="dt">HGV_occupant|Minibus_occupant|Taxi_occupant|Moto*.+</span><span class="st">`</span> =<span class="st"> &quot;Other&quot;</span>)</span>
-<span id="cb205-4"><a href="join.html#cb205-4"></a>ac_cas_joined<span class="op">$</span>cas_type =<span class="st"> </span><span class="kw">tc_recode_casualties</span>(ac_cas_joined<span class="op">$</span>cas_type, <span class="dt">pattern =</span> p)</span>
-<span id="cb205-5"><a href="join.html#cb205-5"></a><span class="kw">barplot</span>(<span class="kw">table</span>(ac_cas_joined<span class="op">$</span>cas_type))</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-114-1.png" width="672" /></p>
-<p>To find the largest vehicle involved in each casualty, we can similarly pre-process the vehicle data as follows:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="join.html#cb206-1"></a>p =<span class="st"> </span><span class="kw">c</span>(<span class="st">`</span><span class="dt">Van*.+</span><span class="st">`</span> =<span class="st"> &quot;Van&quot;</span>, <span class="st">`</span><span class="dt">Pedal cycle</span><span class="st">`</span> =<span class="st"> &quot;Bicycle&quot;</span>,</span>
-<span id="cb206-2"><a href="join.html#cb206-2"></a>  <span class="st">`</span><span class="dt">(M|m)otorcycle*.+|Elec*.+</span><span class="st">`</span> =<span class="st"> &quot;Motorcycle&quot;</span>,</span>
-<span id="cb206-3"><a href="join.html#cb206-3"></a>  <span class="st">`</span><span class="dt">Taxi*|Data*.+|Agri*.+|Ridden*.+|Mobility*.+|Tram*.+|(M|m)otorcycle*.+|Elec*.+</span><span class="st">`</span> =<span class="st"> &quot;Other&quot;</span>,</span>
-<span id="cb206-4"><a href="join.html#cb206-4"></a>  <span class="st">`</span><span class="dt">Bus*.+</span><span class="st">`</span> =<span class="st"> &quot;Bus&quot;</span>, <span class="st">`</span><span class="dt">Bus|Minibus*.+|Other*.+</span><span class="st">`</span> =<span class="st"> &quot;Other&quot;</span>, <span class="st">`</span><span class="dt">Goods*.+</span><span class="st">`</span> =<span class="st"> &quot;HGV&quot;</span>)</span>
-<span id="cb206-5"><a href="join.html#cb206-5"></a>ac_veh_joined<span class="op">$</span>veh_type =<span class="st"> </span><span class="kw">tc_recode_vehicle_type</span>(ac_veh_joined<span class="op">$</span>vehicle_type, p)</span>
-<span id="cb206-6"><a href="join.html#cb206-6"></a><span class="co"># dput(unique(ac_veh_joined$veh_type))</span></span>
-<span id="cb206-7"><a href="join.html#cb206-7"></a>l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bicycle&quot;</span>, <span class="st">&quot;Car&quot;</span>, <span class="st">&quot;Other&quot;</span>, <span class="st">&quot;Van&quot;</span>, <span class="st">&quot;HGV&quot;</span>)</span>
-<span id="cb206-8"><a href="join.html#cb206-8"></a>ac_veh_joined<span class="op">$</span>vehicle =<span class="st"> </span><span class="kw">factor</span>(ac_veh_joined<span class="op">$</span>veh_type, <span class="dt">levels =</span> l, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb206-9"><a href="join.html#cb206-9"></a><span class="kw">summary</span>(ac_veh_joined<span class="op">$</span>vehicle)</span></code></pre></div>
-<pre><code>## Bicycle     Car   Other     Van     HGV 
-##   17437  152686   28450   12579    5229</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="join.html#cb208-1"></a><span class="kw">barplot</span>(<span class="kw">table</span>(ac_veh_joined<span class="op">$</span>vehicle))</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-115-1.png" width="672" /></p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="join.html#cb209-1"></a>ac_veh_largest =<span class="st"> </span>ac_veh_joined <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb209-2"><a href="join.html#cb209-2"></a><span class="st">  </span><span class="kw">group_by</span>(accident_index) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb209-3"><a href="join.html#cb209-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">largest_vehicle =</span> <span class="kw">max</span>(vehicle))</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="join.html#cb211-1"></a><span class="kw">barplot</span>(<span class="kw">table</span>(ac_veh_largest<span class="op">$</span>largest_vehicle))</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-115-2.png" width="672" /></p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="join.html#cb212-1"></a>ac_cas_veh_largest =<span class="st"> </span><span class="kw">inner_join</span>(ac_cas_joined, ac_veh_largest) </span></code></pre></div>
-<pre><code>## Joining, by = &quot;accident_index&quot;</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="join.html#cb214-1"></a>cas_veh_table =<span class="st"> </span><span class="kw">table</span>(ac_cas_veh_largest<span class="op">$</span>cas_type, ac_cas_veh_largest<span class="op">$</span>largest_vehicle)</span>
-<span id="cb214-2"><a href="join.html#cb214-2"></a>cvt_df =<span class="st"> </span><span class="kw">as.data.frame</span>(cas_veh_table)</span>
-<span id="cb214-3"><a href="join.html#cb214-3"></a><span class="kw">ggplot</span>(cvt_df) <span class="op">+</span></span>
-<span id="cb214-4"><a href="join.html#cb214-4"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Var2, Freq, <span class="dt">fill =</span> Var1), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
-<span id="cb214-5"><a href="join.html#cb214-5"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="st">&quot;Casualty type&quot;</span>) <span class="op">+</span></span>
-<span id="cb214-6"><a href="join.html#cb214-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Largest vehicle involved&quot;</span>) <span class="op">+</span></span>
-<span id="cb214-7"><a href="join.html#cb214-7"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Number of casualties&quot;</span>)</span></code></pre></div>
-<div class="figure"><span id="fig:whohit-1"></span>
-<img src="figures/whohit-1.png" alt="'Who hit who' visualisation of number of casualties (y axis) hurt in crashes involving different vehicle types (largest vehicle in each crash on Y axis)." width="672" />
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="join.html#cb202-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;saferactive/trafficalmr&quot;</span>)</span>
+<span id="cb202-2"><a href="join.html#cb202-2"></a><span class="kw">library</span>(trafficalmr)</span>
+<span id="cb202-3"><a href="join.html#cb202-3"></a>ac_cas_joined<span class="op">$</span>cas_type =<span class="st"> </span><span class="kw">tc_recode_casualties</span>(ac_cas_joined<span class="op">$</span>casualty_type)</span>
+<span id="cb202-4"><a href="join.html#cb202-4"></a>p =<span class="st"> </span><span class="kw">c</span>(<span class="st">`</span><span class="dt">HGV_occupant|Minibus_occupant|Taxi_occupant|Moto*.+</span><span class="st">`</span> =<span class="st"> &quot;Other&quot;</span>)</span>
+<span id="cb202-5"><a href="join.html#cb202-5"></a>ac_cas_joined<span class="op">$</span>cas_type =<span class="st"> </span><span class="kw">tc_recode_casualties</span>(ac_cas_joined<span class="op">$</span>cas_type, <span class="dt">pattern =</span> p)</span>
+<span id="cb202-6"><a href="join.html#cb202-6"></a><span class="kw">barplot</span>(<span class="kw">table</span>(ac_cas_joined<span class="op">$</span>cas_type))</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-114"></span>
+<img src="figures/unnamed-chunk-114-1.png" alt="Barplot of recoded casualty type frequencies" width="672" />
 <p class="caption">
-Figure 8.1: ‘Who hit who’ visualisation of number of casualties (y axis) hurt in crashes involving different vehicle types (largest vehicle in each crash on Y axis).
+Figure 8.1: Barplot of recoded casualty type frequencies
 </p>
 </div>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="join.html#cb215-1"></a>  <span class="co"># geom_bar(aes(`Vehicle type`, `Casualty type`, fill = `N. crashes`), stat = &quot;identity&quot;)  </span></span>
-<span id="cb215-2"><a href="join.html#cb215-2"></a><span class="kw">plot</span>(cas_veh_table)</span></code></pre></div>
-<div class="figure"><span id="fig:whohit-2"></span>
-<img src="figures/whohit-2.png" alt="'Who hit who' visualisation of number of casualties (y axis) hurt in crashes involving different vehicle types (largest vehicle in each crash on Y axis)." width="672" />
+<p>To find the largest vehicle involved in each casualty, we can similarly pre-process the vehicle data as follows:</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="join.html#cb203-1"></a>p =<span class="st"> </span><span class="kw">c</span>(<span class="st">`</span><span class="dt">Van*.+</span><span class="st">`</span> =<span class="st"> &quot;Van&quot;</span>, <span class="st">`</span><span class="dt">Pedal cycle</span><span class="st">`</span> =<span class="st"> &quot;Bicycle&quot;</span>,</span>
+<span id="cb203-2"><a href="join.html#cb203-2"></a>  <span class="st">`</span><span class="dt">(M|m)otorcycle*.+|Elec*.+</span><span class="st">`</span> =<span class="st"> &quot;Motorcycle&quot;</span>,</span>
+<span id="cb203-3"><a href="join.html#cb203-3"></a>  <span class="st">`</span><span class="dt">Taxi*|Data*.+|Agri*.+|Ridden*.+|Mobility*.+|Tram*.+|(M|m)otorcycle*.+|Elec*.+</span><span class="st">`</span> =<span class="st"> &quot;Other&quot;</span>,</span>
+<span id="cb203-4"><a href="join.html#cb203-4"></a>  <span class="st">`</span><span class="dt">Bus*.+</span><span class="st">`</span> =<span class="st"> &quot;Bus&quot;</span>, <span class="st">`</span><span class="dt">Bus|Minibus*.+|Other*.+</span><span class="st">`</span> =<span class="st"> &quot;Other&quot;</span>, <span class="st">`</span><span class="dt">Goods*.+</span><span class="st">`</span> =<span class="st"> &quot;HGV&quot;</span>)</span>
+<span id="cb203-5"><a href="join.html#cb203-5"></a>ac_veh_joined<span class="op">$</span>veh_type =<span class="st"> </span><span class="kw">tc_recode_vehicle_type</span>(ac_veh_joined<span class="op">$</span>vehicle_type, p)</span>
+<span id="cb203-6"><a href="join.html#cb203-6"></a><span class="co"># dput(unique(ac_veh_joined$veh_type))</span></span>
+<span id="cb203-7"><a href="join.html#cb203-7"></a>l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bicycle&quot;</span>, <span class="st">&quot;Car&quot;</span>, <span class="st">&quot;Other&quot;</span>, <span class="st">&quot;Van&quot;</span>, <span class="st">&quot;HGV&quot;</span>)</span>
+<span id="cb203-8"><a href="join.html#cb203-8"></a>ac_veh_joined<span class="op">$</span>vehicle =<span class="st"> </span><span class="kw">factor</span>(ac_veh_joined<span class="op">$</span>veh_type, <span class="dt">levels =</span> l, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb203-9"><a href="join.html#cb203-9"></a><span class="kw">summary</span>(ac_veh_joined<span class="op">$</span>vehicle)</span></code></pre></div>
+<pre><code>## Bicycle     Car   Other     Van     HGV 
+##   17437  152686   28450   12579    5229</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="join.html#cb205-1"></a>ac_veh_largest =<span class="st"> </span>ac_veh_joined <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb205-2"><a href="join.html#cb205-2"></a><span class="st">  </span><span class="kw">group_by</span>(accident_index) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb205-3"><a href="join.html#cb205-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">largest_vehicle =</span> <span class="kw">max</span>(vehicle))</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="join.html#cb207-1"></a>ac_cas_veh_largest =<span class="st"> </span><span class="kw">inner_join</span>(ac_cas_joined, ac_veh_largest) </span></code></pre></div>
+<pre><code>## Joining, by = &quot;accident_index&quot;</code></pre>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="join.html#cb209-1"></a>cas_veh_table =<span class="st"> </span><span class="kw">table</span>(ac_cas_veh_largest<span class="op">$</span>cas_type, ac_cas_veh_largest<span class="op">$</span>largest_vehicle)</span>
+<span id="cb209-2"><a href="join.html#cb209-2"></a>cvt_df =<span class="st"> </span><span class="kw">as.data.frame</span>(cas_veh_table)</span>
+<span id="cb209-3"><a href="join.html#cb209-3"></a><span class="kw">ggplot</span>(cvt_df) <span class="op">+</span></span>
+<span id="cb209-4"><a href="join.html#cb209-4"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(Var2, Freq, <span class="dt">fill =</span> Var1), <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
+<span id="cb209-5"><a href="join.html#cb209-5"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="st">&quot;Casualty type&quot;</span>) <span class="op">+</span></span>
+<span id="cb209-6"><a href="join.html#cb209-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Largest vehicle involved&quot;</span>) <span class="op">+</span></span>
+<span id="cb209-7"><a href="join.html#cb209-7"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Number of casualties&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:whohit"></span>
+<img src="figures/whohit-1.png" alt="'Who hit who' visualisation of number of casualties (y axis) hurt in crashes involving different vehicle types (largest vehicle in each crash on Y axis)." width="672" />
 <p class="caption">
 Figure 8.2: ‘Who hit who’ visualisation of number of casualties (y axis) hurt in crashes involving different vehicle types (largest vehicle in each crash on Y axis).
 </p>
 </div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="join.html#cb210-1"></a>  <span class="co"># geom_bar(aes(`Vehicle type`, `Casualty type`, fill = `N. crashes`), stat = &quot;identity&quot;)  </span></span></code></pre></div>
 </div>
 <div id="case-study-london" class="section level2">
 <h2><span class="header-section-number">8.4</span> Case study: London</h2>
 <p>The three main tables we have just read-in can be joined by the <code>accident_index</code> variable and then filtered using other variables. This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="join.html#cb216-1"></a><span class="kw">library</span>(tidyr)</span>
-<span id="cb216-2"><a href="join.html#cb216-2"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb216-3"><a href="join.html#cb216-3"></a>ac_sf =<span class="st"> </span><span class="kw">format_sf</span>(ac)</span>
-<span id="cb216-4"><a href="join.html#cb216-4"></a><span class="co"># table(ac_sf$police_force)</span></span>
-<span id="cb216-5"><a href="join.html#cb216-5"></a>lnd_police =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;City of London&quot;</span>, <span class="st">&quot;Metropolitan Police&quot;</span>)</span>
-<span id="cb216-6"><a href="join.html#cb216-6"></a>ac_lnd =<span class="st"> </span>ac_sf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb216-7"><a href="join.html#cb216-7"></a><span class="st">  </span><span class="kw">filter</span>(police_force <span class="op">%in%</span><span class="st"> </span>lnd_police)</span>
-<span id="cb216-8"><a href="join.html#cb216-8"></a>ca_lnd =<span class="st"> </span>ca <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb216-9"><a href="join.html#cb216-9"></a><span class="st">  </span><span class="kw">filter</span>(accident_index <span class="op">%in%</span><span class="st"> </span>ac_lnd<span class="op">$</span>accident_index)</span>
-<span id="cb216-10"><a href="join.html#cb216-10"></a>cas_types =<span class="st"> </span>ca_lnd <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb216-11"><a href="join.html#cb216-11"></a><span class="st">  </span><span class="kw">select</span>(accident_index, casualty_type) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb216-12"><a href="join.html#cb216-12"></a><span class="st">  </span><span class="kw">group_by</span>(accident_index) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb216-13"><a href="join.html#cb216-13"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
-<span id="cb216-14"><a href="join.html#cb216-14"></a>    <span class="dt">Total =</span> <span class="kw">n</span>(),</span>
-<span id="cb216-15"><a href="join.html#cb216-15"></a>    <span class="dt">walking =</span> <span class="kw">sum</span>(casualty_type <span class="op">==</span><span class="st"> &quot;Pedestrian&quot;</span>),</span>
-<span id="cb216-16"><a href="join.html#cb216-16"></a>    <span class="dt">cycling =</span> <span class="kw">sum</span>(casualty_type <span class="op">==</span><span class="st"> &quot;Cyclist&quot;</span>),</span>
-<span id="cb216-17"><a href="join.html#cb216-17"></a>    <span class="dt">passenger =</span> <span class="kw">sum</span>(casualty_type <span class="op">==</span><span class="st"> &quot;Car occupant&quot;</span>)</span>
-<span id="cb216-18"><a href="join.html#cb216-18"></a>    ) </span>
-<span id="cb216-19"><a href="join.html#cb216-19"></a>cj =<span class="st"> </span><span class="kw">left_join</span>(ac_lnd, cas_types)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="join.html#cb211-1"></a><span class="kw">library</span>(tidyr)</span>
+<span id="cb211-2"><a href="join.html#cb211-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb211-3"><a href="join.html#cb211-3"></a>ac_sf =<span class="st"> </span><span class="kw">format_sf</span>(ac)</span>
+<span id="cb211-4"><a href="join.html#cb211-4"></a><span class="co"># table(ac_sf$police_force)</span></span>
+<span id="cb211-5"><a href="join.html#cb211-5"></a>lnd_police =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;City of London&quot;</span>, <span class="st">&quot;Metropolitan Police&quot;</span>)</span>
+<span id="cb211-6"><a href="join.html#cb211-6"></a>ac_lnd =<span class="st"> </span>ac_sf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-7"><a href="join.html#cb211-7"></a><span class="st">  </span><span class="kw">filter</span>(police_force <span class="op">%in%</span><span class="st"> </span>lnd_police)</span>
+<span id="cb211-8"><a href="join.html#cb211-8"></a>ca_lnd =<span class="st"> </span>ca <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-9"><a href="join.html#cb211-9"></a><span class="st">  </span><span class="kw">filter</span>(accident_index <span class="op">%in%</span><span class="st"> </span>ac_lnd<span class="op">$</span>accident_index)</span>
+<span id="cb211-10"><a href="join.html#cb211-10"></a>cas_types =<span class="st"> </span>ca_lnd <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-11"><a href="join.html#cb211-11"></a><span class="st">  </span><span class="kw">select</span>(accident_index, casualty_type) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-12"><a href="join.html#cb211-12"></a><span class="st">  </span><span class="kw">group_by</span>(accident_index) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-13"><a href="join.html#cb211-13"></a><span class="st">  </span><span class="kw">summarise</span>(</span>
+<span id="cb211-14"><a href="join.html#cb211-14"></a>    <span class="dt">Total =</span> <span class="kw">n</span>(),</span>
+<span id="cb211-15"><a href="join.html#cb211-15"></a>    <span class="dt">walking =</span> <span class="kw">sum</span>(casualty_type <span class="op">==</span><span class="st"> &quot;Pedestrian&quot;</span>),</span>
+<span id="cb211-16"><a href="join.html#cb211-16"></a>    <span class="dt">cycling =</span> <span class="kw">sum</span>(casualty_type <span class="op">==</span><span class="st"> &quot;Cyclist&quot;</span>),</span>
+<span id="cb211-17"><a href="join.html#cb211-17"></a>    <span class="dt">passenger =</span> <span class="kw">sum</span>(casualty_type <span class="op">==</span><span class="st"> &quot;Car occupant&quot;</span>)</span>
+<span id="cb211-18"><a href="join.html#cb211-18"></a>    ) </span>
+<span id="cb211-19"><a href="join.html#cb211-19"></a>cj =<span class="st"> </span><span class="kw">left_join</span>(ac_lnd, cas_types)</span></code></pre></div>
 <p>What just happened? We found the subset of casualties that took place in London with reference to the <code>accident_index</code> variable.
 Then we used the <strong>dplyr</strong> function, <code>summarise()</code>, to find the number of people who were in a car, cycling, and walking when they were injured.
 This new casualty dataset is joined onto the <code>crashes_lnd</code> dataset.
 The result is a spatial (<code>sf</code>) data frame of <code>ac</code> in London, with columns counting how many road users of different types were hurt.
 The joined data has additional variables:</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="join.html#cb217-1"></a>base<span class="op">::</span><span class="kw">setdiff</span>(<span class="kw">names</span>(cj), <span class="kw">names</span>(ac_lnd))</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="join.html#cb212-1"></a>base<span class="op">::</span><span class="kw">setdiff</span>(<span class="kw">names</span>(cj), <span class="kw">names</span>(ac_lnd))</span></code></pre></div>
 <pre><code>## [1] &quot;Total&quot;     &quot;walking&quot;   &quot;cycling&quot;   &quot;passenger&quot;</code></pre>
 <p>As a simple spatial plot, we can map all crashes that occurred in London in 2017, with the colour related to the total number of people hurt in each crash.
 Placing this plot next to a map of London provides context:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="join.html#cb219-1"></a><span class="kw">plot</span>(</span>
-<span id="cb219-2"><a href="join.html#cb219-2"></a>  cj[cj<span class="op">$</span>cycling <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;speed_limit&quot;</span>, ],</span>
-<span id="cb219-3"><a href="join.html#cb219-3"></a>  <span class="dt">cex =</span> cj<span class="op">$</span>Total[cj<span class="op">$</span>cycling <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] <span class="op">/</span><span class="st"> </span><span class="dv">3</span>,</span>
-<span id="cb219-4"><a href="join.html#cb219-4"></a>  <span class="dt">main =</span> <span class="st">&quot;Speed limit (cycling)&quot;</span></span>
-<span id="cb219-5"><a href="join.html#cb219-5"></a>  )</span>
-<span id="cb219-6"><a href="join.html#cb219-6"></a><span class="kw">plot</span>(</span>
-<span id="cb219-7"><a href="join.html#cb219-7"></a>  cj[cj<span class="op">$</span>passenger <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;speed_limit&quot;</span>, ],</span>
-<span id="cb219-8"><a href="join.html#cb219-8"></a>  <span class="dt">cex =</span> cj<span class="op">$</span>Total[cj<span class="op">$</span>passenger <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] <span class="op">/</span><span class="st"> </span><span class="dv">3</span>,</span>
-<span id="cb219-9"><a href="join.html#cb219-9"></a>  <span class="dt">main =</span> <span class="st">&quot;Speed limit (passenger)&quot;</span></span>
-<span id="cb219-10"><a href="join.html#cb219-10"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="join.html#cb214-1"></a><span class="kw">plot</span>(</span>
+<span id="cb214-2"><a href="join.html#cb214-2"></a>  cj[cj<span class="op">$</span>cycling <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;speed_limit&quot;</span>, ],</span>
+<span id="cb214-3"><a href="join.html#cb214-3"></a>  <span class="dt">cex =</span> cj<span class="op">$</span>Total[cj<span class="op">$</span>cycling <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] <span class="op">/</span><span class="st"> </span><span class="dv">3</span>,</span>
+<span id="cb214-4"><a href="join.html#cb214-4"></a>  <span class="dt">main =</span> <span class="st">&quot;Speed limit (cycling)&quot;</span></span>
+<span id="cb214-5"><a href="join.html#cb214-5"></a>  )</span>
+<span id="cb214-6"><a href="join.html#cb214-6"></a><span class="kw">plot</span>(</span>
+<span id="cb214-7"><a href="join.html#cb214-7"></a>  cj[cj<span class="op">$</span>passenger <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;speed_limit&quot;</span>, ],</span>
+<span id="cb214-8"><a href="join.html#cb214-8"></a>  <span class="dt">cex =</span> cj<span class="op">$</span>Total[cj<span class="op">$</span>passenger <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] <span class="op">/</span><span class="st"> </span><span class="dv">3</span>,</span>
+<span id="cb214-9"><a href="join.html#cb214-9"></a>  <span class="dt">main =</span> <span class="st">&quot;Speed limit (passenger)&quot;</span></span>
+<span id="cb214-10"><a href="join.html#cb214-10"></a>  )</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-117-1.png" width="90%" /><img src="figures/unnamed-chunk-117-2.png" width="90%" /></p>
 <p>The spatial distribution of crashes in London clearly relates to the region’s geography.
 Car crashes tend to happen on fast roads, including busy dual carriageway roads, displayed in yellow in Figure 8.2 above.
@@ -442,33 +433,38 @@ It also contains the <code>geometry</code> column from <code>ac_sf</code>.
 In other words, joins allow the casualties and vehicles tables to be geo-referenced.
 We can then explore the spatial distribution of different casualty types.
 For example, Figure 8.3 shows the spatial distribution of pedestrians and car passengers hurt in car crashes across London in 2017, via the following code:</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="join.html#cb220-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb220-2"><a href="join.html#cb220-2"></a>ac_types =<span class="st"> </span>cj <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb220-3"><a href="join.html#cb220-3"></a><span class="st">  </span><span class="kw">filter</span>(accident_severity <span class="op">!=</span><span class="st"> &quot;Slight&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb220-4"><a href="join.html#cb220-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">case_when</span>(</span>
-<span id="cb220-5"><a href="join.html#cb220-5"></a>    walking <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;Walking&quot;</span>,</span>
-<span id="cb220-6"><a href="join.html#cb220-6"></a>    cycling <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;Cycling&quot;</span>,</span>
-<span id="cb220-7"><a href="join.html#cb220-7"></a>    passenger <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;Passenger&quot;</span>,</span>
-<span id="cb220-8"><a href="join.html#cb220-8"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;Other&quot;</span></span>
-<span id="cb220-9"><a href="join.html#cb220-9"></a>  ))</span>
-<span id="cb220-10"><a href="join.html#cb220-10"></a><span class="kw">ggplot</span>(ac_types, <span class="kw">aes</span>(<span class="dt">size =</span> Total, <span class="dt">colour =</span> speed_limit)) <span class="op">+</span></span>
-<span id="cb220-11"><a href="join.html#cb220-11"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">show.legend =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
-<span id="cb220-12"><a href="join.html#cb220-12"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="kw">vars</span>(type), <span class="kw">vars</span>(accident_severity)) <span class="op">+</span></span>
-<span id="cb220-13"><a href="join.html#cb220-13"></a><span class="st">  </span><span class="kw">scale_size</span>(</span>
-<span id="cb220-14"><a href="join.html#cb220-14"></a>    <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>),</span>
-<span id="cb220-15"><a href="join.html#cb220-15"></a>    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="st">&quot;3+&quot;</span>, <span class="dv">12</span>)</span>
-<span id="cb220-16"><a href="join.html#cb220-16"></a>    ) <span class="op">+</span></span>
-<span id="cb220-17"><a href="join.html#cb220-17"></a><span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;red&quot;</span>)) <span class="op">+</span></span>
-<span id="cb220-18"><a href="join.html#cb220-18"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="join.html#cb215-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb215-2"><a href="join.html#cb215-2"></a>ac_types =<span class="st"> </span>cj <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb215-3"><a href="join.html#cb215-3"></a><span class="st">  </span><span class="kw">filter</span>(accident_severity <span class="op">!=</span><span class="st"> &quot;Slight&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb215-4"><a href="join.html#cb215-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">case_when</span>(</span>
+<span id="cb215-5"><a href="join.html#cb215-5"></a>    walking <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;Walking&quot;</span>,</span>
+<span id="cb215-6"><a href="join.html#cb215-6"></a>    cycling <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;Cycling&quot;</span>,</span>
+<span id="cb215-7"><a href="join.html#cb215-7"></a>    passenger <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">~</span><span class="st"> &quot;Passenger&quot;</span>,</span>
+<span id="cb215-8"><a href="join.html#cb215-8"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;Other&quot;</span></span>
+<span id="cb215-9"><a href="join.html#cb215-9"></a>  ))</span>
+<span id="cb215-10"><a href="join.html#cb215-10"></a><span class="kw">ggplot</span>(ac_types, <span class="kw">aes</span>(<span class="dt">size =</span> Total, <span class="dt">colour =</span> speed_limit)) <span class="op">+</span></span>
+<span id="cb215-11"><a href="join.html#cb215-11"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">show.legend =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
+<span id="cb215-12"><a href="join.html#cb215-12"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="kw">vars</span>(type), <span class="kw">vars</span>(accident_severity)) <span class="op">+</span></span>
+<span id="cb215-13"><a href="join.html#cb215-13"></a><span class="st">  </span><span class="kw">scale_size</span>(</span>
+<span id="cb215-14"><a href="join.html#cb215-14"></a>    <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>),</span>
+<span id="cb215-15"><a href="join.html#cb215-15"></a>    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="st">&quot;3+&quot;</span>, <span class="dv">12</span>)</span>
+<span id="cb215-16"><a href="join.html#cb215-16"></a>    ) <span class="op">+</span></span>
+<span id="cb215-17"><a href="join.html#cb215-17"></a><span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;red&quot;</span>)) <span class="op">+</span></span>
+<span id="cb215-18"><a href="join.html#cb215-18"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.ticks =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
 <div class="figure"><span id="fig:sfplot"></span>
 <img src="figures/sfplot-1.png" alt="Spatial distribution of serious and fatal crashes in London, for cycling, walking, being a car passenger and other modes of travel. Colour is related to the speed limit where the crash happened (red is faster) and size is proportional to the total number of people hurt in each crash (legend not shown)." width="100%" />
 <p class="caption">
 Figure 8.3: Spatial distribution of serious and fatal crashes in London, for cycling, walking, being a car passenger and other modes of travel. Colour is related to the speed limit where the crash happened (red is faster) and size is proportional to the total number of people hurt in each crash (legend not shown).
 </p>
 </div>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="join.html#cb221-1"></a>ac_names =<span class="st"> </span><span class="kw">names</span>(ac)</span>
-<span id="cb221-2"><a href="join.html#cb221-2"></a>ac_names[<span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;cas&quot;</span>, <span class="dt">x =</span> ac_names)]</span></code></pre></div>
-<pre><code>## [1] &quot;number_of_casualties&quot;</code></pre>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li>There is a lot going on in the code in this chapter, the most advanced of the guide.
+With reference to online help, work through the code line-by-line and look-up
+any aspects of the code that you do not fully understand to help figure out what is going on.</li>
+<li>Reproduce the final figures for a different city of your choice (not London).</li>
+<li><strong>Bonus:</strong> Create more attractive interactive maps to show the spatial distribution of different casualty types in the city of your choice.</li>
+</ol>
 
 </div>
 </div>
