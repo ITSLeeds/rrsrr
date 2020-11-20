@@ -149,11 +149,57 @@ The same approach can be used to join vehicle data onto the crash record data:
 ac_veh_joined = inner_join(ac, ve)
 ```
 
-This information can be used as the basis of who-hit-who visualisation, in this case looking at vehicles involved in the most commont type of casualties:
+This information can be used as the basis of who-hit-who visualisation, in this case looking at vehicles involved in the most common type of casualties (recoded using the `trafficalmr` package):
 
 ```{r}
-table(ac_cas_joined$casualty_type)
-ac_cas_joined$cas_simple = NULL
+remotes::install_github("saferactive/trafficalmr")
+library(trafficalmr)
+ac_cas_joined$cas_type = tc_recode_casualties(ac_cas_joined$casualty_type)
+p = c(`HGV_occupant|Minibus_occupant|Taxi_occupant|Moto*.+` = "Other")
+ac_cas_joined$cas_type = tc_recode_casualties(ac_cas_joined$cas_type, pattern = p)
+barplot(table(ac_cas_joined$cas_type))
+```
+
+To find the largest vehicle involved in each casualty, we can similarly pre-process the vehicle data as follows:
+
+```{r}
+p = c(`Van*.+` = "Van", `Pedal cycle` = "Bicycle",
+  `(M|m)otorcycle*.+|Elec*.+` = "Motorcycle",
+  `Taxi*|Data*.+|Agri*.+|Ridden*.+|Mobility*.+|Tram*.+|(M|m)otorcycle*.+|Elec*.+` = "Other",
+  `Bus*.+` = "Bus", `Bus|Minibus*.+|Other*.+` = "Other", `Goods*.+` = "HGV")
+ac_veh_joined$veh_type = tc_recode_vehicle_type(ac_veh_joined$vehicle_type, p)
+# dput(unique(ac_veh_joined$veh_type))
+l = c("Bicycle", "Car", "Other", "Van", "HGV")
+ac_veh_joined$vehicle = factor(ac_veh_joined$veh_type, levels = l, ordered = TRUE)
+summary(ac_veh_joined$vehicle)
+barplot(table(ac_veh_joined$vehicle))
+ac_veh_largest = ac_veh_joined %>% 
+  group_by(accident_index) %>% 
+  summarise(largest_vehicle = max(vehicle))
+barplot(table(ac_veh_largest$largest_vehicle))
+```
+
+
+```{r whohit, fig.cap="'Who hit who' visualisation of number of casualties (y axis) hurt in crashes involving different vehicle types (largest vehicle in each crash on Y axis)."}
+ac_cas_veh_largest = inner_join(ac_cas_joined, ac_veh_largest) 
+cas_veh_table = table(ac_cas_veh_largest$cas_type, ac_cas_veh_largest$largest_vehicle)
+cvt_df = as.data.frame(cas_veh_table)
+ggplot(cvt_df) +
+  geom_bar(aes(Var2, Freq, fill = Var1), stat = "identity") +
+  scale_fill_discrete("Casualty type") +
+  xlab("Largest vehicle involved") +
+  ylab("Number of casualties")
+  # geom_bar(aes(`Vehicle type`, `Casualty type`, fill = `N. crashes`), stat = "identity")  
+plot(cas_veh_table)
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+ac_veh_wide = ac_veh_joined %>% 
+  group_by(accident_index) %>% 
+  count(veh_type) %>% 
+  pivot_wider(names_from = veh_type, values_from = n)
+
 ```
 
 
