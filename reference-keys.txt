@@ -16,6 +16,8 @@ fig:joinf
 fig:plot3
 fig:iowbuff
 fig:ex
+fig:whohit-1
+fig:whohit-2
 fig:sfplot
 introduction
 reproducibility
@@ -95,3 +97,4 @@ r-in-a-road-safety-research-consultancy
 using-r-in-a-road-safety-charity
 using-r-in-other-areas-of-road-safety-research
 references
+rrsrr
