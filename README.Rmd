@@ -27,4 +27,10 @@ install.packages("servr")
 bookdown::serve_book()
 ```
 
+```{r, eval=FALSE, echo=FALSE}
+setwd("..")
+zip(zipfile = "rrsrr.zip", files = "rrsrr")
+setwd("rrsrr")
+```
+
 
