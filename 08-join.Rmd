@@ -151,7 +151,7 @@ ac_veh_joined = inner_join(ac, ve)
 
 This information can be used as the basis of who-hit-who visualisation, in this case looking at vehicles involved in the most common type of casualties (recoded using the `trafficalmr` package):
 
-```{r}
+```{r, message=FALSE, fig.cap="Barplot of recoded casualty type frequencies"}
 remotes::install_github("saferactive/trafficalmr")
 library(trafficalmr)
 ac_cas_joined$cas_type = tc_recode_casualties(ac_cas_joined$casualty_type)
@@ -172,11 +172,9 @@ ac_veh_joined$veh_type = tc_recode_vehicle_type(ac_veh_joined$vehicle_type, p)
 l = c("Bicycle", "Car", "Other", "Van", "HGV")
 ac_veh_joined$vehicle = factor(ac_veh_joined$veh_type, levels = l, ordered = TRUE)
 summary(ac_veh_joined$vehicle)
-barplot(table(ac_veh_joined$vehicle))
 ac_veh_largest = ac_veh_joined %>% 
   group_by(accident_index) %>% 
   summarise(largest_vehicle = max(vehicle))
-barplot(table(ac_veh_largest$largest_vehicle))
 ```
 
 
@@ -190,11 +188,11 @@ ggplot(cvt_df) +
   xlab("Largest vehicle involved") +
   ylab("Number of casualties")
   # geom_bar(aes(`Vehicle type`, `Casualty type`, fill = `N. crashes`), stat = "identity")  
-plot(cas_veh_table)
 ```
 
 
 ```{r, eval=FALSE, echo=FALSE}
+# barplot(table(ac_veh_largest$largest_vehicle))
 ac_veh_wide = ac_veh_joined %>% 
   group_by(accident_index) %>% 
   count(veh_type) %>% 
@@ -292,9 +290,17 @@ ggplot(ac_types, aes(size = Total, colour = speed_limit)) +
   theme(axis.text = element_blank(), axis.ticks = element_blank())
 ```
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 ac_names = names(ac)
 ac_names[grepl(pattern = "cas", x = ac_names)]
 ```
+
+**Exercises:**
+
+1. There is a lot going on in the code in this chapter, the most advanced of the guide.
+  With reference to online help, work through the code line-by-line and look-up
+  any aspects of the code that you do not fully understand to help figure out what is going on.
+2. Reproduce the final figures for a different city of your choice (not London).
+3. **Bonus:** Create more attractive interactive maps to show the spatial distribution of different casualty types in the city of your choice.
 
 
