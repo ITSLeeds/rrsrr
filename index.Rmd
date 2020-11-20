@@ -33,6 +33,7 @@ if(file.exists("~/uaf/allrefs.bib")) {
   # citr::tidy_bib_file(rmd_file = "_main.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
   system("find . -name '0*.Rmd' -exec cat {} \\; > /tmp/all.Rmd")
   system("echo '@baath_state_2012' >> /tmp/all.Rmd")
+  system("echo '@hyndman_forecasting_2018' >> /tmp/all.Rmd")
   citr::tidy_bib_file(rmd_file = "/tmp/all.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
 }
 ```
