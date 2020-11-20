@@ -21,7 +21,9 @@ knitr::kable(a_sample, caption = "Sample crash dataset. These are real records t
 Clearly, work is needed to go from the raw data to evidence that can save lives.
 Although the datasets used in this guide are report road casualty data from Britain, the approach knows no borders: R works equally well in China, India, the USA and Zambia.
 Road safety is a global issue, that can be considered an epidemic and "the leading cause of
-death for people aged between 5 and 29 years" worldwide, ahead of hunger, disease and war [@worldhealthorganization_global_2018].
+death for people aged between 5 and 29 years" [worldwide](https://www.who.int/publications/i/item/9789241565684), ahead of hunger, disease and war [@worldhealthorganization_global_2018].
+The urgency and ubiquity of the 'road violence' epidemic is shown in Figure \@ref(fig:world).
+Although Britain has relatively safe roads by international standards (with around 3 road traffic deaths per 100,000 people per year, compared with a global average of 17), it still sees over 1000 road deaths each year and unmeasurable costs to families who have lost loved ones and people left with permanent injuries due to poorly designed roads and transport policies..
 
 ```{r world, echo=FALSE, fig.cap="Road danger levels worldwide in 2016. Data source: World Bank. Reproducible source code: [github.com/itsleeds/rrsrr](https://github.com/ITSLeeds/rrsrr/blob/master/code/world-casualties.R)."}
 knitr::include_graphics("figures/road-casualties.png")
@@ -56,7 +58,7 @@ rm(re)
 ```
 
 The importance of reproducibility in scientific research should be obvious: if findings cannot be repeated, this casts doubt on the validity and truth of the conclusions drawn from them.
-Reproducibility is vital for *falsifiability*, a cornerstone of science [@popper_logic_1959].
+Reproducibility is vital for *falsifiability*, a cornerstone of science [@popper_logic_1934].
 
 In applied policy-relevant research areas, such as road safety research, reproducibility is equally important: policy makers and the public want to have confidence that the evidence underlying key decisions is reliable. 
 Policies based on results that nobody can reproduce are harder to defend than policies that have a clear evidence base open for others to repeat, including members of the public and educators. 
@@ -110,14 +112,14 @@ Note that, like any actively developed software, R is evolving so it is worth up
 
 ## Installing R and RStudio
 
-If you plan to use R, you will need to install:
+To complete the exercises in this guide, you will need to install:
 
 - R from [cran.r-project.org](https://cran.r-project.org/)
 - RStudio from [rstudio.com](https://rstudio.com/products/rstudio/download/#download)
 - R packages, by opening RStudio and typing `install.packages("stats19")` in the console to install the `stats19` package, for example (see Section \@ref(install-pkgs) for details)
 
 We recommend using at least the latest stable release of R (4.0.0 at the time of writing in 2020). 
-We recommend running R on a decent computer, with at least 4 GB RAM and ideally 8 GB or more RAM and a modern processor. 
+We recommend running R on a decent computer, with at least 4 GB RAM and ideally 8 GB or more RAM. 
 R is computationally efficient and therefore fast language for data science but, because of the size of some road safety datasets, we recommend using it on a high spec laptop or desktop.
 
 ## R in the cloud
@@ -155,7 +157,6 @@ lapply(pkgs, library, character.only = TRUE)
 ```
 
 <!-- You should type, run and ensure you understand each line of code in this document. -->
-
 
 ## Overview
 
