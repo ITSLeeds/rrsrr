@@ -24,12 +24,9 @@ bookdown::render_book("index.Rmd", output_format = "bookdown::word_document2")
 file.rename("_book/_main.docx", "rrsrr.docx")
 ```
 
-
 ```{r knitopts, echo=FALSE}
 knitr::opts_chunk$set(fig.path = "figures/")
 ```
-
-
 
 ```{r, include=FALSE}
 if(file.exists("~/uaf/allrefs.bib")) {
