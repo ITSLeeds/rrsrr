@@ -118,6 +118,44 @@ sum(ac_sf$number_of_casualties) == nrow(ca)
 sum(ac_sf$number_of_vehicles) == nrow(ve)
 ```
 
+## Joining casualty data
+
+To join casualty (or vehicle) data onto the `ac` object above, the `inner_join()` function from `dplyr` can be used as follows:
+
+```{r}
+ac_cas_joined = inner_join(ac, ca)
+```
+
+The above command worked because the two datasets have a shared variable name: `accident_index`.
+Note that the command worked by duplicating accident records for multiple casualties.
+We can see this finding the accident that had the most crashes and printing the results in the `ac` and new joined dataset, as follows:
+
+```{r}
+id_with_most_crashes = ac %>% 
+  top_n(n = 1, wt = number_of_casualties) %>% 
+  pull(accident_index)
+id_with_most_crashes
+ac %>% filter(accident_index == id_with_most_crashes) %>% 
+  select(accident_index, accident_severity, number_of_vehicles, number_of_casualties)
+ac_cas_joined %>% filter(accident_index == id_with_most_crashes) %>% 
+  select(accident_index, accident_severity, number_of_vehicles, number_of_casualties, casualty_reference)
+```
+
+## Joining vehicle data
+
+The same approach can be used to join vehicle data onto the crash record data:
+
+```{r}
+ac_veh_joined = inner_join(ac, ve)
+```
+
+This information can be used as the basis of who-hit-who visualisation, in this case looking at vehicles involved in the most commont type of casualties:
+
+```{r}
+table(ac_cas_joined$casualty_type)
+ac_cas_joined$cas_simple = NULL
+```
+
 
 
 ## Case study: London 
