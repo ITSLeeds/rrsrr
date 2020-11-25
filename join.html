@@ -310,26 +310,26 @@ We can see this finding the accident that had the most crashes and printing the 
 <pre><code>## [1] &quot;2019500885809&quot;</code></pre>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="join.html#cb196-1"></a>ac <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(accident_index <span class="op">==</span><span class="st"> </span>id_with_most_crashes) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb196-2"><a href="join.html#cb196-2"></a><span class="st">  </span><span class="kw">select</span>(accident_index, accident_severity, number_of_vehicles, number_of_casualties)</span></code></pre></div>
-<pre><code>## [90m# A tibble: 1 x 4[39m
+<pre><code>## # A tibble: 1 x 4
 ##   accident_index accident_severity number_of_vehicles number_of_casualties
-##   [3m[90m&lt;chr&gt;[39m[23m          [3m[90m&lt;chr&gt;[39m[23m                          [3m[90m&lt;int&gt;[39m[23m                [3m[90m&lt;int&gt;[39m[23m
-## [90m1[39m 2019500885809  Serious                            1                   52</code></pre>
+##   &lt;chr&gt;          &lt;chr&gt;                          &lt;int&gt;                &lt;int&gt;
+## 1 2019500885809  Serious                            1                   52</code></pre>
 <div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="join.html#cb198-1"></a>ac_cas_joined <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(accident_index <span class="op">==</span><span class="st"> </span>id_with_most_crashes) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb198-2"><a href="join.html#cb198-2"></a><span class="st">  </span><span class="kw">select</span>(accident_index, accident_severity, number_of_vehicles, number_of_casualties, casualty_reference)</span></code></pre></div>
-<pre><code>## [90m# A tibble: 52 x 5[39m
+<pre><code>## # A tibble: 52 x 5
 ##    accident_index accident_severi… number_of_vehic… number_of_casua…
-##    [3m[90m&lt;chr&gt;[39m[23m          [3m[90m&lt;chr&gt;[39m[23m                       [3m[90m&lt;int&gt;[39m[23m            [3m[90m&lt;int&gt;[39m[23m
-## [90m 1[39m 2019500885809  Serious                         1               52
-## [90m 2[39m 2019500885809  Serious                         1               52
-## [90m 3[39m 2019500885809  Serious                         1               52
-## [90m 4[39m 2019500885809  Serious                         1               52
-## [90m 5[39m 2019500885809  Serious                         1               52
-## [90m 6[39m 2019500885809  Serious                         1               52
-## [90m 7[39m 2019500885809  Serious                         1               52
-## [90m 8[39m 2019500885809  Serious                         1               52
-## [90m 9[39m 2019500885809  Serious                         1               52
-## [90m10[39m 2019500885809  Serious                         1               52
-## [90m# … with 42 more rows, and 1 more variable: casualty_reference [3m[90m&lt;int&gt;[90m[23m[39m</code></pre>
+##    &lt;chr&gt;          &lt;chr&gt;                       &lt;int&gt;            &lt;int&gt;
+##  1 2019500885809  Serious                         1               52
+##  2 2019500885809  Serious                         1               52
+##  3 2019500885809  Serious                         1               52
+##  4 2019500885809  Serious                         1               52
+##  5 2019500885809  Serious                         1               52
+##  6 2019500885809  Serious                         1               52
+##  7 2019500885809  Serious                         1               52
+##  8 2019500885809  Serious                         1               52
+##  9 2019500885809  Serious                         1               52
+## 10 2019500885809  Serious                         1               52
+## # … with 42 more rows, and 1 more variable: casualty_reference &lt;int&gt;</code></pre>
 </div>
 <div id="joining-vehicle-data" class="section level2">
 <h2><span class="header-section-number">8.3</span> Joining vehicle data</h2>
