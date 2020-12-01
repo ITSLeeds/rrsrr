@@ -1,0 +1,150 @@
+---
+title: "Reproducible Road Safety (and transport) Research with R"
+# subtitle: '`r emojifont::emoji("bike")`<br/>For England and Wales'
+subtitle: '`r emojifont::emoji("rocket")`<br/>RAC Foundation, Data Driven'
+author: "Robin Lovelace"
+date: '2020'
+output:
+  xaringan::moon_reader:
+    # css: ["default", "its.css"]
+    # chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+# bibliography:
+#  - ../vignettes/ref.bib
+#  - ../vignettes/ref_training.bib
+---
+
+```{r setup, include=FALSE, eval=FALSE}
+# get citations
+refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
+refs_df = as.data.frame(refs)
+# View(refs_df)
+# citr::insert_citation(bib_file = "vignettes/refs_training.bib")
+RefManageR::WriteBib(refs, "refs.bib")
+# citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+library(RefManageR)
+BibOptions(check.entries = FALSE, 
+           bib.style = "authoryear", 
+           cite.style = 'alphabetic', 
+           style = "markdown",
+           first.inits = FALSE,
+           hyperlink = FALSE, 
+           dashed = FALSE)
+my_bib = refs
+```
+
+
+```{r, eval=FALSE, echo=FALSE, engine='bash'}
+# publish results online
+cp -Rv code/rrsrr-slides* ~/saferactive/site/static/slides/
+cp -Rv code/libs ~/saferactive/site/static/slides/
+cd ~/saferactive/site
+git add -A
+git status
+git commit -am 'Update slides'
+git push
+cd -
+```
+
+# Slide/links
+
+https://itsleeds.github.io/rrsrr/
+
+https://bookdown.org/
+
+https://www.pct.bike/
+
+---
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+
+# Coding
+
+Ideal:
+
+```{r, eval=FALSE}
+od_test$perc_cycle = round(od_test$bicycle / od_test$all) * 100
+l = od_to_sf(od_test, od_data_centroids)
+r = stplanr::route(l = l, route_fun = journey)
+rnet = overline(r, "bicycle")
+```
+
+--
+
+![](https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif)
+
+Reality
+
+
+---
+
+## Transport software - which do you use?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+u = "https://github.com/ITSLeeds/TDS/raw/master/transport-software.csv"
+tms = readr::read_csv(u)[1:5]
+tms = dplyr::arrange(tms, dplyr::desc(Citations))
+knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
+```
+
+---
+
+## Data science and the tidyverse
+
+- Inspired by Introduction to data science with R (available free [online](https://r4ds.had.co.nz/))
+
+
+```{r tds-cover, echo=FALSE, out.width="30%"}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png")
+```
+
+---
+
+## A geographic perspective
+
+- See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
+
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) 
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](https://geocompr.robinlovelace.net/transport.html) (available free [online](https://geocompr.robinlovelace.net/)) 
+- Paper on analysing OSM data in Python with OSMnx (available [online](https://arxiv.org/pdf/1611.01890)) 
+
+---
+
+# Getting support
+
+--
+
+With open source software, the world is your support network!
+
+--
+
+- Recent example: https://stackoverflow.com/questions/57235601/
+
+--
+
+- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
+
+- [r-sig-geo](https://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
+
+- RStudio's Discourse community has 65,000+ posts already!
+
+--
+
+- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
+
+- Potential for a Discourse forum or similar: transport is not (just) GIS
+
+---
+
+# Thanks
+
+- Check out [itsleeds.github.io/rrsrr/](https://itsleeds.github.io/rrsrr/)
+- Get a GitHub account
+- Start asking questions
+- Twitter `@robinlovelace`
+
