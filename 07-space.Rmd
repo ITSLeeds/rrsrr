@@ -418,7 +418,7 @@ roads = osm_data %>%
   filter(str_detect(highway, pattern = "moto|prim|seco|tert|trunk"))
 # transform geometry and save
 roads = st_transform(roads, 27700) #converts to projected BNG system for later use
-plot(roads$geometry) # basic plot of roads
+# plot(roads$geometry) # basic plot of roads
 tm_shape(roads) + tm_lines("maxspeed", showNA = T, lwd = 2)
 saveRDS(roads, file = "roads.Rds") # Saves road dataset for future use
 ```
