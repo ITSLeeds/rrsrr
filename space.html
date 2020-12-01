@@ -500,8 +500,8 @@ Figure 7.5: Maps of the Isle of Wight.
 <span id="cb170-8"><a href="space.html#cb170-8"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(highway, <span class="dt">pattern =</span> <span class="st">&quot;moto|prim|seco|tert|trunk&quot;</span>))</span>
 <span id="cb170-9"><a href="space.html#cb170-9"></a><span class="co"># transform geometry and save</span></span>
 <span id="cb170-10"><a href="space.html#cb170-10"></a>roads =<span class="st"> </span><span class="kw">st_transform</span>(roads, <span class="dv">27700</span>) <span class="co">#converts to projected BNG system for later use</span></span>
-<span id="cb170-11"><a href="space.html#cb170-11"></a><span class="kw">tm_shape</span>(roads) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="dt">showNA =</span> T, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb170-12"><a href="space.html#cb170-12"></a><span class="kw">plot</span>(roads<span class="op">$</span>geometry)</span>
+<span id="cb170-11"><a href="space.html#cb170-11"></a><span class="kw">plot</span>(roads<span class="op">$</span>geometry) <span class="co"># basic plot of roads</span></span>
+<span id="cb170-12"><a href="space.html#cb170-12"></a><span class="kw">tm_shape</span>(roads) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="dt">showNA =</span> T, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb170-13"><a href="space.html#cb170-13"></a><span class="kw">saveRDS</span>(roads, <span class="dt">file =</span> <span class="st">&quot;roads.Rds&quot;</span>) <span class="co"># Saves road dataset for future use</span></span></code></pre></div>
 <div class="figure"><span id="fig:ex"></span>
 <img src="figures/ex-1.png" alt="Roads in Essex downloaded with the code shown above." width="672" />
