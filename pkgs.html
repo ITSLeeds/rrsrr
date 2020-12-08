@@ -314,13 +314,13 @@ So <code>stats19::find_file_name(years = 2019, type = "casualties")</code> works
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="pkgs.html#cb68-1"></a><span class="co"># run a function from a package&#39;s namespace without loading it but using ::</span></span>
 <span id="cb68-2"><a href="pkgs.html#cb68-2"></a>sf<span class="op">::</span><span class="kw">sf_extSoftVersion</span>()</span></code></pre></div>
 <pre><code>##           GEOS           GDAL         proj.4 GDAL_with_GEOS     USE_PROJ_H 
-##        &quot;3.8.1&quot;        &quot;3.1.1&quot;        &quot;6.3.1&quot;         &quot;true&quot;         &quot;true&quot;</code></pre>
+##        &quot;3.8.1&quot;        &quot;3.1.4&quot;        &quot;6.3.1&quot;         &quot;true&quot;         &quot;true&quot;</code></pre>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="pkgs.html#cb70-1"></a><span class="co"># fun a function call after loading the package (the most common way)</span></span>
 <span id="cb70-2"><a href="pkgs.html#cb70-2"></a><span class="kw">library</span>(sf)</span></code></pre></div>
-<pre><code>## Linking to GEOS 3.8.1, GDAL 3.1.1, PROJ 6.3.1</code></pre>
+<pre><code>## Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.1</code></pre>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="pkgs.html#cb72-1"></a><span class="kw">sf_extSoftVersion</span>()</span></code></pre></div>
 <pre><code>##           GEOS           GDAL         proj.4 GDAL_with_GEOS     USE_PROJ_H 
-##        &quot;3.8.1&quot;        &quot;3.1.1&quot;        &quot;6.3.1&quot;         &quot;true&quot;         &quot;true&quot;</code></pre>
+##        &quot;3.8.1&quot;        &quot;3.1.4&quot;        &quot;6.3.1&quot;         &quot;true&quot;         &quot;true&quot;</code></pre>
 <p>As a bonus, try running the command <code>sf::sf_extSoftVersion</code> without the brackets <code>()</code>.
 What does that tell you about the package?</p>
 </div>
@@ -343,7 +343,7 @@ The <code>stats19</code> vignette, for example, should appear in the <strong>Hel
 <div id="updating-packages" class="section level2">
 <h2><span class="header-section-number">4.6</span> Updating packages</h2>
 <p>Packages can be updated with the command <code>update.package()</code> or in ‘Tools &gt; Check for Package Updates’ in RStudio.
-You only need to install a package once but packages can be updated many times. It is important to update packages regularly because ?????.
+You only need to install a package once but packages can be updated many times. It is important to update packages regularly because updates will offer bug-fixes and other improvements.
 To update just one package, you can give the function a package name, e.g.:</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="pkgs.html#cb77-1"></a><span class="kw">update.packages</span>(<span class="dt">oldPkgs =</span> <span class="st">&quot;stats19&quot;</span>)</span></code></pre></div>
 <p>Completing the following short exercises will ensure you’ve got a good understanding of packages and package versions.</p>
