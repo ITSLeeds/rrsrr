@@ -385,7 +385,7 @@ crashes_iow = readRDS(url(u))
 1. Plot the roads with the crashes overlaid.
 2. Create a buffer around the roads with a distance of 200m.
 3. How many crashes fall outside the buffered roads?
-3. **Bonus:** Use the `aggregate()` function to identify how many crashes happened per segment and plot the result with `tmap` and plot the crashes that happened outside the road buffers on top, as shown in Figure \@ref(fig:iowbuff)(hint: see `?aggregate.sf` and take a read of Section [4.2.5](https://geocompr.robinlovelace.net/spatial-operations.html#spatial-aggr) of *Geocomputation with R* [@lovelace_geocomputation_2019]). Try undertaking the same steps for a different region of your choice. An example for Exeter is shown in the code chunk, which results in Figure \@ref(fig:ex), (thanks to Will Cubbin).^[
+3. **Bonus:** Use the `aggregate()` function to identify how many crashes happened per segment and plot the result with `tmap` and plot the crashes that happened outside the road buffers on top, as shown in Figure \@ref(fig:iowbuff) (hint: see `?aggregate.sf` and take a read of Section [4.2.5](https://geocompr.robinlovelace.net/spatial-operations.html#spatial-aggr) of *Geocomputation with R* [@lovelace_geocomputation_2019]). Try undertaking the same steps for a different region of your choice. An example for Essex is shown in the code chunk, which results in Figure \@ref(fig:ex), (thanks to Will Cubbin).^[
 The code chunk downloads and filters road data to show only main roads, and saves as an .Rds file for later use in your R project.
 The geometry of the `roads.Rds` file from this example is a one dimensional line representing the centre of the road.
 Some functions require the road to be treated as 2D polygon with a width property.

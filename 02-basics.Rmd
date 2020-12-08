@@ -270,7 +270,7 @@ You can find NAs using the `is.na()` function, and then remove them:
 ```{r, eval=FALSE}
 is.na(z)
 z_no_na = z[!is.na(z)] # note the use of the not operator !
-sum(z)
+sum(z_no_na)
 ```
 
 If you remove records with NAs, be warned: the average of a value excluding NAs may not be representative.
