@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 # Next steps
 
 You have reached the end of this short guide on reproducible road safety research with R. 
@@ -15,32 +9,31 @@ However, in my experience, once you get past a critical threshold, the amount of
 The same concept applies to other ‘tools of the trade’ that are available, such as the open source geographic information system (GIS) software, QGIS and other languages for data science, such as Python and Julia.
 
 Rather than go off and learn such additional tools, we encourage you to stick with R. It is preferable to know one language in-depth before branching out to learn other approaches. 
-As Grolemund & Wickham (2016) put it,: ‘You will get better faster if you dive deep, rather than spreading yourself thinly over many topics.’ 
+ It is preferable to know one language in-depth and then branch out to learn other approaches than to learn many approaches superficially or, as @grolemund_data_2016 put it in the excellent R for Data Science (R4DS) book: "You will get better faster if you dive deep, rather than spreading yourself thinly over many topics". 
 In terms of next steps, you cannot go wrong with checking-out the R4DS website which, like this book, has worked examples and exercises in abundance on a much wider range of data science topics. 
-As you will see by visiting r4ds.had.co.nz, many of these topics, including workflow and modelling, will be of use to those of us working from a road safety research perspective.
-
+ As you will see by visiting [r4ds.had.co.nz](https://r4ds.had.co.nz) many of these topics, including workflow and modelling, will be of use from a road safety research perspective. 
+ 
 A strength of R is its flexibility. 
-It can be used as a calculator one minute, a statistical modelling toolbox the next, and then as a web application development framework. 
-This is illustrated by major Shiny apps, such as the Propensity to Cycle Tool (try it at www.pct.bike), and tools developed by road safety consultancy Agilysis, described in Section 9.4 below. 
-Indeed, within the R ecosystem there are many sub-ecosystems, each of which has excellent free and, particularly, open resources for people who want to learn more about a particular domain. 
-If you are involved in the geographic analysis of road crash data, the book Geocomputation with R, by yours truly, and which has already been mentioned in Section 7, is highly recommended (Lovelace et al., 2019). 
-If you are looking for methods of analysing trends and forecasting with time series data, @hyndman_forecasting_2018’s book on Forecasting, which is also freely available online, is highly recommended. 
+It can be used as a calculator one minute and a statistical modelling toolbox the next.
+R can be used as a web application development framework the next, as illustrated by major shiny apps such as the Propensity to Cycle Tool (try it at [www.pct.bike](https://www.pct.bike/)) and tools developed by road safety consultancy Agilysis, described in Section \@ref(testimonials) below. Indeed, within the R ecosystem there are many sub-ecosystems, each of which has excellence free and open resources for people who want to learn more in a particular domain. If you are particularly in the geographic analysis of road crash data, the book [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by yours truly and which has already been mentioned in Chapter \@ref(space), is highly recommended [@lovelace_geocomputation_2019].
+If you are looking for methods of analysing trends and forecasting with time series data, @hyndman_forecasting_2018 is highly recommended. 
 Indeed, there is a whole library’s worth of open resources to be found on any area of data-driven research online, from web development and visualisation to text analysis. 
 A recommended next step for learning more in regards to any of these areas is the website bookdown.org, which links to books that can also be bought as physical items if you, like many people, prefer learning with a paper resource.
 
 In fact, with the size and rapidly evolving nature of the R ecosystem, one of the hardest things for a beginner is knowing which packages, functions or workflow options to choose from out of a wide array of options. 
 The internet is there to help you, but it can also hinder your progress by serving-up out-of-date solutions and providing ‘quick fixes’ at the expense of a deep understanding. 
 Therefore, instead of trying to be comprehensive (focussed web searches prioritising tried-and-tested solutions documented in authoritative sources can help with that), the rest of this final section provides pointers on a few particularly useful aspects of R from a road safety analysis perspective. 
-If you, at any point, become frustrated due to tricky-to-fix error messages (something that all users of command-line software have experienced at some point!), you may want to skip to Section 9.4, written by people who have navigated R’s at first daunting learning curve to arrive safely at place where R saves more time than it consumes and takes your work ‘to the next level.’
+Most people who learn R (or any computer language) will at become frustrated due to tricky-to-fix error messages.
+As outlined in Section \@ref(testimonials), written by people who have navigated R's at first daunting learning curve, it can take only a few weeks of learning to get to the point where saves more time than it consumes and takes your work "to the next level".
 
 ## Automated reporting with RMarkdown
 
 An advantage of R is that it has many packages dedicated to the communication and publication of results, vital for policy impact. 
-Perhaps the most important important package with regards to the communication of results is rmarkdown. 
-This is more of a framework than a package, providing a powerful system for generating reports, web pages and even books (this book was written with the bookdown package, which builds on rmarkdown).
+Perhaps the most important important package with regards to the communication of results is `rmarkdown`. 
+This is more of a framework than a package, providing a powerful system for generating reports, web pages and even books (this book was written with the bookdown package, which builds on`rmarkdown`).
 
-Here is not the place to explain how to use RMarkdown (Rmd). 
-The framework is explained in detail in a free and open book (Xie et al., 2018). 
+Here is not the place to explain how to use RMarkdown and their associated .Rmd files. 
+The framework is explained in detail in a free and open book [@xie_markdown_2018]. 
 To get started with the framework, however, you can try the following code example, which shows the creation of an Rmd file:
 
 ```{r, eval=FALSE}
@@ -140,7 +133,7 @@ Thinking of myself as an "Excel native", I would say R hasn't replaced Excel, bu
 Dr Craig Smith, Data Scientist, [Agilysis Ltd](https://agilysis.co.uk/)
 
 After attending my first R course, I immediately saw how useful the language could be to our team. 
-At Agilysis, we have integrated R into almost everything our analytics team does, pushing for our work to be as robust and reproducible as possible. 
+ At [Agilysis](https://agilysis.co.uk/), we have integrated R into almost everything our analytics team does, pushing for our work to be as robust and reproducible as possible. 
 The incredible integration R has with SQL database engines, cloud-based infrastructure like AWS, and proprietary GIS software like ArcGIS, has given us a huge scope to automate a lot of our regular data processing tasks. 
 The added ability to automate the production of reports, charts and maps has allowed us to gain quick insights into our data, speeding up our exploratory analysis. 
 The huge Shiny ecosystem has allowed us to produce interactive applications for sharing our tools and visualisations with stakeholders. 
@@ -150,7 +143,7 @@ The fact that this community includes a growing number of road safety analysts a
 
 ### Using R in a road safety charity
 
-Emily Nagler, Data Analyst, [RAC Foundation] (https://www.racfoundation.org/)
+Emily Nagler, Data Analyst, [RAC Foundation](http://www.racfoundation.org)
 
 I was first introduced to R in my master’s program by a professor who was very enthusiastic as to how much better it was than ArcGIS for spatial analysis. 
 Whilst he did project his views very strongly on us as students, I still tended towards ArcGIS when given a choice between the two. 
@@ -176,20 +169,16 @@ In terms of its use in my work on road safety and transport analysis it has beco
 That being said, visualisation is just as important as the analysis, and I’ve been pleased with the array of packages that can create eye-catching maps, interactive dashboards, and much more outside of the traditional data wrangling capabilities. 
 Looking to the future of my career I see myself continuing to use R and I’m confident that its capabilities will only get better the more people engage with it.
 
+### Using R in other areas of road safety research
+
+Do you have a use case of reproducible research?
+Please get in touch on the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
+
 <!-- ### PhD research -->
 
 <!-- ### Policymaking -->
 
 <!-- Other -->
 
-Do you have a use case of reproducible research?
-Please get in touch on the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
-
 # References
-
-Grolemund et al. (2016). R for Data Science. (1st edition) O’Reilly Media.
-
-Lovelace et al. (2019). Geocomputation with R. CRC Press.
-
-Xie et al. (2018). R Markdown: The Definitive Guide. (1st edition) Boca Raton: Chapman and Hall/CRC.
 

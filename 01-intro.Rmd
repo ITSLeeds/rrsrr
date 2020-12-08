@@ -1,44 +1,35 @@
-# Preface
-
-Many areas of research have real world implications, but few have the ability to save lives in the way that road safety research does. 
-Road safety research is a data driven field, underpinned by attribute-rich spatio-temporal event-based datasets representing the grim reality of people who are tragically hurt or killed on the roads. 
-Because of the incessant nature of road casualties, there is a danger that it becomes normalised, an implicitly accepted cost associated with the benefits of personal mobility.
-
-Data analysis in general, and ‘data science’ in particular, has great potential to support more evidence-based road safety policies. Data science can be defined as a particular type of data analysis process, in that it is script-based, reproducible and scalable. 
-As such, it has the ability to represent what we know about road casualties in new ways, demonstrate the life-saving impacts of effective policies, and prioritise interventions that are most likely to work.
-
-This manual was not designed to be a static textbook that is read once and accumulates dust. 
-It is meant to be a hand-book, taken out into the field of applied research and referred to frequently in the course of an analysis project. 
-As such, it is applied and exercise based.
-
-There are strong links between data science, open data, open source software and more collaborative ways of working. 
-As such, this manual is itself a collaborative and open source project that is designed to be a living document. 
-We encourage any comments, questions or contributions related to its contents. 
-The source code can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/ITSLeeds/rrsrr)) repo on the [saferactive GitHub organisation](https://github.com/saferactive/), via the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues). 
-More broadly, we hope that you enjoy the contents of this manual and find the process of converting data science into data driven policy changes and investment rewarding. 
-Get ready to enjoy the ride!
-
-# Thanks
-
-Many thanks to everyone who made this happen, especially the RAC Foundation for funding the project; Malcolm Morgan and Andrea Gilardi for contributing to earlier versions; and the Department for Transport for funding reproducible road safety research through the SaferActive project. 
-Many thanks to all contributors to the manual so far via GitHub (this list will update automatically): .
-
 # Introduction
 
-This book teaches reproducible road safety analysis with R.
+This book teaches reproducible road safety analysis with R, a popular, free and open source statistical programming language.
 It was initially developed for a 2 day course, [Introduction to R for Road Safety](https://www.racfoundation.org/introduction-to-r-for-road-safety) course.
 Since then, interest in the topic has grown.
 The [RAC Foundation](https://www.racfoundation.org/) charity in the UK funded the development of this manual as a free and open resource to support their objective of making the roads safer for everyone.
 The content is based on open access road crash data from the UK, which is provided by the R package **stats19** [@lovelace_stats19_2019]. 
-However, the content is designed to be general and should be of use to **anyone working with road crash data worldwide,** who has (at a minimum):
+However, the content is designed to be general and should be of use to **anyone working with road crash data worldwide,** that has (at a minimum) the following variables (see Table \@ref(tab:asample) for an example crash dataset):
 
 - a timestamp;
 - a location (or address that can be geocoded); and
 - attribute data, such as severity of crash, and type of vehicles involved.
 
-The manual is based on open source software, which knows no borders: R. 
-It works equally well in China, India, the USA and the UK. 
-It is practical, meaning that you should reproduce the examples that are provided throughout. 
+```{r asample, echo=FALSE, message=FALSE}
+a = stats19::get_stats19(2019)
+v = c("date", "longitude", "latitude", "accident_severity")
+a_sample = a[3:5, v]
+knitr::kable(a_sample, caption = "Sample crash dataset. These are real records taken from the open STATS19 database, provided by the UK's Department for Transport, under the terms of the Open Government Licence ([OGL](www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)).")
+```
+
+Clearly, work is needed to go from the raw data to evidence that can save lives.
+Although the datasets used in this guide report road casualty data from Britain, the approach knows no borders: R works equally well in China, India, the USA and Zambia.
+Road safety is a global issue, that can be considered an epidemic and "the leading cause of
+death for people aged between 5 and 29 years" [worldwide](https://www.who.int/publications/i/item/9789241565684), ahead of hunger, disease and war [@worldhealthorganization_global_2018].
+The urgency and ubiquity of the 'road violence' epidemic is shown in Figure \@ref(fig:world).
+Although Britain has relatively safe roads by international standards (with around 3 road traffic deaths per 100,000 people per year, compared with a global average of 17), it still sees over 1000 road deaths each year and unmeasurable costs to families who have lost loved ones and people left with permanent injuries due to poorly designed roads and transport policies.
+
+```{r world, echo=FALSE, fig.cap="Road danger levels worldwide in 2016. Data source: World Bank. Reproducible source code: [github.com/itsleeds/rrsrr](https://github.com/ITSLeeds/rrsrr/blob/master/code/world-casualties.R)."}
+knitr::include_graphics("figures/road-casualties.png")
+```
+
+The guide is practical, meaning that you should reproduce the examples that are provided throughout. 
 As with many practical skills, you learn data science by doing data science.
 
 Before getting stuck in with the practical content, which begins in Section \@ref(basics), the remainder of this chapter:
@@ -67,7 +58,7 @@ rm(re)
 ```
 
 The importance of reproducibility in scientific research should be obvious: if findings cannot be repeated, this casts doubt on the validity and truth of the conclusions drawn from them.
-Reproducibility is vital for *falsifiability*, a cornerstone of science [@popper_logic_1959].
+Reproducibility is vital for *falsifiability*, a cornerstone of science [@popper_logic_1934].
 
 In applied policy-relevant research areas, such as road safety research, reproducibility is equally important: policy makers and the public want to have confidence that the evidence underlying key decisions is reliable. 
 Policies based on results that nobody can reproduce are harder to defend than policies that have a clear evidence base open for others to repeat, including members of the public and educators. 
@@ -121,14 +112,14 @@ Note that, like any actively developed software, R is evolving so it is worth up
 
 ## Installing R and RStudio
 
-If you plan to use R, you will need to install:
+To complete the exercises in this guide, you will need to install:
 
 - R from [cran.r-project.org](https://cran.r-project.org/)
 - RStudio from [rstudio.com](https://rstudio.com/products/rstudio/download/#download)
 - R packages, by opening RStudio and typing `install.packages("stats19")` in the console to install the `stats19` package, for example (see Section \@ref(install-pkgs) for details)
 
 We recommend using at least the latest stable release of R (4.0.0 at the time of writing in 2020). 
-We recommend running R on a decent computer, with at least 4 GB RAM and ideally 8 GB or more RAM and a modern processor. 
+We recommend running R on a decent computer, with at least 4 GB RAM and ideally 8 GB or more RAM. 
 R is computationally efficient and therefore fast language for data science but, because of the size of some road safety datasets, we recommend using it on a high spec laptop or desktop.
 
 ## R in the cloud
@@ -166,7 +157,6 @@ lapply(pkgs, library, character.only = TRUE)
 ```
 
 <!-- You should type, run and ensure you understand each line of code in this document. -->
-
 
 ## Overview
 

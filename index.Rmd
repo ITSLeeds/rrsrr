@@ -16,24 +16,24 @@ bibliography:
   - references.bib
 ---
 
+# Preamble {-}
+
 ```{r, eval=FALSE, echo=FALSE}
 # custom outputs
 bookdown::render_book("index.Rmd", output_format = "bookdown::word_document2")
 file.rename("_book/_main.docx", "rrsrr.docx")
 ```
 
-
 ```{r knitopts, echo=FALSE}
 knitr::opts_chunk$set(fig.path = "figures/")
 ```
-
-
 
 ```{r, include=FALSE}
 if(file.exists("~/uaf/allrefs.bib")) {
   # citr::tidy_bib_file(rmd_file = "_main.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
   system("find . -name '0*.Rmd' -exec cat {} \\; > /tmp/all.Rmd")
   system("echo '@baath_state_2012' >> /tmp/all.Rmd")
+  system("echo '@hyndman_forecasting_2018' >> /tmp/all.Rmd")
   citr::tidy_bib_file(rmd_file = "/tmp/all.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "references.bib")
 }
 ```
@@ -51,94 +51,44 @@ knitr::write_bib(x = pkgs, "packages.bib")
 rm(pkgs)
 ```
 
-<!-- Structure outline -->
+## Foreword: Matt Staton {-}
 
-<!-- Preface -->
+Road Safety GB recognises the importance of high quality data analysis as a fundamental element in efforts to reduce road casualties at a local and national level by enabling evidence-based intervention. The use of open source software like R in this way is to be actively encouraged and tools such as this manual provide valuable support for analysts working across the industry in enhancing the analysis they are able to provide to decision-makers. This approach also supports the reproduction of high-quality analysis up and down the country using locally-held data, which I hope in turn will improve the consistency and quality of evidence used in day-to-day road safety activity.
+ 
+I would like to thank those that have worked hard to pull this manual together and encourage all those working with road safety data to make use of this resource to learn, develop and share their analysis methods with others.
+ 
+*Matt Staton, Director of Research, [Road Safety GB](https://roadsafetygb.org.uk/)*
 
-<!-- 1 Introduction -->
-<!-- 2 R basics -->
-<!-- 3 Using RStudio -->
-<!-- 4 R Packages -->
-<!-- 5 Manipulating data -->
-<!-- 6 Temporal data -->
-<!-- 7 Spatial data -->
-<!-- 8 Joining road crash tables -->
-<!-- 9 Next steps for reproducible road safety research -->
+## Forword: John Wilkins {-}
 
-<!-- Structure full -->
+The STATS19 data collection for road traffic collisions has existed in the current form since 1979. It is a well-established source of road safety data which offers great insights into the trends and locations of road traffic collisions for central and local government, the police and the general public. The openness and accessibility of this data is important to DfT, who have launched a data download tool to improve the access to road safety data. As well as working to enhance the use of R and Reproducible Analytical Pipelines to improve the quality of their analysis and publications. 
+ 
+The standard use of packages and code creates transparent and consistent framework for analysis. And the work by the University of Leeds takes new and experienced R users through the process of producing temporal and special analysis using STATS19 data. We commend this book to all those who wish to conduct analysis of road traffic collisions and use analysis to help save lives on our roads.
+ 
+*John Wilkins, Deputy Director, [Statistics Travel and Safety Division](https://www.gov.uk/government/organisations/department-for-transport/about/statistics), [Department for Transport](https://www.gov.uk/government/organisations/department-for-transport)*
 
-<!-- Preface -->
-
-<!-- 1 Introduction -->
-<!-- 1.1 Why R for road safety research? . . . . . . . . . . . . . . . . . . -->
-<!-- 1.2 Prerequisites . . . . . . . . . . . . . . . . . . . . . . . . . . . . . -->
-
-<!-- 2 R basics -->
-<!-- 2.1 Subsetting by index or name . -->
-<!-- 2.2 Subsetting by values . . . . . . -->
-<!-- 2.3 Dealing with NAs and recoding -->
-<!-- 2.4 Changing class . . . . . . . . . -->
-<!-- 2.5 Recoding values . . . . . . . . . -->
-<!-- 2.6 Now you are ready to use R . . -->
-
-<!-- 3 Using RStudio -->
-<!-- 3.1 Projects and scripts . . . -->
-<!-- 3.2 Writing and running code -->
-<!-- 3.3 Viewing Objects . . . . . -->
-<!-- 3.4 Autocompletion . . . . . . -->
-<!-- 3.5 Getting help . . . . . . . . -->
-<!-- 3.6 Commenting Code . . . . -->
-<!-- 3.7 The global environment . -->
-<!-- 3.8 Debugging Code . . . . . -->
-<!-- 3.9 Saving R objects . . . . . -->
-
-<!-- 4 R Packages -->
-<!-- 4.1 What are packages? . . . . . . . . . . . . . . . . . . . . . . . . . 19 -->
-<!-- 4.2 ggplot2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20 -->
-<!-- 4.3 dplyr and pipes . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21 -->
-
-<!-- 5 Manipulating data -->
-
-<!-- 6 Temporal data -->
-
-<!-- 7 Spatial data -->
-<!-- 7.1 sf objects . . . . . . . . . . . . . . . . -->
-<!-- 7.2 Reading and writing spatial data . . . -->
-<!-- 7.3 sf polygons . . . . . . . . . . . . . . . -->
-<!-- 7.4 Spatial subsetting and sf plotting . . . -->
-<!-- 7.5 Geographic joins . . . . . . . . . . . . -->
-<!-- 7.6 CRSs . . . . . . . . . . . . . . . . . . . -->
-<!-- 7.7 Buffers . . . . . . . . . . . . . . . . . . -->
-<!-- 7.8 Attribute operations on sf objects . . . -->
-<!-- 7.9 Matching roads to crashes . . . . . . . -->
-<!-- 7.10 Mapping road crash data . . . . . . . -->
-<!-- 7.11 Analysing point data . . . . . . . . . . -->
-<!-- 7.12 Analysing crash data on road networks -->
-
-<!-- 8 Joining road crash tables -->
-
-<!-- 9 Next steps for reproducible road safety research -->
-
-
-# Preface {-}
+## Preface {-}
 
 Many areas of research have real world implications, but few have the ability to *save lives* in the way that road safety research does.
-Road safety research is a data driven field of research, underpinned by attribute-rich spatio-temporal event-based datasets representing the grim reality of people who are tragically hurt or killed on the roads.
-Because of the incessant nature of road casualties there is a danger that it becomes normalised, an implicitly accepted cost associated with the benefits of personal mobility.
+Road safety research is a data driven field, underpinned by attribute-rich spatio-temporal event-based datasets representing the grim reality of people who are tragically hurt or killed on the roads. 
+Because of the incessant nature of road casualties, there is a danger that it becomes normalised, an implicitly accepted cost associated with the benefits of personal mobility.
 
 Data analysis in general and 'data science' in particular has great potential to support more evidence-based road safety policies.
-Data science can be defined as a particular type of data analysis process that is script-based, reproducible and scalable.
-As such, it has the ability to represent what we know about road casualties in new ways, demonstrate the life-saving impacts of effective policies and prioritise interventions that are most likely to work.
+Data science can be defined as a particular type of data analysis process, in that it is script-based, reproducible and scalable. 
+As such, it has the ability to represent what we know about road casualties in new ways, demonstrate the life-saving impacts of effective policies, and prioritise interventions that are most likely to work.
 
-This book is designed not to be a static textbook that is read once and accumulates dust.
-It is meant to be a hand-book, taken out into the field of applied research and referred to frequently in the course of an analysis project.
+This manual was not designed to be a static textbook that is read once and accumulates dust. 
+It is meant to be a hand-book, taken out into the field of applied research and referred to frequently in the course of an analysis project. 
 As such, it is applied and exercise based.
 
 There are strong links between data science, open data, open source software and more collaborative ways of working.
 As such, this book is itself a collaborative and open source project that is designed to be a living document.
 We encourage any comments, questions or contributions related to its contents, the source code of which can be found at the Reproducible Road Safety Research with R ([rrsrr](https://github.com/ITSLeeds/rrsrr)) repo on the [ITSLeeds GitHub organisation](https://github.com/ITSLeeds/), via the [issue tracker](https://github.com/ITSLeeds/rrsrr/issues).
 More broadly, we hope you enjoy the contents of the book and find the process of converting data science into data driven policy changes and investment rewarding.
-Get ready for and enjoy the ride!
+Get ready for the brave new reproducible world and enjoy the ride!
+
+*Robin Lovelace, Leeds, Autumn 2020*
+
 
 ## Thanks {-}
 

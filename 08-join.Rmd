@@ -98,16 +98,16 @@ sum(ac$number_of_casualties) == nrow(ca)
 sum(ac$number_of_vehicles) == nrow(ve)   
 ```
 
-Sometimes crash, casualty and vehicle datasets will be inconsistent, for example, after removing records that contain no geographic coordinates with the command `format_sf()`, as demonstrated below:
+<!-- Sometimes crash, casualty and vehicle datasets will be inconsistent, for example, after removing records that contain no geographic coordinates with the command `format_sf()`, as demonstrated below: -->
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 ac_sf = format_sf(ac)
 ```
 
-After the 28 crash records with missing coordinates have been removed, the associated casualty and vehicles datasets do not match.
-Update the tables and run some further checks to ensure that records in the accidents table match with those in the now updated other two tables as follows:
+<!-- After the 28 crash records with missing coordinates have been removed, the associated casualty and vehicles datasets do not match. -->
+<!-- Update the tables and run some further checks to ensure that records in the accidents table match with those in the now updated other two tables as follows: -->
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 # detect mismatch
 sum(ac_sf$number_of_casualties) == nrow(ca) 
 sum(ac_sf$number_of_vehicles) == nrow(ve)   
@@ -118,13 +118,98 @@ sum(ac_sf$number_of_casualties) == nrow(ca)
 sum(ac_sf$number_of_vehicles) == nrow(ve)
 ```
 
-## Locality 
+## Joining casualty data
 
-The three main tables we have just read-in can be joined by the "accident-index" key variable and then filtered using other variables. This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
+To join casualty (or vehicle) data onto the `ac` object above, the `inner_join()` function from `dplyr` can be used as follows:
+
+```{r}
+ac_cas_joined = inner_join(ac, ca)
+```
+
+The above command worked because the two datasets have a shared variable name: `accident_index`.
+Note that the command worked by duplicating accident records for multiple casualties.
+We can see this finding the accident that had the most crashes and printing the results in the `ac` and new joined dataset, as follows:
+
+```{r}
+id_with_most_crashes = ac %>% 
+  top_n(n = 1, wt = number_of_casualties) %>% 
+  pull(accident_index)
+id_with_most_crashes
+ac %>% filter(accident_index == id_with_most_crashes) %>% 
+  select(accident_index, accident_severity, number_of_vehicles, number_of_casualties)
+ac_cas_joined %>% filter(accident_index == id_with_most_crashes) %>% 
+  select(accident_index, accident_severity, number_of_vehicles, number_of_casualties, casualty_reference)
+```
+
+## Joining vehicle data
+
+The same approach can be used to join vehicle data onto the crash record data:
+
+```{r}
+ac_veh_joined = inner_join(ac, ve)
+```
+
+This information can be used as the basis of who-hit-who visualisation, in this case looking at vehicles involved in the most common type of casualties (recoded using the `trafficalmr` package):
+
+```{r, message=FALSE, fig.cap="Barplot of recoded casualty type frequencies"}
+remotes::install_github("saferactive/trafficalmr")
+library(trafficalmr)
+ac_cas_joined$cas_type = tc_recode_casualties(ac_cas_joined$casualty_type)
+p = c(`HGV_occupant|Minibus_occupant|Taxi_occupant|Moto*.+` = "Other")
+ac_cas_joined$cas_type = tc_recode_casualties(ac_cas_joined$cas_type, pattern = p)
+barplot(table(ac_cas_joined$cas_type))
+```
+
+To find the largest vehicle involved in each casualty, we can similarly pre-process the vehicle data as follows:
+
+```{r}
+p = c(`Van*.+` = "Van", `Pedal cycle` = "Bicycle",
+  `(M|m)otorcycle*.+|Elec*.+` = "Motorcycle",
+  `Taxi*|Data*.+|Agri*.+|Ridden*.+|Mobility*.+|Tram*.+|(M|m)otorcycle*.+|Elec*.+` = "Other",
+  `Bus*.+` = "Bus", `Bus|Minibus*.+|Other*.+` = "Other", `Goods*.+` = "HGV")
+ac_veh_joined$veh_type = tc_recode_vehicle_type(ac_veh_joined$vehicle_type, p)
+# dput(unique(ac_veh_joined$veh_type))
+l = c("Bicycle", "Car", "Other", "Van", "HGV")
+ac_veh_joined$vehicle = factor(ac_veh_joined$veh_type, levels = l, ordered = TRUE)
+summary(ac_veh_joined$vehicle)
+ac_veh_largest = ac_veh_joined %>% 
+  group_by(accident_index) %>% 
+  summarise(largest_vehicle = max(vehicle))
+```
+
+
+```{r whohit, fig.cap="'Who hit who' visualisation of number of casualties (y axis) hurt in crashes involving different vehicle types (largest vehicle in each crash on Y axis)."}
+ac_cas_veh_largest = inner_join(ac_cas_joined, ac_veh_largest) 
+cas_veh_table = table(ac_cas_veh_largest$cas_type, ac_cas_veh_largest$largest_vehicle)
+cvt_df = as.data.frame(cas_veh_table)
+ggplot(cvt_df) +
+  geom_bar(aes(Var2, Freq, fill = Var1), stat = "identity") +
+  scale_fill_discrete("Casualty type") +
+  xlab("Largest vehicle involved") +
+  ylab("Number of casualties")
+  # geom_bar(aes(`Vehicle type`, `Casualty type`, fill = `N. crashes`), stat = "identity")  
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+# barplot(table(ac_veh_largest$largest_vehicle))
+ac_veh_wide = ac_veh_joined %>% 
+  group_by(accident_index) %>% 
+  count(veh_type) %>% 
+  pivot_wider(names_from = veh_type, values_from = n)
+
+```
+
+
+
+## Case study: London 
+
+The three main tables we have just read-in can be joined by the `accident_index` variable and then filtered using other variables. This is demonstrated in the code chunk below, which subsets all casualties that took place in London, and counts the number of casualties by severity for each crash:
 
 ```{r table-join, message = FALSE}
 library(tidyr)
 library(dplyr)
+ac_sf = format_sf(ac)
 # table(ac_sf$police_force)
 lnd_police = c("City of London", "Metropolitan Police")
 ac_lnd = ac_sf %>% 
@@ -205,9 +290,17 @@ ggplot(ac_types, aes(size = Total, colour = speed_limit)) +
   theme(axis.text = element_blank(), axis.ticks = element_blank())
 ```
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 ac_names = names(ac)
 ac_names[grepl(pattern = "cas", x = ac_names)]
 ```
+
+**Exercises:**
+
+1. There is a lot going on in the code in this chapter, the most advanced of the guide.
+  With reference to online help, work through the code line-by-line and look-up
+  any aspects of the code that you do not fully understand to help figure out what is going on.
+2. Reproduce the final figures for a different city of your choice (not London).
+3. **Bonus:** Create more attractive interactive maps to show the spatial distribution of different casualty types in the city of your choice.
 
 
