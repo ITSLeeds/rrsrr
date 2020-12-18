@@ -132,7 +132,7 @@ vignette("stats19")
 ## Updating packages
 
 Packages can be updated with the command `update.package()` or in 'Tools > Check for Package Updates' in RStudio.
-You only need to install a package once but packages can be updated many times. It is important to update packages regularly because ?????.
+You only need to install a package once but packages can be updated many times. It is important to update packages regularly because updates will offer bug-fixes and other improvements.
 To update just one package, you can give the function a package name, e.g.:
 
 ```{r, eval=FALSE}

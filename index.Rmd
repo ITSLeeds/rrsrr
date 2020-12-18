@@ -51,7 +51,18 @@ knitr::write_bib(x = pkgs, "packages.bib")
 rm(pkgs)
 ```
 
-## Foreword: Matt Staton {-}
+## About the Author {-}
+
+[Robin Lovelace](https://www.robinlovelace.net/) is Associate Professor of Transport Data Science at the Leeds Institute
+for Transport Studies [(ITS)](https://environment.leeds.ac.uk/transport) specialising in the analysis of regional transport systems and
+modelling scenarios of change. Robin is Lead Developer of the Propensity to Cycle Tool (see [www.pct.bike](https://www.pct.bike/)), Principal Investigator of the Department for Transport funded SaferActive project and author of popular open source software packages (such as stplanr) and books
+(such as Geocomputation with R).
+
+## Disclaimer {-}
+
+This report has been prepared for the RAC Foundation by Robin Lovelace at the Leeds Institute for Transport Studies. Any errors or omissions are the author’s sole responsibility. The report content reflects the views of the author and not necessarily those of the RAC Foundation.
+
+## Foreword: Road Safety GB {-}
 
 Road Safety GB recognises the importance of high quality data analysis as a fundamental element in efforts to reduce road casualties at a local and national level by enabling evidence-based intervention. The use of open source software like R in this way is to be actively encouraged and tools such as this manual provide valuable support for analysts working across the industry in enhancing the analysis they are able to provide to decision-makers. This approach also supports the reproduction of high-quality analysis up and down the country using locally-held data, which I hope in turn will improve the consistency and quality of evidence used in day-to-day road safety activity.
  
@@ -59,13 +70,29 @@ I would like to thank those that have worked hard to pull this manual together a
  
 *Matt Staton, Director of Research, [Road Safety GB](https://roadsafetygb.org.uk/)*
 
-## Forword: John Wilkins {-}
+## Forword: Department for Transport {-}
 
 The STATS19 data collection for road traffic collisions has existed in the current form since 1979. It is a well-established source of road safety data which offers great insights into the trends and locations of road traffic collisions for central and local government, the police and the general public. The openness and accessibility of this data is important to DfT, who have launched a data download tool to improve the access to road safety data. As well as working to enhance the use of R and Reproducible Analytical Pipelines to improve the quality of their analysis and publications. 
  
 The standard use of packages and code creates transparent and consistent framework for analysis. And the work by the University of Leeds takes new and experienced R users through the process of producing temporal and special analysis using STATS19 data. We commend this book to all those who wish to conduct analysis of road traffic collisions and use analysis to help save lives on our roads.
  
 *John Wilkins, Deputy Director, [Statistics Travel and Safety Division](https://www.gov.uk/government/organisations/department-for-transport/about/statistics), [Department for Transport](https://www.gov.uk/government/organisations/department-for-transport)*
+
+## Forword: RAC Foundation {-}
+
+If there is one thing to notice from the changes in the road safety sector over the past decade it is the rapid development of data and data science. Not too long ago road safety analysis involved mounds of paperwork, file sizes too large for transmission, and geo-coding using old A to Zs. We now have systems with handheld devices taking precise GPS co-ordinates at the scene, online-only systems and automated error checking. The volumes of data we possess are growing rapidly, our abilities to maintain and clean data have become more straightforward and what it is possible to discover from data has become cheaper and easier to obtain. Our expectation is, understandably, that across the sector we should be able to access road safety data and to do more with it, more easily and more readily.
+
+The types of analyses that we used to associate with sectors like pharmaceuticals and insurance, with high-end technology and well-funded research programmes, are increasingly within the grasp of people with normal laptops and pay-by-the-hour cloud-computing, and in sectors that don’t always have much money to throw at a problem. The good news is that there is scope for road safety analysis to pick up these methods and approaches adopted in other sectors and work hopefully to bring about the new insights we need to improve road safety.
+
+At the RAC Foundation we want road transport to benefit from this new world of data analysis – where the tools available are getting cheaper and what is possible is growing rapidly. But this can only happen if the opportunities are given to the sector’s  road safety analysts to learn new skills for the job.
+
+While Great Britain has a history of road crash data recording that is world-leading, our analysis of it is all-too-often locked in to a pattern of labour-intensive and repetitious reporting, with analysts lacking the support they need to improve skills and find the space to do the sorts of analyses that will help us achieve the next step-change decline in casualties on our roads. Which is why we commissioned this work from Robin Lovelace.
+
+We hope that Robin’s manual will go some way towards meeting the current need: by giving road safety analysts a self-help training manual to develop their skills in R,, the open-source analytical tool. This manual covers everything one would need for doing the regular tasks of road safety analysis entirely in the R language, designed to be accessible to the newcomer.
+R allows you to code analysis for reproducible research; reproducible in the sense that others can check and verify it as well as borrow, share and adapt it to their own work. Analysts can also repeat their own work as fresh data becomes available – there’s no need to recreate the wheel. The openness, efficiency and power of working in R offers the opportunity, if taken, to improve how road safety analysis gets done.
+Let’s be honest: like learning any new skill, effort is needed upfront to reap the benefits of this new way of working. But we firmly believe the effort it is worth it, and we think this manual is great way to get you started.
+
+*Steve Gooding, Director, [RAC Foundation](https://www.racfoundation.org/)*
 
 ## Preface {-}
 
@@ -88,7 +115,6 @@ More broadly, we hope you enjoy the contents of the book and find the process of
 Get ready for the brave new reproducible world and enjoy the ride!
 
 *Robin Lovelace, Leeds, Autumn 2020*
-
 
 ## Thanks {-}
 
