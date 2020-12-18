@@ -50,8 +50,6 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -132,8 +130,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preamble</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#foreword-matt-staton"><i class="fa fa-check"></i>Foreword: Matt Staton</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#forword-john-wilkins"><i class="fa fa-check"></i>Forword: John Wilkins</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#disclaimer"><i class="fa fa-check"></i>Disclaimer</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#foreword-road-safety-gb"><i class="fa fa-check"></i>Foreword: Road Safety GB</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#forword-department-for-transport"><i class="fa fa-check"></i>Forword: Department for Transport</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#forword-rac-foundation"><i class="fa fa-check"></i>Forword: RAC Foundation</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#preface"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#thanks"><i class="fa fa-check"></i>Thanks</a></li>
 </ul></li>
@@ -252,25 +253,25 @@ This aspect of R is covered in detail in the book <a href="https://geocompr.robi
 By mapping collision data in R, you can add layers containing other geographic datasets to further understand the reasons for certain trends.
 This can lead to new opportunities for intervention and collaboration with other parties who may have mutually compatible solutions for reaching their goals.
 We will use the following packages in this section:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="space.html#cb154-1"></a><span class="kw">library</span>(sf)        <span class="co"># load the sf package for working with spatial data</span></span>
-<span id="cb154-2"><a href="space.html#cb154-2"></a><span class="kw">library</span>(tidyverse) <span class="co"># load the tidyverse as before</span></span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="space.html#cb153-1"></a><span class="kw">library</span>(sf)        <span class="co"># load the sf package for working with spatial data</span></span>
+<span id="cb153-2"><a href="space.html#cb153-2"></a><span class="kw">library</span>(tidyverse) <span class="co"># load the tidyverse as before</span></span></code></pre></div>
 <div id="sf-objects" class="section level2">
 <h2><span class="header-section-number">7.1</span> sf objects</h2>
 <p>All road crashes happen somewhere and, in the UK at least, all collisions recorded by the police are given geographic coordinates. These can help in prioritising interventions to save lives by focusing on ‘crash hotspots.’
 R has strong geographic data capabilities with the <code>sf</code> package, providing a generic class for spatial vector data. Points, lines and polygons are represented in <code>sf</code> as objects in a special ‘geometry column’, typically called ‘geom’ or ‘geometry’, extending the data frame class we’ve already seen in <code>crashes</code>, created in Section <a href="data.html#tibbles">5.1</a> (repeated here to consolidate data frame creation):</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="space.html#cb155-1"></a>crashes =<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb155-2"><a href="space.html#cb155-2"></a>  <span class="dt">casualty_type =</span> <span class="kw">c</span>(<span class="st">&quot;pedestrian&quot;</span>, <span class="st">&quot;cyclist&quot;</span>, <span class="st">&quot;cat&quot;</span>),</span>
-<span id="cb155-3"><a href="space.html#cb155-3"></a>  <span class="dt">casualty_age =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">20</span>, <span class="dt">to =</span> <span class="dv">60</span>, <span class="dt">by =</span> <span class="dv">20</span>),</span>
-<span id="cb155-4"><a href="space.html#cb155-4"></a>  <span class="dt">vehicle_type =</span> <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;tank&quot;</span>),</span>
-<span id="cb155-5"><a href="space.html#cb155-5"></a>  <span class="dt">dark =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
-<span id="cb155-6"><a href="space.html#cb155-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="space.html#cb154-1"></a>crashes =<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb154-2"><a href="space.html#cb154-2"></a>  <span class="dt">casualty_type =</span> <span class="kw">c</span>(<span class="st">&quot;pedestrian&quot;</span>, <span class="st">&quot;cyclist&quot;</span>, <span class="st">&quot;cat&quot;</span>),</span>
+<span id="cb154-3"><a href="space.html#cb154-3"></a>  <span class="dt">casualty_age =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">20</span>, <span class="dt">to =</span> <span class="dv">60</span>, <span class="dt">by =</span> <span class="dv">20</span>),</span>
+<span id="cb154-4"><a href="space.html#cb154-4"></a>  <span class="dt">vehicle_type =</span> <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;tank&quot;</span>),</span>
+<span id="cb154-5"><a href="space.html#cb154-5"></a>  <span class="dt">dark =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb154-6"><a href="space.html#cb154-6"></a>)</span></code></pre></div>
 <p>Create an <code>sf</code> data frame called <code>crashes_sf</code> that expands the <code>crashes</code> data frame to include a geometry column based on the <code>crashes</code> longitude and latitude data as follows:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="space.html#cb156-1"></a>crashes_sf =<span class="st"> </span>crashes <span class="co"># create copy of crashes dataset</span></span>
-<span id="cb156-2"><a href="space.html#cb156-2"></a>crashes_sf<span class="op">$</span>longitude =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.3</span>, <span class="fl">-1.2</span>, <span class="fl">-1.1</span>)</span>
-<span id="cb156-3"><a href="space.html#cb156-3"></a>crashes_sf<span class="op">$</span>latitude =<span class="st"> </span><span class="kw">c</span>(<span class="fl">50.7</span>, <span class="fl">50.7</span>, <span class="fl">50.68</span>)</span>
-<span id="cb156-4"><a href="space.html#cb156-4"></a>crashes_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(crashes_sf, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># st_as_sf converts longitude and latitude coordinates into spatial objects using a specified Coordinate Reference System (see 7.6)</span></span>
-<span id="cb156-5"><a href="space.html#cb156-5"></a><span class="co"># plot(crashes_sf[1:4]) # basic plot</span></span>
-<span id="cb156-6"><a href="space.html#cb156-6"></a><span class="co"># mapview::mapview(crashes_sf) # for interactive map</span></span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="space.html#cb155-1"></a>crashes_sf =<span class="st"> </span>crashes <span class="co"># create copy of crashes dataset</span></span>
+<span id="cb155-2"><a href="space.html#cb155-2"></a>crashes_sf<span class="op">$</span>longitude =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.3</span>, <span class="fl">-1.2</span>, <span class="fl">-1.1</span>)</span>
+<span id="cb155-3"><a href="space.html#cb155-3"></a>crashes_sf<span class="op">$</span>latitude =<span class="st"> </span><span class="kw">c</span>(<span class="fl">50.7</span>, <span class="fl">50.7</span>, <span class="fl">50.68</span>)</span>
+<span id="cb155-4"><a href="space.html#cb155-4"></a>crashes_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(crashes_sf, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="co"># st_as_sf converts longitude and latitude coordinates into spatial objects using a specified Coordinate Reference System (see 7.6)</span></span>
+<span id="cb155-5"><a href="space.html#cb155-5"></a><span class="co"># plot(crashes_sf[1:4]) # basic plot</span></span>
+<span id="cb155-6"><a href="space.html#cb155-6"></a><span class="co"># mapview::mapview(crashes_sf) # for interactive map</span></span></code></pre></div>
 <p><strong>Exercises:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Plot only the geometry column of <code>crashes_sf</code> (<strong>Hint:</strong> the solution may contain <code>$geometry</code>). If the result is like that in Figure <a href="space.html#fig:crashes-sf-ex">7.1</a>, congratulations, it worked!</li>
@@ -289,16 +290,16 @@ Figure 7.1: The <code>crashes_sf</code> dataset shown in map form with the funct
 <div id="reading-and-writing-spatial-data" class="section level2">
 <h2><span class="header-section-number">7.2</span> Reading and writing spatial data</h2>
 <p>You can read and write spatial data with <code>read_sf()</code> and <code>write_sf()</code>, as shown below (see <code>?read_sf</code>):</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="space.html#cb157-1"></a><span class="kw">write_sf</span>(zones, <span class="st">&quot;zones.geojson&quot;</span>) <span class="co"># saves the spatial dataset called zones as geojson file type</span></span>
-<span id="cb157-2"><a href="space.html#cb157-2"></a><span class="kw">write_sf</span>(zones, <span class="st">&quot;zmapinfo&quot;</span>, <span class="dt">driver =</span> <span class="st">&quot;MapInfo file&quot;</span>) <span class="co"># saves the dataset as a MapInfo file</span></span>
-<span id="cb157-3"><a href="space.html#cb157-3"></a><span class="kw">read_sf</span>(<span class="st">&quot;zmapinfo&quot;</span>) <span class="co"># reads-in mapinfo file</span></span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="space.html#cb156-1"></a><span class="kw">write_sf</span>(zones, <span class="st">&quot;zones.geojson&quot;</span>) <span class="co"># saves the spatial dataset called zones as geojson file type</span></span>
+<span id="cb156-2"><a href="space.html#cb156-2"></a><span class="kw">write_sf</span>(zones, <span class="st">&quot;zmapinfo&quot;</span>, <span class="dt">driver =</span> <span class="st">&quot;MapInfo file&quot;</span>) <span class="co"># saves the dataset as a MapInfo file</span></span>
+<span id="cb156-3"><a href="space.html#cb156-3"></a><span class="kw">read_sf</span>(<span class="st">&quot;zmapinfo&quot;</span>) <span class="co"># reads-in mapinfo file</span></span></code></pre></div>
 <p>See <a href="https://geocompr.robinlovelace.net/read-write.html">Chapter 6</a> of <em>Geocomputation with R</em> for further information <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span>.</p>
 </div>
 <div id="sf-polygons" class="section level2">
 <h2><span class="header-section-number">7.3</span> sf polygons</h2>
 <p><code>sf</code> objects can also represent administrative zones.
 This is illustrated below with reference to <code>zones</code>, a spatial object representing the Isle of Wight, that we will download using the <code>pct</code> package (<strong>Note:</strong> the <code>[1:9]</code> appended to the function selects only the first 9 columns).</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="space.html#cb158-1"></a>zones =<span class="st"> </span>pct<span class="op">::</span><span class="kw">get_pct_zones</span>(<span class="st">&quot;isle-of-wight&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="space.html#cb157-1"></a>zones =<span class="st"> </span>pct<span class="op">::</span><span class="kw">get_pct_zones</span>(<span class="st">&quot;isle-of-wight&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>]</span></code></pre></div>
 <p><strong>Exercises:</strong></p>
 <ol style="list-style-type: decimal">
 <li>What is the class of the <code>zones</code> object?</li>
@@ -310,20 +311,20 @@ This is illustrated below with reference to <code>zones</code>, a spatial object
 ## dimension:      XY
 ## bbox:           xmin: -1.301131 ymin: 50.69052 xmax: -1.28837 ymax: 50.70547
 ## geographic CRS: WGS 84
-## # A tibble: 2 x 6
+## [90m# A tibble: 2 x 6[39m
 ##   geo_code    all bicycle  foot car_driver                              geometry
-##   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;                    &lt;MULTIPOLYGON [°]&gt;
-## 1 E01017326   698      23   285        286 (((-1.289993 50.69766, -1.290177 50.…
-## 2 E01017327   720      25   225        374 (((-1.295712 50.69383, -1.29873 50.6…</code></pre>
+##   [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;dbl&gt;[39m[23m   [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;dbl&gt;[39m[23m      [3m[90m&lt;dbl&gt;[39m[23m                    [3m[90m&lt;MULTIPOLYGON [°]&gt;[39m[23m
+## [90m1[39m E01017326   698      23   285        286 (((-1.289993 50.69766, -1.290177 50.…
+## [90m2[39m E01017327   720      25   225        374 (((-1.295712 50.69383, -1.29873 50.6…</code></pre>
 </div>
 <div id="spatial-subsetting-and-sf-plotting" class="section level2">
 <h2><span class="header-section-number">7.4</span> Spatial subsetting and sf plotting</h2>
 <p>Like index and value subsetting, spatial subsetting can be done with the <code>[]</code> notation.
 We can identify the crashes (<code>crashes_sf</code>) that occur in the Isle of Wight (<code>zones</code>) by subsetting as follows (i.e. subset <code>zones</code> by whether it contains data in <code>crashes_sf</code>):</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="space.html#cb160-1"></a>zones_containing_crashes =<span class="st"> </span>zones[crashes_sf, ]</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="space.html#cb159-1"></a>zones_containing_crashes =<span class="st"> </span>zones[crashes_sf, ]</span></code></pre></div>
 <p>To plot a new layer on top of an existing <code>sf</code> plot, use the <code>add = TRUE</code> argument, e.g. as follows:</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="space.html#cb161-1"></a><span class="kw">plot</span>(zones<span class="op">$</span>geometry) <span class="co"># plot just the geometry of one layer</span></span>
-<span id="cb161-2"><a href="space.html#cb161-2"></a><span class="kw">plot</span>(zones_containing_crashes<span class="op">$</span>geometry, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="space.html#cb160-1"></a><span class="kw">plot</span>(zones<span class="op">$</span>geometry) <span class="co"># plot just the geometry of one layer</span></span>
+<span id="cb160-2"><a href="space.html#cb160-2"></a><span class="kw">plot</span>(zones_containing_crashes<span class="op">$</span>geometry, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Remember to plot only the <code>geometry</code> column of objects to avoid multiple maps.
 Colours can be set with the <code>col</code> argument.</p>
 <p><strong>Exercises:</strong></p>
@@ -343,7 +344,7 @@ Figure 7.2: Illustration of the results of spatial subsetting.
 <h2><span class="header-section-number">7.5</span> Geographic joins</h2>
 <p>Geographic joins involve assigning values from one object to a new column in another, based on the geographic relationship between them.
 With <code>sf</code> objects, the data from the <code>crashes_sf</code> dataset is joined onto the ‘target’ <code>zones</code> dataset, to create a new object called <code>zones_joined</code>:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="space.html#cb162-1"></a>zones_joined =<span class="st"> </span><span class="kw">st_join</span>(zones[<span class="dv">1</span>], crashes_sf)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="space.html#cb161-1"></a>zones_joined =<span class="st"> </span><span class="kw">st_join</span>(zones[<span class="dv">1</span>], crashes_sf)</span></code></pre></div>
 <p>The above code takes the <code>geo_code</code> column data from <code>zones</code>, matches it to the <code>geometry</code> column in <code>crashes_sf</code> and then joins it to the crashes that have occurred in those geo_codes. The matched, joined <code>geo_code</code> is a new column in the <code>zone_joined</code> dataset. We now know the administrative geo_code in which each crash occured.</p>
 <p><strong>Exercises:</strong></p>
 <ol style="list-style-type: decimal">
@@ -369,7 +370,7 @@ Distance and direction calculations work differently between geographic and proj
 Fortunately, R makes this very easy, and every CRS has its own unique reference number. For example, 27700 for the British National Grid system.</p>
 <p>CRSs define how two-dimensional points (such as longitude and latitude) are actually represented in the real world. A CRS value is needed to interpret and give true meaning to coordinates. You can get and set CRSs with the command <code>st_crs()</code>.
 Transform CRSs with the command <code>st_transform()</code>, as demonstrated in the code chunk below, which converts the ‘lon/lat’ geographic CRS of <code>crashes_sf</code> into the projected CRS of the British National Grid:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="space.html#cb163-1"></a>crashes_osgb =<span class="st"> </span><span class="kw">st_transform</span>(crashes_sf, <span class="dv">27700</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="space.html#cb162-1"></a>crashes_osgb =<span class="st"> </span><span class="kw">st_transform</span>(crashes_sf, <span class="dv">27700</span>)</span></code></pre></div>
 <!-- From Will -->
 <!-- When you define the geometry in a data frame, it creates a multipoint vector. -->
 <!-- This is a single column containing coordinate pairs for point data, or multiple coordinate pairs for line vectors or polygons. Sometimes it may be necessary to convert from one CRS to another without creating a multipoint vector. -->
@@ -398,13 +399,13 @@ For example, in road safety research a 30m buffer can be created around crash lo
 <h2><span class="header-section-number">7.8</span> Attribute operations on sf objects</h2>
 <p>We can do non-spatial operations on <code>sf</code> objects because they are <code>data.frame</code>s.
 Try the following attribute operations on the <code>zones</code> data:</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="space.html#cb164-1"></a><span class="co"># load example dataset if it doesn&#39;t already exist</span></span>
-<span id="cb164-2"><a href="space.html#cb164-2"></a>zones =<span class="st"> </span>pct<span class="op">::</span><span class="kw">get_pct_zones</span>(<span class="st">&quot;isle-of-wight&quot;</span>)</span>
-<span id="cb164-3"><a href="space.html#cb164-3"></a>sel =<span class="st"> </span>zones<span class="op">$</span>all <span class="op">&gt;</span><span class="st"> </span><span class="dv">3000</span>  <span class="co"># create a subsetting object</span></span>
-<span id="cb164-4"><a href="space.html#cb164-4"></a>zones_large =<span class="st"> </span>zones[sel, ] <span class="co"># subset areas with a population over 3,000</span></span>
-<span id="cb164-5"><a href="space.html#cb164-5"></a>zones_<span class="dv">2</span> =<span class="st"> </span>zones[zones<span class="op">$</span>geo_name <span class="op">==</span><span class="st"> &quot;Isle of Wight 002&quot;</span>,] <span class="co"># subset based on &#39;equality&#39; query</span></span>
-<span id="cb164-6"><a href="space.html#cb164-6"></a>zones_first_and_third_column =<span class="st"> </span>zones[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span>
-<span id="cb164-7"><a href="space.html#cb164-7"></a>zones_just_all =<span class="st"> </span>zones[<span class="st">&quot;all&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="space.html#cb163-1"></a><span class="co"># load example dataset if it doesn&#39;t already exist</span></span>
+<span id="cb163-2"><a href="space.html#cb163-2"></a>zones =<span class="st"> </span>pct<span class="op">::</span><span class="kw">get_pct_zones</span>(<span class="st">&quot;isle-of-wight&quot;</span>)</span>
+<span id="cb163-3"><a href="space.html#cb163-3"></a>sel =<span class="st"> </span>zones<span class="op">$</span>all <span class="op">&gt;</span><span class="st"> </span><span class="dv">3000</span>  <span class="co"># create a subsetting object</span></span>
+<span id="cb163-4"><a href="space.html#cb163-4"></a>zones_large =<span class="st"> </span>zones[sel, ] <span class="co"># subset areas with a population over 3,000</span></span>
+<span id="cb163-5"><a href="space.html#cb163-5"></a>zones_<span class="dv">2</span> =<span class="st"> </span>zones[zones<span class="op">$</span>geo_name <span class="op">==</span><span class="st"> &quot;Isle of Wight 002&quot;</span>,] <span class="co"># subset based on &#39;equality&#39; query</span></span>
+<span id="cb163-6"><a href="space.html#cb163-6"></a>zones_first_and_third_column =<span class="st"> </span>zones[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span>
+<span id="cb163-7"><a href="space.html#cb163-7"></a>zones_just_all =<span class="st"> </span>zones[<span class="st">&quot;all&quot;</span>]</span></code></pre></div>
 <p><strong>Exercises:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Practice the subsetting techniques you have learned on the <code>sf data.frame</code> object <code>zones</code>:
@@ -426,8 +427,8 @@ Try the following attribute operations on the <code>zones</code> data:</p>
 <p>So far we have used the <code>plot()</code> function to make maps.
 That’s fine for basic visualisation, but for publication-quality maps we recommend using <code>tmap</code>. See Chapter 8 of <em>Geocomputation with R</em> <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span> for further explanation and alternatives.
 After installation, load the package as follows:</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="space.html#cb165-1"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb165-2"><a href="space.html#cb165-2"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>) <span class="co"># this sets the tmap mode to plotting as opposed to interactive</span></span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="space.html#cb164-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb164-2"><a href="space.html#cb164-2"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>) <span class="co"># this sets the tmap mode to plotting as opposed to interactive</span></span></code></pre></div>
 <pre><code>## tmap mode set to plotting</code></pre>
 <p><strong>Exercises:</strong></p>
 <ol style="list-style-type: decimal">
@@ -450,8 +451,8 @@ Temporal and spatial attributes are key to road crash data, hence the emphasis o
 Visualisation is central to understanding data and influencing policy, which is where <code>tmap</code> comes in.
 With these solid foundations, plus knowledge of how to ask for help (we recommend reading R’s internal help, asking colleagues, searching the internet and creating new questions or comments on online forums such as StackOverflow or GitHub and we suggest you follow this order of resources to get help), you are ready to test the methods on some real data.</p>
 <p>Before doing so, take a read of the <code>stats19</code> vignette, which can be launched as follows:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="space.html#cb167-1"></a><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">&quot;stats19&quot;</span>) <span class="co"># view all vignettes available on stats19</span></span>
-<span id="cb167-2"><a href="space.html#cb167-2"></a><span class="kw">vignette</span>(<span class="st">&quot;stats19&quot;</span>) <span class="co"># view the introductory vignette</span></span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="space.html#cb166-1"></a><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">&quot;stats19&quot;</span>) <span class="co"># view all vignettes available on stats19</span></span>
+<span id="cb166-2"><a href="space.html#cb166-2"></a><span class="kw">vignette</span>(<span class="st">&quot;stats19&quot;</span>) <span class="co"># view the introductory vignette</span></span></code></pre></div>
 <p>This should now be sufficient to tackle the following exercises:</p>
 <ol style="list-style-type: decimal">
 <li>Download and plot all crashes reported in Great Britain in 2018. (<strong>Hint:</strong> see <a href="https://docs.ropensci.org/stats19/articles/stats19.html">the stats19 vignette</a>)</li>
@@ -471,13 +472,13 @@ These include leaflet maps, which have interactive properties and can be shared 
 <h2><span class="header-section-number">7.11</span> Analysing crash data on road networks</h2>
 <p>Road network data can be accessed from a range of sources, including OpenStreetMap (OSM) and Ordnance Survey.
 We will use some OSM data from the Isle of Wight, which can be loaded as follows:</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="space.html#cb168-1"></a>u =<span class="st"> &quot;https://github.com/ropensci/stats19/releases/download/1.1.0/roads_key.Rds&quot;</span> </span>
-<span id="cb168-2"><a href="space.html#cb168-2"></a>roads_wgs =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">url</span>(u))</span>
-<span id="cb168-3"><a href="space.html#cb168-3"></a>roads =<span class="st"> </span>roads_wgs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(<span class="dt">crs =</span> <span class="dv">27700</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="space.html#cb167-1"></a>u =<span class="st"> &quot;https://github.com/ropensci/stats19/releases/download/1.1.0/roads_key.Rds&quot;</span> </span>
+<span id="cb167-2"><a href="space.html#cb167-2"></a>roads_wgs =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">url</span>(u))</span>
+<span id="cb167-3"><a href="space.html#cb167-3"></a>roads =<span class="st"> </span>roads_wgs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_transform</span>(<span class="dt">crs =</span> <span class="dv">27700</span>)</span></code></pre></div>
 <p>You should already have road crashes for the Isle of Wight from the previous stage.
 If not, load crash data as follows:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="space.html#cb169-1"></a>u =<span class="st"> &quot;https://github.com/ropensci/stats19/releases/download/1.1.0/car_accidents_2017_iow.Rds&quot;</span></span>
-<span id="cb169-2"><a href="space.html#cb169-2"></a>crashes_iow =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">url</span>(u))</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="space.html#cb168-1"></a>u =<span class="st"> &quot;https://github.com/ropensci/stats19/releases/download/1.1.0/car_accidents_2017_iow.Rds&quot;</span></span>
+<span id="cb168-2"><a href="space.html#cb168-2"></a>crashes_iow =<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">url</span>(u))</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Plot the roads with the crashes overlaid.</li>
 <li>Create a buffer around the roads with a distance of 200m.</li>
@@ -490,19 +491,19 @@ If not, load crash data as follows:</p>
 Figure 7.5: Maps of the Isle of Wight.
 </p>
 </div>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="space.html#cb170-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;itsleeds/osmextract&quot;</span>) <span class="co"># install github package for osm data</span></span>
-<span id="cb170-2"><a href="space.html#cb170-2"></a><span class="kw">library</span>(osmextract)</span>
-<span id="cb170-3"><a href="space.html#cb170-3"></a>region_name =<span class="st"> &quot;essex&quot;</span> <span class="co"># &quot;essex&quot; can be changed to another area name as required</span></span>
-<span id="cb170-4"><a href="space.html#cb170-4"></a>osm_data =<span class="st"> </span><span class="kw">oe_get</span>(region_name, <span class="dt">extra_tags =</span> <span class="kw">c</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="st">&quot;ref&quot;</span>))</span>
-<span id="cb170-5"><a href="space.html#cb170-5"></a><span class="kw">table</span>(osm_data<span class="op">$</span>highway)</span>
-<span id="cb170-6"><a href="space.html#cb170-6"></a><span class="co">#filter osm_data to show only major roads</span></span>
-<span id="cb170-7"><a href="space.html#cb170-7"></a>roads =<span class="st"> </span>osm_data <span class="op">%&gt;%</span></span>
-<span id="cb170-8"><a href="space.html#cb170-8"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(highway, <span class="dt">pattern =</span> <span class="st">&quot;moto|prim|seco|tert|trunk&quot;</span>))</span>
-<span id="cb170-9"><a href="space.html#cb170-9"></a><span class="co"># transform geometry and save</span></span>
-<span id="cb170-10"><a href="space.html#cb170-10"></a>roads =<span class="st"> </span><span class="kw">st_transform</span>(roads, <span class="dv">27700</span>) <span class="co">#converts to projected BNG system for later use</span></span>
-<span id="cb170-11"><a href="space.html#cb170-11"></a><span class="co"># plot(roads$geometry) # basic plot of roads</span></span>
-<span id="cb170-12"><a href="space.html#cb170-12"></a><span class="kw">tm_shape</span>(roads) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="dt">showNA =</span> T, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb170-13"><a href="space.html#cb170-13"></a><span class="kw">saveRDS</span>(roads, <span class="dt">file =</span> <span class="st">&quot;roads.Rds&quot;</span>) <span class="co"># Saves road dataset for future use</span></span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="space.html#cb169-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;itsleeds/osmextract&quot;</span>) <span class="co"># install github package for osm data</span></span>
+<span id="cb169-2"><a href="space.html#cb169-2"></a><span class="kw">library</span>(osmextract)</span>
+<span id="cb169-3"><a href="space.html#cb169-3"></a>region_name =<span class="st"> &quot;essex&quot;</span> <span class="co"># &quot;essex&quot; can be changed to another area name as required</span></span>
+<span id="cb169-4"><a href="space.html#cb169-4"></a>osm_data =<span class="st"> </span><span class="kw">oe_get</span>(region_name, <span class="dt">extra_tags =</span> <span class="kw">c</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="st">&quot;ref&quot;</span>))</span>
+<span id="cb169-5"><a href="space.html#cb169-5"></a><span class="kw">table</span>(osm_data<span class="op">$</span>highway)</span>
+<span id="cb169-6"><a href="space.html#cb169-6"></a><span class="co">#filter osm_data to show only major roads</span></span>
+<span id="cb169-7"><a href="space.html#cb169-7"></a>roads =<span class="st"> </span>osm_data <span class="op">%&gt;%</span></span>
+<span id="cb169-8"><a href="space.html#cb169-8"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(highway, <span class="dt">pattern =</span> <span class="st">&quot;moto|prim|seco|tert|trunk&quot;</span>))</span>
+<span id="cb169-9"><a href="space.html#cb169-9"></a><span class="co"># transform geometry and save</span></span>
+<span id="cb169-10"><a href="space.html#cb169-10"></a>roads =<span class="st"> </span><span class="kw">st_transform</span>(roads, <span class="dv">27700</span>) <span class="co">#converts to projected BNG system for later use</span></span>
+<span id="cb169-11"><a href="space.html#cb169-11"></a><span class="co"># plot(roads$geometry) # basic plot of roads</span></span>
+<span id="cb169-12"><a href="space.html#cb169-12"></a><span class="kw">tm_shape</span>(roads) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="st">&quot;maxspeed&quot;</span>, <span class="dt">showNA =</span> T, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb169-13"><a href="space.html#cb169-13"></a><span class="kw">saveRDS</span>(roads, <span class="dt">file =</span> <span class="st">&quot;roads.Rds&quot;</span>) <span class="co"># Saves road dataset for future use</span></span></code></pre></div>
 <div class="figure"><span id="fig:ex"></span>
 <img src="figures/ex-1.png" alt="Roads in Essex downloaded with the code shown above." width="672" />
 <p class="caption">
