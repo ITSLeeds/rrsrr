@@ -5,3 +5,5 @@
 ^index\.Rmd$
 ^01-intro\.Rmd$
 ^README\.Rmd$
+^\.ccache$
+^tic\.R$
