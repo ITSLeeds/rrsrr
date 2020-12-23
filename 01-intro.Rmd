@@ -119,7 +119,7 @@ To complete the exercises in this guide, you will need to install:
 - R packages, by opening RStudio and typing `install.packages("stats19")` in the console to install the `stats19` package, for example (see Section \@ref(install-pkgs) for details)
 
 We recommend using at least the latest stable release of R (4.0.3 at the time of writing in 2020). 
-If you're running on macOS or Linux, you may need to install additional dependencies, as documented in blog posts and documentation pages such as [Installation of R 4.0 on Ubuntu 20.04 LTS and tips for spatial packages](https://rtask.thinkr.fr/installation-of-r-4-0-on-ubuntu-20-04-lts-and-tips-for-spatial-packages/) and [Installing](https://github.com/r-spatial/sf#installing) section of the README on the package repo [github.com/r-spatial/sf](https://github.com/r-spatial/sf).
+If you're running on macOS or Linux, you may need to install additional dependencies, as documented in blog posts and documentation pages such as [Installation of R 4.0 on Ubuntu 20.04 LTS and tips for spatial packages](https://rtask.thinkr.fr/installation-of-r-4-0-on-ubuntu-20-04-lts-and-tips-for-spatial-packages/) and the [Installing](https://github.com/r-spatial/sf#installing) section of the [github.com/r-spatial/sf](https://github.com/r-spatial/sf) package README page.
 We recommend running R on a decent computer, with at least 4 GB RAM and ideally 8 GB or more RAM. 
 R is computationally efficient and therefore fast language for data science but, because of the size of some road safety datasets, we recommend using it on a high spec laptop or desktop.
 
