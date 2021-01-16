@@ -352,7 +352,7 @@ In the example below, we find the mean age of casualties in dark and light condi
 <span id="cb102-3"><a href="data.html#cb102-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_age =</span> <span class="kw">mean</span>(casualty_age))</span></code></pre></div>
 <pre><code>## [90m# A tibble: 2 x 2[39m
 ##   dark  mean_age
-##   [3m[90m&lt;lgl&gt;[39m[23m    [3m[90m&lt;dbl&gt;[39m[23m
+## [90m*[39m [3m[90m&lt;lgl&gt;[39m[23m    [3m[90m&lt;dbl&gt;[39m[23m
 ## [90m1[39m FALSE       40
 ## [90m2[39m TRUE        40</code></pre>
 <p>The example above shows a powerful feature of these pipelines. Many operations can be ‘chained’ together, whilst keeping readability with subsequent commands stacked below earlier operations. The combination of <code>group_by()</code> and <code>summarise()</code> can be very useful in preparing data for visualisation with a <code>ggplot2</code> function.
