@@ -408,7 +408,7 @@ Having installed it, load it as follows:</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="time.html#cb130-1"></a><span class="kw">library</span>(lubridate)</span></code></pre></div>
 <p>The simplest example of a Date object that we can analyze is just the current date, i.e.:</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="time.html#cb131-1"></a><span class="kw">today</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2021-02-04&quot;</code></pre>
+<pre><code>## [1] &quot;2021-02-05&quot;</code></pre>
 <p>We can manipulate this object using several <code>lubridate</code> functions to extract the current day, month, year, weekday and so on…</p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="time.html#cb133-1"></a>x =<span class="st"> </span><span class="kw">today</span>()</span>
 <span id="cb133-2"><a href="time.html#cb133-2"></a><span class="kw">day</span>(x)</span>
@@ -450,17 +450,17 @@ You can manually create Date objects, as shown below:</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="time.html#cb137-1"></a>crashes<span class="op">$</span>casualty_day =<span class="st"> </span>x_date</span></code></pre></div>
 <p>Then we can subset events using Dates. For example:</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="time.html#cb138-1"></a><span class="kw">filter</span>(crashes, <span class="kw">day</span>(casualty_day) <span class="op">&lt;</span><span class="st"> </span><span class="dv">7</span>) <span class="co"># the events that ocurred in the first week of the month</span></span></code></pre></div>
-<pre><code>## [90m# A tibble: 3 x 5[39m
+<pre><code>## # A tibble: 3 x 5
 ##   casualty_type casualty_age vehicle_type dark  casualty_day
-##   [3m[90m&lt;chr&gt;[39m[23m                [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m        [3m[90m&lt;lgl&gt;[39m[23m [3m[90m&lt;date&gt;[39m[23m      
-## [90m1[39m pedestrian              20 car          TRUE  2009-01-01  
-## [90m2[39m cyclist                 40 bus          FALSE 2009-02-02  
-## [90m3[39m cat                     60 tank         TRUE  2009-03-03</code></pre>
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt; &lt;date&gt;      
+## 1 pedestrian              20 car          TRUE  2009-01-01  
+## 2 cyclist                 40 bus          FALSE 2009-02-02  
+## 3 cat                     60 tank         TRUE  2009-03-03</code></pre>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="time.html#cb140-1"></a><span class="kw">filter</span>(crashes, <span class="kw">weekdays</span>(casualty_day) <span class="op">==</span><span class="st"> &quot;Monday&quot;</span>) <span class="co"># the events occurred on monday</span></span></code></pre></div>
-<pre><code>## [90m# A tibble: 1 x 5[39m
+<pre><code>## # A tibble: 1 x 5
 ##   casualty_type casualty_age vehicle_type dark  casualty_day
-##   [3m[90m&lt;chr&gt;[39m[23m                [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m        [3m[90m&lt;lgl&gt;[39m[23m [3m[90m&lt;date&gt;[39m[23m      
-## [90m1[39m cyclist                 40 bus          FALSE 2009-02-02</code></pre>
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt; &lt;date&gt;      
+## 1 cyclist                 40 bus          FALSE 2009-02-02</code></pre>
 <p><strong>Exercises:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Select only the events (rows in <code>crashes</code>) that occurred in January.</li>

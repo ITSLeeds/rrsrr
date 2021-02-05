@@ -278,12 +278,12 @@ It has a few sensible defaults and advantages compared with the <code>data.frame
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="data.html#cb87-1"></a><span class="kw">class</span>(crashes)</span></code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="data.html#cb89-1"></a>crashes</span></code></pre></div>
-<pre><code>## [90m# A tibble: 3 x 4[39m
+<pre><code>## # A tibble: 3 x 4
 ##   casualty_type casualty_age vehicle_type dark 
-##   [3m[90m&lt;chr&gt;[39m[23m                [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m        [3m[90m&lt;lgl&gt;[39m[23m
-## [90m1[39m pedestrian              20 car          TRUE 
-## [90m2[39m cyclist                 40 bus          FALSE
-## [90m3[39m cat                     60 tank         TRUE</code></pre>
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;
+## 1 pedestrian              20 car          TRUE 
+## 2 cyclist                 40 bus          FALSE
+## 3 cat                     60 tank         TRUE</code></pre>
 <p>Note the <code>&lt;chr&gt;</code>, <code>&lt;dbl&gt;</code> or <code>&lt;lgl&gt;</code> text below each column, providing a quick indication of the class of each variable - this is not provided when using <code>data.frame</code>.</p>
 </div>
 <div id="filter-and-select-rows-and-columns" class="section level2">
@@ -291,17 +291,17 @@ It has a few sensible defaults and advantages compared with the <code>data.frame
 <p>In the previous section, we briefly introduced the package <code>dplyr</code>, which provides an alternative to base R for manipulating objects. <code>dplyr</code> provides different, and some would argue simpler, approaches for subsetting rows and columns than base R.<br />
 <code>dplyr</code> operations for subsetting rows (with the function <code>filter()</code>) and columns (with the function <code>select()</code>) are demonstrated below. Here we can also see the use of the pipe operator <code>%&gt;%</code> to take the dataset and apply the function to that dataset.</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="data.html#cb91-1"></a>crashes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(casualty_age <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>) <span class="co"># filters rows</span></span></code></pre></div>
-<pre><code>## [90m# A tibble: 1 x 4[39m
+<pre><code>## # A tibble: 1 x 4
 ##   casualty_type casualty_age vehicle_type dark 
-##   [3m[90m&lt;chr&gt;[39m[23m                [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m        [3m[90m&lt;lgl&gt;[39m[23m
-## [90m1[39m cat                     60 tank         TRUE</code></pre>
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;
+## 1 cat                     60 tank         TRUE</code></pre>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="data.html#cb93-1"></a>crashes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(casualty_type) <span class="co"># select just one column</span></span></code></pre></div>
-<pre><code>## [90m# A tibble: 3 x 1[39m
+<pre><code>## # A tibble: 3 x 1
 ##   casualty_type
-##   [3m[90m&lt;chr&gt;[39m[23m        
-## [90m1[39m pedestrian   
-## [90m2[39m cyclist      
-## [90m3[39m cat</code></pre>
+##   &lt;chr&gt;        
+## 1 pedestrian   
+## 2 cyclist      
+## 3 cat</code></pre>
 <p>It should be clear what happened: <code>filter()</code> returns only rows that match the criteria in the function call, only observations with a <code>casualty_age</code> greater than 50 in this case.
 Likewise, <code>select()</code> returns data objects that include only columns named inside the function call, <code>casualty_type</code> in this case.</p>
 <p>To gain a greater understanding of the functions, type and run the following commands, which also illustrate how the <code>%&gt;%</code> can be used more than once to manipulate data (more on this soon):</p>
@@ -328,18 +328,18 @@ Write down your guesses for the number of rows and number of columns that the ne
 We can use these functions to arrange datasets and take the top most ‘n’ values, as follows:</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="data.html#cb98-1"></a>crashes <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb98-2"><a href="data.html#cb98-2"></a><span class="st">  </span><span class="kw">arrange</span>(vehicle_type)</span></code></pre></div>
-<pre><code>## [90m# A tibble: 3 x 4[39m
+<pre><code>## # A tibble: 3 x 4
 ##   casualty_type casualty_age vehicle_type dark 
-##   [3m[90m&lt;chr&gt;[39m[23m                [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m        [3m[90m&lt;lgl&gt;[39m[23m
-## [90m1[39m cyclist                 40 bus          FALSE
-## [90m2[39m pedestrian              20 car          TRUE 
-## [90m3[39m cat                     60 tank         TRUE</code></pre>
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;
+## 1 cyclist                 40 bus          FALSE
+## 2 pedestrian              20 car          TRUE 
+## 3 cat                     60 tank         TRUE</code></pre>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="data.html#cb100-1"></a>crashes <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb100-2"><a href="data.html#cb100-2"></a><span class="st">  </span><span class="kw">top_n</span>(<span class="dt">n =</span> <span class="dv">1</span>, <span class="dt">wt =</span> casualty_age)</span></code></pre></div>
-<pre><code>## [90m# A tibble: 1 x 4[39m
+<pre><code>## # A tibble: 1 x 4
 ##   casualty_type casualty_age vehicle_type dark 
-##   [3m[90m&lt;chr&gt;[39m[23m                [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m        [3m[90m&lt;lgl&gt;[39m[23m
-## [90m1[39m cat                     60 tank         TRUE</code></pre>
+##   &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;
+## 1 cat                     60 tank         TRUE</code></pre>
 <!-- ## Long and wide data -->
 </div>
 <div id="summarise" class="section level2">
@@ -350,11 +350,11 @@ In the example below, we find the mean age of casualties in dark and light condi
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="data.html#cb102-1"></a>crashes <span class="op">%&gt;%</span></span>
 <span id="cb102-2"><a href="data.html#cb102-2"></a><span class="st">  </span><span class="kw">group_by</span>(dark) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb102-3"><a href="data.html#cb102-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_age =</span> <span class="kw">mean</span>(casualty_age))</span></code></pre></div>
-<pre><code>## [90m# A tibble: 2 x 2[39m
+<pre><code>## # A tibble: 2 x 2
 ##   dark  mean_age
-## [90m*[39m [3m[90m&lt;lgl&gt;[39m[23m    [3m[90m&lt;dbl&gt;[39m[23m
-## [90m1[39m FALSE       40
-## [90m2[39m TRUE        40</code></pre>
+## * &lt;lgl&gt;    &lt;dbl&gt;
+## 1 FALSE       40
+## 2 TRUE        40</code></pre>
 <p>The example above shows a powerful feature of these pipelines. Many operations can be ‘chained’ together, whilst keeping readability with subsequent commands stacked below earlier operations. The combination of <code>group_by()</code> and <code>summarise()</code> can be very useful in preparing data for visualisation with a <code>ggplot2</code> function.
 Another useful feature of the <code>tidyverse</code> from a user perspective is the autocompletion of column names mid pipe.
 If you have not noticed this already, you can test it by typing the following, putting your cursor just before the <code>)</code> and pressing <code>Tab</code>:</p>
